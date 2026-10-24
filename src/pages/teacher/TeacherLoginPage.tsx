@@ -7,7 +7,7 @@ import { Mail, Lock, ShieldAlert, ArrowLeft } from 'lucide-react';
 export const TeacherLoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('ananya.sharma@demo01.edu');
-  const [password, setPassword] = useState('DemoSecurePass123!');
+  const [password, setPassword] = useState('TeacherPassword123!');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
