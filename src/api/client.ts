@@ -136,3 +136,45 @@ export const StudentService = {
     return res.data;
   }
 };
+
+// Teacher Management APIs
+export const TeacherService = {
+  getSections: async () => {
+    const res = await api.get('/teacher/sections');
+    return res.data;
+  },
+  getStudents: async (sectionId: string) => {
+    const res = await api.get(`/teacher/sections/${sectionId}/students`);
+    return res.data;
+  },
+  addStudent: async (sectionId: string, payload: { roll_no: number; full_name: string; language_pref?: string }) => {
+    const res = await api.post(`/teacher/sections/${sectionId}/students`, payload);
+    return res.data;
+  },
+  deactivateStudent: async (studentId: string) => {
+    const res = await api.delete(`/teacher/students/${studentId}`);
+    return res.data;
+  },
+  resetStudentPin: async (studentId: string) => {
+    const res = await api.post(`/teacher/students/${studentId}/reset-pin`);
+    return res.data;
+  },
+  getWeakRanking: async (sectionId: string) => {
+    const res = await api.get(`/teacher/sections/${sectionId}/analytics/weak-ranking`);
+    return res.data;
+  },
+  getFlags: async (sectionId: string) => {
+    const res = await api.get(`/teacher/sections/${sectionId}/flags`);
+    return res.data;
+  },
+  getLatestDigest: async (sectionId: string) => {
+    const res = await api.get(`/teacher/sections/${sectionId}/digests/latest`);
+    return res.data;
+  },
+  resolveFlag: async (flagId: string, resolutionNote: string) => {
+    const res = await api.post(`/teacher/flags/${flagId}/resolve`, {
+      resolution_note: resolutionNote,
+    });
+    return res.data;
+  },
+};
