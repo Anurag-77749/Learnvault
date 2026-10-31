@@ -1,21 +1,21 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { VitePWA } from 'vite-plugin-pwa'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
   plugins: [
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      includeAssets: ['favicon.ico', 'favicon.svg'],
       manifest: {
-        name: 'NEUROVA Adaptive Learning',
-        short_name: 'NEUROVA',
-        description: 'Adaptive Multimodal Homework & Diagnostic Learning Platform for Indian Schools',
-        theme_color: '#1e1b4b',
-        background_color: '#0f172a',
+        name: 'FDE 4-Year Learning Platform (2026-2030)',
+        short_name: 'FDE Tracker',
+        description: 'Comprehensive 4-year learning and preparation tracker for Forward Deployed Engineering',
+        theme_color: '#020617',
+        background_color: '#020617',
         display: 'standalone',
-        orientation: 'portrait',
+        orientation: 'portrait-primary',
         icons: [
           {
             src: 'pwa-192x192.png',
@@ -32,12 +32,6 @@ export default defineConfig({
     })
   ],
   server: {
-    port: 5173,
-    proxy: {
-      '/api': {
-        target: 'http://127.0.0.1:5000',
-        changeOrigin: true
-      }
-    }
+    port: 5173
   }
-})
+});

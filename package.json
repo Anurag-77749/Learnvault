@@ -1,5 +1,5 @@
 {
-  "name": "neurova-frontend",
+  "name": "fde-learning-tracker",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -14,7 +14,9 @@
     "@capacitor/camera": "^6.0.0",
     "@capacitor/core": "^6.0.0",
     "@capacitor/preferences": "^6.0.0",
+    "@supabase/supabase-js": "^2.118.0",
     "axios": "^1.7.9",
+    "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
     "framer-motion": "^11.18.2",
     "lucide-react": "^0.469.0",
@@ -26,6 +28,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "^8.5.3",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",

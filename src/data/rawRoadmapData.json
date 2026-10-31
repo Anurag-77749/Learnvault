@@ -1,0 +1,855 @@
+[
+  {
+    "id": "track-fde",
+    "title": "FDE Roadmap",
+    "description": "Forward Deployed Engineer roadmap covering full-stack, systems, AI engineering, and field delivery skills.",
+    "order_index": 1,
+    "sections": [
+      {
+        "id": "fde-sec-related",
+        "title": "Related Roadmaps & Resources",
+        "order_index": 1,
+        "topics": [
+          "roadmap.sh",
+          "Frontend Roadmap",
+          "Backend Roadmap",
+          "DevOps Roadmap",
+          "Linux Roadmap"
+        ]
+      },
+      {
+        "id": "fde-sec-intro",
+        "title": "Introduction",
+        "order_index": 2,
+        "topics": [
+          "FDE is not a beginner role, you will most probably be already a Full-Stack Developer stepping into an FDE role.",
+          "From X to FDE",
+          "Roles & Responsabilities"
+        ]
+      },
+      {
+        "id": "fde-sec-frontend",
+        "title": "Frontend Skills",
+        "order_index": 3,
+        "topics": [
+          "Frontend Roadmap",
+          "FDEs need to be proficient in full-stack development, have high agency and be able to deliver full apps for customers."
+        ]
+      },
+      {
+        "id": "fde-sec-backend",
+        "title": "Backend Skills",
+        "order_index": 4,
+        "topics": [
+          "Backend Roadmap"
+        ]
+      },
+      {
+        "id": "fde-sec-linux",
+        "title": "Linux Skills",
+        "order_index": 5,
+        "topics": [
+          "Linux Roadmap"
+        ]
+      },
+      {
+        "id": "fde-sec-dsa",
+        "title": "DSA & System Design",
+        "order_index": 6,
+        "topics": [
+          "DSA Roadmap",
+          "DSA is the first gate in FDE interviews. You won't get to show your AI skills if you don't pass this round.",
+          "System Design Roadmap"
+        ]
+      },
+      {
+        "id": "fde-sec-ai",
+        "title": "AI Engineering Skills",
+        "order_index": 7,
+        "topics": [
+          "AI Engineer Roadmap",
+          "FDE are fluent in least one major cloud platform and know how to deploy infrastructure as code.."
+        ]
+      },
+      {
+        "id": "fde-sec-devops",
+        "title": "DevOps Skills",
+        "order_index": 8,
+        "topics": [
+          "DevOps Roadmap"
+        ]
+      },
+      {
+        "id": "fde-sec-discovery",
+        "title": "Customer Delivery & Field Skills - Discovery & Scoping",
+        "order_index": 9,
+        "topics": [
+          "Requirements Gathering",
+          "Technical Scoping & Sequencing",
+          "Tradeoffs: Scope, Speed, Quality"
+        ]
+      },
+      {
+        "id": "fde-sec-business",
+        "title": "Customer Delivery & Field Skills - Business Acumen",
+        "order_index": 10,
+        "topics": [
+          "FDEs are responsible for proving to customers that what they built won't break or go rogue in production.",
+          "Enterprise Workflow",
+          "ROI & AI Impact",
+          "Stakeholder Management",
+          "Product Feedback Loop"
+        ]
+      },
+      {
+        "id": "fde-sec-comm",
+        "title": "Customer Delivery & Field Skills - Communication",
+        "order_index": 11,
+        "topics": [
+          "Technical Writing"
+        ]
+      },
+      {
+        "id": "fde-sec-continue",
+        "title": "Continue Learning with following relevant tracks",
+        "order_index": 12,
+        "topics": [
+          "Frontend",
+          "Backend",
+          "DevOps",
+          "AI Engineer"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "track-ai",
+    "title": "AI Engineer",
+    "description": "Comprehensive AI Engineer roadmap covering pre-trained models, embeddings, vector DBs, RAG, agents, and multimodal systems.",
+    "order_index": 2,
+    "sections": [
+      {
+        "id": "ai-sec-prereq",
+        "title": "Pre-requisites & Related Roadmaps",
+        "order_index": 1,
+        "topics": [
+          "Frontend",
+          "Backend",
+          "Full-Stack",
+          "Scrimba is offering 20% off to roadmap users on their AI Engineer course that covers this roadmap in depth. Check them out!",
+          "Scrimba - AI Engineer Path",
+          "AI and Data Scientist Roadmap",
+          "Prompt Engineering",
+          "Data Analyst Roadamp",
+          "roadmap.sh"
+        ]
+      },
+      {
+        "id": "ai-sec-intro",
+        "title": "Introduction",
+        "order_index": 2,
+        "topics": [
+          "Impact on Product Development",
+          "Roles and Responsibilities",
+          "What is an AI Engineer?",
+          "AI Engineer vs ML Engineer",
+          "AI vs AGI",
+          "LLMs",
+          "Inference",
+          "Training",
+          "Embeddings",
+          "Vector Databases",
+          "RAG",
+          "AI Agents",
+          "Prompt Engineering",
+          "Common Terminology"
+        ]
+      },
+      {
+        "id": "ai-sec-pretrained",
+        "title": "Using Pre-trained Models",
+        "order_index": 3,
+        "topics": [
+          "Benefits of Pre-trained Models",
+          "Limitations and Considerations",
+          "OpenAI Models",
+          "Anthropic's Claude",
+          "Google's Gemini",
+          "Azure AI",
+          "AWS Sagemaker",
+          "Hugging Face Models",
+          "Mistral AI",
+          "Cohere",
+          "Replicate",
+          "Popular AI Models"
+        ]
+      },
+      {
+        "id": "ai-sec-platform",
+        "title": "Open AI Platform",
+        "order_index": 4,
+        "topics": [
+          "Open AI Models",
+          "Capabilities / Context Length",
+          "Cut-off Dates / Knowledge"
+        ]
+      },
+      {
+        "id": "ai-sec-api",
+        "title": "OpenAI API",
+        "order_index": 5,
+        "topics": [
+          "Chat Completions API",
+          "Writing Prompts",
+          "Maximum Tokens",
+          "Token Counting",
+          "Pricing Considerations",
+          "Managing Tokens",
+          "Open AI Playground",
+          "Fine-tuning",
+          "Prompt Engineering Roadmap"
+        ]
+      },
+      {
+        "id": "ai-sec-safety",
+        "title": "AI Safety and Ethics",
+        "order_index": 6,
+        "topics": [
+          "Understanding AI Safety Issues",
+          "Prompt Injection Attacks",
+          "Security and Privacy Concerns",
+          "Bias and Fairness",
+          "OpenAI Moderation API",
+          "Adding end-user IDs in prompts",
+          "Conducting adversarial testing",
+          "Robust prompt engineering",
+          "Know your Customers / Usecases",
+          "Constraining outputs and inputs",
+          "Safety Best Practices"
+        ]
+      },
+      {
+        "id": "ai-sec-opensource",
+        "title": "OpenSource AI",
+        "order_index": 7,
+        "topics": [
+          "Open vs Closed Source Models",
+          "Popular Open Source Models",
+          "Hugging Face",
+          "Finding Open Source Models",
+          "Hugging Face Tasks",
+          "Hugging Face Hub",
+          "Using Open Source Models",
+          "Inference SDK",
+          "Transformers.js",
+          "Ollama",
+          "Ollama Models",
+          "Ollama SDK"
+        ]
+      },
+      {
+        "id": "ai-sec-embeddings",
+        "title": "Embeddings & Vector Databases",
+        "order_index": 8,
+        "topics": [
+          "What are Embeddings",
+          "Semantic Search",
+          "Data Classification",
+          "Recommendation Systems",
+          "Anomaly Detection",
+          "Use Cases for Embeddings",
+          "Open AI Embeddings API",
+          "Open AI Embedding Models",
+          "Pricing Considerations",
+          "Open-Source Embeddings",
+          "Sentence Transformers",
+          "Models on Hugging Face",
+          "Vector Databases",
+          "Purpose and Functionality",
+          "Popular Vector DBs (pick one)",
+          "Chroma",
+          "Pinecone",
+          "Weaviate",
+          "FAISS",
+          "LanceDB",
+          "Qdrant",
+          "Supabase",
+          "MongoDB Atlas",
+          "Implementing Vector Search",
+          "Indexing Embeddings",
+          "Performing Similarity Search"
+        ]
+      },
+      {
+        "id": "ai-sec-rag",
+        "title": "RAG & Implementation",
+        "order_index": 9,
+        "topics": [
+          "RAG Alternative",
+          "Open AI Assistant API",
+          "RAG Usecases",
+          "RAG vs Fine-tuning",
+          "Implementing RAG",
+          "Chunking",
+          "Embedding",
+          "Vector Database",
+          "Retrieval Process",
+          "Generation",
+          "Ways of Implementing RAG",
+          "Using SDKs Directly",
+          "Langchain",
+          "Llama Index"
+        ]
+      },
+      {
+        "id": "ai-sec-agents",
+        "title": "AI Agents",
+        "order_index": 10,
+        "topics": [
+          "Agents Usecases",
+          "Prompt Engineering",
+          "ReAct Prompting",
+          "Building AI Agents",
+          "Manual Implementation",
+          "OpenAI Functions / Tools",
+          "OpenAI Assistant API"
+        ]
+      },
+      {
+        "id": "ai-sec-multimodal",
+        "title": "Multimodal AI",
+        "order_index": 11,
+        "topics": [
+          "Multimodal AI Usecases",
+          "Image Understanding",
+          "Image Generation",
+          "Video Understanding",
+          "Audio Processing",
+          "Text-to-Speech",
+          "Speech-to-Text",
+          "Multimodal AI Tasks",
+          "OpenAI Vision API",
+          "DALL-E API",
+          "Whisper API",
+          "Hugging Face Models",
+          "LangChain for Multimodal Apps",
+          "LlamaIndex for Multimodal Apps",
+          "Implementing Multimodal AI"
+        ]
+      },
+      {
+        "id": "ai-sec-tools",
+        "title": "Development Tools",
+        "order_index": 12,
+        "topics": [
+          "AI Code Editors",
+          "Code Completion Tools"
+        ]
+      },
+      {
+        "id": "ai-sec-continue",
+        "title": "Continue learning with following relevant tracks",
+        "order_index": 13,
+        "topics": [
+          "AI & Data Scientist",
+          "Prompt Engineering"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "track-sda",
+    "title": "Software Design & Architecture",
+    "description": "Clean code, object-oriented design, architectural patterns, styles, and enterprise software design.",
+    "order_index": 3,
+    "sections": [
+      {
+        "id": "sda-sec-minimap",
+        "title": "Minimap of Topics & Guides",
+        "order_index": 1,
+        "topics": [
+          "roadmap.sh",
+          "Also visit Khalil's guide covering how to learn Software Design & Architecture",
+          "Software Design and Architecture",
+          "Backend Developer Roadmap",
+          "Clean Code",
+          "Programming Paradigms",
+          "Object Oriented Programming",
+          "Design Principles",
+          "Design Patterns",
+          "Architectural Principles",
+          "Architectural Styles",
+          "Architectural Patterns",
+          "Enterprise Patterns"
+        ]
+      },
+      {
+        "id": "sda-sec-cleancode",
+        "title": "Clean Code Principles",
+        "order_index": 2,
+        "topics": [
+          "Be consistent",
+          "Meaningful names over comments",
+          "Indentation and Code Style",
+          "Keep methods / classes / files small",
+          "Pure functions",
+          "Minimize cyclomatic complexity",
+          "Avoid passing nulls, booleans",
+          "Keep framework code distant",
+          "Use correct constructs",
+          "Tests should be fast and independent",
+          "Organize code by actor it belongs to",
+          "Command query separation",
+          "Keep it simple and refactor often"
+        ]
+      },
+      {
+        "id": "sda-sec-paradigms",
+        "title": "Programming Paradigms",
+        "order_index": 3,
+        "topics": [
+          "Structured Programming",
+          "Functional Programming",
+          "Object Oriented Programming"
+        ]
+      },
+      {
+        "id": "sda-sec-oop",
+        "title": "Object Oriented Programming",
+        "order_index": 4,
+        "topics": [
+          "Primary Principles",
+          "Inheritance",
+          "Polymorphism",
+          "Abstraction",
+          "Encapsulation",
+          "Paradigm Features",
+          "Abstract Classes",
+          "Concrete Classes",
+          "Scope / Visibility",
+          "Interfaces",
+          "Model-Driven Design",
+          "Domain Models",
+          "Anemic Models",
+          "Domain Language",
+          "Class Variants",
+          "Layered Architectures"
+        ]
+      },
+      {
+        "id": "sda-sec-principles",
+        "title": "Design Principles",
+        "order_index": 5,
+        "topics": [
+          "SOLID",
+          "DRY",
+          "YAGNI",
+          "Law of Demeter",
+          "Tell, don't ask",
+          "Hollywood Principle",
+          "Composition over Inheritance",
+          "Encapsulate what varies",
+          "Program against abstractions"
+        ]
+      },
+      {
+        "id": "sda-sec-patterns",
+        "title": "Design Patterns",
+        "order_index": 6,
+        "topics": [
+          "GoF Design Patterns",
+          "PoSA Patterns"
+        ]
+      },
+      {
+        "id": "sda-sec-archprinciples",
+        "title": "Architectural Principles",
+        "order_index": 7,
+        "topics": [
+          "Component Principles",
+          "Policy vs Detail",
+          "Coupling and Cohesion",
+          "Boundaries"
+        ]
+      },
+      {
+        "id": "sda-sec-archstyles",
+        "title": "Architectural Styles",
+        "order_index": 8,
+        "topics": [
+          "Structural",
+          "Component-Based",
+          "Monolithic",
+          "Layered",
+          "Messaging",
+          "Event-Driven",
+          "Publish-Subscribe",
+          "Distributed",
+          "Client-Server",
+          "Peer-to-Peer"
+        ]
+      },
+      {
+        "id": "sda-sec-archpatterns",
+        "title": "Architectural Patterns",
+        "order_index": 9,
+        "topics": [
+          "Domain-Driven Design",
+          "Model-View Controller",
+          "Microservices",
+          "Blackboard Pattern",
+          "Microkernel",
+          "Serverless Architecture",
+          "Message Queues / Streams",
+          "Event Sourcing",
+          "SOA",
+          "CQRS"
+        ]
+      },
+      {
+        "id": "sda-sec-enterprise",
+        "title": "Enterprise Patterns",
+        "order_index": 10,
+        "topics": [
+          "DTOs",
+          "Identity Maps",
+          "Usecases",
+          "Repositories",
+          "Mappers",
+          "Transaction Script",
+          "Commands / Queries",
+          "Value Objects",
+          "Domain Models",
+          "Entities",
+          "ORMs"
+        ]
+      },
+      {
+        "id": "sda-sec-continue",
+        "title": "Continue learning with following roadmaps",
+        "order_index": 11,
+        "topics": [
+          "Backend",
+          "System Design"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "track-sd",
+    "title": "System Design",
+    "description": "High-scalability architecture, databases, caching, message queues, reliability, and cloud design patterns.",
+    "order_index": 4,
+    "sections": [
+      {
+        "id": "sd-sec-links",
+        "title": "Other Roadmaps & Links",
+        "order_index": 1,
+        "topics": [
+          "Backend Roadmap",
+          "DevOps Roadmap",
+          "Software Design and Architecture",
+          "roadmap.sh"
+        ]
+      },
+      {
+        "id": "sd-sec-intro",
+        "title": "Introduction",
+        "order_index": 2,
+        "topics": [
+          "What is System Design?",
+          "How to approach System Design?"
+        ]
+      },
+      {
+        "id": "sd-sec-tradeoffs",
+        "title": "Core Metrics & Trade-offs",
+        "order_index": 3,
+        "topics": [
+          "Performance vs Scalability",
+          "Latency vs Throughput",
+          "Availability vs Consistency"
+        ]
+      },
+      {
+        "id": "sd-sec-cap",
+        "title": "CAP Theorem",
+        "order_index": 4,
+        "topics": [
+          "AP - Availability + Partition Tolerance",
+          "CP - Consistency + Partition Tolerance"
+        ]
+      },
+      {
+        "id": "sd-sec-consistency",
+        "title": "Consistency Patterns",
+        "order_index": 5,
+        "topics": [
+          "Weak Consistency",
+          "Eventual Consistency",
+          "Strong Consistency"
+        ]
+      },
+      {
+        "id": "sd-sec-availability",
+        "title": "Availability Patterns",
+        "order_index": 6,
+        "topics": [
+          "Active - Active",
+          "Active - Passive",
+          "Fail-Over",
+          "Master - Slave",
+          "Master - Master",
+          "Replication",
+          "99.9% Availability - three 9s",
+          "99.99% Availability - four 9s",
+          "Availability in Parallel vs Sequence",
+          "Availability in Numbers"
+        ]
+      },
+      {
+        "id": "sd-sec-dns-cdn",
+        "title": "Domain Name System & CDNs",
+        "order_index": 7,
+        "topics": [
+          "Domain Name System",
+          "Content Delivery Networks",
+          "Push CDNs",
+          "Pull CDNs"
+        ]
+      },
+      {
+        "id": "sd-sec-lb",
+        "title": "Load Balancers",
+        "order_index": 8,
+        "topics": [
+          "LB vs Reverse Proxy",
+          "Load Balancing Algorithms",
+          "Layer 7 Load Balancing",
+          "Layer 4 Load Balancing",
+          "Horizontal Scaling"
+        ]
+      },
+      {
+        "id": "sd-sec-applayer",
+        "title": "Application Layer",
+        "order_index": 9,
+        "topics": [
+          "Microservices",
+          "Service Discovery"
+        ]
+      },
+      {
+        "id": "sd-sec-databases",
+        "title": "Databases",
+        "order_index": 10,
+        "topics": [
+          "SQL vs NoSQL",
+          "Replication",
+          "Sharding",
+          "Federation",
+          "Denormalization",
+          "SQL Tuning",
+          "RDBMS",
+          "Key-Value Store",
+          "Document Store",
+          "Wide Column Store",
+          "Graph Databases",
+          "NoSQL"
+        ]
+      },
+      {
+        "id": "sd-sec-caching",
+        "title": "Caching",
+        "order_index": 11,
+        "topics": [
+          "Refresh Ahead",
+          "Write-behind",
+          "Write-through",
+          "Cache Aside",
+          "Strategies",
+          "Client Caching",
+          "CDN Caching",
+          "Web Server Caching",
+          "Database Caching",
+          "Application Caching",
+          "Types of Caching"
+        ]
+      },
+      {
+        "id": "sd-sec-async",
+        "title": "Asynchronism & Background Jobs",
+        "order_index": 12,
+        "topics": [
+          "Back Pressure",
+          "Task Queues",
+          "Message Queues",
+          "Event-Driven",
+          "Schedule Driven",
+          "Returning Results",
+          "Background Jobs"
+        ]
+      },
+      {
+        "id": "sd-sec-comm",
+        "title": "Communication & Idempotency",
+        "order_index": 13,
+        "topics": [
+          "HTTP",
+          "TCP",
+          "UDP",
+          "RPC",
+          "REST",
+          "gRPC",
+          "GraphQL",
+          "Communication",
+          "Idempotent Operations"
+        ]
+      },
+      {
+        "id": "sd-sec-antipatterns",
+        "title": "Performance Antipatterns",
+        "order_index": 14,
+        "topics": [
+          "Improper Instantiation",
+          "Monolithic Persistence",
+          "Noisy Neighbor",
+          "Synchronous I/O",
+          "Extraneous Fetching",
+          "Busy Database",
+          "Busy Frontend",
+          "Chatty I/O",
+          "Retry Storm",
+          "No Caching"
+        ]
+      },
+      {
+        "id": "sd-sec-monitoring",
+        "title": "Monitoring",
+        "order_index": 15,
+        "topics": [
+          "Health Monitoring",
+          "Availability Monitoring",
+          "Performance Monitoring",
+          "Security Monitoring",
+          "Usage Monitoring",
+          "Instrumentation",
+          "Visualization & Alerts"
+        ]
+      },
+      {
+        "id": "sd-sec-cloud-design",
+        "title": "Cloud Design Patterns - Design & Implementation",
+        "order_index": 16,
+        "topics": [
+          "The design patterns given in this section are of varying importance. You don't need to master all of them. Simply get an overview of each and this will give you some insight into designing scalable systems.",
+          "Strangler Fig",
+          "Static Content Hosting",
+          "Sidecar",
+          "Pipes & Filters",
+          "Leader Election",
+          "CQRS",
+          "Ambassador",
+          "Gateway Routing",
+          "Gateway Offloading",
+          "Gateway Aggregation",
+          "External Config Store",
+          "Compute Resource Consolidation",
+          "Backends for Frontend",
+          "Anti-Corruption Layer"
+        ]
+      },
+      {
+        "id": "sd-sec-cloud-data",
+        "title": "Cloud Design Patterns - Data Management",
+        "order_index": 17,
+        "topics": [
+          "Valet Key",
+          "Static Content Hosting",
+          "Sharding",
+          "Materialized View",
+          "Index Table",
+          "Event Sourcing",
+          "CQRS",
+          "Cache-Aside"
+        ]
+      },
+      {
+        "id": "sd-sec-cloud-msg",
+        "title": "Cloud Design Patterns - Messaging",
+        "order_index": 18,
+        "topics": [
+          "Sequential Convoy",
+          "Scheduling Agent Supervisor",
+          "Queu-based Load Leveling",
+          "Publisher/Subscriber",
+          "Priority Queue",
+          "Pipes and Filters",
+          "Competing Consumers",
+          "Choreography",
+          "Claim Check",
+          "Async Request Reply"
+        ]
+      },
+      {
+        "id": "sd-sec-rel-avail",
+        "title": "Reliability Patterns - Availability",
+        "order_index": 19,
+        "topics": [
+          "Deployment Stamps",
+          "Geodes",
+          "Throttling",
+          "Health Endpoint Monitoring",
+          "Queue-Based Load Leveling"
+        ]
+      },
+      {
+        "id": "sd-sec-rel-highavail",
+        "title": "Reliability Patterns - High Availability",
+        "order_index": 20,
+        "topics": [
+          "Deployment Stamps",
+          "Geodes",
+          "Health Endpoint Monitoring",
+          "Bulkhead",
+          "Circuit Breaker"
+        ]
+      },
+      {
+        "id": "sd-sec-rel-resiliency",
+        "title": "Reliability Patterns - Resiliency",
+        "order_index": 21,
+        "topics": [
+          "Bulkhead",
+          "Circuit Breaker",
+          "Compensating Transaction",
+          "Health Endpoint Monitoring",
+          "Leader Election",
+          "Queue-Based Load Leveling",
+          "Retry",
+          "Scheduler Agent Supervisor"
+        ]
+      },
+      {
+        "id": "sd-sec-rel-security",
+        "title": "Reliability Patterns - Security",
+        "order_index": 22,
+        "topics": [
+          "Federated Identity",
+          "Gatekeeper",
+          "Valet Key"
+        ]
+      },
+      {
+        "id": "sd-sec-continue",
+        "title": "Visit the following relevant tracks to learn more",
+        "order_index": 23,
+        "topics": [
+          "Backend",
+          "Software Architect",
+          "DevOps"
+        ]
+      }
+    ]
+  }
+]
