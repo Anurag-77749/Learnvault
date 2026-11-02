@@ -4,7 +4,6 @@ const config: CapacitorConfig = {
   appId: 'com.neurova.learning',
   appName: 'NEUROVA',
   webDir: 'dist',
-  bundledWebRuntime: false,
   server: {
     androidScheme: 'https',
     cleartext: false,
