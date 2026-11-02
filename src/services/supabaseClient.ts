@@ -1,8 +1,11 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-// Default to env variables if available, otherwise check localStorage for user-provided credentials
-const ENV_SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || '';
-const ENV_SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+export const DEFAULT_SUPABASE_URL = 'https://fepwudkpdouqrqagvzwo.supabase.co';
+export const DEFAULT_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZlcHd1ZGtwZG91cXJxYWd2endvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM2NDMzODAsImV4cCI6MjEwOTIxOTM4MH0.sPl-GXPvhYiMV-qcscAhPBYme9tEb3kAU2S_IWcVT0Y';
+
+// Default to env variables if available, otherwise fallback to project credentials
+const ENV_SUPABASE_URL = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SUPABASE_URL) || DEFAULT_SUPABASE_URL;
+const ENV_SUPABASE_ANON_KEY = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SUPABASE_ANON_KEY) || DEFAULT_SUPABASE_ANON_KEY;
 
 export const getSupabaseConfig = () => {
   const customUrl = typeof localStorage !== 'undefined' ? localStorage.getItem('fde_supabase_url') : null;
@@ -16,24 +19,16 @@ export const getSupabaseConfig = () => {
 
 let supabaseInstance: SupabaseClient | null = null;
 
-export const getSupabaseClient = (): SupabaseClient | null => {
+export const getSupabaseClient = (): SupabaseClient => {
   const config = getSupabaseConfig();
-  if (!config.isConfigured) {
-    return null;
-  }
   if (!supabaseInstance) {
-    try {
-      supabaseInstance = createClient(config.url, config.anonKey, {
-        auth: {
-          persistSession: true,
-          autoRefreshToken: true,
-          detectSessionInUrl: typeof window !== 'undefined'
-        }
-      });
-    } catch (e) {
-      console.warn('Failed to initialize Supabase client:', e);
-      return null;
-    }
+    supabaseInstance = createClient(config.url, config.anonKey, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: typeof window !== 'undefined'
+      }
+    });
   }
   return supabaseInstance;
 };

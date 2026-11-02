@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { 
@@ -11,10 +11,12 @@ import {
   Hourglass,
   Crown,
   Code2,
-  Target
+  Target,
+  Cloud
 } from 'lucide-react';
 import { db } from '../services/db';
 import { DailyDsaCommunicationWidget } from './DailyDsaCommunicationWidget';
+import { cloudSyncService, SyncState } from '../services/cloudSyncService';
 
 export type ScreenId = 'today' | 'timer' | 'plan' | 'learn' | 'projects' | 'progress' | 'wasted';
 
@@ -23,6 +25,7 @@ interface NavigationProps {
   onSelectScreen: (screen: ScreenId) => void;
   streakCount?: number;
   totalStudyHours?: number;
+  onOpenSyncModal?: () => void;
 }
 
 const NAV_ITEMS: { id: ScreenId; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
@@ -40,9 +43,16 @@ export const DesktopSidebar: React.FC<NavigationProps> = ({
   onSelectScreen,
   streakCount = 1,
   totalStudyHours = 0,
+  onOpenSyncModal,
 }) => {
   const curriculumTopics = useLiveQuery(() => db.curriculumTopics.toArray()) || [];
   const wastedDaysCount = useLiveQuery(() => db.wastedDays.count()) || 0;
+  const [syncState, setSyncState] = useState<SyncState>(cloudSyncService.getState());
+
+  useEffect(() => {
+    return cloudSyncService.subscribe((state) => setSyncState(state));
+  }, []);
+
   let totalSub = 0;
   let doneSub = 0;
   curriculumTopics.forEach((t) => {
@@ -133,33 +143,59 @@ export const DesktopSidebar: React.FC<NavigationProps> = ({
         <DailyDsaCommunicationWidget />
       </div>
 
-      {/* Royal Bottom Status Card */}
-      <div className="p-3.5 rounded-2xl card-maroon-gold mt-auto shadow-lg">
-        <div className="flex items-center justify-between text-xs text-[#B8B0AA] mb-1.5 font-sans">
-          <span>Target: Forward Deployed</span>
-          <span className="text-shiny-gold font-bold">Year 1</span>
-        </div>
-        <div className="flex items-center justify-between pt-1.5 border-t border-[#360A0F] text-xs">
-          <span className="text-[#B8B0AA]">Daily Streak</span>
-          <span className="text-white font-bold flex items-center gap-1">
-            <span className="text-[#D4AF37]">🔥</span> <span className="text-shiny-gold">{streakCount}</span> {streakCount === 1 ? 'day' : 'days'}
-          </span>
-        </div>
-        <div className="flex items-center justify-between pt-1 text-xs">
-          <span className="text-[#B8B0AA]">Total Studied</span>
-          <span className="text-shiny-gold font-bold text-sm">{totalStudyHours}h</span>
-        </div>
+      {/* Royal Bottom Status Card & Cloud Sync */}
+      <div className="mt-auto space-y-2">
+        {/* Cloud Sync Button */}
         <button
-          onClick={() => onSelectScreen('wasted')}
-          className="w-full flex items-center justify-between pt-1.5 mt-1 border-t border-[#4A101D] text-xs hover:opacity-85 transition-opacity cursor-pointer text-left"
+          onClick={onOpenSyncModal}
+          className="w-full p-2.5 rounded-xl border border-[#360A0F] bg-[#120306] hover:border-[#D4AF37]/60 flex items-center justify-between text-xs transition-colors group cursor-pointer shadow-sm"
+          title="Connect or manage cloud sync across devices"
         >
-          <span className="text-[#B8B0AA] flex items-center gap-1.5">
-            <Hourglass className="w-3.5 h-3.5 text-red-400" /> Wasted Days
-          </span>
-          <span className="text-red-400 font-bold flex items-center gap-1">
-            <span>{wastedDaysCount}</span> {wastedDaysCount === 1 ? 'day' : 'days'}
-          </span>
+          <div className="flex items-center gap-2 min-w-0">
+            <span
+              className={`w-2.5 h-2.5 rounded-full shrink-0 ${
+                syncState.syncId
+                  ? syncState.status === 'syncing'
+                    ? 'bg-amber-400 animate-pulse'
+                    : 'bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]'
+                  : 'bg-gray-500'
+              }`}
+            />
+            <span className="text-[#B8B0AA] group-hover:text-white font-medium text-[11px] truncate">
+              {syncState.syncId ? `Sync: ${syncState.syncId}` : 'Cloud Sync (Link Phone)'}
+            </span>
+          </div>
+          <Cloud className="w-4 h-4 text-shiny-gold group-hover:scale-110 transition-transform shrink-0" />
         </button>
+
+        {/* Stats Summary */}
+        <div className="p-3.5 rounded-2xl card-maroon-gold shadow-lg">
+          <div className="flex items-center justify-between text-xs text-[#B8B0AA] mb-1.5 font-sans">
+            <span>Target: Forward Deployed</span>
+            <span className="text-shiny-gold font-bold">Year 1</span>
+          </div>
+          <div className="flex items-center justify-between pt-1.5 border-t border-[#360A0F] text-xs">
+            <span className="text-[#B8B0AA]">Daily Streak</span>
+            <span className="text-white font-bold flex items-center gap-1">
+              <span className="text-[#D4AF37]">🔥</span> <span className="text-shiny-gold">{streakCount}</span> {streakCount === 1 ? 'day' : 'days'}
+            </span>
+          </div>
+          <div className="flex items-center justify-between pt-1 text-xs">
+            <span className="text-[#B8B0AA]">Total Studied</span>
+            <span className="text-shiny-gold font-bold text-sm">{totalStudyHours}h</span>
+          </div>
+          <button
+            onClick={() => onSelectScreen('wasted')}
+            className="w-full flex items-center justify-between pt-1.5 mt-1 border-t border-[#4A101D] text-xs hover:opacity-85 transition-opacity cursor-pointer text-left"
+          >
+            <span className="text-[#B8B0AA] flex items-center gap-1.5">
+              <Hourglass className="w-3.5 h-3.5 text-red-400" /> Wasted Days
+            </span>
+            <span className="text-red-400 font-bold flex items-center gap-1">
+              <span>{wastedDaysCount}</span> {wastedDaysCount === 1 ? 'day' : 'days'}
+            </span>
+          </button>
+        </div>
       </div>
     </aside>
   );

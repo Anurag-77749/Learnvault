@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLiveQuery } from 'dexie-react-hooks';
+import { Cloud } from 'lucide-react';
 import { db } from './services/db';
 import { ScreenId, DesktopSidebar, MobileTabBar } from './components/Navigation';
 import { TodayScreen } from './components/TodayScreen';
@@ -10,10 +11,19 @@ import { LearnScreen } from './components/LearnScreen';
 import { ProjectsScreen } from './components/ProjectsScreen';
 import { ProgressScreen } from './components/ProgressScreen';
 import { WastedDaysScreen } from './components/WastedDaysScreen';
+import { CloudSyncModal } from './components/CloudSyncModal';
+import { cloudSyncService, SyncState } from './services/cloudSyncService';
 
 export const App: React.FC = () => {
   const [activeScreen, setActiveScreen] = useState<ScreenId>('today');
   const [timerTopic, setTimerTopic] = useState<string | undefined>(undefined);
+  const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
+  const [syncState, setSyncState] = useState<SyncState>(cloudSyncService.getState());
+
+  useEffect(() => {
+    cloudSyncService.init();
+    return cloudSyncService.subscribe((state) => setSyncState(state));
+  }, []);
 
   // Compute live stats for sidebar
   const allLogs = useLiveQuery(() => db.dailyLogs.toArray()) || [];
@@ -41,6 +51,7 @@ export const App: React.FC = () => {
         }}
         streakCount={streakCount}
         totalStudyHours={totalStudyHours}
+        onOpenSyncModal={() => setIsSyncModalOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -61,6 +72,16 @@ export const App: React.FC = () => {
             </div>
           </div>
           <div className="flex items-center gap-1.5 text-xs">
+            <button
+              onClick={() => setIsSyncModalOpen(true)}
+              className="p-1 rounded-full bg-[#24060D] border border-[#4A101D] text-shiny-gold flex items-center justify-center cursor-pointer relative"
+              title="Cloud Sync"
+            >
+              <Cloud className="w-3.5 h-3.5" />
+              {syncState.syncId && (
+                <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              )}
+            </button>
             <span className="px-2 py-0.5 rounded-full bg-[#24060D] border border-[#4A101D] text-shiny-gold font-bold flex items-center gap-1">
               🔥 {streakCount}d
             </span>
@@ -177,6 +198,12 @@ export const App: React.FC = () => {
           setActiveScreen(screen);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
+      />
+
+      {/* Cloud Sync Modal */}
+      <CloudSyncModal
+        isOpen={isSyncModalOpen}
+        onClose={() => setIsSyncModalOpen(false)}
       />
     </div>
   );
