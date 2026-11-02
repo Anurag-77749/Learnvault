@@ -1,6 +1,15 @@
 node_modules
+node_modules_old
 dist
 dist-ssr
 *.local
 .env
 .DS_Store
+.next
+__pycache__
+android
+backend
+frontend
+neurova
+next-env.d.ts
+*.tsbuildinfo
