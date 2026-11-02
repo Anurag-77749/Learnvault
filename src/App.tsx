@@ -9,6 +9,7 @@ import { PlanScreen } from './components/PlanScreen';
 import { LearnScreen } from './components/LearnScreen';
 import { ProjectsScreen } from './components/ProjectsScreen';
 import { ProgressScreen } from './components/ProgressScreen';
+import { WastedDaysScreen } from './components/WastedDaysScreen';
 
 export const App: React.FC = () => {
   const [activeScreen, setActiveScreen] = useState<ScreenId>('today');
@@ -20,6 +21,7 @@ export const App: React.FC = () => {
   const totalStudyHours = Math.round((totalStudyMinutes / 60) * 10) / 10;
   
   const streakCount = Math.max(1, allLogs.filter((l) => (l.studyMinutes || 0) > 0 || (l.questionsCount || 0) > 0).length);
+  const wastedDaysCount = useLiveQuery(() => db.wastedDays.count()) || 0;
 
   const handleStartTimerWithTopic = (topicTitle?: string) => {
     if (topicTitle) {
@@ -58,10 +60,17 @@ export const App: React.FC = () => {
               </span>
             </div>
           </div>
-          <div className="flex items-center gap-2 text-xs">
+          <div className="flex items-center gap-1.5 text-xs">
             <span className="px-2 py-0.5 rounded-full bg-[#24060D] border border-[#4A101D] text-shiny-gold font-bold flex items-center gap-1">
               🔥 {streakCount}d
             </span>
+            <button
+              onClick={() => setActiveScreen('wasted')}
+              className="px-2 py-0.5 rounded-full bg-red-950/70 border border-red-500/40 text-red-300 font-bold flex items-center gap-1 cursor-pointer"
+              title="Wasted Days Count"
+            >
+              ⏳ {wastedDaysCount}d
+            </button>
             <span className="px-2 py-0.5 rounded-full bg-black border border-[#D4AF37]/40 text-white font-bold">
               {totalStudyHours}h
             </span>
@@ -143,6 +152,18 @@ export const App: React.FC = () => {
                 transition={{ duration: 0.15 }}
               >
                 <ProgressScreen />
+              </motion.div>
+            )}
+
+            {activeScreen === 'wasted' && (
+              <motion.div
+                key="wasted"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.15 }}
+              >
+                <WastedDaysScreen />
               </motion.div>
             )}
           </AnimatePresence>

@@ -8,6 +8,7 @@ import {
   BookOpen, 
   FolderGit2,
   BarChart3,
+  Hourglass,
   Crown,
   Code2,
   Target
@@ -15,7 +16,7 @@ import {
 import { db } from '../services/db';
 import { DailyDsaCommunicationWidget } from './DailyDsaCommunicationWidget';
 
-export type ScreenId = 'today' | 'timer' | 'plan' | 'learn' | 'projects' | 'progress';
+export type ScreenId = 'today' | 'timer' | 'plan' | 'learn' | 'projects' | 'progress' | 'wasted';
 
 interface NavigationProps {
   activeScreen: ScreenId;
@@ -31,6 +32,7 @@ const NAV_ITEMS: { id: ScreenId; label: string; icon: React.ComponentType<{ clas
   { id: 'learn', label: 'Learn', icon: BookOpen },
   { id: 'projects', label: 'Projects', icon: FolderGit2 },
   { id: 'progress', label: 'Progress', icon: BarChart3 },
+  { id: 'wasted', label: 'Wasted Days', icon: Hourglass },
 ];
 
 export const DesktopSidebar: React.FC<NavigationProps> = ({
@@ -40,6 +42,7 @@ export const DesktopSidebar: React.FC<NavigationProps> = ({
   totalStudyHours = 0,
 }) => {
   const curriculumTopics = useLiveQuery(() => db.curriculumTopics.toArray()) || [];
+  const wastedDaysCount = useLiveQuery(() => db.wastedDays.count()) || 0;
   let totalSub = 0;
   let doneSub = 0;
   curriculumTopics.forEach((t) => {
@@ -146,6 +149,17 @@ export const DesktopSidebar: React.FC<NavigationProps> = ({
           <span className="text-[#B8B0AA]">Total Studied</span>
           <span className="text-shiny-gold font-bold text-sm">{totalStudyHours}h</span>
         </div>
+        <button
+          onClick={() => onSelectScreen('wasted')}
+          className="w-full flex items-center justify-between pt-1.5 mt-1 border-t border-[#4A101D] text-xs hover:opacity-85 transition-opacity cursor-pointer text-left"
+        >
+          <span className="text-[#B8B0AA] flex items-center gap-1.5">
+            <Hourglass className="w-3.5 h-3.5 text-red-400" /> Wasted Days
+          </span>
+          <span className="text-red-400 font-bold flex items-center gap-1">
+            <span>{wastedDaysCount}</span> {wastedDaysCount === 1 ? 'day' : 'days'}
+          </span>
+        </button>
       </div>
     </aside>
   );
