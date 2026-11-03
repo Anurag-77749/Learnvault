@@ -7,6 +7,22 @@
     box-sizing: border-box;
   }
   
+  html, body, select, option, input, textarea {
+    color-scheme: dark;
+  }
+
+  select {
+    color-scheme: dark;
+    background-color: #0E0205;
+    color: #F9F6EE;
+  }
+
+  select option {
+    background-color: #160406;
+    color: #FFFFFF;
+    padding: 8px 12px;
+  }
+
   body {
     margin: 0;
     padding: 0;

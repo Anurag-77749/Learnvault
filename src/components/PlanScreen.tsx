@@ -270,13 +270,13 @@ export const PlanScreen: React.FC = () => {
                         await updateTimelineBlock(block.id, { status: e.target.value });
                       }
                     }}
-                    className="min-h-[42px] px-3 py-1.5 rounded-xl bg-black border border-[#360A0F] text-xs text-shiny-gold font-semibold focus:outline-none focus:border-[#D4AF37]"
+                    style={{ colorScheme: 'dark' }} className="min-h-[42px] px-3 py-1.5 rounded-xl bg-[#0E0205] border border-[#360A0F] text-xs text-[#FFDF73] font-semibold focus:outline-none focus:border-[#D4AF37] cursor-pointer"
                   >
-                    <option value="Ready to Start">Ready to Start</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Upcoming">Upcoming</option>
-                    <option value="Completed">Completed</option>
-                    <option value="Queue">Queue</option>
+                    <option value="Ready to Start" className="bg-[#160406] text-white py-1.5">Ready to Start</option>
+                    <option value="In Progress" className="bg-[#160406] text-white py-1.5">In Progress</option>
+                    <option value="Upcoming" className="bg-[#160406] text-white py-1.5">Upcoming</option>
+                    <option value="Completed" className="bg-[#160406] text-white py-1.5">Completed</option>
+                    <option value="Queue" className="bg-[#160406] text-white py-1.5">Queue</option>
                   </select>
 
                   {/* Edit button */}
@@ -332,7 +332,7 @@ export const PlanScreen: React.FC = () => {
                 <select
                   value={selectedTrack}
                   onChange={(e) => setSelectedTrack(e.target.value)}
-                  className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#D4AF37]/35 text-[#F9F6EE] text-sm focus:outline-none focus:border-[#D4AF37]"
+                  style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#D4AF37]/35 text-[#F9F6EE] text-sm focus:outline-none focus:border-[#D4AF37] cursor-pointer"
                 >
                   {TRACK_OPTIONS.map((opt) => (
                     <option key={opt} value={opt}>
@@ -406,13 +406,13 @@ export const PlanScreen: React.FC = () => {
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#D4AF37]/35 text-[#D4AF37] text-sm font-semibold focus:outline-none focus:border-[#D4AF37]"
+                    style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#D4AF37]/35 text-[#FFDF73] text-sm font-semibold focus:outline-none focus:border-[#D4AF37] cursor-pointer"
                   >
-                    <option value="Ready to Start">Ready to Start</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Upcoming">Upcoming</option>
-                    <option value="Completed">Completed</option>
-                    <option value="Queue">Queue</option>
+                    <option value="Ready to Start" className="bg-[#160406] text-white py-1.5">Ready to Start</option>
+                    <option value="In Progress" className="bg-[#160406] text-white py-1.5">In Progress</option>
+                    <option value="Upcoming" className="bg-[#160406] text-white py-1.5">Upcoming</option>
+                    <option value="Completed" className="bg-[#160406] text-white py-1.5">Completed</option>
+                    <option value="Queue" className="bg-[#160406] text-white py-1.5">Queue</option>
                   </select>
                 </div>
               </div>
