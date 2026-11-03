@@ -13,6 +13,7 @@ import { ProgressScreen } from './components/ProgressScreen';
 import { WastedDaysScreen } from './components/WastedDaysScreen';
 import { CloudSyncModal } from './components/CloudSyncModal';
 import { cloudSyncService, SyncState } from './services/cloudSyncService';
+import { cleanupSampleProjects } from './services/projectService';
 
 export const App: React.FC = () => {
   const [activeScreen, setActiveScreen] = useState<ScreenId>('today');
@@ -22,6 +23,7 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     cloudSyncService.init();
+    cleanupSampleProjects();
     return cloudSyncService.subscribe((state) => setSyncState(state));
   }, []);
 

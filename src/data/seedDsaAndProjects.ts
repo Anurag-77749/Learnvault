@@ -123,52 +123,7 @@ export const SEED_DSA_PROBLEMS: DSAProblem[] = [
   }
 ];
 
-export const SEED_PROJECTS: ProjectItem[] = [
-  {
-    id: 'proj-1',
-    title: 'High-Throughput Enterprise RAG & Vector Pipeline',
-    description: 'Forward Deployed AI data ingestion engine: extracts documents, embeds with pgvector, handles hybrid sparse/dense search, and serves customer analytics via FastAPI & React.',
-    tech_stack: ['FastAPI', 'PostgreSQL / pgvector', 'React', 'TypeScript', 'Docker', 'OpenAI / Ollama'],
-    github_url: 'https://github.com/polak-fde/enterprise-rag-pipeline',
-    demo_url: 'https://rag-pipeline-demo.vercel.app',
-    demo_video_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-    status: 'in_progress',
-    milestones: [
-      { id: 'm1', title: 'Data chunking & parsing pipeline (PDF, DOCX, Markdown)', completed: true },
-      { id: 'm2', title: 'pgvector schema setup with HNSW index', completed: true },
-      { id: 'm3', title: 'Hybrid search with Reciprocal Rank Fusion (RRF)', completed: false },
-      { id: 'm4', title: 'Real-time WebSocket streaming chat UI', completed: false },
-      { id: 'm5', title: 'Benchmarking latency under 100 concurrent requests', completed: false }
-    ],
-    readme_checklist: [
-      { id: 'r1', title: 'Clear architecture diagram (Mermaid / Excalidraw)', completed: true },
-      { id: 'r2', title: '2-minute video walkthrough showcasing client integration', completed: false },
-      { id: 'r3', title: 'High-res UI screenshots & telemetry metrics', completed: true },
-      { id: 'r4', title: 'One-command Docker Compose setup instruction', completed: true }
-    ]
-  },
-  {
-    id: 'proj-2',
-    title: 'Real-Time Edge Telemetry & Client Observability Platform',
-    description: 'Distributed monitoring agent deployed on customer on-prem infrastructure streaming logs, heartbeats, and metrics to a centralized dashboard with sub-second alert evaluations.',
-    tech_stack: ['Go', 'WebSockets', 'ClickHouse', 'React', 'Tailwind', 'Prometheus'],
-    github_url: 'https://github.com/polak-fde/edge-telemetry-engine',
-    demo_url: 'https://edge-telemetry.vercel.app',
-    demo_video_url: '',
-    status: 'planning',
-    milestones: [
-      { id: 'm21', title: 'Lightweight daemon agent written in Go (<15MB RAM)', completed: false },
-      { id: 'm22', title: 'ClickHouse time-series schema & compression benchmarks', completed: false },
-      { id: 'm23', title: 'Live Canvas visualization of event throughput', completed: false }
-    ],
-    readme_checklist: [
-      { id: 'r21', title: 'Clear architecture diagram (Mermaid / Excalidraw)', completed: false },
-      { id: 'r22', title: '2-minute video walkthrough showcasing client integration', completed: false },
-      { id: 'r23', title: 'High-res UI screenshots & telemetry metrics', completed: false },
-      { id: 'r24', title: 'One-command Docker Compose setup instruction', completed: false }
-    ]
-  }
-];
+export const SEED_PROJECTS: ProjectItem[] = [];
 
 export const SEED_JOBS: JobApplication[] = [
   {

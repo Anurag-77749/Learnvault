@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import { db, ProjectItem, getTodayDateString } from '../services/db';
 import { 
-  seedSampleProjectsIfEmpty, 
+  cleanupSampleProjects, 
   addProject, 
   updateProject, 
   deleteProject 
@@ -46,7 +46,7 @@ const STATUS_OPTIONS: ProjectItem['status'][] = [
 
 export const ProjectsScreen: React.FC = () => {
   useEffect(() => {
-    seedSampleProjectsIfEmpty();
+    cleanupSampleProjects();
   }, []);
 
   const projects = useLiveQuery(() => db.projects.orderBy('createdAt').reverse().toArray()) || [];
