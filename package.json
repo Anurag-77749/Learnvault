@@ -15,6 +15,7 @@
     "@capacitor/core": "^6.0.0",
     "@capacitor/preferences": "^6.0.0",
     "@supabase/supabase-js": "^2.118.0",
+    "@types/three": "^0.187.0",
     "axios": "^1.7.9",
     "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
@@ -26,7 +27,8 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.1",
     "recharts": "^2.15.0",
-    "tailwind-merge": "^2.6.0"
+    "tailwind-merge": "^2.6.0",
+    "three": "^0.187.0"
   },
   "devDependencies": {
     "@capacitor/cli": "^8.5.3",
