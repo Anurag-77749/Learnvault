@@ -417,7 +417,7 @@ export const ProjectsScreen: React.FC = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Autonomous Browser Agent, Distributed Log Aggregator..."
-                  className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#360A0F] focus:border-[#D4AF37] text-white text-sm focus:outline-none"
+                  style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#360A0F] focus:border-[#D4AF37] text-white text-sm focus:outline-none cursor-pointer"
                   required
                   autoFocus
                 />
@@ -449,7 +449,7 @@ export const ProjectsScreen: React.FC = () => {
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value as any)}
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#360A0F] focus:border-[#D4AF37] text-[#D4AF37] font-semibold text-sm focus:outline-none"
+                    style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#360A0F] focus:border-[#D4AF37] text-[#D4AF37] font-semibold text-sm focus:outline-none cursor-pointer"
                   >
                     {STATUS_OPTIONS.map((st) => (
                       <option key={st} value={st}>

@@ -232,6 +232,14 @@ describe('DataService - Stages 4 & 5 (DSA, Projects, Jobs, Goals, Inbox & Search
 
   describe('Full Backup Import/Export with Extensions', () => {
     it('exports and restores all extended models intact', () => {
+      service.addProject({
+        title: 'Test Engineering Project',
+        description: 'Test Description',
+        tech_stack: ['Python', 'Docker'],
+        status: 'planning',
+        milestones: [],
+        readme_checklist: []
+      } as any);
       const exportedJson = service.exportToJson();
       expect(exportedJson).toContain('dsaProblems');
       expect(exportedJson).toContain('projects');

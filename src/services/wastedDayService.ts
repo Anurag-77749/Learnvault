@@ -1,4 +1,5 @@
 import { db, WastedDayRecord, getOrCreateDailyLog } from './db';
+import { cloudSyncService } from './cloudSyncService';
 
 export async function logWastedDay({
   date,
@@ -18,14 +19,14 @@ export async function logWastedDay({
   const primaryReason = reasonsList.join(', ');
 
   // Always append a new permanent wasted day record
-  const id = await db.wastedDays.add({
+  const id = (await db.wastedDays.add({
     date,
     reason: primaryReason,
     reasons: reasonsList,
     explanation,
     hoursWasted,
     createdAt: Date.now(),
-  });
+  })) as number;
 
   // Update Daily Log for that date to reflect wasted time & note
   try {
@@ -39,11 +40,13 @@ export async function logWastedDay({
     console.error('Failed to sync wasted day to dailyLogs:', err);
   }
 
+  await cloudSyncService.pushToCloud();
   return id;
 }
 
 export async function deleteWastedDay(id: number): Promise<void> {
   await db.wastedDays.delete(id);
+  await cloudSyncService.pushToCloud();
 }
 
 export async function updateWastedDay(
@@ -54,4 +57,5 @@ export async function updateWastedDay(
     updates.reason = updates.reasons.join(', ');
   }
   await db.wastedDays.update(id, updates);
+  await cloudSyncService.pushToCloud();
 }

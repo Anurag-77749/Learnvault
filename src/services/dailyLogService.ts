@@ -1,4 +1,5 @@
 import { db, getTodayDateString, getOrCreateDailyLog, DailyLogEntry } from './db';
+import { cloudSyncService } from './cloudSyncService';
 
 // Calculate sleep duration in hours from bedtime and wake time (HH:MM)
 export function calculateSleepHours(bedtime: string, wakeTime: string): number {
@@ -34,6 +35,7 @@ export async function addStudyMinutes(minutes: number, topicTitle?: string) {
     topicsLearned: topics,
     updatedAt: Date.now(),
   });
+  cloudSyncService.triggerAutoSync();
 }
 
 // Add wasted minutes
@@ -59,6 +61,7 @@ export async function addWastedMinutes(
     wastedMinutes: (log.wastedMinutes || 0) + minutes,
     updatedAt: Date.now(),
   });
+  cloudSyncService.triggerAutoSync();
 }
 
 // Add or update DSA questions with difficulty (easy, medium, hard)
@@ -87,6 +90,7 @@ export async function updateDSAQuestions(
     questionsPlatforms: platforms,
     updatedAt: Date.now(),
   });
+  cloudSyncService.triggerAutoSync();
 }
 
 // Log Communication / High-Level English Practice
@@ -101,6 +105,7 @@ export async function setCommunicationPracticed(
     communicationNote: note,
     updatedAt: Date.now(),
   });
+  cloudSyncService.triggerAutoSync();
 }
 
 // Add question (generic)
@@ -125,6 +130,7 @@ export async function logSleep(bedtime: string, wakeTime: string, quality: numbe
     sleepQuality: quality,
     updatedAt: Date.now(),
   });
+  cloudSyncService.triggerAutoSync();
 }
 
 // Update one-line daily note
@@ -135,6 +141,7 @@ export async function updateDailyNote(note: string) {
     oneLineNote: note,
     updatedAt: Date.now(),
   });
+  cloudSyncService.triggerAutoSync();
 }
 
 // Format minutes into clean human string (e.g. "2h 15m" or "45m")

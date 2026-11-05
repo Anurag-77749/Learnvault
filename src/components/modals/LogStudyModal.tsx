@@ -116,7 +116,7 @@ export const LogStudyModal: React.FC<LogStudyModalProps> = ({
               <select
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
-                className="w-full min-h-[44px] px-3 rounded-xl bg-black border border-[#D4AF37]/30 text-xs sm:text-sm text-[#F9F6EE] focus:outline-none focus:border-[#D4AF37]"
+                style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3 rounded-xl bg-[#0E0205] border border-[#D4AF37]/30 text-xs sm:text-sm text-[#F9F6EE] focus:outline-none focus:border-[#D4AF37] cursor-pointer"
               >
                 {TOPIC_PRESETS.map((t) => (
                   <option key={t} value={t} className="bg-[#121212] text-[#F9F6EE]">

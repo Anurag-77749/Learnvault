@@ -720,12 +720,12 @@ export const LearnScreen: React.FC = () => {
                                       completedDate: isDone ? today : undefined,
                                     });
                                   }}
-                                  className="min-h-[44px] px-2.5 py-1 rounded-xl bg-black border border-[#D4AF37]/30 text-xs text-[#F9F6EE] focus:outline-none focus:border-[#D4AF37]"
+                                  style={{ colorScheme: 'dark' }} className="min-h-[44px] px-2.5 py-1 rounded-xl bg-[#0E0205] border border-[#D4AF37]/30 text-xs text-[#F9F6EE] focus:outline-none focus:border-[#D4AF37] cursor-pointer"
                                 >
-                                  <option value="not_started">Not Started</option>
-                                  <option value="learning">Learning</option>
-                                  <option value="done">Done</option>
-                                  <option value="revising">Revising</option>
+                                  <option value="not_started" className="bg-[#160406] text-white py-1">Not Started</option>
+                                  <option value="learning" className="bg-[#160406] text-white py-1">Learning</option>
+                                  <option value="done" className="bg-[#160406] text-white py-1">Done</option>
+                                  <option value="revising" className="bg-[#160406] text-white py-1">Revising</option>
                                 </select>
 
                                 {/* Add resource button */}

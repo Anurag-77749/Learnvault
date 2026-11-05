@@ -502,7 +502,7 @@ export const TimerScreen: React.FC<TimerScreenProps> = ({ initialTopic }) => {
             <select
               value={state.selectedTopic}
               onChange={(e) => setState((prev) => ({ ...prev, selectedTopic: e.target.value }))}
-              className="w-full min-h-[44px] px-3 rounded-xl bg-[#000000] border border-[#D4AF37]/40 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] text-center font-medium shadow-inner"
+              style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3 rounded-xl bg-[#0E0205] border border-[#D4AF37]/40 text-xs sm:text-sm text-[#FFDF73] focus:outline-none focus:border-[#D4AF37] text-center font-medium shadow-inner cursor-pointer"
             >
               {TOPIC_PRESETS.map((t) => (
                 <option key={t} value={t} className="bg-[#160406] text-white">
@@ -617,7 +617,7 @@ export const TimerScreen: React.FC<TimerScreenProps> = ({ initialTopic }) => {
             <select
               value={state.selectedTopic}
               onChange={(e) => setState((prev) => ({ ...prev, selectedTopic: e.target.value }))}
-              className="w-full min-h-[44px] px-3 rounded-xl bg-[#000000] border border-[#D4AF37]/40 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] text-center font-medium shadow-inner"
+              style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3 rounded-xl bg-[#0E0205] border border-[#D4AF37]/40 text-xs sm:text-sm text-[#FFDF73] focus:outline-none focus:border-[#D4AF37] text-center font-medium shadow-inner cursor-pointer"
             >
               {TOPIC_PRESETS.map((t) => (
                 <option key={t} value={t} className="bg-[#160406] text-white">
