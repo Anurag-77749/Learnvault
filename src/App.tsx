@@ -1,3 +1,4 @@
+// LearnVault - Black & Gold Theme (v1.0.2)
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLiveQuery } from 'dexie-react-hooks';
