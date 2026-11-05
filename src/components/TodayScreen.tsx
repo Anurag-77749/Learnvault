@@ -224,21 +224,21 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
       <motion.section 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="p-5 sm:p-6 rounded-3xl card-maroon shadow-xl relative"
+        className="p-3.5 sm:p-6 rounded-3xl card-maroon shadow-xl relative overflow-hidden"
       >
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2.5">
-            <h2 className="font-serif text-2xl font-bold text-white">
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <h2 className="font-serif text-xl sm:text-2xl font-bold text-white">
               To-Do List
             </h2>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-black text-[#D4AF37] font-semibold border border-[#D4AF37]/35">
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-black text-[#D4AF37] font-semibold border border-[#D4AF37]/35 whitespace-nowrap">
               {completedCount}/{tasks.length} Done
             </span>
             {completedCount > 0 && (
               <button
                 type="button"
                 onClick={() => clearCompletedTasks()}
-                className="text-[10px] px-2.5 py-0.5 rounded-full bg-red-950/40 border border-red-500/30 text-red-300 hover:bg-red-900/60 transition-colors cursor-pointer"
+                className="text-[10px] px-2.5 py-0.5 rounded-full bg-red-950/40 border border-red-500/30 text-red-300 hover:bg-red-900/60 transition-colors cursor-pointer whitespace-nowrap"
                 title="Clear completed tasks"
               >
                 Clear Done
@@ -252,14 +252,14 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
 
         {/* Input Form */}
         <form onSubmit={handleAddTask} className="mb-4 space-y-2">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <input
               ref={taskInputRef}
               type="text"
               placeholder="Add a new task in one tap..."
               value={newTaskTitle}
               onChange={(e) => setNewTaskTitle(e.target.value)}
-              className="flex-1 min-h-[46px] px-4 rounded-xl bg-[#000000] border border-[#360A0F] focus:border-[#D4AF37] text-white placeholder-[#B8B0AA]/50 text-sm focus:outline-none transition-colors"
+              className="flex-1 min-w-0 min-h-[44px] sm:min-h-[46px] px-3 sm:px-4 rounded-xl bg-[#000000] border border-[#360A0F] focus:border-[#D4AF37] text-white placeholder-[#B8B0AA]/50 text-xs sm:text-sm focus:outline-none transition-colors"
             />
 
             {/* Note Toggle Button */}
@@ -267,14 +267,14 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
               type="button"
               onClick={() => setShowNoteInput(!showNoteInput)}
               title="Add short note (optional)"
-              className={`min-h-[46px] px-3 rounded-xl border flex items-center gap-1.5 transition-colors text-xs font-semibold ${
+              className={`min-h-[44px] sm:min-h-[46px] px-2.5 sm:px-3 rounded-xl border flex items-center justify-center gap-1.5 transition-colors text-xs font-semibold shrink-0 cursor-pointer ${
                 showNoteInput || newTaskNote
                   ? 'bg-[#160406] border-[#D4AF37] text-shiny-gold shadow-sm'
                   : 'bg-[#000000] border-[#360A0F] text-[#B8B0AA] hover:text-white'
               }`}
             >
               <FileText className="w-4 h-4 text-[#D4AF37]" />
-              <span className="hidden sm:inline">{newTaskNote ? 'Note Added' : '+ Note'}</span>
+              <span className="hidden md:inline">{newTaskNote ? 'Note Added' : '+ Note'}</span>
             </button>
 
             {/* Link Topic Button */}
@@ -282,9 +282,9 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
               type="button"
               onClick={() => setShowTopicLink(!showTopicLink)}
               title="Link to topic/curriculum"
-              className={`min-h-[46px] min-w-[46px] rounded-xl border flex items-center justify-center transition-colors ${
+              className={`min-h-[44px] w-[40px] sm:min-h-[46px] sm:w-[46px] rounded-xl border flex items-center justify-center transition-colors shrink-0 cursor-pointer ${
                 showTopicLink || selectedSubtopic
-                  ? 'bg-[#000000] border-[#D4AF37] text-[#D4AF37]'
+                  ? 'bg-[#160406] border-[#D4AF37] text-[#D4AF37]'
                   : 'bg-[#000000] border-[#360A0F] text-[#B8B0AA] hover:text-white'
               }`}
             >
@@ -294,7 +294,8 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
             {/* Add Button */}
             <button
               type="submit"
-              className="min-h-[46px] px-5 rounded-xl btn-shiny-gold text-xs font-bold flex items-center gap-1.5 shadow-md shadow-[#D4AF37]/20 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer"
+              className="min-h-[44px] sm:min-h-[46px] px-3.5 sm:px-5 rounded-xl btn-shiny-gold text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-[#D4AF37]/20 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer shrink-0"
+              title="Add task"
             >
               <Plus className="w-4 h-4 stroke-[3]" />
               <span className="hidden sm:inline">Add</span>
@@ -319,14 +320,14 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     placeholder="Short note (e.g. solve #121 on Striver sheet, revise edge cases, 20+ questions)..."
                     value={newTaskNote}
                     onChange={(e) => setNewTaskNote(e.target.value)}
-                    className="flex-1 min-h-[38px] px-3.5 rounded-lg bg-black border border-[#D4AF37]/35 text-xs text-white placeholder-[#B8B0AA]/40 focus:outline-none focus:border-[#D4AF37]"
+                    className="flex-1 min-w-0 min-h-[38px] px-3.5 rounded-lg bg-black border border-[#D4AF37]/35 text-xs text-white placeholder-[#B8B0AA]/40 focus:outline-none focus:border-[#D4AF37]"
                     autoFocus
                   />
                   {newTaskNote && (
                     <button
                       type="button"
                       onClick={() => setNewTaskNote('')}
-                      className="text-xs text-[#B8B0AA] hover:text-[#D4AF37] px-2 py-1"
+                      className="text-xs text-[#B8B0AA] hover:text-[#D4AF37] px-2 py-1 shrink-0"
                     >
                       Clear
                     </button>
@@ -346,13 +347,13 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                 className="overflow-hidden"
               >
                 <div className="pt-2 flex items-center gap-2">
-                  <span className="text-xs text-[#A09D95]">Link topic:</span>
+                  <span className="text-xs text-[#A09D95] shrink-0">Link topic:</span>
                   <input
                     type="text"
                     placeholder="e.g. Python Variables, DSA Binary Search, FDE Glossary"
                     value={selectedSubtopic}
                     onChange={(e) => setSelectedSubtopic(e.target.value)}
-                    className="flex-1 min-h-[38px] px-3 rounded-lg bg-black border border-[#D4AF37]/30 text-xs text-[#D4AF37] focus:outline-none focus:border-[#D4AF37]"
+                    className="flex-1 min-w-0 min-h-[38px] px-3 rounded-lg bg-black border border-[#D4AF37]/30 text-xs text-[#D4AF37] focus:outline-none focus:border-[#D4AF37]"
                   />
                 </div>
               </motion.div>
@@ -370,17 +371,17 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
             tasks.map((task, idx) => (
               <div
                 key={task.id}
-                className={`flex items-start sm:items-center justify-between gap-3 p-3.5 rounded-2xl border transition-all ${
+                className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-2xl border transition-all ${
                   task.completed
                     ? 'bg-black/40 border-[#D4AF37]/15 text-[#A09D95]'
                     : 'bg-black border-[#D4AF37]/30 text-[#F9F6EE] hover:border-[#D4AF37]/60'
                 }`}
               >
-                {/* Left: Checkbox & Title + Short Note */}
-                <div className="flex items-start sm:items-center gap-3 flex-1 min-w-0">
+                {/* Left/Top: Checkbox & Title + Short Note */}
+                <div className="flex items-start sm:items-center gap-2.5 sm:gap-3 flex-1 min-w-0">
                   <button
                     onClick={(e) => handleToggleTask(task, e)}
-                    className={`min-h-[42px] min-w-[42px] rounded-xl flex items-center justify-center transition-all shrink-0 mt-0.5 sm:mt-0 ${
+                    className={`min-h-[38px] min-w-[38px] sm:min-h-[42px] sm:min-w-[42px] rounded-xl flex items-center justify-center transition-all shrink-0 mt-0.5 sm:mt-0 cursor-pointer ${
                       task.completed
                         ? 'bg-[#D4AF37] text-black shadow-sm'
                         : 'border-2 border-[#D4AF37]/40 hover:border-[#D4AF37] bg-transparent text-transparent'
@@ -391,65 +392,73 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                   </button>
 
                   <div className="flex-1 min-w-0 space-y-1">
-                    <p className={`text-sm font-medium ${task.completed ? 'line-through text-[#A09D95]' : 'text-[#F9F6EE]'}`}>
+                    <p className={`text-sm font-medium break-words ${task.completed ? 'line-through text-[#A09D95]' : 'text-[#F9F6EE]'}`}>
                       {task.title}
                     </p>
                     {task.subtopicTitle && (
-                      <span className="inline-flex items-center gap-1 text-[11px] text-[#D4AF37] font-semibold">
-                        <BookMarked className="w-3 h-3" />
+                      <span className="inline-flex items-center gap-1 text-[11px] text-[#D4AF37] font-semibold break-all">
+                        <BookMarked className="w-3 h-3 shrink-0" />
                         {task.subtopicTitle}
                       </span>
                     )}
 
-                    {/* Short Note: DISPLAY CLEARLY IF PRESENT; IF NO NOTE, DO NOT DISPLAY */}
+                    {/* Short Note: DISPLAY CLEARLY IF PRESENT */}
                     {task.note && task.note.trim() && (
-                      <div className="flex items-start gap-2 text-xs text-[#E5E0DC] bg-[#160406] px-3 py-1.5 rounded-xl border border-[#360A0F] max-w-xl">
+                      <div className="flex items-start gap-2 text-xs text-[#E5E0DC] bg-[#160406] px-3 py-1.5 rounded-xl border border-[#360A0F] max-w-full">
                         <FileText className="w-3.5 h-3.5 text-shiny-gold shrink-0 mt-0.5" />
-                        <span className="leading-relaxed font-sans">{task.note}</span>
+                        <span className="leading-relaxed font-sans break-words">{task.note}</span>
                       </div>
                     )}
                   </div>
                 </div>
 
-                {/* Right: Note Edit, Reorder & Delete */}
-                <div className="flex items-center gap-1 shrink-0 self-start sm:self-center">
+                {/* Right/Bottom Action Bar: Note Edit, Reorder & Delete */}
+                <div className="flex items-center justify-end gap-1.5 shrink-0 pt-2 sm:pt-0 border-t border-white/5 sm:border-t-0 pl-[48px] sm:pl-0">
                   <button
                     onClick={() => {
                       setEditingTaskForNote(task);
                       setEditNoteText(task.note || '');
                     }}
-                    className={`min-h-[38px] min-w-[32px] flex items-center justify-center transition-colors ${
-                      task.note ? 'text-shiny-gold hover:text-[#FFDF73]' : 'text-[#B8B0AA]/50 hover:text-white'
+                    className={`min-h-[34px] px-2 rounded-lg border flex items-center gap-1 transition-colors text-xs cursor-pointer ${
+                      task.note
+                        ? 'bg-[#160406] border-[#D4AF37]/40 text-shiny-gold hover:text-[#FFDF73]'
+                        : 'border-transparent text-[#B8B0AA]/60 hover:text-white hover:bg-white/5'
                     }`}
                     title={task.note ? 'Edit note' : 'Add note'}
                   >
                     <FileText className="w-3.5 h-3.5" />
+                    <span className="text-[11px] sm:hidden">{task.note ? 'Edit Note' : '+ Note'}</span>
                   </button>
-                  <button
-                    onClick={() => handleMoveTask(idx, 'up')}
-                    disabled={idx === 0}
-                    className="min-h-[38px] min-w-[32px] flex items-center justify-center text-[#A09D95] hover:text-[#D4AF37] disabled:opacity-20 transition-colors"
-                    title="Move up"
-                  >
-                    <ChevronUp className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => handleMoveTask(idx, 'down')}
-                    disabled={idx === tasks.length - 1}
-                    className="min-h-[38px] min-w-[32px] flex items-center justify-center text-[#A09D95] hover:text-[#D4AF37] disabled:opacity-20 transition-colors"
-                    title="Move down"
-                  >
-                    <ChevronDown className="w-4 h-4" />
-                  </button>
+
+                  <div className="flex items-center bg-[#160406]/60 sm:bg-transparent rounded-lg border border-[#360A0F]/60 sm:border-0 p-0.5 sm:p-0">
+                    <button
+                      onClick={() => handleMoveTask(idx, 'up')}
+                      disabled={idx === 0}
+                      className="w-8 h-8 rounded-md flex items-center justify-center text-[#A09D95] hover:text-[#D4AF37] hover:bg-white/5 disabled:opacity-20 transition-colors cursor-pointer"
+                      title="Move up"
+                    >
+                      <ChevronUp className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => handleMoveTask(idx, 'down')}
+                      disabled={idx === tasks.length - 1}
+                      className="w-8 h-8 rounded-md flex items-center justify-center text-[#A09D95] hover:text-[#D4AF37] hover:bg-white/5 disabled:opacity-20 transition-colors cursor-pointer"
+                      title="Move down"
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </button>
+                  </div>
+
                   <button
                     onClick={async (e) => {
                       e.stopPropagation();
                       await deleteTask(task);
                     }}
-                    className="min-h-[38px] min-w-[32px] flex items-center justify-center text-[#A09D95] hover:text-red-400 transition-colors ml-1 cursor-pointer"
+                    className="min-h-[34px] px-2.5 rounded-lg bg-red-950/20 sm:bg-transparent border border-red-500/20 sm:border-transparent flex items-center justify-center text-red-300 hover:text-red-200 hover:bg-red-950/60 transition-colors cursor-pointer"
                     title="Delete task"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
+                    <span className="text-[11px] sm:hidden font-medium ml-1">Delete</span>
                   </button>
                 </div>
               </div>
@@ -750,7 +759,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
             value={noteText}
             onChange={(e) => setNoteText(e.target.value)}
             onBlur={() => updateDailyNote(noteText)}
-            className="flex-1 min-h-[44px] px-4 rounded-xl bg-black border border-[#D4AF37]/35 text-sm text-white placeholder-[#B8B0AA]/50 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
+            className="flex-1 min-w-0 min-h-[44px] px-4 rounded-xl bg-black border border-[#D4AF37]/35 text-sm text-white placeholder-[#B8B0AA]/50 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
           />
           <button
             type="button"
