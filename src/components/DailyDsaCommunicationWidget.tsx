@@ -57,7 +57,9 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
 
   const diffCounts = todayLog?.questionsDifficulty || { easy: 0, medium: 0, hard: 0 };
   const todayTotal = todayLog?.questionsCount || 0;
-  const isCommDone = Boolean(todayLog?.communicationPracticed);
+  const commStatus = todayLog?.communicationPracticed;
+  const isCommDone = commStatus === true;
+  const isCommNotDone = commStatus === false;
 
   const handleAdjustDSA = async (delta: number) => {
     await updateDSAQuestions(delta, selectedDifficulty, 'leetcode', today);
@@ -67,8 +69,10 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
   };
 
   const handleToggleCommunication = async (practiced: boolean) => {
-    await setCommunicationPracticed(practiced, commNote || undefined, today);
-    if (practiced) {
+    // If clicking the already selected choice, toggle back to undefined
+    const nextVal = commStatus === practiced ? undefined : practiced;
+    await setCommunicationPracticed(nextVal, commNote || undefined, today);
+    if (nextVal === true) {
       triggerGoldSparkle(0.15, 0.75);
     }
   };
@@ -177,37 +181,45 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
 
         <div className="grid grid-cols-2 gap-1.5">
           <button
+            type="button"
             onClick={() => handleToggleCommunication(true)}
-            className={`py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border ${
+            className={`py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
               isCommDone
-                ? 'btn-shiny-gold text-black font-bold shadow-md shadow-[#D4AF37]/35'
+                ? 'btn-shiny-gold text-black font-bold shadow-md shadow-[#D4AF37]/35 border-[#D4AF37]'
                 : 'bg-[#000000] text-[#B8B0AA] border-[#360A0F] hover:border-[#D4AF37] hover:text-shiny-gold'
             }`}
+            title={isCommDone ? 'Click to uncheck' : 'Mark English practiced today'}
           >
             <Check className="w-3.5 h-3.5 stroke-[3]" />
             <span>Yes, Done</span>
           </button>
 
           <button
+            type="button"
             onClick={() => handleToggleCommunication(false)}
-            className={`py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border ${
-              !isCommDone
-                ? 'bg-[#000000] text-[#B8B0AA] border-[#360A0F]'
-                : 'bg-[#000000] text-[#6B5A60] border-transparent hover:text-[#B8B0AA]'
+            className={`py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
+              isCommNotDone
+                ? 'bg-red-950/70 border-red-500/60 text-red-200 font-bold shadow-md shadow-red-950/50'
+                : 'bg-[#000000] text-[#B8B0AA] border-[#360A0F] hover:border-red-500/40 hover:text-red-300'
             }`}
+            title={isCommNotDone ? 'Click to uncheck' : "Mark didn't complete today"}
           >
-            <X className="w-3.5 h-3.5" />
-            <span>Not Yet</span>
+            <X className="w-3.5 h-3.5 stroke-[2.5]" />
+            <span>Didn't Complete</span>
           </button>
         </div>
 
-        {/* Optional note prompt */}
-        {isCommDone && (
-          <div className="text-[10px] text-shiny-gold font-medium flex items-center justify-between px-1">
-            <span>✨ English practiced today</span>
-            <span>All-time: {cumulativeStats.commDays} days</span>
-          </div>
-        )}
+        {/* Status indicator */}
+        <div className="text-[10px] font-medium flex items-center justify-between px-1 min-h-[16px]">
+          {isCommDone ? (
+            <span className="text-shiny-gold flex items-center gap-1">✨ English practiced today</span>
+          ) : isCommNotDone ? (
+            <span className="text-red-400/90 flex items-center gap-1">✕ Logged: Didn't complete today</span>
+          ) : (
+            <span className="text-[#B8B0AA]/60 font-sans">Tap to record today's practice</span>
+          )}
+          <span className="text-shiny-gold/80">All-time: {cumulativeStats.commDays}d</span>
+        </div>
       </div>
     </div>
   );

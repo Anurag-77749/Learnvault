@@ -95,7 +95,7 @@ export async function updateDSAQuestions(
 
 // Log Communication / High-Level English Practice
 export async function setCommunicationPracticed(
-  practiced: boolean,
+  practiced: boolean | undefined,
   note?: string,
   dateStr: string = getTodayDateString()
 ) {
