@@ -7,32 +7,31 @@
     box-sizing: border-box;
   }
   
-  html, body {
+  html, body, select, option, input, textarea {
+    color-scheme: dark;
+  }
+
+  select {
+    color-scheme: dark;
+    background-color: #0E0205;
+    color: #F9F6EE;
+  }
+
+  select option {
+    background-color: #160406;
+    color: #FFFFFF;
+    padding: 8px 12px;
+  }
+
+  body {
     margin: 0;
     padding: 0;
-    background: radial-gradient(circle at 50% -10%, #FFFFFF 0%, #EEF2FB 40%, #E0E8F6 100%);
-    color: #0F172A;
+    background-color: #030303;
+    color: #FFFFFF;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    color-scheme: light;
-  }
-
-  select, option, input, textarea {
-    color-scheme: light;
-  }
-
-  select {
-    background-color: #FFFFFF;
-    color: #0F172A;
-    border-color: #CBD5E1;
-  }
-
-  select option {
-    background-color: #FFFFFF;
-    color: #0F172A;
-    padding: 8px 12px;
   }
 
   h1, h2, h3, .font-serif {
@@ -41,154 +40,90 @@
   }
 }
 
-/* 3D Cylindrical Display Geometry & Perspective */
-.perspective-container {
-  perspective: 2000px;
-  perspective-origin: 50% 50%;
-  transform-style: preserve-3d;
-}
-
-.cylinder-3d {
-  transform-style: preserve-3d;
-  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Floating Ambient Glass Spheres Animations */
-@keyframes floatSlow1 {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-18px) rotate(4deg);
-  }
-}
-
-@keyframes floatSlow2 {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(22px) rotate(-5deg);
-  }
-}
-
-.animate-float-1 {
-  animation: floatSlow1 8s ease-in-out infinite;
-}
-
-.animate-float-2 {
-  animation: floatSlow2 10s ease-in-out infinite;
-}
-
-/* Vibrant Royal Electric Blue & Periwinkle Buttons (matching reference) */
+/* Shiny Gold Metallic Accents & Buttons (10% Gold Balance) */
 .btn-shiny-gold {
-  background: linear-gradient(135deg, #4F46E5 0%, #3B82F6 100%);
-  color: #FFFFFF !important;
+  background: linear-gradient(135deg, #FFF0A8 0%, #FFDF73 25%, #D4AF37 60%, #997A15 100%);
+  color: #000000;
   font-weight: 700;
-  box-shadow: 0 4px 18px rgba(59, 130, 246, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 3px 14px rgba(212, 175, 55, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 240, 168, 0.6);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-shiny-gold:hover {
-  filter: brightness(1.1);
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  filter: brightness(1.15);
+  box-shadow: 0 6px 22px rgba(212, 175, 55, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   transform: translateY(-1px);
 }
 
 .text-shiny-gold {
-  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 50%, #7C3AED 100%);
+  background: linear-gradient(135deg, #FFF0A8 0%, #FFDF73 35%, #D4AF37 70%, #C4971E 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: 700;
 }
 
 .gold-glow {
-  box-shadow: 0 0 22px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 0 18px rgba(212, 175, 55, 0.32);
 }
 
 .border-gold-shine {
-  border-color: rgba(99, 102, 241, 0.4);
+  border-color: rgba(212, 175, 55, 0.45);
 }
 
 .border-gold-shine:hover {
-  border-color: #4F46E5;
-  box-shadow: 0 0 14px rgba(79, 70, 229, 0.2);
+  border-color: #D4AF37;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
 }
 
-/* Light Glassmorphic Studio Cards */
+/* Royal Maroon Cards */
 .card-maroon,
 .card-emerald,
-.card-burgundy,
-.card-maroon-gold,
-.card-emerald-gold,
-.card-burgundy-gold {
-  background-color: rgba(255, 255, 255, 0.84) !important;
-  backdrop-filter: blur(24px) !important;
-  -webkit-backdrop-filter: blur(24px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.95) !important;
-  box-shadow: 0 16px 36px -10px rgba(79, 70, 229, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04) !important;
-  color: #0F172A !important;
+.card-burgundy {
+  background-color: #24060D;
+  border: 1px solid #4A101D;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.95);
 }
 
 .card-maroon:hover,
 .card-emerald:hover,
-.card-burgundy:hover,
+.card-burgundy:hover {
+  border-color: #631728;
+}
+
+/* Royal Maroon with 10% Gold Trim */
+.card-maroon-gold,
+.card-emerald-gold,
+.card-burgundy-gold {
+  background-color: #24060D;
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.95), 0 0 10px rgba(212, 175, 55, 0.1);
+}
+
 .card-maroon-gold:hover,
 .card-emerald-gold:hover,
 .card-burgundy-gold:hover {
-  border-color: rgba(99, 102, 241, 0.4) !important;
-  box-shadow: 0 20px 45px -8px rgba(79, 70, 229, 0.18), 0 2px 10px rgba(0, 0, 0, 0.06) !important;
+  border-color: #D4AF37;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.98), 0 0 18px rgba(212, 175, 55, 0.25);
 }
 
-/* Theme overrides for light glass contrast */
-.bg-black,
-.bg-\[\#000000\],
-.bg-\[\#030303\],
-.bg-\[\#160406\],
-.bg-\[\#0E0205\] {
-  background-color: rgba(255, 255, 255, 0.88) !important;
-  color: #0F172A !important;
-}
-
-.border-\[\#360A0F\],
-.border-\[\#4A101D\] {
-  border-color: rgba(203, 213, 225, 0.6) !important;
-}
-
-.text-white,
-.text-\[\#F9F6EE\],
-.text-\[\#E5E0DC\] {
-  color: #0F172A !important;
-}
-
-.text-\[\#B8B0AA\],
-.text-\[\#A09D95\] {
-  color: #475569 !important;
-}
-
-.text-\[\#D4AF37\] {
-  color: #3B82F6 !important;
-}
-
-/* Minimal Frosted Scrollbar */
+/* Minimal Luxury Scrollbar with #030303 Track and Rich Maroon Thumb */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #030303;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.4);
+  background: #4A101D;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid #030303;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.6);
+  background: #D4AF37;
 }
 
 /* Respect prefers-reduced-motion */
