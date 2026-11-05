@@ -23,7 +23,8 @@ import {
   deleteTask, 
   reorderTasks, 
   carryOverUnfinishedTasks,
-  updateTaskNote
+  updateTaskNote,
+  clearCompletedTasks
 } from '../services/taskService';
 import { formatMinutes, updateDailyNote } from '../services/dailyLogService';
 import { triggerGoldSparkle } from '../utils/confetti';
@@ -233,6 +234,16 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
             <span className="text-xs px-2.5 py-0.5 rounded-full bg-black text-[#D4AF37] font-semibold border border-[#D4AF37]/35">
               {completedCount}/{tasks.length} Done
             </span>
+            {completedCount > 0 && (
+              <button
+                type="button"
+                onClick={() => clearCompletedTasks()}
+                className="text-[10px] px-2.5 py-0.5 rounded-full bg-red-950/40 border border-red-500/30 text-red-300 hover:bg-red-900/60 transition-colors cursor-pointer"
+                title="Clear completed tasks"
+              >
+                Clear Done
+              </button>
+            )}
           </div>
           <span className="text-xs text-[#B8B0AA] hidden sm:inline">
             Unfinished tasks automatically carry over
@@ -431,8 +442,11 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     <ChevronDown className="w-4 h-4" />
                   </button>
                   <button
-                    onClick={() => task.id && deleteTask(task.id)}
-                    className="min-h-[38px] min-w-[32px] flex items-center justify-center text-[#A09D95] hover:text-red-400 transition-colors ml-1"
+                    onClick={async (e) => {
+                      e.stopPropagation();
+                      await deleteTask(task);
+                    }}
+                    className="min-h-[38px] min-w-[32px] flex items-center justify-center text-[#A09D95] hover:text-red-400 transition-colors ml-1 cursor-pointer"
                     title="Delete task"
                   >
                     <Trash2 className="w-3.5 h-3.5" />

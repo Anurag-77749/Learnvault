@@ -51,7 +51,7 @@ export async function addTask(
     createdAt: Date.now(),
   })) as number;
 
-  cloudSyncService.triggerAutoSync();
+  await cloudSyncService.pushToCloud();
   return newId;
 }
 
@@ -71,7 +71,7 @@ export async function toggleTaskComplete(taskId: number, completed: boolean) {
   await db.tasks.update(taskId, {
     completed,
     completedAt: completed ? Date.now() : undefined,
-    date: getTodayDateString(), // stamp completion to today
+    date: getTodayDateString(),
   });
 
   // If this task is linked to a subtopic, also update subtopic status in curriculumTopics if present
@@ -93,13 +93,39 @@ export async function toggleTaskComplete(taskId: number, completed: boolean) {
     }
   }
 
-  cloudSyncService.triggerAutoSync();
+  await cloudSyncService.pushToCloud();
 }
 
-// Delete task
-export async function deleteTask(taskId: number) {
-  await db.tasks.delete(taskId);
-  cloudSyncService.triggerAutoSync();
+// Delete task by id or task object
+export async function deleteTask(taskOrId: TaskItem | number) {
+  let id = typeof taskOrId === 'number' ? taskOrId : taskOrId.id;
+
+  if (!id && typeof taskOrId === 'object' && taskOrId.title) {
+    const all = await db.tasks.toArray();
+    const match = all.find(t => t.title.trim().toLowerCase() === taskOrId.title.trim().toLowerCase());
+    if (match?.id) id = match.id;
+  }
+
+  if (id) {
+    cloudSyncService.registerDeletedTaskId(id);
+    await db.tasks.delete(id);
+  }
+
+  // Push immediately so Supabase updates right away and never restores this task
+  await cloudSyncService.pushToCloud();
+}
+
+// Clear all completed tasks
+export async function clearCompletedTasks() {
+  const all = await db.tasks.toArray();
+  const completed = all.filter(t => t.completed && t.id);
+  for (const t of completed) {
+    if (t.id) {
+      cloudSyncService.registerDeletedTaskId(t.id);
+      await db.tasks.delete(t.id);
+    }
+  }
+  await cloudSyncService.pushToCloud();
 }
 
 // Reorder tasks

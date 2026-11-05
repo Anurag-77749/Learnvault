@@ -23,6 +23,8 @@ class CloudSyncService {
   private debounceTimer: any = null;
   private initialized = false;
   private isSyncing = false;
+  // Tombstone set to prevent stale cloud snapshots from resurrecting deleted tasks
+  private deletedTaskIds: Set<number> = new Set();
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -37,6 +39,10 @@ class CloudSyncService {
     }
   }
 
+  public registerDeletedTaskId(id: number) {
+    this.deletedTaskIds.add(id);
+  }
+
   public init() {
     if (this.initialized || typeof window === 'undefined') return;
     this.initialized = true;
@@ -46,11 +52,7 @@ class CloudSyncService {
       this.pullFromCloud();
     }, 500);
 
-    // Pull when window gains focus or tab becomes visible (e.g. returning to app on phone/laptop)
-    window.addEventListener('focus', () => {
-      this.pullFromCloud();
-    });
-
+    // Pull when tab becomes visible after being away
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') {
         this.pullFromCloud();
@@ -109,7 +111,7 @@ class CloudSyncService {
   }
 
   /**
-   * Safe pull: reads cloud state and updates local Dexie WITHOUT wiping tables.
+   * Safe pull: reads cloud state and updates local Dexie WITHOUT wiping tables or resurrecting deleted tasks.
    */
   public async pullFromCloud(): Promise<boolean> {
     if (this.isSyncing) return false;
@@ -130,29 +132,31 @@ class CloudSyncService {
       }
 
       if (!cloudRow) {
-        // Initial setup: push local data to cloud
         this.isSyncing = false;
         return await this.pushToCloud();
       }
 
       // Safe update of Tasks
       if (Array.isArray(cloudRow.tasks)) {
-        const localTasks = await db.tasks.toArray();
+        // Filter out any tasks that the user has deleted locally
+        const validCloudTasks = cloudRow.tasks.filter((t: TaskItem) => !t.id || !this.deletedTaskIds.has(t.id));
         const cloudTaskMap = new Map<number, TaskItem>();
-        cloudRow.tasks.forEach((t: TaskItem) => {
+        validCloudTasks.forEach((t: TaskItem) => {
           if (t.id) cloudTaskMap.set(t.id, t);
         });
 
-        // Delete local tasks that don't exist in cloud only if cloud has valid data
+        const localTasks = await db.tasks.toArray();
+
+        // Delete local tasks that don't exist in cloud or were marked deleted
         for (const lt of localTasks) {
-          if (lt.id && !cloudTaskMap.has(lt.id)) {
+          if (lt.id && (!cloudTaskMap.has(lt.id) || this.deletedTaskIds.has(lt.id))) {
             await db.tasks.delete(lt.id);
           }
         }
 
-        // Put cloud tasks
-        if (cloudRow.tasks.length > 0) {
-          await db.tasks.bulkPut(cloudRow.tasks);
+        // Put active cloud tasks
+        if (validCloudTasks.length > 0) {
+          await db.tasks.bulkPut(validCloudTasks);
         }
       }
 
@@ -190,7 +194,7 @@ class CloudSyncService {
   }
 
   /**
-   * Safe push: reads local Dexie and uploads to Supabase.
+   * Safe push: reads local Dexie and uploads to Supabase immediately.
    * NEVER touches local Dexie data.
    */
   public async pushToCloud(): Promise<boolean> {
@@ -207,10 +211,13 @@ class CloudSyncService {
         db.pomodoroSessions.toArray(),
       ]);
 
+      // Filter out any tombstoned tasks
+      const activeTasks = tasks.filter((t) => !t.id || !this.deletedTaskIds.has(t.id));
+
       const client = getSupabaseClient();
       const { error } = await client.from('learnvault_sync').upsert({
         sync_id: this.syncId,
-        tasks,
+        tasks: activeTasks,
         daily_logs: dailyLogs,
         wasted_days: wastedDays,
         pomodoro_sessions: pomodoroSessions,
@@ -246,7 +253,7 @@ class CloudSyncService {
 
     this.debounceTimer = setTimeout(() => {
       this.pushToCloud();
-    }, 1500);
+    }, 1200);
   }
 }
 
