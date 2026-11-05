@@ -21,7 +21,6 @@ class CloudSyncService {
   private errorMessage: string | null = null;
   private listeners: Set<SyncListener> = new Set();
   private debounceTimer: any = null;
-  private pollInterval: any = null;
   private initialized = false;
   private isSyncing = false;
 
@@ -29,7 +28,6 @@ class CloudSyncService {
     if (typeof window !== 'undefined') {
       const savedId = localStorage.getItem('learnvault_sync_id');
       this.syncId = (savedId || DEFAULT_SYNC_ID).trim().toLowerCase();
-      // Ensure it is saved
       localStorage.setItem('learnvault_sync_id', this.syncId);
 
       const savedTime = localStorage.getItem('learnvault_last_sync_time');
@@ -43,46 +41,21 @@ class CloudSyncService {
     if (this.initialized || typeof window === 'undefined') return;
     this.initialized = true;
 
-    // Attach Dexie hooks to automatically push changes when user modifies data
-    try {
-      const syncTables = [db.tasks, db.dailyLogs, db.wastedDays, db.pomodoroSessions];
-      syncTables.forEach((table) => {
-        table.hook('creating', () => {
-          if (!this.isSyncing) this.triggerAutoSync();
-        });
-        table.hook('updating', () => {
-          if (!this.isSyncing) this.triggerAutoSync();
-        });
-        table.hook('deleting', () => {
-          if (!this.isSyncing) this.triggerAutoSync();
-        });
-      });
-    } catch (e) {
-      console.warn('Could not attach Dexie sync hooks:', e);
-    }
+    // Pull from cloud on startup
+    setTimeout(() => {
+      this.pullFromCloud();
+    }, 500);
 
-    // Auto pull when tab becomes visible or gains focus (e.g. returning to app on phone)
+    // Pull when window gains focus or tab becomes visible (e.g. returning to app on phone/laptop)
     window.addEventListener('focus', () => {
-      this.fullSync();
+      this.pullFromCloud();
     });
 
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') {
-        this.fullSync();
+        this.pullFromCloud();
       }
     });
-
-    // Background poll every 12 seconds so changes appear across devices without page reload
-    this.pollInterval = setInterval(() => {
-      if (!this.isSyncing) {
-        this.fullSync();
-      }
-    }, 12000);
-
-    // Initial sync right after startup
-    setTimeout(() => {
-      this.fullSync();
-    }, 500);
   }
 
   public getState(): SyncState {
@@ -113,7 +86,7 @@ class CloudSyncService {
     if (typeof window !== 'undefined') {
       localStorage.setItem('learnvault_sync_id', cleaned);
     }
-    return await this.fullSync();
+    return await this.syncNow();
   }
 
   public disconnect() {
@@ -126,20 +99,22 @@ class CloudSyncService {
     this.notify();
   }
 
-  public syncNow(): Promise<{ success: boolean; message?: string }> {
-    return this.fullSync();
+  public async syncNow(): Promise<{ success: boolean; message?: string }> {
+    const pulled = await this.pullFromCloud();
+    if (pulled) {
+      await this.pushToCloud();
+      return { success: true };
+    }
+    return { success: false, message: this.errorMessage || 'Sync failed' };
   }
 
   /**
-   * Bi-directional intelligent merge:
-   * Merges local Dexie data with Supabase Cloud data.
-   * Ensures nothing is lost, and updates both Local and Cloud.
+   * Safe pull: reads cloud state and updates local Dexie WITHOUT wiping tables.
    */
-  public async fullSync(): Promise<{ success: boolean; message?: string }> {
-    if (this.isSyncing) return { success: true };
+  public async pullFromCloud(): Promise<boolean> {
+    if (this.isSyncing) return false;
     this.isSyncing = true;
     this.status = 'syncing';
-    this.errorMessage = null;
     this.notify();
 
     try {
@@ -154,114 +129,46 @@ class CloudSyncService {
         throw new Error(error.message);
       }
 
-      // Read current local data
-      const [localTasks, localDailyLogs, localWastedDays, localPomodoro] = await Promise.all([
-        db.tasks.toArray(),
-        db.dailyLogs.toArray(),
-        db.wastedDays.toArray(),
-        db.pomodoroSessions.toArray(),
-      ]);
-
       if (!cloudRow) {
-        // No cloud record yet: upload local data
-        await client.from('learnvault_sync').upsert({
-          sync_id: this.syncId,
-          tasks: localTasks,
-          daily_logs: localDailyLogs,
-          wasted_days: localWastedDays,
-          pomodoro_sessions: localPomodoro,
-          updated_at: new Date().toISOString(),
-        });
-      } else {
-        // Merge Tasks
-        const taskMap = new Map<string, TaskItem>();
-        localTasks.forEach((t) => taskMap.set(t.title.trim().toLowerCase(), t));
-        if (Array.isArray(cloudRow.tasks)) {
-          cloudRow.tasks.forEach((ct: TaskItem) => {
-            const key = ct.title.trim().toLowerCase();
-            if (taskMap.has(key)) {
-              const existing = taskMap.get(key)!;
-              taskMap.set(key, {
-                ...existing,
-                ...ct,
-                completed: existing.completed || ct.completed,
-                completedAt: existing.completedAt || ct.completedAt,
-              });
-            } else {
-              taskMap.set(key, ct);
-            }
-          });
-        }
-        const mergedTasks = Array.from(taskMap.values());
+        // Initial setup: push local data to cloud
+        this.isSyncing = false;
+        return await this.pushToCloud();
+      }
 
-        // Merge Daily Logs
-        const logMap = new Map<string, DailyLogEntry>();
-        localDailyLogs.forEach((l) => logMap.set(l.date, l));
-        if (Array.isArray(cloudRow.daily_logs)) {
-          cloudRow.daily_logs.forEach((cl: DailyLogEntry) => {
-            if (logMap.has(cl.date)) {
-              const el = logMap.get(cl.date)!;
-              logMap.set(cl.date, {
-                ...el,
-                ...cl,
-                studyMinutes: Math.max(el.studyMinutes || 0, cl.studyMinutes || 0),
-                wastedMinutes: Math.max(el.wastedMinutes || 0, cl.wastedMinutes || 0),
-                questionsCount: Math.max(el.questionsCount || 0, cl.questionsCount || 0),
-                topicsLearned: Array.from(new Set([...(el.topicsLearned || []), ...(cl.topicsLearned || [])])),
-              });
-            } else {
-              logMap.set(cl.date, cl);
-            }
-          });
-        }
-        const mergedDailyLogs = Array.from(logMap.values());
-
-        // Merge Wasted Days
-        const wastedMap = new Map<string, WastedDayRecord>();
-        localWastedDays.forEach((w) => wastedMap.set(`${w.date}-${w.reason || ''}`, w));
-        if (Array.isArray(cloudRow.wasted_days)) {
-          cloudRow.wasted_days.forEach((cw: WastedDayRecord) => {
-            const key = `${cw.date}-${cw.reason || ''}`;
-            wastedMap.set(key, { ...(wastedMap.get(key) || {}), ...cw });
-          });
-        }
-        const mergedWastedDays = Array.from(wastedMap.values());
-
-        // Merge Pomodoro Sessions
-        const pomodoroMap = new Map<string, PomodoroSessionRecord>();
-        localPomodoro.forEach((p) => pomodoroMap.set(`${p.date}-${p.timestamp}`, p));
-        if (Array.isArray(cloudRow.pomodoro_sessions)) {
-          cloudRow.pomodoro_sessions.forEach((cp: PomodoroSessionRecord) => {
-            const key = `${cp.date}-${cp.timestamp}`;
-            pomodoroMap.set(key, cp);
-          });
-        }
-        const mergedPomodoro = Array.from(pomodoroMap.values());
-
-        // Apply merged data to Local Dexie
-        await db.transaction('rw', [db.tasks, db.dailyLogs, db.wastedDays, db.pomodoroSessions], async () => {
-          await db.tasks.clear();
-          if (mergedTasks.length > 0) await db.tasks.bulkPut(mergedTasks);
-
-          await db.dailyLogs.clear();
-          if (mergedDailyLogs.length > 0) await db.dailyLogs.bulkPut(mergedDailyLogs);
-
-          await db.wastedDays.clear();
-          if (mergedWastedDays.length > 0) await db.wastedDays.bulkPut(mergedWastedDays);
-
-          await db.pomodoroSessions.clear();
-          if (mergedPomodoro.length > 0) await db.pomodoroSessions.bulkPut(mergedPomodoro);
+      // Safe update of Tasks
+      if (Array.isArray(cloudRow.tasks)) {
+        const localTasks = await db.tasks.toArray();
+        const cloudTaskMap = new Map<number, TaskItem>();
+        cloudRow.tasks.forEach((t: TaskItem) => {
+          if (t.id) cloudTaskMap.set(t.id, t);
         });
 
-        // Push merged state back to Supabase
-        await client.from('learnvault_sync').upsert({
-          sync_id: this.syncId,
-          tasks: mergedTasks,
-          daily_logs: mergedDailyLogs,
-          wasted_days: mergedWastedDays,
-          pomodoro_sessions: mergedPomodoro,
-          updated_at: new Date().toISOString(),
-        });
+        // Delete local tasks that don't exist in cloud only if cloud has valid data
+        for (const lt of localTasks) {
+          if (lt.id && !cloudTaskMap.has(lt.id)) {
+            await db.tasks.delete(lt.id);
+          }
+        }
+
+        // Put cloud tasks
+        if (cloudRow.tasks.length > 0) {
+          await db.tasks.bulkPut(cloudRow.tasks);
+        }
+      }
+
+      // Safe update of Daily Logs
+      if (Array.isArray(cloudRow.daily_logs) && cloudRow.daily_logs.length > 0) {
+        await db.dailyLogs.bulkPut(cloudRow.daily_logs);
+      }
+
+      // Safe update of Wasted Days
+      if (Array.isArray(cloudRow.wasted_days) && cloudRow.wasted_days.length > 0) {
+        await db.wastedDays.bulkPut(cloudRow.wasted_days);
+      }
+
+      // Safe update of Pomodoro Sessions
+      if (Array.isArray(cloudRow.pomodoro_sessions) && cloudRow.pomodoro_sessions.length > 0) {
+        await db.pomodoroSessions.bulkPut(cloudRow.pomodoro_sessions);
       }
 
       this.status = 'synced';
@@ -270,13 +177,61 @@ class CloudSyncService {
         localStorage.setItem('learnvault_last_sync_time', this.lastSyncedAt.toISOString());
       }
       this.notify();
-      return { success: true };
+      return true;
     } catch (err: any) {
-      console.warn('Sync notice:', err.message);
+      console.warn('Pull from cloud notice:', err.message);
       this.status = 'error';
       this.errorMessage = err.message || 'Sync failed';
       this.notify();
-      return { success: false, message: this.errorMessage || 'Sync failed' };
+      return false;
+    } finally {
+      this.isSyncing = false;
+    }
+  }
+
+  /**
+   * Safe push: reads local Dexie and uploads to Supabase.
+   * NEVER touches local Dexie data.
+   */
+  public async pushToCloud(): Promise<boolean> {
+    if (this.isSyncing) return false;
+    this.isSyncing = true;
+    this.status = 'syncing';
+    this.notify();
+
+    try {
+      const [tasks, dailyLogs, wastedDays, pomodoroSessions] = await Promise.all([
+        db.tasks.toArray(),
+        db.dailyLogs.toArray(),
+        db.wastedDays.toArray(),
+        db.pomodoroSessions.toArray(),
+      ]);
+
+      const client = getSupabaseClient();
+      const { error } = await client.from('learnvault_sync').upsert({
+        sync_id: this.syncId,
+        tasks,
+        daily_logs: dailyLogs,
+        wasted_days: wastedDays,
+        pomodoro_sessions: pomodoroSessions,
+        updated_at: new Date().toISOString(),
+      });
+
+      if (error) throw error;
+
+      this.status = 'synced';
+      this.lastSyncedAt = new Date();
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('learnvault_last_sync_time', this.lastSyncedAt.toISOString());
+      }
+      this.notify();
+      return true;
+    } catch (e: any) {
+      console.warn('Push to cloud notice:', e.message);
+      this.status = 'error';
+      this.errorMessage = e.message;
+      this.notify();
+      return false;
     } finally {
       this.isSyncing = false;
     }
@@ -290,8 +245,8 @@ class CloudSyncService {
     this.notify();
 
     this.debounceTimer = setTimeout(() => {
-      this.fullSync();
-    }, 1200);
+      this.pushToCloud();
+    }, 1500);
   }
 }
 

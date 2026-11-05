@@ -51,7 +51,12 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
   }, [today]);
 
   const tasks = useLiveQuery(
-    () => db.tasks.where('date').equals(today).sortBy('order'),
+    async () => {
+      const all = await db.tasks.toArray();
+      return all
+        .filter((t) => !t.completed || t.date === today)
+        .sort((a, b) => (a.order || 0) - (b.order || 0));
+    },
     [today]
   ) || [];
 
