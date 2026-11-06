@@ -82,10 +82,10 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
       {/* Header */}
       <div className="flex items-center justify-between pb-2 border-b border-[#1a1a1a]">
         <div className="flex items-center gap-1.5 text-xs font-bold text-shiny-gold">
-          <Code2 className="w-3.5 h-3.5 text-[#7DF9FF]" />
+          <Code2 className="w-3.5 h-3.5 text-[#FFA040]" />
           <span className="uppercase tracking-wider">DSA & Communication</span>
         </div>
-        <span className="text-[10px] text-shiny-gold font-semibold px-2 py-0.5 rounded-full bg-[#000000] border border-[#00F0FF]/30">Daily</span>
+        <span className="text-[10px] text-shiny-gold font-semibold px-2 py-0.5 rounded-full bg-[#000000] border border-[#FF5500]/30">Daily</span>
       </div>
 
       {/* 1. Daily DSA Problems Counter with Difficulty Choice */}
@@ -102,7 +102,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
         {/* Counter and Difficulty Selector */}
         <div className="flex items-center gap-2">
           {/* Minus & Plus Counter */}
-          <div className="flex items-center bg-[#000000] border border-[#00F0FF]/40 rounded-xl p-0.5">
+          <div className="flex items-center bg-[#000000] border border-[#FF5500]/40 rounded-xl p-0.5">
             <button
               onClick={() => handleAdjustDSA(-1)}
               disabled={diffCounts[selectedDifficulty] <= 0}
@@ -116,7 +116,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
             </span>
             <button
               onClick={() => handleAdjustDSA(1)}
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-black bg-[#00F0FF] hover:bg-[#7DF9FF] transition-colors"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-black bg-[#FF5500] hover:bg-[#FFA040] transition-colors"
               aria-label="Increase question"
             >
               <Plus className="w-3.5 h-3.5 stroke-[3]" />
@@ -130,7 +130,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
               className={`py-1.5 px-1 rounded-xl text-[11px] font-semibold transition-all border text-center ${
                 selectedDifficulty === 'easy'
                   ? 'bg-[#004D20] text-[#73FF9D] border-[#009940] shadow-sm font-bold'
-                  : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#00F0FF]/50'
+                  : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#FF5500]/50'
               }`}
             >
               Easy
@@ -142,7 +142,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
               className={`py-1.5 px-1 rounded-xl text-[11px] font-semibold transition-all border text-center ${
                 selectedDifficulty === 'medium'
                   ? 'btn-shiny-gold text-black shadow-sm font-bold'
-                  : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#00F0FF]/50'
+                  : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#FF5500]/50'
               }`}
             >
               Med
@@ -154,7 +154,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
               className={`py-1.5 px-1 rounded-xl text-[11px] font-semibold transition-all border text-center ${
                 selectedDifficulty === 'hard'
                   ? 'bg-[#33040B] text-[#FFA8B5] border-red-500/60 shadow-sm font-bold'
-                  : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#00F0FF]/50'
+                  : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#FF5500]/50'
               }`}
             >
               Hard
@@ -173,7 +173,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
       {/* 2. Communication & High-Level English Practice */}
       <div className="pt-2 border-t border-[#1a1a1a] space-y-2">
         <div className="flex items-start gap-1.5">
-          <MessageSquare className="w-3.5 h-3.5 text-[#7DF9FF] shrink-0 mt-0.5" />
+          <MessageSquare className="w-3.5 h-3.5 text-[#FFA040] shrink-0 mt-0.5" />
           <p className="text-[11px] text-white leading-snug">
             Today did you minimum <span className="text-shiny-gold font-bold">speak, learn or hear high-level English</span>?
           </p>
@@ -185,8 +185,8 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
             onClick={() => handleToggleCommunication(true)}
             className={`py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
               isCommDone
-                ? 'btn-shiny-gold text-black font-bold shadow-md shadow-[#00F0FF]/35 border-[#00F0FF]'
-                : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#00F0FF] hover:text-shiny-gold'
+                ? 'btn-shiny-gold text-black font-bold shadow-md shadow-[#FF5500]/35 border-[#FF5500]'
+                : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#FF5500] hover:text-shiny-gold'
             }`}
             title={isCommDone ? 'Click to uncheck' : 'Mark English practiced today'}
           >

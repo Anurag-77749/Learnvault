@@ -41,39 +41,48 @@
   }
 }
 
-/* Shiny Gold Metallic Accents & Buttons (10% Gold Balance) */
-.btn-shiny-gold {
-  background: linear-gradient(135deg, #E0FFFF 0%, #7DF9FF 25%, #00F0FF 60%, #0077B6 100%);
+/* ==========================================================================
+   NEON ORANGE THEME ACCENTS & BUTTONS
+   ========================================================================== */
+
+.btn-shiny-gold,
+.btn-neon-orange {
+  background: linear-gradient(135deg, #FFE0B2 0%, #FFA040 25%, #FF5500 65%, #CC3700 100%);
   color: #000000;
   font-weight: 700;
-  box-shadow: 0 3px 14px rgba(0, 240, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(224, 255, 255, 0.7);
+  box-shadow: 0 3px 14px rgba(255, 85, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 224, 178, 0.7);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.btn-shiny-gold:hover {
-  filter: brightness(1.15);
-  box-shadow: 0 6px 22px rgba(0, 240, 255, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+.btn-shiny-gold:hover,
+.btn-neon-orange:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 6px 22px rgba(255, 85, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.9);
   transform: translateY(-1px);
 }
 
-.text-shiny-gold {
-  background: linear-gradient(135deg, #E0FFFF 0%, #7DF9FF 35%, #00F0FF 70%, #00B4D8 100%);
+.text-shiny-gold,
+.text-neon-orange {
+  background: linear-gradient(135deg, #FFE0B2 0%, #FFA040 35%, #FF5500 70%, #E64A00 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.gold-glow {
-  box-shadow: 0 0 18px rgba(0, 240, 255, 0.32);
+.gold-glow,
+.neon-glow {
+  box-shadow: 0 0 18px rgba(255, 85, 0, 0.35);
 }
 
-.border-gold-shine {
-  border-color: rgba(0, 240, 255, 0.45);
+.border-gold-shine,
+.border-neon-shine {
+  border-color: rgba(255, 85, 0, 0.45);
 }
 
-.border-gold-shine:hover {
-  border-color: #00F0FF;
-  box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+.border-gold-shine:hover,
+.border-neon-shine:hover {
+  border-color: #FF5500;
+  box-shadow: 0 0 14px rgba(255, 85, 0, 0.3);
 }
 
 /* Deepest Obsidian & Pitch Black Cards */
@@ -91,20 +100,20 @@
   border-color: #262626;
 }
 
-/* Pitch Black with Refined Gold Trim */
+/* Pitch Black with Neon Orange Trim */
 .card-maroon-gold,
 .card-emerald-gold,
 .card-burgundy-gold {
   background-color: #070707;
-  border: 1px solid rgba(0, 240, 255, 0.35);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 1), 0 0 12px rgba(0, 240, 255, 0.12);
+  border: 1px solid rgba(255, 85, 0, 0.35);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 1), 0 0 12px rgba(255, 85, 0, 0.12);
 }
 
 .card-maroon-gold:hover,
 .card-emerald-gold:hover,
 .card-burgundy-gold:hover {
-  border-color: #00F0FF;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 1), 0 0 18px rgba(0, 240, 255, 0.25);
+  border-color: #FF5500;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 1), 0 0 18px rgba(255, 85, 0, 0.28);
 }
 
 /* Minimal Pitch Black OLED Scrollbar */
@@ -124,7 +133,145 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00F0FF;
+  background: #FF5500;
+}
+
+/* ==========================================================================
+   LIGHT MODE: CRISP WHITE CANVAS & PURE BLACK TEXT WITH NEON ORANGE ACCENTS
+   ========================================================================== */
+
+html.light-mode {
+  color-scheme: light;
+}
+
+html.light-mode body {
+  background-color: #F8F9FA !important;
+  color: #0A0A0A !important;
+}
+
+html.light-mode select {
+  background-color: #FFFFFF !important;
+  color: #0A0A0A !important;
+  border-color: #CBD5E1 !important;
+}
+
+html.light-mode select option {
+  background-color: #FFFFFF !important;
+  color: #0A0A0A !important;
+}
+
+/* Headers & Primary Typography in Light Mode */
+html.light-mode h1,
+html.light-mode h2,
+html.light-mode h3,
+html.light-mode h4,
+html.light-mode h5,
+html.light-mode h6,
+html.light-mode .text-white {
+  color: #0A0A0A !important;
+}
+
+/* Light Mode Card Surfaces: Clean White Cards with Subtle Elevation */
+html.light-mode .card-maroon,
+html.light-mode .card-emerald,
+html.light-mode .card-burgundy,
+html.light-mode .card-obsidian {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  color: #0A0A0A !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+}
+
+html.light-mode .card-maroon-gold,
+html.light-mode .card-emerald-gold,
+html.light-mode .card-burgundy-gold,
+html.light-mode .card-obsidian-gold {
+  background-color: #FFFFFF !important;
+  border-color: rgba(255, 85, 0, 0.4) !important;
+  color: #0A0A0A !important;
+  box-shadow: 0 2px 12px rgba(255, 85, 0, 0.09), 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light-mode .card-maroon:hover,
+html.light-mode .card-emerald:hover,
+html.light-mode .card-burgundy:hover,
+html.light-mode .card-obsidian:hover {
+  border-color: #CBD5E1 !important;
+}
+
+html.light-mode .card-maroon-gold:hover,
+html.light-mode .card-emerald-gold:hover,
+html.light-mode .card-burgundy-gold:hover,
+html.light-mode .card-obsidian-gold:hover {
+  border-color: #FF5500 !important;
+  box-shadow: 0 4px 18px rgba(255, 85, 0, 0.18) !important;
+}
+
+/* Light Mode Inputs & Textareas */
+html.light-mode input[type="text"],
+html.light-mode input[type="number"],
+html.light-mode input[type="search"],
+html.light-mode textarea {
+  background-color: #FFFFFF !important;
+  color: #0A0A0A !important;
+  border-color: #CBD5E1 !important;
+}
+
+html.light-mode input::placeholder,
+html.light-mode textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Light Mode Background Overrides for Deep Black utility classes */
+html.light-mode .bg-\[\#000000\],
+html.light-mode .bg-\[\#080808\],
+html.light-mode .bg-\[\#070707\],
+html.light-mode .bg-\[\#0c0c0c\],
+html.light-mode .bg-\[\#121212\] {
+  background-color: #FFFFFF !important;
+}
+
+html.light-mode .bg-\[\#160406\],
+html.light-mode .bg-\[\#141414\] {
+  background-color: #F1F5F9 !important;
+}
+
+/* Light Mode Borders */
+html.light-mode .border-\[\#1a1a1a\],
+html.light-mode .border-\[\#141414\],
+html.light-mode .border-\[\#181818\],
+html.light-mode .border-\[\#222222\],
+html.light-mode .border-white\/10,
+html.light-mode .border-white\/\[0\.08\],
+html.light-mode .border-white\/\[0\.07\] {
+  border-color: #E2E8F0 !important;
+}
+
+/* Light Mode Muted & Secondary Text */
+html.light-mode .text-\[\#B8B0AA\],
+html.light-mode .text-\[\#A3A3A3\],
+html.light-mode .text-\[\#8A8A8A\],
+html.light-mode .text-\[\#8E8E8E\] {
+  color: #475569 !important;
+}
+
+html.light-mode .text-\[\#737373\],
+html.light-mode .text-\[\#525252\] {
+  color: #64748B !important;
+}
+
+/* Light Mode Scrollbars */
+html.light-mode ::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+html.light-mode ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border: 1px solid #F1F5F9;
+}
+
+html.light-mode ::-webkit-scrollbar-thumb:hover {
+  background: #FF5500;
 }
 
 /* Respect prefers-reduced-motion */

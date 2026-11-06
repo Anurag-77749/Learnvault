@@ -20,7 +20,7 @@ export const LearnPlaceholder: React.FC = () => {
   return (
     <div className="space-y-6 pb-24 md:pb-12 max-w-4xl mx-auto">
       <div className="pt-2">
-        <span className="text-xs uppercase tracking-widest text-[#00F0FF] font-semibold flex items-center gap-1.5 mb-1 font-sans">
+        <span className="text-xs uppercase tracking-widest text-[#FF5500] font-semibold flex items-center gap-1.5 mb-1 font-sans">
           <BookOpen className="w-3.5 h-3.5" /> 4-Year Full Curriculum
         </span>
         <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#F9F6EE]">
@@ -31,8 +31,8 @@ export const LearnPlaceholder: React.FC = () => {
         </p>
       </div>
 
-      <div className="p-4 rounded-2xl bg-[#121212] border border-[#00F0FF]/30 flex items-start gap-3">
-        <Sparkles className="w-5 h-5 text-[#00F0FF] shrink-0 mt-0.5" />
+      <div className="p-4 rounded-2xl bg-[#121212] border border-[#FF5500]/30 flex items-start gap-3">
+        <Sparkles className="w-5 h-5 text-[#FF5500] shrink-0 mt-0.5" />
         <p className="text-xs text-[#A09D95] leading-relaxed">
           Stage 2 will seed the full curriculum strictly adhering to your Source of Truth (Part 3) with full subtopic checkboxes, resource links, video badges, notes, and coverage report.
         </p>
@@ -42,9 +42,9 @@ export const LearnPlaceholder: React.FC = () => {
         {TRACKS.map((t) => (
           <div
             key={t.id}
-            className="p-4 rounded-2xl bg-[#121212] border border-[#00F0FF]/25 hover:border-[#00F0FF] flex items-start gap-3.5 transition-colors shadow-sm"
+            className="p-4 rounded-2xl bg-[#121212] border border-[#FF5500]/25 hover:border-[#FF5500] flex items-start gap-3.5 transition-colors shadow-sm"
           >
-            <div className="w-8 h-8 rounded-xl bg-black border border-[#00F0FF]/40 flex items-center justify-center text-[#00F0FF] shrink-0 font-serif font-bold text-sm">
+            <div className="w-8 h-8 rounded-xl bg-black border border-[#FF5500]/40 flex items-center justify-center text-[#FF5500] shrink-0 font-serif font-bold text-sm">
               {t.id}
             </div>
             <div>

@@ -56,12 +56,12 @@ export const LogStudyModal: React.FC<LogStudyModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
           transition={{ duration: 0.2 }}
-          className="w-full max-w-md bg-[#121212] border border-[#00F0FF]/40 rounded-3xl p-6 shadow-2xl relative"
+          className="w-full max-w-md bg-[#121212] border border-[#FF5500]/40 rounded-3xl p-6 shadow-2xl relative"
         >
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-[#00F0FF]/20">
+          <div className="flex items-center justify-between pb-4 border-b border-[#FF5500]/20">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-black border border-[#00F0FF]/50 flex items-center justify-center text-[#00F0FF]">
+              <div className="w-8 h-8 rounded-xl bg-black border border-[#FF5500]/50 flex items-center justify-center text-[#FF5500]">
                 <Clock className="w-4 h-4" />
               </div>
               <h2 className="font-serif text-2xl font-bold text-[#F9F6EE]">
@@ -70,7 +70,7 @@ export const LogStudyModal: React.FC<LogStudyModalProps> = ({
             </div>
             <button
               onClick={onClose}
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#A09D95] hover:text-[#00F0FF] rounded-xl transition-colors"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#A09D95] hover:text-[#FF5500] rounded-xl transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -90,8 +90,8 @@ export const LogStudyModal: React.FC<LogStudyModalProps> = ({
                     onClick={() => setMinutes(m)}
                     className={`min-h-[44px] rounded-xl text-sm font-semibold transition-all ${
                       minutes === m
-                        ? 'bg-[#00F0FF] text-black shadow-md shadow-[#00F0FF]/20'
-                        : 'bg-black text-[#A09D95] hover:text-[#F9F6EE] border border-[#00F0FF]/25'
+                        ? 'bg-[#FF5500] text-black shadow-md shadow-[#FF5500]/20'
+                        : 'bg-black text-[#A09D95] hover:text-[#F9F6EE] border border-[#FF5500]/25'
                     }`}
                   >
                     {m}m
@@ -104,7 +104,7 @@ export const LogStudyModal: React.FC<LogStudyModalProps> = ({
                 max="720"
                 value={minutes}
                 onChange={(e) => setMinutes(Math.max(1, parseInt(e.target.value) || 0))}
-                className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#00F0FF]/30 text-[#F9F6EE] focus:outline-none focus:border-[#00F0FF] text-center font-bold"
+                className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#FF5500]/30 text-[#F9F6EE] focus:outline-none focus:border-[#FF5500] text-center font-bold"
               />
             </div>
 
@@ -116,7 +116,7 @@ export const LogStudyModal: React.FC<LogStudyModalProps> = ({
               <select
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
-                style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3 rounded-xl bg-[#0E0205] border border-[#00F0FF]/30 text-xs sm:text-sm text-[#F9F6EE] focus:outline-none focus:border-[#00F0FF] cursor-pointer"
+                style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3 rounded-xl bg-[#0E0205] border border-[#FF5500]/30 text-xs sm:text-sm text-[#F9F6EE] focus:outline-none focus:border-[#FF5500] cursor-pointer"
               >
                 {TOPIC_PRESETS.map((t) => (
                   <option key={t} value={t} className="bg-[#121212] text-[#F9F6EE]">
@@ -131,14 +131,14 @@ export const LogStudyModal: React.FC<LogStudyModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 min-h-[46px] rounded-xl border border-[#00F0FF]/30 text-sm text-[#A09D95] hover:text-[#F9F6EE] font-semibold transition-colors"
+                className="flex-1 min-h-[46px] rounded-xl border border-[#FF5500]/30 text-sm text-[#A09D95] hover:text-[#F9F6EE] font-semibold transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting || minutes <= 0}
-                className="flex-1 min-h-[46px] rounded-xl bg-[#00F0FF] hover:bg-[#FFD700] text-black text-sm font-bold transition-all shadow-md shadow-[#00F0FF]/20 disabled:opacity-40"
+                className="flex-1 min-h-[46px] rounded-xl bg-[#FF5500] hover:bg-[#FFD700] text-black text-sm font-bold transition-all shadow-md shadow-[#FF5500]/20 disabled:opacity-40"
               >
                 {isSubmitting ? 'Logging...' : `Log ${minutes}m Study`}
               </button>

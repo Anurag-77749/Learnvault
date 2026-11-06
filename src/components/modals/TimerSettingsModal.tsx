@@ -44,12 +44,12 @@ export const TimerSettingsModal: React.FC<TimerSettingsModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
           transition={{ duration: 0.2 }}
-          className="w-full max-w-md bg-[#121212] border border-[#00F0FF]/40 rounded-3xl p-6 shadow-2xl relative"
+          className="w-full max-w-md bg-[#121212] border border-[#FF5500]/40 rounded-3xl p-6 shadow-2xl relative"
         >
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-[#00F0FF]/20">
+          <div className="flex items-center justify-between pb-4 border-b border-[#FF5500]/20">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-black border border-[#00F0FF]/50 flex items-center justify-center text-[#00F0FF]">
+              <div className="w-8 h-8 rounded-xl bg-black border border-[#FF5500]/50 flex items-center justify-center text-[#FF5500]">
                 <Settings2 className="w-4 h-4" />
               </div>
               <h2 className="font-serif text-2xl font-bold text-[#F9F6EE]">
@@ -58,7 +58,7 @@ export const TimerSettingsModal: React.FC<TimerSettingsModalProps> = ({
             </div>
             <button
               onClick={onClose}
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#A09D95] hover:text-[#00F0FF] rounded-xl transition-colors"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#A09D95] hover:text-[#FF5500] rounded-xl transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -75,7 +75,7 @@ export const TimerSettingsModal: React.FC<TimerSettingsModalProps> = ({
                 max="120"
                 value={focusDuration}
                 onChange={(e) => setFocusDuration(parseInt(e.target.value) || 1)}
-                className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#00F0FF]/30 text-[#F9F6EE] font-bold focus:outline-none focus:border-[#00F0FF]"
+                className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#FF5500]/30 text-[#F9F6EE] font-bold focus:outline-none focus:border-[#FF5500]"
               />
             </div>
 
@@ -90,7 +90,7 @@ export const TimerSettingsModal: React.FC<TimerSettingsModalProps> = ({
                   max="60"
                   value={shortBreak}
                   onChange={(e) => setShortBreak(parseInt(e.target.value) || 1)}
-                  className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#00F0FF]/30 text-[#F9F6EE] font-bold focus:outline-none focus:border-[#00F0FF]"
+                  className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#FF5500]/30 text-[#F9F6EE] font-bold focus:outline-none focus:border-[#FF5500]"
                 />
               </div>
 
@@ -104,7 +104,7 @@ export const TimerSettingsModal: React.FC<TimerSettingsModalProps> = ({
                   max="90"
                   value={longBreak}
                   onChange={(e) => setLongBreak(parseInt(e.target.value) || 1)}
-                  className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#00F0FF]/30 text-[#F9F6EE] font-bold focus:outline-none focus:border-[#00F0FF]"
+                  className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#FF5500]/30 text-[#F9F6EE] font-bold focus:outline-none focus:border-[#FF5500]"
                 />
               </div>
             </div>
@@ -119,7 +119,7 @@ export const TimerSettingsModal: React.FC<TimerSettingsModalProps> = ({
                 max="12"
                 value={longInterval}
                 onChange={(e) => setLongInterval(parseInt(e.target.value) || 1)}
-                className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#00F0FF]/30 text-[#F9F6EE] font-bold focus:outline-none focus:border-[#00F0FF]"
+                className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#FF5500]/30 text-[#F9F6EE] font-bold focus:outline-none focus:border-[#FF5500]"
               />
             </div>
 
@@ -128,13 +128,13 @@ export const TimerSettingsModal: React.FC<TimerSettingsModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 min-h-[46px] rounded-xl border border-[#00F0FF]/30 text-sm text-[#A09D95] hover:text-[#F9F6EE] font-semibold transition-colors"
+                className="flex-1 min-h-[46px] rounded-xl border border-[#FF5500]/30 text-sm text-[#A09D95] hover:text-[#F9F6EE] font-semibold transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="flex-1 min-h-[46px] rounded-xl bg-[#00F0FF] hover:bg-[#FFD700] text-black text-sm font-bold transition-all shadow-md shadow-[#00F0FF]/20"
+                className="flex-1 min-h-[46px] rounded-xl bg-[#FF5500] hover:bg-[#FFD700] text-black text-sm font-bold transition-all shadow-md shadow-[#FF5500]/20"
               >
                 Save Settings
               </button>

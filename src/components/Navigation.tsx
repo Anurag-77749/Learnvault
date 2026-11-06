@@ -31,7 +31,7 @@ export const NAV_ITEMS: { id: ScreenId; label: string; icon: React.ComponentType
 
 /**
  * TopNavPills:
- * Renders the navigation features directly inside the top header space with pitch black contrast.
+ * Renders the navigation features directly inside the top header space with Neon Orange theme & Light/Dark mode support.
  */
 export const TopNavPills: React.FC<{
   activeScreen: ScreenId;
@@ -54,11 +54,11 @@ export const TopNavPills: React.FC<{
             }}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 relative ${
               isActive
-                ? 'btn-shiny-gold text-black font-bold shadow-md shadow-[#00F0FF]/30 scale-[1.02]'
-                : 'text-[#B8B0AA] hover:text-white hover:bg-[#0c0c0c] border border-transparent hover:border-[#222222]'
+                ? 'btn-shiny-gold text-black font-bold shadow-md shadow-[#FF5500]/30 scale-[1.02]'
+                : 'text-[#8A8A8A] hover:text-[#0A0A0A] hover:bg-black/5 dark:hover:text-white dark:hover:bg-[#0c0c0c] border border-transparent hover:border-gray-300 dark:hover:border-[#222222]'
             }`}
           >
-            <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-black stroke-[2.5]' : 'text-[#00F0FF]'}`} />
+            <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-black stroke-[2.5]' : 'text-[#FF5500]'}`} />
             <span>{item.label}</span>
           </button>
         );

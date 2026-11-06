@@ -48,12 +48,12 @@ export const CoverageReportModal: React.FC<CoverageReportModalProps> = ({
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          className="w-full max-w-2xl bg-[#121212] border border-[#00F0FF]/40 rounded-3xl p-6 shadow-2xl relative max-h-[90vh] flex flex-col"
+          className="w-full max-w-2xl bg-[#121212] border border-[#FF5500]/40 rounded-3xl p-6 shadow-2xl relative max-h-[90vh] flex flex-col"
         >
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-[#00F0FF]/20 shrink-0">
+          <div className="flex items-center justify-between pb-4 border-b border-[#FF5500]/20 shrink-0">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-black border border-[#00F0FF]/50 flex items-center justify-center text-[#00F0FF]">
+              <div className="w-9 h-9 rounded-xl bg-black border border-[#FF5500]/50 flex items-center justify-center text-[#FF5500]">
                 <BookOpen className="w-5 h-5" />
               </div>
               <div>
@@ -67,23 +67,23 @@ export const CoverageReportModal: React.FC<CoverageReportModalProps> = ({
             </div>
             <button
               onClick={onClose}
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#A09D95] hover:text-[#00F0FF] rounded-xl transition-colors"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#A09D95] hover:text-[#FF5500] rounded-xl transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
           {/* Overall Progress Banner */}
-          <div className="my-4 p-4 rounded-2xl bg-black border border-[#00F0FF]/30 flex items-center justify-between shrink-0">
+          <div className="my-4 p-4 rounded-2xl bg-black border border-[#FF5500]/30 flex items-center justify-between shrink-0">
             <div>
               <span className="text-xs text-[#A09D95] uppercase font-semibold">Overall Completion</span>
               <div className="font-serif text-2xl font-bold text-[#F9F6EE] mt-0.5">
-                {totalCompleted} / {totalSubtopics} <span className="text-sm font-sans text-[#00F0FF]">({overallPercent}%)</span>
+                {totalCompleted} / {totalSubtopics} <span className="text-sm font-sans text-[#FF5500]">({overallPercent}%)</span>
               </div>
             </div>
-            <div className="w-32 bg-[#121212] rounded-full h-3 border border-[#00F0FF]/25 overflow-hidden">
+            <div className="w-32 bg-[#121212] rounded-full h-3 border border-[#FF5500]/25 overflow-hidden">
               <div
-                className="bg-[#00F0FF] h-full transition-all duration-500 rounded-full"
+                className="bg-[#FF5500] h-full transition-all duration-500 rounded-full"
                 style={{ width: `${overallPercent}%` }}
               />
             </div>
@@ -96,7 +96,7 @@ export const CoverageReportModal: React.FC<CoverageReportModalProps> = ({
               return (
                 <div
                   key={g.trackId}
-                  className="p-3.5 rounded-2xl bg-black border border-[#00F0FF]/20 flex items-center justify-between text-xs"
+                  className="p-3.5 rounded-2xl bg-black border border-[#FF5500]/20 flex items-center justify-between text-xs"
                 >
                   <div className="flex-1 min-w-0 pr-3">
                     <p className="font-serif font-bold text-sm text-[#F9F6EE] truncate">
@@ -108,7 +108,7 @@ export const CoverageReportModal: React.FC<CoverageReportModalProps> = ({
                   </div>
 
                   <div className="text-right shrink-0">
-                    <span className="text-[#00F0FF] font-bold">
+                    <span className="text-[#FF5500] font-bold">
                       {g.completedSubtopics}/{g.subtopicsCount}
                     </span>
                     <span className="text-[#A09D95] ml-1.5 font-medium">
@@ -121,7 +121,7 @@ export const CoverageReportModal: React.FC<CoverageReportModalProps> = ({
           </div>
 
           {/* Bottom Actions */}
-          <div className="pt-4 border-t border-[#00F0FF]/20 flex items-center justify-between gap-3 shrink-0">
+          <div className="pt-4 border-t border-[#FF5500]/20 flex items-center justify-between gap-3 shrink-0">
             <button
               onClick={() => {
                 if (window.confirm('Reset all topics back to official Part 3 Source of Truth?')) {
@@ -129,7 +129,7 @@ export const CoverageReportModal: React.FC<CoverageReportModalProps> = ({
                   onClose();
                 }
               }}
-              className="min-h-[44px] px-4 rounded-xl bg-black border border-[#00F0FF]/30 hover:border-red-400 text-xs text-[#A09D95] hover:text-red-300 font-semibold flex items-center gap-2 transition-colors"
+              className="min-h-[44px] px-4 rounded-xl bg-black border border-[#FF5500]/30 hover:border-red-400 text-xs text-[#A09D95] hover:text-red-300 font-semibold flex items-center gap-2 transition-colors"
             >
               <RotateCcw className="w-4 h-4" />
               <span>Reset to Official Curriculum</span>
@@ -137,7 +137,7 @@ export const CoverageReportModal: React.FC<CoverageReportModalProps> = ({
 
             <button
               onClick={onClose}
-              className="min-h-[44px] px-6 rounded-xl bg-[#00F0FF] hover:bg-[#FFD700] text-black text-xs font-bold uppercase transition-all shadow-md shadow-[#00F0FF]/20"
+              className="min-h-[44px] px-6 rounded-xl bg-[#FF5500] hover:bg-[#FFD700] text-black text-xs font-bold uppercase transition-all shadow-md shadow-[#FF5500]/20"
             >
               Close Report
             </button>
