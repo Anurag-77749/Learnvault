@@ -7,251 +7,216 @@
     box-sizing: border-box;
   }
   
-  html, body, select, option, input, textarea {
-    color-scheme: dark;
+  html, body {
+    color-scheme: light;
   }
 
   select {
-    color-scheme: dark;
-    background-color: #0E0C0C;
-    color: #F5F2EB;
-    border: 1px solid rgba(255, 240, 220, 0.08);
+    color-scheme: light;
+    background-color: #FFFFFF;
+    color: #0F172A;
+    border: 1px solid rgba(203, 213, 225, 0.8);
   }
 
   select option {
-    background-color: #110E0E;
-    color: #F5F2EB;
+    background-color: #FFFFFF;
+    color: #0F172A;
     padding: 8px 12px;
   }
 
   body {
     margin: 0;
     padding: 0;
-    background-color: #080707;
-    background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(180, 130, 70, 0.12), transparent);
+    background-color: #F1F4FA;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.14) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.16) 0px, transparent 50%),
+      radial-gradient(at 50% 40%, rgba(168, 85, 247, 0.08) 0px, transparent 50%),
+      radial-gradient(at 80% 100%, rgba(14, 165, 233, 0.12) 0px, transparent 50%),
+      radial-gradient(at 20% 100%, rgba(224, 231, 255, 0.8) 0px, transparent 50%);
     background-attachment: fixed;
-    color: #F5F2EB;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    color: #0F172A;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
-  h1, h2, h3, .font-serif {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    letter-spacing: -0.015em;
+  h1, h2, h3, .font-serif, .font-display {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    letter-spacing: -0.025em;
   }
 
   .font-mono, .tabular-nums {
-    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
     font-variant-numeric: tabular-nums;
   }
 }
 
 /* ==========================================================================
-   OBSIDIAN, ESPRESSO & CHAMPAGNE DESIGN TOKENS
+   NOVA LUXURY GLASSMORPHIC DESIGN SYSTEM
    ========================================================================== */
 
-/* 1px Specular Border with top-down studio lighting */
-.border-specular {
-  border: 1px solid rgba(255, 240, 220, 0.07);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
-}
-
-/* Primary Obsidian Card Surface */
-.card-obsidian {
-  background-color: #110E0E;
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 240, 220, 0.07);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 4px 20px rgba(0, 0, 0, 0.45);
-}
-
-/* Elevated/Hover Card Surface */
-.card-obsidian-hover {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.card-obsidian-hover:hover {
-  background-color: #181313;
-  border-color: rgba(212, 175, 55, 0.25);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 8px 30px rgba(0, 0, 0, 0.6);
-  transform: translateY(-1px);
-}
-
-/* Backward-compatible classes upgraded to Obsidian Luxury */
+/* Glass Surface with studio lighting */
+.card-glass,
+.card-obsidian,
 .card-maroon,
+.card-maroon-gold,
 .card-emerald,
 .card-burgundy {
-  background-color: #110E0E;
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0%, rgba(255, 255, 255, 0) 100%);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 240, 220, 0.07);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 4px 24px rgba(0, 0, 0, 0.5);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(255, 255, 255, 0.82);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 20px 45px -15px rgba(30, 41, 59, 0.07),
+    0 4px 16px -2px rgba(30, 41, 59, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  color: #0F172A;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.card-glass:hover,
+.card-obsidian:hover,
 .card-maroon:hover,
-.card-emerald:hover,
-.card-burgundy:hover {
-  border-color: rgba(255, 240, 220, 0.12);
+.card-maroon-gold:hover {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(99, 102, 241, 0.28);
+  box-shadow: 
+    0 24px 50px -12px rgba(37, 99, 235, 0.12),
+    0 6px 20px -2px rgba(30, 41, 59, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
 }
 
-.card-maroon-gold,
-.card-emerald-gold,
-.card-burgundy-gold {
-  background-color: #110E0E;
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0) 100%);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 240, 220, 0.08);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 6px 28px rgba(0, 0, 0, 0.6);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.card-maroon-gold:hover,
-.card-emerald-gold:hover,
-.card-burgundy-gold:hover {
-  background-color: #151111;
-  border-color: rgba(212, 175, 55, 0.3);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 8px 32px rgba(0, 0, 0, 0.7);
-}
-
-/* Primary Accent: Liquid Champagne Gold Hero Button */
+/* Hero Vibrant Royal Blue & Indigo Pill Button */
+.btn-nova-primary,
 .btn-champagne,
 .btn-shiny-gold {
-  background: linear-gradient(135deg, #F6E6C2 0%, #D4AF37 50%, #AA8222 100%);
-  color: #090808;
-  font-weight: 700;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.45), 0 3px 12px rgba(212, 175, 55, 0.25);
-  border-radius: 8px;
+  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 50%, #7C3AED 100%);
+  color: #FFFFFF !important;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 
+    0 8px 20px -4px rgba(37, 99, 235, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  border-radius: 9999px;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.btn-nova-primary:hover,
 .btn-champagne:hover,
 .btn-shiny-gold:hover {
   filter: brightness(1.08);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.6), 0 6px 18px rgba(212, 175, 55, 0.35);
-  transform: translateY(-1px);
+  box-shadow: 
+    0 12px 28px -4px rgba(37, 99, 235, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transform: translateY(-1.5px);
 }
 
+.btn-nova-primary:active,
 .btn-champagne:active,
 .btn-shiny-gold:active {
   transform: translateY(0);
   filter: brightness(0.96);
 }
 
-/* Dark Anodized Glass Pill Button */
+/* Frosted Glass Pill Button */
+.btn-nova-glass,
 .btn-anodized {
-  background-color: #110E0E;
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
-  border: 1px solid rgba(255, 240, 220, 0.08);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.07);
-  color: #F5F2EB;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  color: #1E293B !important;
+  font-weight: 600;
+  border-radius: 9999px;
+  box-shadow: 0 4px 12px rgba(30, 41, 59, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.btn-nova-glass:hover,
 .btn-anodized:hover {
-  background-color: #181313;
-  border-color: rgba(212, 175, 55, 0.4);
-  color: #F6E6C2;
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 4px 14px rgba(0, 0, 0, 0.4);
+  background: #FFFFFF;
+  border-color: rgba(99, 102, 241, 0.4);
+  color: #2563EB !important;
+  box-shadow: 0 8px 20px -3px rgba(37, 99, 235, 0.14), inset 0 1px 0 rgba(255, 255, 255, 1);
   transform: translateY(-1px);
 }
 
-/* Metallic Champagne Text Gradient */
+/* Vibrant Gradient Text */
+.text-nova-gradient,
 .text-champagne,
 .text-shiny-gold {
-  background: linear-gradient(135deg, #FFF1D0 0%, #F6E6C2 40%, #D4AF37 80%, #AA8222 100%);
+  background: linear-gradient(135deg, #1D4ED8 0%, #4F46E5 50%, #7C3AED 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Copper / Warm Rose Accent */
-.text-copper {
-  color: #E5A970;
-}
-
-.border-copper {
-  border-color: rgba(229, 169, 112, 0.3);
-}
-
-.border-gold-shine {
-  border-color: rgba(255, 240, 220, 0.08);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
-}
-
-.border-gold-shine:hover {
-  border-color: rgba(212, 175, 55, 0.45);
-  box-shadow: inset 0 0 12px rgba(212, 175, 55, 0.08), 0 4px 16px rgba(0, 0, 0, 0.4);
-}
-
-/* Recessed Command Bar Input */
+/* Soft Command Bar Input */
 .input-command-bar {
-  background-color: #0A0808;
-  border: 1px solid rgba(255, 240, 220, 0.08);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.02);
-  color: #F5F2EB;
+  background: #FFFFFF;
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  box-shadow: inset 0 2px 4px rgba(30, 41, 59, 0.03), 0 2px 6px rgba(30, 41, 59, 0.02);
+  color: #0F172A;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .input-command-bar:focus {
-  border-color: rgba(212, 175, 55, 0.45);
-  box-shadow: inset 0 0 12px rgba(212, 175, 55, 0.08), inset 0 2px 4px rgba(0, 0, 0, 0.6);
+  border-color: #4F46E5;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15), inset 0 1px 2px rgba(30, 41, 59, 0.03);
 }
 
-/* Active navigation dark glass pill with vertical left indicator */
+/* Active Top Navigation Pill */
 .nav-pill-active {
-  background-color: rgba(212, 175, 55, 0.09);
-  color: #F6E6C2;
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.09);
-  position: relative;
-}
-
-.nav-pill-active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 15%;
-  bottom: 15%;
-  width: 2px;
-  background: linear-gradient(180deg, #F6E6C2 0%, #D4AF37 100%);
+  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 100%);
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+  font-weight: 600;
   border-radius: 9999px;
-  box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
 }
 
-/* Minimal Luxury Scrollbar */
+/* Minimalist Clean Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #080707;
+  background: #F1F4FA;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #221C1C;
+  background: #CBD5E1;
   border-radius: 9999px;
-  border: 1px solid #080707;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D4AF37;
+  background: #94A3B8;
 }
 
-/* Respect prefers-reduced-motion */
-@media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+/* 3D Glass Sphere Floating Glow Animations */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
   }
+  50% {
+    transform: translateY(-10px) rotate(3deg);
+  }
+}
+
+@keyframes spin-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-float {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-spin-orbit {
+  animation: spin-slow 20s linear infinite;
 }

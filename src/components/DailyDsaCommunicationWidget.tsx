@@ -6,7 +6,8 @@ import {
   Check, 
   X, 
   Plus, 
-  Minus
+  Minus,
+  Sparkles
 } from 'lucide-react';
 import { db, getTodayDateString } from '../services/db';
 import { updateDSAQuestions, setCommunicationPracticed } from '../services/dailyLogService';
@@ -62,7 +63,6 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
   };
 
   const handleToggleCommunication = async (practiced: boolean) => {
-    // If clicking the already selected choice, toggle back to undefined
     const nextVal = commStatus === practiced ? undefined : practiced;
     await setCommunicationPracticed(nextVal, undefined, today);
     if (nextVal === true) {
@@ -71,47 +71,54 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
   };
 
   return (
-    <div className="rounded-xl card-obsidian p-3 space-y-3 text-left font-sans">
+    <div className="rounded-3xl card-glass p-4 sm:p-5 space-y-4 text-left font-sans shadow-sm">
       {/* Header */}
-      <div className="flex items-center justify-between pb-2 border-b border-[rgba(255,240,220,0.06)]">
-        <div className="flex items-center gap-1.5 text-[11px] font-semibold text-[#F5F2EB]">
-          <Code2 className="w-3.5 h-3.5 text-[#E5A970]" />
-          <span className="uppercase tracking-wider">DSA & Communication</span>
+      <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+            <Code2 className="w-4 h-4" />
+          </div>
+          <div>
+            <h4 className="text-xs font-bold text-slate-900 tracking-tight uppercase">
+              DSA & Communication
+            </h4>
+            <span className="text-[10px] text-slate-400 font-medium">Daily Target Control</span>
+          </div>
         </div>
-        <span className="text-[9px] font-mono font-medium text-[#E5A970] px-1.5 py-0.5 rounded-full bg-[#181313] border border-[rgba(229,169,112,0.25)]">
+        <span className="text-[10px] font-mono font-bold text-indigo-600 px-2 py-0.5 rounded-full bg-indigo-50 border border-indigo-100">
           DAILY
         </span>
       </div>
 
       {/* 1. Daily DSA Problems Counter with Difficulty Choice */}
-      <div className="space-y-2">
+      <div className="space-y-2.5">
         <div className="flex items-center justify-between text-xs">
-          <span className="text-[#9E958E] font-medium flex items-center gap-1 text-[11px]">
-            <span className="font-mono text-[#E5A970]">&lt;/&gt;</span> DSA Today
+          <span className="text-slate-600 font-semibold flex items-center gap-1.5 text-xs">
+            <span className="font-mono text-indigo-600 font-bold">&lt;/&gt;</span> LeetCode / Problems
           </span>
-          <span className="text-[11px] font-mono font-bold text-champagne">
-            Total: {todayTotal}
+          <span className="text-xs font-mono font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded-full">
+            Today: {todayTotal}
           </span>
         </div>
 
         {/* Counter and Difficulty Segmented Control */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           {/* Stepper (- 0 +) */}
-          <div className="flex items-center bg-[#070606] border border-[rgba(255,240,220,0.08)] rounded-lg p-0.5 shadow-inner">
+          <div className="flex items-center bg-white border border-slate-200/90 rounded-2xl p-1 shadow-sm">
             <button
               onClick={() => handleAdjustDSA(-1)}
               disabled={diffCounts[selectedDifficulty] <= 0}
-              className="w-7 h-7 rounded-md flex items-center justify-center text-[#9E958E] hover:text-[#F5F2EB] hover:bg-white/5 disabled:opacity-20 transition-all cursor-pointer"
+              className="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-800 hover:bg-slate-50 disabled:opacity-30 transition-all cursor-pointer"
               aria-label="Decrease question"
             >
-              <Minus className="w-3.5 h-3.5" />
+              <Minus className="w-3.5 h-3.5 stroke-[2.5]" />
             </button>
-            <span className="w-7 text-center text-xs font-bold text-[#F5F2EB] font-mono tabular-nums">
+            <span className="w-8 text-center text-sm font-bold text-slate-900 font-mono tabular-nums">
               {diffCounts[selectedDifficulty]}
             </span>
             <button
               onClick={() => handleAdjustDSA(1)}
-              className="w-7 h-7 rounded-md flex items-center justify-center text-[#090808] bg-gradient-to-br from-[#F6E6C2] to-[#D4AF37] hover:brightness-110 active:brightness-95 transition-all cursor-pointer shadow-sm"
+              className="w-8 h-8 rounded-xl flex items-center justify-center text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:brightness-110 active:brightness-95 transition-all cursor-pointer shadow-sm shadow-blue-500/25"
               aria-label="Increase question"
             >
               <Plus className="w-3.5 h-3.5 stroke-[3]" />
@@ -119,72 +126,74 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
           </div>
 
           {/* Segmented Pill Toggles: Easy | Med | Hard */}
-          <div className="flex-1 grid grid-cols-3 gap-1 bg-[#070606] p-0.5 rounded-lg border border-[rgba(255,240,220,0.06)]">
+          <div className="flex-1 grid grid-cols-3 gap-1 bg-slate-100/80 p-1 rounded-2xl border border-slate-200/50">
             <button
               type="button"
               onClick={() => setSelectedDifficulty('easy')}
-              className={`py-1 rounded-md text-[10px] font-medium transition-all text-center cursor-pointer ${
+              className={`py-1.5 rounded-xl text-[11px] font-semibold transition-all text-center cursor-pointer ${
                 selectedDifficulty === 'easy'
-                  ? 'bg-[#0E2016] text-[#6ee7b7] border border-[#059669]/40 shadow-sm font-semibold'
-                  : 'text-[#9E958E] hover:text-[#F5F2EB]'
+                  ? 'bg-emerald-500 text-white shadow-sm font-bold'
+                  : 'text-slate-500 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
               Easy
-              <span className="block text-[9px] font-mono opacity-80">{diffCounts.easy || 0}</span>
+              <span className="block text-[9px] font-mono opacity-90">{diffCounts.easy || 0}</span>
             </button>
 
             <button
               type="button"
               onClick={() => setSelectedDifficulty('medium')}
-              className={`py-1 rounded-md text-[10px] font-medium transition-all text-center cursor-pointer ${
+              className={`py-1.5 rounded-xl text-[11px] font-semibold transition-all text-center cursor-pointer ${
                 selectedDifficulty === 'medium'
-                  ? 'bg-[rgba(212,175,55,0.12)] text-[#F6E6C2] border border-[rgba(212,175,55,0.35)] shadow-sm font-semibold'
-                  : 'text-[#9E958E] hover:text-[#F5F2EB]'
+                  ? 'bg-blue-600 text-white shadow-sm font-bold'
+                  : 'text-slate-500 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
               Med
-              <span className="block text-[9px] font-mono opacity-80">{diffCounts.medium || 0}</span>
+              <span className="block text-[9px] font-mono opacity-90">{diffCounts.medium || 0}</span>
             </button>
 
             <button
               type="button"
               onClick={() => setSelectedDifficulty('hard')}
-              className={`py-1 rounded-md text-[10px] font-medium transition-all text-center cursor-pointer ${
+              className={`py-1.5 rounded-xl text-[11px] font-semibold transition-all text-center cursor-pointer ${
                 selectedDifficulty === 'hard'
-                  ? 'bg-[#220B10] text-[#fca5a5] border border-red-500/35 shadow-sm font-semibold'
-                  : 'text-[#9E958E] hover:text-[#F5F2EB]'
+                  ? 'bg-rose-500 text-white shadow-sm font-bold'
+                  : 'text-slate-500 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
               Hard
-              <span className="block text-[9px] font-mono opacity-80">{diffCounts.hard || 0}</span>
+              <span className="block text-[9px] font-mono opacity-90">{diffCounts.hard || 0}</span>
             </button>
           </div>
         </div>
 
         {/* All-time cumulative mini-summary */}
-        <div className="text-[10px] text-[#9E958E] flex items-center justify-between pt-0.5 px-0.5 font-mono">
-          <span>All-time: <strong className="text-[#F5F2EB]">{cumulativeStats.totalQuestions}</strong></span>
-          <span className="text-[#E5A970]">E:{cumulativeStats.easy} M:{cumulativeStats.medium} H:{cumulativeStats.hard}</span>
+        <div className="text-[11px] text-slate-500 flex items-center justify-between pt-1 px-1 font-mono">
+          <span>All-time: <strong className="text-slate-800">{cumulativeStats.totalQuestions}</strong></span>
+          <span className="text-indigo-600 font-semibold">E:{cumulativeStats.easy} M:{cumulativeStats.medium} H:{cumulativeStats.hard}</span>
         </div>
       </div>
 
       {/* 2. Communication & High-Level English Practice */}
-      <div className="pt-2 border-t border-[rgba(255,240,220,0.06)] space-y-2">
-        <div className="flex items-start gap-1.5">
-          <MessageSquare className="w-3.5 h-3.5 text-[#E5A970] shrink-0 mt-0.5" />
-          <p className="text-[11px] text-[#F5F2EB] leading-snug">
-            Today did you <span className="text-[#F6E6C2] font-semibold">speak, learn or hear high-level English</span>?
+      <div className="pt-3 border-t border-slate-100 space-y-2.5">
+        <div className="flex items-start gap-2">
+          <div className="w-5 h-5 rounded-md bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 mt-0.5">
+            <MessageSquare className="w-3.5 h-3.5" />
+          </div>
+          <p className="text-xs text-slate-700 leading-snug">
+            Today did you <span className="font-bold text-slate-900">speak, hear or practice high-level English</span>?
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-1.5">
+        <div className="grid grid-cols-2 gap-2">
           <button
             type="button"
             onClick={() => handleToggleCommunication(true)}
-            className={`py-1.5 px-2 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
+            className={`py-2 px-3 rounded-2xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
               isCommDone
-                ? 'btn-champagne text-[#090808] font-bold shadow-sm'
-                : 'bg-[#0B0909] text-[#9E958E] border-[rgba(255,240,220,0.07)] hover:border-[rgba(212,175,55,0.4)] hover:text-[#F5F2EB]'
+                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-transparent shadow-md shadow-blue-500/25 font-bold'
+                : 'bg-white text-slate-600 border-slate-200 hover:border-blue-400 hover:text-blue-600 shadow-sm'
             }`}
             title={isCommDone ? 'Click to uncheck' : 'Mark English practiced today'}
           >
@@ -195,10 +204,10 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
           <button
             type="button"
             onClick={() => handleToggleCommunication(false)}
-            className={`py-1.5 px-2 rounded-lg text-xs font-medium flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
+            className={`py-2 px-3 rounded-2xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
               isCommNotDone
-                ? 'bg-[#200A0E] border-red-500/40 text-[#fca5a5] font-semibold shadow-sm'
-                : 'bg-[#0B0909] text-[#9E958E] border-[rgba(255,240,220,0.07)] hover:border-red-500/30 hover:text-[#fca5a5]'
+                ? 'bg-rose-50 border-rose-300 text-rose-700 font-bold shadow-sm'
+                : 'bg-white text-slate-600 border-slate-200 hover:border-rose-300 hover:text-rose-600 shadow-sm'
             }`}
             title={isCommNotDone ? 'Click to uncheck' : "Mark didn't complete today"}
           >
@@ -208,15 +217,15 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
         </div>
 
         {/* Status indicator */}
-        <div className="text-[10px] font-mono flex items-center justify-between px-0.5 min-h-[16px]">
+        <div className="text-[11px] font-mono flex items-center justify-between px-1">
           {isCommDone ? (
-            <span className="text-champagne flex items-center gap-1 font-sans">✨ English practiced</span>
+            <span className="text-emerald-600 flex items-center gap-1 font-sans font-medium">✨ Practice logged</span>
           ) : isCommNotDone ? (
-            <span className="text-red-400/90 flex items-center gap-1 font-sans">✕ Not practiced</span>
+            <span className="text-rose-600 flex items-center gap-1 font-sans font-medium">✕ Not completed</span>
           ) : (
-            <span className="text-[#635B55] font-sans">Tap to record</span>
+            <span className="text-slate-400 font-sans">Tap to record status</span>
           )}
-          <span className="text-[#9E958E]">All-time: {cumulativeStats.commDays}d</span>
+          <span className="text-slate-500">Streak: {cumulativeStats.commDays}d</span>
         </div>
       </div>
     </div>
