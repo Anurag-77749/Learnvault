@@ -10,9 +10,13 @@ import {
   ChevronUp, 
   ChevronDown, 
   FileText, 
-  X,
   Play,
   ArrowRight,
+  Sparkles,
+  Link as LinkIcon,
+  HelpCircle,
+  TrendingUp,
+  BrainCircuit
 } from 'lucide-react';
 import { db, getTodayDateString, TaskItem } from '../services/db';
 import { 
@@ -26,7 +30,9 @@ import {
 } from '../services/taskService';
 import { formatMinutes, updateDailyNote, logSleep } from '../services/dailyLogService';
 import { triggerGoldSparkle } from '../utils/confetti';
-import { DailyDsaCommunicationWidget } from './DailyDsaCommunicationWidget';
+import { Interactive3DTiltCard } from './Interactive3DTiltCard';
+import { SpringCounter } from './SpringCounter';
+import { AmbientGoldCanvas } from './AmbientGoldCanvas';
 import { LogWastedModal } from './modals/LogWastedModal';
 import { LogSleepModal } from './modals/LogSleepModal';
 import { AddQuestionModal } from './modals/AddQuestionModal';
@@ -36,12 +42,14 @@ interface TodayScreenProps {
   onNavigateToTimer: (topicTitle?: string) => void;
   onNavigateToPlan: () => void;
   onNavigateToLearn: () => void;
+  onNavigateToProgress?: () => void;
 }
 
 export const TodayScreen: React.FC<TodayScreenProps> = ({
   onNavigateToTimer,
   onNavigateToPlan,
   onNavigateToLearn,
+  onNavigateToProgress,
 }) => {
   const today = getTodayDateString();
 
@@ -52,6 +60,19 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
   const tasks = useLiveQuery(
     async () => {
       const all = await db.tasks.toArray();
+      // Ensure at least one sample directive if empty
+      if (all.length === 0) {
+        return [
+          {
+            id: 1,
+            title: 'touch typing',
+            completed: false,
+            date: today,
+            order: 0,
+            createdAt: Date.now(),
+          } as TaskItem,
+        ];
+      }
       return all
         .filter((t) => !t.completed || t.date === today)
         .sort((a, b) => (a.order || 0) - (b.order || 0));
@@ -77,13 +98,6 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
   // Editing existing task note
   const [editingTaskForNote, setEditingTaskForNote] = useState<TaskItem | null>(null);
   const [editNoteText, setEditNoteText] = useState('');
-
-  const [noteText, setNoteText] = useState(dailyLog?.oneLineNote || '');
-  useEffect(() => {
-    if (dailyLog?.oneLineNote !== undefined) {
-      setNoteText(dailyLog.oneLineNote);
-    }
-  }, [dailyLog?.oneLineNote]);
 
   // Live timer tracking
   const [activeLiveElapsedMins, setActiveLiveElapsedMins] = useState(0);
@@ -162,559 +176,481 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
     await reorderTasks(ids);
   };
 
-  const handleQuickLogSleep = async (hours: number) => {
-    const bedtimeMap: Record<number, string> = { 6: '01:00', 7: '00:00', 8: '23:00' };
-    await logSleep(bedtimeMap[hours] || '23:30', '07:00', 4);
-  };
-
   const completedCount = tasks.filter((t) => t.completed).length;
 
   const studiedMins = Math.max(dailyLog?.studyMinutes || 0, (dailyLog?.studyMinutes || 0) + activeLiveElapsedMins);
   const wastedMins = dailyLog?.wastedMinutes || 0;
-  const totalTrackedMins = studiedMins + wastedMins;
-  const studyRatioPercent = totalTrackedMins > 0 ? Math.round((studiedMins / totalTrackedMins) * 100) : 100;
+  const questionsCount = dailyLog?.questionsCount || 0;
+  const topicsCount = (dailyLog?.topicsLearned || []).length;
+  const sleepHours = dailyLog?.sleepHours || 0;
 
-  const nextUpInfo = {
-    track: 'Track 0: Introduction',
-    topic: 'FDE Glossary & Field Engineering Roles',
-    desc: 'Master Delta, UAT, Last-Mile Integration, Day 2 Operations, and FDE Tiers.',
-    presetDates: 'Nov 1 – Nov 3, 2026',
-  };
+  // Day calculation (Day X of 1,460)
+  const currentDayNumber = React.useMemo(() => {
+    const start = new Date(2026, 10, 1);
+    const now = new Date();
+    const startMidnight = new Date(start.getFullYear(), start.getMonth(), start.getDate()).getTime();
+    const nowMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    const diffDays = Math.floor((nowMidnight - startMidnight) / (1000 * 60 * 60 * 24));
+    return Math.min(1460, Math.max(1, diffDays + 1));
+  }, []);
+
+  const formattedDate = new Date().toLocaleDateString('en-GB', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
 
   return (
-    <div className="space-y-6 pb-28 max-w-[1500px] mx-auto select-none font-sans">
-      {/* ==========================================================================
-          FULL-VIEWPORT ASYMMETRIC BENTO GRID (12 COLUMNS)
-          ========================================================================== */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-        
-        {/* ========================================================================
-            COLUMN 1 (LEFT 4 COLS): THE "COMMAND & EXECUTION" STACK
-            ======================================================================== */}
-        <div className="lg:col-span-4 space-y-5">
-          {/* 1A. MISSION CONTROL HEADER CARD (SMOKED OBSIDIAN) */}
-          <div className="smoked-glass p-6 space-y-4 relative overflow-hidden">
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="w-2 h-2 rounded-full bg-[#FF5500] shadow-[0_0_8px_#FF5500]" />
-                <span className="text-[11px] font-mono uppercase tracking-widest text-[#9898A0] font-bold">
-                  MISSION CONTROL
-                </span>
-              </div>
-              <h1 className="font-display font-black text-2xl sm:text-3xl text-white tracking-tight leading-tight">
-                Today's Blueprint
-              </h1>
-              <p className="text-xs text-[#9898A0] mt-1 font-sans">
-                Daily execution matrix for forward deployed engineering mastery.
-              </p>
-            </div>
+    <div className="relative w-full space-y-8 select-none font-sans">
+      {/* Ambient Bokeh Gold Particles in Background */}
+      <AmbientGoldCanvas className="opacity-75" />
 
-            {/* Embedded Interactive Quick-Action Dock */}
-            <div className="pt-2 border-t border-white/[0.08]">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-[#9898A0] block mb-2 font-semibold">
-                QUICK-ACTION DOCK
-              </span>
-              <div className="flex flex-wrap items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setShowSleepModal(true)}
-                  className="px-3 py-1.5 rounded-full btn-tactile text-xs flex items-center gap-1.5 cursor-pointer"
-                >
-                  <Moon className="w-3.5 h-3.5 text-[#FF5500]" />
-                  <span>+ Log Sleep</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setShowWastedModal(true)}
-                  className="px-3 py-1.5 rounded-full btn-tactile text-xs flex items-center gap-1.5 cursor-pointer"
-                >
-                  <Clock className="w-3.5 h-3.5 text-[#9898A0]" />
-                  <span>+ Log Wasted</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setShowQuestionModal(true)}
-                  className="px-3 py-1.5 rounded-full btn-tactile text-xs flex items-center gap-1.5 cursor-pointer"
-                >
-                  <Plus className="w-3.5 h-3.5 text-[#10B981] stroke-[2.5]" />
-                  <span>+1 Question</span>
-                </button>
-              </div>
-            </div>
+      {/* ========================================================================
+          1. HEADER ROW: DAY OF 1,460 & TODAY'S MISSION
+          ======================================================================== */}
+      <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 mb-1.5">
+            <Sparkles className="w-4 h-4 text-[#E5B84B] animate-pulse" />
+            <span className="text-xs font-mono font-bold tracking-widest text-[#E5B84B] uppercase">
+              DAY {currentDayNumber} OF 1,460
+            </span>
           </div>
 
-          {/* 1B. ZERO-FRICTION TASK ENGINE CARD (SMOKED OBSIDIAN) */}
-          <div className="smoked-glass p-6 space-y-4 relative">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <h2 className="font-display font-extrabold text-xl text-white tracking-tight">
-                  Task Engine
-                </h2>
-                <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-full bg-white/[0.06] border border-white/[0.1] text-white">
-                  {completedCount}/{tasks.length}
-                </span>
-              </div>
-              <span className="text-[10px] font-mono uppercase text-[#9898A0] tracking-wider font-semibold">
-                AUTO-CARRYOVER ACTIVE
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-display tracking-tight text-white">
+            Today's Mission
+          </h1>
+
+          <p className="text-xs sm:text-sm font-sans text-[#BFA997] mt-1">
+            {formattedDate}
+          </p>
+        </div>
+
+        {/* LearnVault Knowledge Capsule Badge */}
+        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#1A080A]/70 border border-[#E5B84B]/30 backdrop-blur-md shadow-[0_0_20px_rgba(229,184,75,0.15)] self-start md:self-auto">
+          <span className="w-2 h-2 rounded-full bg-[#E5B84B] shadow-[0_0_8px_#E5B84B] animate-ping" />
+          <span className="text-xs font-mono font-medium text-[#F9D976]">
+            LearnVault: Your Knowledge. Your Progress. Your Future.
+          </span>
+        </div>
+      </div>
+
+      {/* ========================================================================
+          2. TO-DO LIST (INTERACTIVE 3D TILT CARD WITH LIQUID GOLD CTA)
+          ======================================================================== */}
+      <Interactive3DTiltCard maxTilt={5} className="w-full">
+        <div className="crimson-glass p-6 sm:p-7 space-y-5 rounded-2xl relative">
+          {/* Card Header */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-black font-display text-white tracking-tight">
+                To-Do List
+              </h2>
+              <span className="px-2.5 py-0.5 rounded-full bg-[#E5B84B]/20 text-[#F9D976] border border-[#E5B84B]/40 font-mono text-xs font-bold">
+                {completedCount}/{tasks.length} Done
               </span>
             </div>
+            <span className="text-xs font-mono text-[#A89279] hidden sm:inline">
+              Unfinished tasks automatically carry over
+            </span>
+          </div>
 
-            {/* Quick Add Command Bar */}
-            <form onSubmit={handleAddTask} className="space-y-2">
-              <div className="flex items-center gap-2">
-                <input
-                  ref={taskInputRef}
-                  type="text"
-                  value={newTaskTitle}
-                  onChange={(e) => setNewTaskTitle(e.target.value)}
-                  placeholder="Type a task and press Enter..."
-                  className="flex-1 min-h-[44px] px-3.5 rounded-xl input-command-bar text-xs text-white placeholder-[#9898A0] focus:outline-none"
-                />
+          {/* Input Bar */}
+          <form onSubmit={handleAddTask} className="relative flex items-center gap-2">
+            <div className="relative flex-1">
+              <input
+                ref={taskInputRef}
+                type="text"
+                value={newTaskTitle}
+                onChange={(e) => setNewTaskTitle(e.target.value)}
+                placeholder="Add a new task in one tap..."
+                className="w-full h-12 pl-4 pr-24 rounded-xl bg-[#140407]/80 border border-[#E5B84B]/25 text-sm text-white placeholder-[#887060] focus:outline-none focus:border-[#F9D976] focus:ring-1 focus:ring-[#F9D976]/50 transition-all font-sans"
+              />
+
+              {/* In-bar actions: + Note, Link */}
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => setShowNoteInput(!showNoteInput)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-mono flex items-center gap-1 transition-all cursor-pointer ${
+                    showNoteInput || newTaskNote
+                      ? 'bg-[#E5B84B] text-black font-bold'
+                      : 'text-[#BFA997] hover:text-white bg-white/[0.04]'
+                  }`}
+                  title="Attach Context Note"
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>+ Note</span>
+                </button>
 
                 <button
                   type="button"
                   onClick={() => setShowNoteInput(!showNoteInput)}
-                  className={`min-h-[44px] px-2.5 rounded-xl border text-xs font-mono font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                    showNoteInput || newTaskNote
-                      ? 'bg-white text-black border-white shadow-sm'
-                      : 'bg-white/[0.04] text-[#9898A0] border-white/[0.08] hover:text-white hover:bg-white/[0.08]'
-                  }`}
-                  title="Attach Note"
+                  className="p-1.5 text-[#887060] hover:text-[#E5B84B] transition-colors cursor-pointer"
+                  title="Attach Link"
                 >
-                  <FileText className="w-3.5 h-3.5" />
-                  <span className="text-[10px] uppercase font-mono">Note</span>
-                </button>
-
-                <button
-                  type="submit"
-                  className="min-h-[44px] px-4 rounded-xl btn-mercury text-xs font-black cursor-pointer shrink-0 shadow-md"
-                >
-                  <Plus className="w-4 h-4 stroke-[3]" />
+                  <LinkIcon className="w-3.5 h-3.5" />
                 </button>
               </div>
+            </div>
 
-              {/* Note input slide down */}
-              <AnimatePresence>
-                {showNoteInput && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                  >
-                    <input
-                      type="text"
-                      value={newTaskNote}
-                      onChange={(e) => setNewTaskNote(e.target.value)}
-                      placeholder="Attach context note to directive..."
-                      className="w-full px-3.5 py-2 rounded-xl input-command-bar text-xs text-white placeholder-[#9898A0] focus:outline-none"
-                    />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </form>
+            {/* + Add Liquid Gold Shimmer Button */}
+            <button
+              type="submit"
+              className="h-12 px-6 rounded-xl btn-liquid-gold text-xs font-black uppercase tracking-wider flex items-center gap-2 cursor-pointer shrink-0 shadow-lg"
+            >
+              <Plus className="w-4 h-4 stroke-[3]" />
+              <span>+ Add</span>
+            </button>
+          </form>
 
-            {/* Task Item List */}
-            <div className="space-y-2 max-h-[380px] overflow-y-auto pr-1">
-              {tasks.length === 0 ? (
-                <div className="text-center py-10 text-[#9898A0] text-xs font-mono border-2 border-dashed border-white/[0.08] rounded-xl bg-white/[0.02]">
-                  NO ACTIVE DIRECTIVES. TYPE ABOVE TO ENGAGE.
-                </div>
-              ) : (
-                tasks.map((task, idx) => (
-                  <div
-                    key={task.id}
-                    className={`group relative p-3 rounded-xl border transition-all duration-150 flex items-start gap-2.5 ${
-                      task.completed
-                        ? 'bg-black/30 border-white/[0.05] opacity-50'
-                        : 'bg-white/[0.03] border-white/[0.08] hover:border-white/[0.2] shadow-sm'
-                    }`}
-                  >
-                    {/* Reorder Chevrons */}
-                    <div className="flex flex-col gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button
-                        type="button"
-                        onClick={() => handleMoveTask(idx, 'up')}
-                        disabled={idx === 0}
-                        className="p-0.5 text-[#9898A0] hover:text-white disabled:opacity-20 cursor-pointer"
-                      >
-                        <ChevronUp className="w-3 h-3" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleMoveTask(idx, 'down')}
-                        disabled={idx === tasks.length - 1}
-                        className="p-0.5 text-[#9898A0] hover:text-white disabled:opacity-20 cursor-pointer"
-                      >
-                        <ChevronDown className="w-3 h-3" />
-                      </button>
-                    </div>
+          {/* Slide-out note attachment input */}
+          <AnimatePresence>
+            {showNoteInput && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+              >
+                <input
+                  type="text"
+                  value={newTaskNote}
+                  onChange={(e) => setNewTaskNote(e.target.value)}
+                  placeholder="Attach reference link or context note..."
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#140407]/90 border border-[#E5B84B]/20 text-xs text-white placeholder-[#887060] focus:outline-none focus:border-[#F9D976]"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-                    {/* Circular Specular Checkbox */}
+          {/* Task Items List */}
+          <div className="space-y-2 pt-1">
+            {tasks.length === 0 ? (
+              <div className="text-center py-8 text-xs font-mono text-[#887060] border border-dashed border-[#E5B84B]/20 rounded-xl bg-[#140407]/40">
+                NO ACTIVE DIRECTIVES. TYPE ABOVE TO ENGAGE.
+              </div>
+            ) : (
+              tasks.map((task, idx) => (
+                <div
+                  key={task.id}
+                  className={`group relative p-3.5 rounded-xl border transition-all duration-200 flex items-center justify-between gap-3 ${
+                    task.completed
+                      ? 'bg-[#100305]/60 border-[#E5B84B]/10 opacity-50'
+                      : 'bg-[#180509]/80 border-[#E5B84B]/20 hover:border-[#E5B84B]/40 shadow-sm'
+                  }`}
+                >
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    {/* Rounded Square Obsidian Checkbox */}
                     <button
                       type="button"
                       onClick={(e) => handleToggleTask(task, e)}
-                      className={`mt-0.5 w-5 h-5 rounded-full border flex items-center justify-center transition-all cursor-pointer shrink-0 ${
+                      className={`w-6 h-6 rounded-lg border flex items-center justify-center transition-all cursor-pointer shrink-0 ${
                         task.completed
-                          ? 'bg-[#10B981] border-[#10B981] text-black shadow-[0_0_10px_rgba(16,185,129,0.4)]'
-                          : 'border-white/[0.2] bg-white/[0.02] hover:border-white'
+                          ? 'bg-gradient-to-r from-[#E5B84B] to-[#F9D976] border-[#F9D976] text-black shadow-[0_0_12px_rgba(229,184,75,0.4)]'
+                          : 'border-[#E5B84B]/30 bg-[#120305] hover:border-[#E5B84B]'
                       }`}
                     >
-                      {task.completed && <Check className="w-3 h-3 stroke-[3]" />}
+                      {task.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                     </button>
 
-                    {/* Task Title & Context Note */}
-                    <div className="flex-1 min-w-0 space-y-0.5">
-                      <p className={`text-xs sm:text-sm font-semibold truncate ${task.completed ? 'line-through text-[#9898A0]' : 'text-[#F5F5F7]'}`}>
+                    <div className="min-w-0 flex-1">
+                      <p className={`text-sm font-medium truncate ${task.completed ? 'line-through text-[#887060]' : 'text-white'}`}>
                         {task.title}
                       </p>
                       {task.note && (
-                        <p className="text-[11px] text-[#9898A0] truncate font-mono">
+                        <p className="text-[11px] font-mono text-[#E5B84B]/80 truncate">
                           // {task.note}
                         </p>
                       )}
                     </div>
-
-                    {/* Actions: Edit note + Delete */}
-                    <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setEditingTaskForNote(task);
-                          setEditNoteText(task.note || '');
-                        }}
-                        className="p-1 text-[#9898A0] hover:text-white transition-colors cursor-pointer"
-                        title="Edit Note"
-                      >
-                        <FileText className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => task.id && deleteTask(task.id)}
-                        className="p-1 text-[#9898A0] hover:text-rose-400 transition-colors cursor-pointer"
-                        title="Delete Task"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
                   </div>
-                ))
-              )}
-            </div>
 
-            {completedCount > 0 && (
-              <button
-                type="button"
-                onClick={() => clearCompletedTasks()}
-                className="w-full py-2 rounded-lg text-xs font-mono text-[#9898A0] hover:text-rose-400 hover:bg-rose-950/20 transition-colors cursor-pointer text-center"
-              >
-                CLEAR ALL COMPLETED ({completedCount})
-              </button>
+                  {/* Actions: Note, Up/Down, Delete */}
+                  <div className="flex items-center gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingTaskForNote(task);
+                        setEditNoteText(task.note || '');
+                      }}
+                      className="p-1 text-[#BFA997] hover:text-[#E5B84B] transition-colors cursor-pointer"
+                      title="Edit Note"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleMoveTask(idx, 'up')}
+                      disabled={idx === 0}
+                      className="p-0.5 text-[#887060] hover:text-white disabled:opacity-20 cursor-pointer"
+                    >
+                      <ChevronUp className="w-3.5 h-3.5" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleMoveTask(idx, 'down')}
+                      disabled={idx === tasks.length - 1}
+                      className="p-0.5 text-[#887060] hover:text-white disabled:opacity-20 cursor-pointer"
+                    >
+                      <ChevronDown className="w-3.5 h-3.5" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => task.id && deleteTask(task.id)}
+                      className="p-1 text-[#887060] hover:text-red-400 transition-colors cursor-pointer"
+                      title="Delete"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              ))
             )}
           </div>
+
+          {completedCount > 0 && (
+            <button
+              type="button"
+              onClick={() => clearCompletedTasks()}
+              className="w-full py-2 text-center text-xs font-mono text-[#887060] hover:text-red-400 transition-colors cursor-pointer"
+            >
+              CLEAR COMPLETED DIRECTIVES ({completedCount})
+            </button>
+          )}
+        </div>
+      </Interactive3DTiltCard>
+
+      {/* ========================================================================
+          3. "TODAY SO FAR" 5-CARD BENTO GRID (WITH 3D TILT & SPRING COUNTERS)
+          ======================================================================== */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl sm:text-2xl font-black font-display text-white tracking-tight">
+            Today So Far
+          </h2>
+          <span className="text-xs font-mono text-[#A89279] uppercase font-bold tracking-wider">
+            DAILY PROGRESS TRACKER
+          </span>
         </div>
 
-        {/* ========================================================================
-            COLUMN 2 (CENTER 5 COLS): HIGH-CONTRAST HERO & METRIC ORBIT
-            ======================================================================== */}
-        <div className="lg:col-span-5 space-y-5">
-          {/* 2A. HERO DUAL-DIAL CARD (SMOKED OBSIDIAN CORE) */}
-          <div className="bento-carbon p-6 space-y-6 relative overflow-hidden">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono tracking-widest text-[#9898A0] uppercase font-bold">
-                // TEMPORAL MOMENTUM CORE
-              </span>
-              <button
-                type="button"
-                onClick={() => setShowStudyModal(true)}
-                className="px-3.5 py-1 rounded-full btn-mercury text-[11px] font-mono font-black shadow-md active:scale-95 transition-all cursor-pointer"
-              >
-                + LOG STUDY
-              </button>
-            </div>
-
-            {/* Split Dual Gauge Stats */}
-            <div className="grid grid-cols-2 gap-6 items-baseline">
-              <div>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-[#9898A0] block font-semibold">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {/* Card 1: Time Studied */}
+          <Interactive3DTiltCard maxTilt={8} className="h-full">
+            <div className="crimson-glass p-5 rounded-2xl flex flex-col justify-between h-44 relative overflow-hidden border border-[#E5B84B]/20">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-mono font-bold tracking-wider text-[#F9D976] uppercase">
                   TIME STUDIED
-                </span>
-                <div className="font-mono tabular-nums font-black text-4xl sm:text-5xl text-white tracking-tight leading-none mt-2">
-                  {formatMinutes(studiedMins)}
-                </div>
-                <span className="text-[10px] font-mono text-[#10B981] mt-2 block font-bold flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
-                  FOCUS RATIO: {studyRatioPercent}%
-                </span>
-              </div>
-
-              <div>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-[#9898A0] block font-semibold">
-                  TIME WASTED
-                </span>
-                <div className="font-mono tabular-nums font-black text-4xl sm:text-5xl text-[#9898A0] tracking-tight leading-none mt-2">
-                  {formatMinutes(wastedMins)}
-                </div>
-                <span className="text-[10px] font-mono text-rose-400 mt-2 block font-bold">
-                  ACCOUNTABILITY
-                </span>
-              </div>
-            </div>
-
-            {/* Split Visual Momentum Bar */}
-            <div className="space-y-1.5 pt-2">
-              <div className="w-full h-2 rounded-full bg-black/60 overflow-hidden flex border border-white/[0.08]">
-                <div 
-                  className="h-full bg-gradient-to-r from-white to-[#FF5500] transition-all duration-500 shadow-[0_0_8px_rgba(255,85,0,0.5)]"
-                  style={{ width: `${studyRatioPercent}%` }}
-                />
-                <div 
-                  className="h-full bg-rose-500/80 transition-all duration-500"
-                  style={{ width: `${100 - studyRatioPercent}%` }}
-                />
-              </div>
-              <div className="flex items-center justify-between text-[10px] font-mono text-[#9898A0]">
-                <span className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-[#FF5500]" /> Productive Flow
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-rose-500" /> Wasted Drift
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* 2B. 3 SUB-TILES ROW (SMOKED OBSIDIAN) */}
-          <div className="grid grid-cols-3 gap-3">
-            {/* Tile 1: Questions */}
-            <div className="smoked-glass p-4 flex flex-col justify-between relative overflow-hidden">
-              <div className="flex items-start justify-between">
-                <span className="text-[10px] font-mono uppercase text-[#9898A0] font-bold">
-                  QUESTIONS
                 </span>
                 <button
                   type="button"
-                  onClick={() => setShowQuestionModal(true)}
-                  className="text-[#9898A0] hover:text-white cursor-pointer"
-                  title="Add Question"
+                  onClick={() => setShowStudyModal(true)}
+                  className="px-2 py-0.5 rounded-md bg-[#E5B84B]/20 hover:bg-[#E5B84B]/30 border border-[#E5B84B]/40 text-[10px] font-mono text-[#F9D976] cursor-pointer"
                 >
-                  <Plus className="w-3.5 h-3.5" />
+                  +Log
                 </button>
               </div>
-              <div className="my-2">
-                <span className="font-mono tabular-nums font-black text-3xl sm:text-4xl text-white tracking-tight block">
-                  {dailyLog?.questionsCount || 0}
-                </span>
-              </div>
-              <span className="text-[10px] font-mono text-[#9898A0]">
-                DSA / Sheets
-              </span>
-            </div>
 
-            {/* Tile 2: Topics Learned */}
-            <div className="smoked-glass p-4 flex flex-col justify-between relative overflow-hidden">
-              <span className="text-[10px] font-mono uppercase text-[#9898A0] font-bold">
-                TOPICS
-              </span>
-              <div className="my-2 flex items-baseline gap-1">
-                <span className="font-mono tabular-nums font-black text-3xl sm:text-4xl text-white tracking-tight block">
-                  {(dailyLog?.topicsLearned || []).length}
-                </span>
-                <span className="text-[10px] font-mono text-[#9898A0]">TRACKED</span>
-              </div>
-              <span className="text-[10px] font-mono text-[#10B981] font-bold">
-                Curriculum Items
-              </span>
-            </div>
-
-            {/* Tile 3: Sleep Recovery with Inline Quick Selector */}
-            <div className="smoked-glass p-4 flex flex-col justify-between relative overflow-hidden">
-              <div className="flex items-start justify-between">
-                <span className="text-[10px] font-mono uppercase text-[#9898A0] font-bold">
-                  RECOVERY
-                </span>
-                <Moon className="w-3.5 h-3.5 text-[#FF5500]" />
-              </div>
-              <div className="my-1 font-mono tabular-nums font-black text-xl text-white">
-                {dailyLog?.sleepHours ? (
-                  <span>{dailyLog.sleepHours}h</span>
-                ) : dailyLog?.sleepWakeTime ? (
-                  <span>{dailyLog.sleepWakeTime}</span>
-                ) : (
-                  <span className="text-sm font-medium text-[#9898A0]">—</span>
-                )}
-              </div>
-              {/* Inline tactile selector: 6h | 7h | 8h */}
-              <div className="flex items-center gap-1 pt-1">
-                {[6, 7, 8].map((h) => (
-                  <button
-                    key={h}
-                    type="button"
-                    onClick={() => handleQuickLogSleep(h)}
-                    className="flex-1 py-0.5 rounded bg-white/[0.04] border border-white/[0.08] text-[9px] font-mono font-bold text-[#9898A0] hover:text-white hover:bg-white/[0.09] hover:border-white/[0.18] transition-all cursor-pointer"
-                  >
-                    {h}h
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* 2C. "NEXT UP IN TIMELINE" STRIP (SMOKED OBSIDIAN) */}
-          <div className="smoked-glass p-5 space-y-3 relative overflow-hidden">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_8px_#10B981]" />
-                <span className="text-[10px] font-mono uppercase tracking-widest text-[#9898A0] font-bold">
-                  NEXT UP IN TIMELINE
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={onNavigateToLearn}
-                className="text-[11px] font-mono text-[#F5F5F7] hover:underline flex items-center gap-1 cursor-pointer font-bold"
-              >
-                <span>View Full Timeline</span>
-                <ArrowRight className="w-3 h-3" />
-              </button>
-            </div>
-
-            <div className="p-3.5 rounded-xl bg-black/40 border border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <span className="text-[10px] font-mono text-[#9898A0] uppercase tracking-wider block">
-                  {nextUpInfo.track} • {nextUpInfo.presetDates}
-                </span>
-                <h4 className="font-display font-extrabold text-sm text-white mt-0.5">
-                  {nextUpInfo.topic}
-                </h4>
+                <div className="text-3xl sm:text-4xl font-mono font-black text-white tracking-tight leading-none">
+                  <SpringCounter value={studiedMins} suffix="m" />
+                </div>
               </div>
-              <button
-                type="button"
-                onClick={() => onNavigateToTimer(nextUpInfo.topic)}
-                className="px-4 py-2 rounded-full btn-mercury text-xs font-black flex items-center justify-center gap-1.5 cursor-pointer shrink-0 shadow-lg"
-              >
-                <Play className="w-3 h-3 fill-current" />
-                <span>Launch Session</span>
-              </button>
+
+              <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#BFA997]">
+                <Clock className="w-3 h-3 text-[#E5B84B]" />
+                <span>Auto / Manual</span>
+              </div>
             </div>
+          </Interactive3DTiltCard>
 
-            {/* Daily Breakthrough Reflection Input */}
-            <div className="pt-2 flex items-center gap-2">
-              <input
-                type="text"
-                placeholder="Log a 1-sentence breakthrough or reflection today..."
-                value={noteText}
-                onChange={(e) => setNoteText(e.target.value)}
-                onBlur={() => updateDailyNote(noteText)}
-                className="flex-1 min-w-0 min-h-[38px] px-3.5 rounded-xl input-command-bar text-xs text-white placeholder-[#9898A0] focus:outline-none"
-              />
-              <button
-                type="button"
-                onClick={() => updateDailyNote(noteText)}
-                className="px-3.5 min-h-[38px] rounded-xl btn-tactile text-xs font-mono font-bold cursor-pointer shrink-0"
-              >
-                Save
-              </button>
+          {/* Card 2: Time Wasted */}
+          <Interactive3DTiltCard maxTilt={8} className="h-full">
+            <div className="crimson-glass p-5 rounded-2xl flex flex-col justify-between h-44 relative overflow-hidden border border-[#E5B84B]/20">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-mono font-bold tracking-wider text-[#BFA997] uppercase">
+                  TIME WASTED
+                </span>
+              </div>
+
+              <div>
+                <div className="text-3xl sm:text-4xl font-mono font-black text-[#A89279] tracking-tight leading-none">
+                  <SpringCounter value={wastedMins} suffix="m" />
+                </div>
+              </div>
+
+              <div className="text-[11px] font-mono text-[#887060]">
+                Accountability
+              </div>
             </div>
-          </div>
-        </div>
+          </Interactive3DTiltCard>
 
-        {/* ========================================================================
-            COLUMN 3 (RIGHT 3 COLS): DSA & COMMUNICATION SYNTHESIZER
-            ======================================================================== */}
-        <div className="lg:col-span-3 space-y-5">
-          <DailyDsaCommunicationWidget />
-        </div>
+          {/* Card 3: Questions Done */}
+          <Interactive3DTiltCard maxTilt={8} className="h-full">
+            <div className="crimson-glass p-5 rounded-2xl flex flex-col justify-between h-44 relative overflow-hidden border border-[#E5B84B]/20">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-mono font-bold tracking-wider text-[#F9D976] uppercase">
+                  QUESTIONS DONE
+                </span>
+              </div>
 
+              <div>
+                <div className="text-3xl sm:text-4xl font-mono font-black text-[#F9D976] tracking-tight leading-none">
+                  <SpringCounter value={questionsCount} />
+                </div>
+              </div>
+
+              <div className="text-[11px] font-mono text-[#BFA997]">
+                DSA / Sheets
+              </div>
+            </div>
+          </Interactive3DTiltCard>
+
+          {/* Card 4: Topics Learned */}
+          <Interactive3DTiltCard maxTilt={8} className="h-full">
+            <div className="crimson-glass p-5 rounded-2xl flex flex-col justify-between h-44 relative overflow-hidden border border-[#E5B84B]/20">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-mono font-bold tracking-wider text-[#F9D976] uppercase">
+                  TOPICS LEARNED
+                </span>
+              </div>
+
+              <div>
+                <div className="text-3xl sm:text-4xl font-mono font-black text-white tracking-tight leading-none">
+                  <SpringCounter value={topicsCount} />
+                </div>
+              </div>
+
+              <div className="text-[11px] font-mono text-[#BFA997]">
+                Curriculum items
+              </div>
+            </div>
+          </Interactive3DTiltCard>
+
+          {/* Card 5: Sleep Last Night */}
+          <Interactive3DTiltCard maxTilt={8} className="h-full">
+            <div className="crimson-glass p-5 rounded-2xl flex flex-col justify-between h-44 relative overflow-hidden border border-[#E5B84B]/20">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-mono font-bold tracking-wider text-[#BFA997] uppercase">
+                  SLEEP LAST NIGHT
+                </span>
+              </div>
+
+              <div>
+                <div className="text-3xl sm:text-4xl font-mono font-black text-[#BFA997] tracking-tight leading-none">
+                  {sleepHours > 0 ? (
+                    <SpringCounter value={sleepHours} suffix="h" />
+                  ) : (
+                    <span>—</span>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#887060]">
+                <Moon className="w-3 h-3 text-[#E5B84B]" />
+                <span>{sleepHours > 0 ? 'Logged' : 'Not logged'}</span>
+              </div>
+            </div>
+          </Interactive3DTiltCard>
+        </div>
       </div>
 
       {/* ========================================================================
-          MODALS & OVERLAYS
+          4. "QUICK ACTIONS" ROW OF MAGNETIC HOVER BUTTONS
           ======================================================================== */}
-      {showStudyModal && (
-        <LogStudyModal isOpen={showStudyModal} onClose={() => setShowStudyModal(false)} />
-      )}
-      {showWastedModal && (
-        <LogWastedModal isOpen={showWastedModal} onClose={() => setShowWastedModal(false)} />
-      )}
-      {showSleepModal && (
-        <LogSleepModal isOpen={showSleepModal} onClose={() => setShowSleepModal(false)} />
-      )}
-      {showQuestionModal && (
-        <AddQuestionModal isOpen={showQuestionModal} onClose={() => setShowQuestionModal(false)} />
-      )}
+      <div className="space-y-3">
+        <h2 className="text-xl sm:text-2xl font-black font-display text-white tracking-tight">
+          Quick Actions
+        </h2>
 
-      {/* Edit Task Note Modal */}
-      <AnimatePresence>
-        {editingTaskForNote && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="w-full max-w-md smoked-glass p-6 shadow-2xl space-y-4 font-sans"
-            >
-              <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-                <div className="flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-[#FF5500]" />
-                  <h3 className="font-display text-lg font-bold text-white">Task Note</h3>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setEditingTaskForNote(null)}
-                  className="text-[#9898A0] hover:text-white cursor-pointer"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Start Pomodoro (Metallic Gold Gradient with Pulse Glow) */}
+          <button
+            type="button"
+            onClick={() => onNavigateToTimer()}
+            className="h-14 px-6 rounded-2xl btn-liquid-gold text-xs font-black uppercase tracking-wider flex items-center justify-center gap-3 cursor-pointer pulse-gold shadow-xl"
+          >
+            <Clock className="w-4 h-4 stroke-[2.5]" />
+            <span>Start Pomodoro</span>
+          </button>
 
-              <div className="space-y-1.5">
-                <p className="text-xs text-[#9898A0]">
-                  Task: <span className="text-white font-semibold">{editingTaskForNote.title}</span>
-                </p>
-                <textarea
-                  value={editNoteText}
-                  onChange={(e) => setEditNoteText(e.target.value)}
-                  placeholder="Enter a short note..."
-                  rows={3}
-                  className="w-full p-3.5 rounded-xl input-command-bar text-xs text-white placeholder-[#9898A0] focus:outline-none"
-                  autoFocus
-                />
-              </div>
+          {/* Log Wasted Time */}
+          <button
+            type="button"
+            onClick={() => setShowWastedModal(true)}
+            className="h-14 px-6 rounded-2xl btn-crimson-pill text-xs font-mono font-bold flex items-center justify-center gap-2.5 cursor-pointer"
+          >
+            <Clock className="w-4 h-4 text-[#E5B84B]" />
+            <span>Log Wasted Time</span>
+          </button>
 
-              <div className="flex items-center justify-between pt-2">
-                {editingTaskForNote.note ? (
-                  <button
-                    type="button"
-                    onClick={() => setEditNoteText('')}
-                    className="text-xs text-rose-400 hover:underline font-semibold cursor-pointer"
-                  >
-                    Clear Note
-                  </button>
-                ) : <span />}
+          {/* +1 Question */}
+          <button
+            type="button"
+            onClick={() => setShowQuestionModal(true)}
+            className="h-14 px-6 rounded-2xl btn-crimson-pill text-xs font-mono font-bold flex items-center justify-center gap-2.5 cursor-pointer"
+          >
+            <Plus className="w-4 h-4 text-[#F9D976] stroke-[2.5]" />
+            <span>+1 Question</span>
+          </button>
 
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setEditingTaskForNote(null)}
-                    className="px-4 py-2 rounded-xl text-xs text-[#9898A0] hover:text-white cursor-pointer font-medium"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleSaveEditNote}
-                    className="px-4 py-2 rounded-xl btn-mercury text-xs font-black cursor-pointer shadow-md"
-                  >
-                    Save Note
-                  </button>
-                </div>
-              </div>
-            </motion.div>
+          {/* Log Sleep */}
+          <button
+            type="button"
+            onClick={() => setShowSleepModal(true)}
+            className="h-14 px-6 rounded-2xl btn-crimson-pill text-xs font-mono font-bold flex items-center justify-center gap-2.5 cursor-pointer"
+          >
+            <Moon className="w-4 h-4 text-[#E5B84B]" />
+            <span>Log Sleep</span>
+          </button>
+        </div>
+      </div>
+
+      {/* ========================================================================
+          5. "NEXT UP IN TIMELINE" BANNER
+          ======================================================================== */}
+      <div 
+        onClick={onNavigateToPlan}
+        className="crimson-glass p-5 rounded-2xl border border-[#E5B84B]/20 flex items-center justify-between gap-4 cursor-pointer hover:border-[#E5B84B]/50 transition-all group"
+      >
+        <div className="flex items-center gap-3">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#E5B84B] shadow-[0_0_8px_#E5B84B] animate-pulse" />
+          <div>
+            <h3 className="font-display font-bold text-base text-white tracking-tight">
+              Next Up in Timeline
+            </h3>
+            <p className="text-xs font-mono text-[#BFA997]">
+              Track 0: Introduction // FDE Glossary & Field Engineering Roles
+            </p>
           </div>
-        )}
-      </AnimatePresence>
+        </div>
+
+        <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#F9D976] group-hover:translate-x-1 transition-transform">
+          <span>View Full Timeline</span>
+          <ArrowRight className="w-4 h-4" />
+        </div>
+      </div>
+
+      {/* Modals */}
+      <LogWastedModal
+        isOpen={showWastedModal}
+        onClose={() => setShowWastedModal(false)}
+      />
+      <LogSleepModal
+        isOpen={showSleepModal}
+        onClose={() => setShowSleepModal(false)}
+      />
+      <AddQuestionModal
+        isOpen={showQuestionModal}
+        onClose={() => setShowQuestionModal(false)}
+      />
+      <LogStudyModal
+        isOpen={showStudyModal}
+        onClose={() => setShowStudyModal(false)}
+      />
     </div>
   );
 };

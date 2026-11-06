@@ -5,12 +5,12 @@ import {
   X, 
   Plus, 
   Minus,
-  MessageSquare,
   Code2
 } from 'lucide-react';
 import { db, getTodayDateString } from '../services/db';
 import { updateDSAQuestions, setCommunicationPracticed } from '../services/dailyLogService';
 import { triggerGoldSparkle } from '../utils/confetti';
+import { SpringCounter } from './SpringCounter';
 
 interface DailyDsaCommunicationWidgetProps {
   compact?: boolean;
@@ -70,179 +70,151 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
   };
 
   return (
-    <div className="space-y-4">
-      {/* 1. DSA SYNTHESIZER (SMOKED OBSIDIAN HARDWARE) */}
-      <div className="smoked-glass p-5 space-y-4 relative overflow-hidden">
-        {/* Card Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-white/[0.06] border border-white/[0.12] text-white flex items-center justify-center shadow-inner">
-              <Code2 className="w-4 h-4 text-[#FF5500]" />
-            </div>
-            <div>
-              <h3 className="font-display font-extrabold text-sm text-[#F5F5F7] tracking-tight">
-                DSA Synthesizer
-              </h3>
-              <p className="text-[10px] font-mono text-[#9898A0]">LeetCode / Daily Engine</p>
-            </div>
-          </div>
-          <span className="text-[11px] font-mono font-bold text-[#9898A0]">
-            ALL-TIME: <strong className="text-white">{cumulativeStats.totalQuestions}</strong>
+    <div className="rounded-2xl crimson-glass p-4 space-y-4 border border-[#E5B84B]/20 shadow-[0_12px_24px_rgba(0,0,0,0.6)]">
+      {/* Widget Header */}
+      <div className="flex items-center justify-between pb-2 border-b border-[#E5B84B]/15">
+        <div className="flex items-center gap-2">
+          <Code2 className="w-4 h-4 text-[#E5B84B]" />
+          <span className="font-mono font-bold text-xs tracking-wider text-[#E5B84B] uppercase">
+            DSA & COMMUNICATION
+          </span>
+        </div>
+        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#E5B84B]/15 text-[#F9D976] border border-[#E5B84B]/30 font-bold uppercase">
+          Daily
+        </span>
+      </div>
+
+      {/* DSA Problems Today */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-mono text-[#D4AF37]/90 font-medium">
+            &lt;/&gt; DSA Problems Today
+          </span>
+          <span className="text-xs font-mono text-[#BFA997]">
+            Total: <strong className="text-white font-bold"><SpringCounter value={todayTotal} /></strong>
           </span>
         </div>
 
-        {/* Big Number & Master Stepper */}
-        <div className="flex items-baseline justify-between gap-4">
-          <div>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-[#9898A0] block font-semibold">
-              PROBLEMS SOLVED TODAY
-            </span>
-            <div className="font-mono tabular-nums font-black text-5xl text-white tracking-tight leading-none mt-1">
-              {todayTotal}
-            </div>
-          </div>
-
-          {/* Stepper (- / +) */}
-          <div className="flex items-center bg-black/60 border border-white/[0.12] rounded-xl p-1 shadow-inner">
+        {/* Stepper & Counts */}
+        <div className="flex items-center gap-3">
+          {/* Stepper */}
+          <div className="flex items-center bg-[#150406] border border-[#E5B84B]/30 rounded-xl p-0.5">
             <button
               type="button"
               onClick={() => handleAdjustDSA(-1)}
               disabled={diffCounts[selectedDifficulty] <= 0}
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-[#9898A0] hover:text-white hover:bg-white/10 disabled:opacity-20 transition-all cursor-pointer"
-              title="Decrease problem count"
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-[#BFA997] hover:text-white disabled:opacity-30 transition-all cursor-pointer"
             >
-              <Minus className="w-3.5 h-3.5 stroke-[2.5]" />
+              <Minus className="w-3.5 h-3.5" />
             </button>
-            <span className="w-8 text-center font-mono font-bold text-sm text-white tabular-nums">
-              {diffCounts[selectedDifficulty]}
+            <span className="w-7 text-center font-mono font-bold text-xs text-white">
+              <SpringCounter value={diffCounts[selectedDifficulty]} />
             </span>
             <button
               type="button"
               onClick={() => handleAdjustDSA(1)}
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-[#050507] bg-gradient-to-b from-white to-[#DCDCE2] hover:brightness-110 active:scale-95 transition-all cursor-pointer shadow-md font-black"
-              title="Increase problem count"
+              className="w-7 h-7 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#E5B84B] to-[#F9D976] text-black font-black hover:brightness-110 active:scale-95 transition-all cursor-pointer shadow-sm"
             >
-              <Plus className="w-3.5 h-3.5 stroke-[3]" />
+              <Plus className="w-3.5 h-3.5" />
             </button>
           </div>
-        </div>
 
-        {/* 3-Segment Difficulty Matrix */}
-        <div className="space-y-1.5 pt-1">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-[#9898A0] block font-semibold">
-            DIFFICULTY MATRIX (TAP TO +1)
-          </span>
-          <div className="grid grid-cols-3 gap-2">
-            {/* EASY */}
+          {/* Difficulty Matrix Buttons */}
+          <div className="flex-1 grid grid-cols-3 gap-1.5">
             <button
               type="button"
               onClick={() => {
                 setSelectedDifficulty('easy');
                 handleAdjustDSA(1, 'easy');
               }}
-              className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
+              className={`py-1 px-1.5 rounded-lg border text-center transition-all cursor-pointer ${
                 selectedDifficulty === 'easy'
-                  ? 'bg-[#10B981]/15 border-[#10B981] shadow-[0_0_12px_rgba(16,185,129,0.2)]'
-                  : 'bg-white/[0.03] border-white/[0.08] hover:border-[#10B981]/40'
+                  ? 'bg-[#E5B84B]/20 border-[#E5B84B] text-[#F9D976]'
+                  : 'bg-[#150406]/60 border-[#E5B84B]/15 text-[#BFA997] hover:border-[#E5B84B]/40'
               }`}
             >
-              <span className="text-[10px] font-mono font-bold text-[#10B981] block">EASY</span>
-              <span className="font-mono tabular-nums font-extrabold text-lg text-white">
-                {diffCounts.easy}
-              </span>
+              <div className="text-[9px] font-mono font-bold">Easy</div>
+              <div className="text-xs font-mono font-black text-white">
+                <SpringCounter value={diffCounts.easy} />
+              </div>
             </button>
 
-            {/* MEDIUM */}
             <button
               type="button"
               onClick={() => {
                 setSelectedDifficulty('medium');
                 handleAdjustDSA(1, 'medium');
               }}
-              className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
+              className={`py-1 px-1.5 rounded-lg border text-center transition-all cursor-pointer ${
                 selectedDifficulty === 'medium'
-                  ? 'bg-[#FF5500]/15 border-[#FF5500] shadow-[0_0_12px_rgba(255,85,0,0.25)]'
-                  : 'bg-white/[0.03] border-white/[0.08] hover:border-[#FF5500]/40'
+                  ? 'bg-[#E5B84B]/20 border-[#E5B84B] text-[#F9D976]'
+                  : 'bg-[#150406]/60 border-[#E5B84B]/15 text-[#BFA997] hover:border-[#E5B84B]/40'
               }`}
             >
-              <span className="text-[10px] font-mono font-bold text-[#FF5500] block">MED</span>
-              <span className="font-mono tabular-nums font-extrabold text-lg text-white">
-                {diffCounts.medium}
-              </span>
+              <div className="text-[9px] font-mono font-bold">Med</div>
+              <div className="text-xs font-mono font-black text-white">
+                <SpringCounter value={diffCounts.medium} />
+              </div>
             </button>
 
-            {/* HARD */}
             <button
               type="button"
               onClick={() => {
                 setSelectedDifficulty('hard');
                 handleAdjustDSA(1, 'hard');
               }}
-              className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
+              className={`py-1 px-1.5 rounded-lg border text-center transition-all cursor-pointer ${
                 selectedDifficulty === 'hard'
-                  ? 'bg-rose-500/15 border-rose-500 shadow-[0_0_12px_rgba(244,63,94,0.2)]'
-                  : 'bg-white/[0.03] border-white/[0.08] hover:border-rose-500/40'
+                  ? 'bg-[#E5B84B]/20 border-[#E5B84B] text-[#F9D976]'
+                  : 'bg-[#150406]/60 border-[#E5B84B]/15 text-[#BFA997] hover:border-[#E5B84B]/40'
               }`}
             >
-              <span className="text-[10px] font-mono font-bold text-rose-400 block">HARD</span>
-              <span className="font-mono tabular-nums font-extrabold text-lg text-white">
-                {diffCounts.hard}
-              </span>
+              <div className="text-[9px] font-mono font-bold">Hard</div>
+              <div className="text-xs font-mono font-black text-white">
+                <SpringCounter value={diffCounts.hard} />
+              </div>
             </button>
           </div>
         </div>
+
+        {/* All-time telemetry */}
+        <div className="text-[10px] font-mono text-[#A89279] flex items-center justify-between pt-1">
+          <span>All-time: <strong className="text-white"><SpringCounter value={cumulativeStats.totalQuestions} /></strong></span>
+          <span>E:{cumulativeStats.easy} M:{cumulativeStats.medium} H:{cumulativeStats.hard}</span>
+        </div>
       </div>
 
-      {/* 2. HIGH-LEVEL ENGLISH CHECK-IN (SMOKED OBSIDIAN) */}
-      <div className="smoked-glass p-5 space-y-3 relative overflow-hidden">
-        <div className="flex items-center justify-between pb-2 border-b border-white/[0.08]">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-white/[0.06] border border-white/[0.12] text-white flex items-center justify-center">
-              <MessageSquare className="w-3.5 h-3.5 text-[#FF5500]" />
-            </div>
-            <div>
-              <h4 className="font-display font-extrabold text-xs text-[#F5F5F7] uppercase tracking-wide">
-                English Check-In
-              </h4>
-              <p className="text-[9px] font-mono text-[#9898A0]">Habit Stamp Protocol</p>
-            </div>
-          </div>
-          <span className="text-[10px] font-mono font-bold text-[#10B981] flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
-            {cumulativeStats.commDays}D STREAK
-          </span>
-        </div>
-
-        <p className="text-xs text-[#9898A0] leading-relaxed">
-          Did you <strong className="text-white">speak, learn, or hear high-level English</strong> today?
+      {/* English Daily Check-in Toggle */}
+      <div className="pt-2 border-t border-[#E5B84B]/15 space-y-2">
+        <p className="text-[11px] font-sans text-[#E0D2C0] leading-snug">
+          Today did you minimum speak, learn or hear high-level English?
         </p>
 
-        {/* Dual Responsive Action Triggers */}
-        <div className="grid grid-cols-2 gap-2 pt-1">
+        <div className="grid grid-cols-2 gap-2">
           <button
             type="button"
-            onClick={() => handleToggleCommunication(true)}
-            className={`py-2 px-3 rounded-xl border text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-              isCommDone
-                ? 'bg-[#10B981] border-[#10B981] text-black font-black shadow-[0_0_16px_rgba(16,185,129,0.3)]'
-                : 'bg-white/[0.04] border-white/[0.09] text-[#F5F5F7] hover:bg-white/[0.08] hover:border-[#10B981]'
+            onClick={() => handleToggleCommunication(false)}
+            className={`py-1.5 px-3 rounded-xl border text-xs font-mono font-medium transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+              isCommNotDone
+                ? 'bg-[#3A0A10] border-red-500/60 text-red-200'
+                : 'bg-[#150406]/80 border-[#E5B84B]/20 text-[#BFA997] hover:border-[#E5B84B]/40'
             }`}
           >
-            <Check className="w-3.5 h-3.5 stroke-[3]" />
-            <span>YES — LOGGED</span>
+            <X className="w-3 h-3 text-red-400" />
+            <span>Didn't</span>
           </button>
 
           <button
             type="button"
-            onClick={() => handleToggleCommunication(false)}
-            className={`py-2 px-3 rounded-xl border text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-              isCommNotDone
-                ? 'bg-rose-500 border-rose-500 text-white font-black shadow-[0_0_16px_rgba(244,63,94,0.3)]'
-                : 'bg-white/[0.04] border-white/[0.09] text-[#9898A0] hover:text-white hover:bg-white/[0.08]'
+            onClick={() => handleToggleCommunication(true)}
+            className={`py-1.5 px-3 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+              isCommDone
+                ? 'bg-gradient-to-r from-[#E5B84B] to-[#F9D976] border-[#F9D976] text-black shadow-[0_0_15px_rgba(229,184,75,0.4)]'
+                : 'bg-[#150406]/80 border-[#E5B84B]/20 text-[#F9D976] hover:border-[#E5B84B]/40'
             }`}
           >
-            <X className="w-3.5 h-3.5 stroke-[3]" />
-            <span>NOT YET</span>
+            <Check className="w-3.5 h-3.5" />
+            <span>Done</span>
           </button>
         </div>
       </div>

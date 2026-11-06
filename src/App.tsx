@@ -1,9 +1,10 @@
-// LearnVault - Apple-Style Continuous Scrollytelling Workspace (Ultra-Smooth 120 FPS Architecture)
+// LearnVault - Apple-Style 3D Scroll-Driven Web Application (Obsidian, Crimson Glass & Brushed Gold)
 import React, { useState, useEffect } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from './services/db';
 import { ScreenId, TopNavBar, FloatingDock, NAV_ITEMS } from './components/Navigation';
-import { AppleScrollShowcase } from './components/AppleScrollShowcase';
+import { FrameSequenceHero } from './components/FrameSequenceHero';
+import { SpatialLeftSidebar } from './components/SpatialLeftSidebar';
 import { TodayScreen } from './components/TodayScreen';
 import { TimerScreen } from './components/TimerScreen';
 import { PlanScreen } from './components/PlanScreen';
@@ -42,7 +43,7 @@ export const App: React.FC = () => {
     setActiveScreen(id);
     const element = document.getElementById(id);
     if (element) {
-      const yOffset = -72;
+      const yOffset = -80;
       const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
@@ -55,14 +56,14 @@ export const App: React.FC = () => {
     handleScrollTo('timer');
   };
 
-  // Active section spy on scroll with rAF throttle for maximum smoothness
+  // Active section spy on scroll with rAF throttle for maximum 120fps smoothness
   useEffect(() => {
     let ticking = false;
 
     const handleScrollSpy = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          const scrollPosition = window.scrollY + 220;
+          const scrollPosition = window.scrollY + 260;
 
           for (const item of NAV_ITEMS) {
             const el = document.getElementById(item.id);
@@ -86,8 +87,8 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen text-[var(--text-primary)] flex flex-col antialiased selection:bg-[var(--accent-primary)] selection:text-black relative font-sans overflow-x-hidden transition-colors duration-300">
-      {/* Top Minimalist HUD Bar with Theme Switcher */}
+    <div className="min-h-screen bg-[#080304] text-[#FAF2E6] flex flex-col antialiased selection:bg-[#E5B84B] selection:text-black relative font-sans overflow-x-hidden">
+      {/* Top Minimalist HUD Bar */}
       <TopNavBar
         activeScreen={activeScreen}
         onSelectScreen={handleScrollTo}
@@ -97,273 +98,257 @@ export const App: React.FC = () => {
         onQuickFocus={() => handleStartTimerWithTopic()}
       />
 
-      {/* 1. COVERPAGE: APPLE-STYLE 3D SCROLL-DRIVEN REVEAL */}
-      <AppleScrollShowcase onEnterWorkspace={() => handleScrollTo('today')} />
+      {/* 1. 3D SCROLL HERO SECTION: 240-FRAME EXPLODED CHRONOMETER CUBE WITH GSAP SCROLLTRIGGER */}
+      <FrameSequenceHero onEnterWorkspace={() => handleScrollTo('today')} />
 
-      {/* 2. CONTINUOUS SCROLL WORKSPACE SECTIONS */}
-      <main className="w-full max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-8 space-y-24 relative z-10 pb-36">
-        
-        {/* SECTION 01: TODAY'S BLUEPRINT */}
-        <section id="today" className="scroll-mt-20 space-y-4">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-primary)] shadow-[0_0_10px_var(--accent-primary)] animate-pulse" />
-                <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent-primary)] font-black">
-                  01 // MISSION CONTROL
-                </span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
-                Today's Execution Blueprint
-              </h2>
-              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
-                Daily momentum telemetry & forward-deployed engineering matrix
-              </p>
-            </div>
-            
-            {/* Kinetic 3D Gyroscope Badge */}
-            <KineticDomainBadge screenId="today" size={68} />
+      {/* 2. SPATIAL GLASSMORPHIC DASHBOARD WITH STICKY DOCK SIDEBAR & CONTINUOUS SECTIONS */}
+      <div id="workspace-container" className="w-full max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-10 relative z-10 pb-36">
+        <div className="flex flex-col lg:flex-row gap-8 items-start">
+          
+          {/* LEFT SIDEBAR (STICKY GLASS DOCK) */}
+          <div className="w-full lg:w-72 lg:sticky lg:top-20 z-20 shrink-0">
+            <SpatialLeftSidebar
+              activeScreen={activeScreen}
+              onSelectScreen={handleScrollTo}
+            />
           </div>
 
-          <TodayScreen
-            onNavigateToTimer={handleStartTimerWithTopic}
-            onNavigateToPlan={() => handleScrollTo('plan')}
-            onNavigateToLearn={() => handleScrollTo('learn')}
-          />
-        </section>
-
-        {/* SECTION 02: DEEP WORK FOCUS TIMER */}
-        <section id="timer" className="scroll-mt-20 space-y-4">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-primary)] shadow-[0_0_10px_var(--accent-primary)] animate-pulse" />
-                <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent-primary)] font-black">
-                  02 // TEMPORAL ENGINE
-                </span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
-                Deep Work Chronometer
-              </h2>
-              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
-                Precision Pomodoro & focus ratio accountability
-              </p>
-            </div>
+          {/* MAIN WORKSPACE SECTIONS */}
+          <main className="flex-1 min-w-0 space-y-24">
             
-            {/* Kinetic 3D Chronometer Badge */}
-            <KineticDomainBadge screenId="timer" size={68} />
-          </div>
+            {/* SECTION 01: TODAY'S MISSION (WORKSPACE) */}
+            <section id="today" className="scroll-mt-24 space-y-4">
+              <TodayScreen
+                onNavigateToTimer={handleStartTimerWithTopic}
+                onNavigateToPlan={() => handleScrollTo('plan')}
+                onNavigateToLearn={() => handleScrollTo('learn')}
+                onNavigateToProgress={() => handleScrollTo('progress')}
+              />
+            </section>
 
-          <TimerScreen initialTopic={timerTopic} />
-        </section>
-
-        {/* SECTION 03: 4-YEAR SPRINT ROADMAP */}
-        <section id="plan" className="scroll-mt-20 space-y-4">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-secondary)] shadow-[0_0_10px_var(--accent-secondary)] animate-pulse" />
-                <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent-secondary)] font-black">
-                  03 // ARCHITECTURAL ROADMAP
-                </span>
+            {/* SECTION 02: DEEP WORK FOCUS TIMER */}
+            <section id="timer" className="scroll-mt-24 space-y-4">
+              <div className="p-4 sm:p-5 rounded-2xl crimson-glass border border-[#E5B84B]/20 flex items-center justify-between gap-4 shadow-xl">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#E5B84B] shadow-[0_0_10px_#E5B84B] animate-pulse" />
+                    <span className="text-xs font-mono uppercase tracking-widest text-[#F9D976] font-black">
+                      02 // TEMPORAL ENGINE
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-white">
+                    Deep Work Chronometer
+                  </h2>
+                  <p className="text-xs font-mono text-[#BFA997] uppercase">
+                    Precision Pomodoro & focus ratio accountability
+                  </p>
+                </div>
+                
+                {/* Kinetic 3D Chronometer Badge */}
+                <KineticDomainBadge screenId="timer" size={68} />
               </div>
-              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
-                4-Year Sprint Timeline
-              </h2>
-              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
-                1,460-day macro curriculum milestones & targets
-              </p>
-            </div>
-            
-            {/* Kinetic 3D Timeline Pillars Badge */}
-            <KineticDomainBadge screenId="plan" size={68} />
-          </div>
 
-          <PlanScreen />
-        </section>
+              <TimerScreen initialTopic={timerTopic} />
+            </section>
 
-        {/* SECTION 04: KNOWLEDGE CURRICULUM ATLAS */}
-        <section id="learn" className="scroll-mt-20 space-y-4">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-primary)] shadow-[0_0_10px_var(--accent-primary)] animate-pulse" />
-                <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent-primary)] font-black">
-                  04 // KNOWLEDGE CURRICULUM
-                </span>
+            {/* SECTION 03: 4-YEAR SPRINT ROADMAP */}
+            <section id="plan" className="scroll-mt-24 space-y-4">
+              <div className="p-4 sm:p-5 rounded-2xl crimson-glass border border-[#E5B84B]/20 flex items-center justify-between gap-4 shadow-xl">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#F9D976] shadow-[0_0_10px_#F9D976] animate-pulse" />
+                    <span className="text-xs font-mono uppercase tracking-widest text-[#F9D976] font-black">
+                      03 // ARCHITECTURAL ROADMAP
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-white">
+                    4-Year Sprint Timeline
+                  </h2>
+                  <p className="text-xs font-mono text-[#BFA997] uppercase">
+                    1,460-day macro curriculum milestones & targets
+                  </p>
+                </div>
+                
+                <KineticDomainBadge screenId="plan" size={68} />
               </div>
-              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
-                10-Track FDE Syllabus (892 Topics)
-              </h2>
-              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
-                Complete engineering syllabus hierarchy & deep mastery
-              </p>
-            </div>
-            
-            {/* Kinetic 3D Constellation Badge */}
-            <KineticDomainBadge screenId="learn" size={68} />
-          </div>
 
-          <LearnScreen />
-        </section>
+              <PlanScreen />
+            </section>
 
-        {/* SECTION 05: DSA & ALGORITHMS LABORATORY */}
-        <section id="dsa" className="scroll-mt-20 space-y-4">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-secondary)] shadow-[0_0_10px_var(--accent-secondary)] animate-pulse" />
-                <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent-secondary)] font-black">
-                  05 // ALGORITHM LABORATORY
-                </span>
+            {/* SECTION 04: KNOWLEDGE CURRICULUM ATLAS */}
+            <section id="learn" className="scroll-mt-24 space-y-4">
+              <div className="p-4 sm:p-5 rounded-2xl crimson-glass border border-[#E5B84B]/20 flex items-center justify-between gap-4 shadow-xl">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#E5B84B] shadow-[0_0_10px_#E5B84B] animate-pulse" />
+                    <span className="text-xs font-mono uppercase tracking-widest text-[#F9D976] font-black">
+                      04 // KNOWLEDGE CURRICULUM
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-white">
+                    10-Track FDE Syllabus (892 Topics)
+                  </h2>
+                  <p className="text-xs font-mono text-[#BFA997] uppercase">
+                    Complete engineering syllabus hierarchy & deep mastery
+                  </p>
+                </div>
+                
+                <KineticDomainBadge screenId="learn" size={68} />
               </div>
-              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
-                Spaced Retention & LeetCode Matrix
-              </h2>
-              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
-                Data structures, algorithmic patterns & revision intervals
-              </p>
-            </div>
-            
-            {/* Kinetic 3D Algorithm Lattice Badge */}
-            <KineticDomainBadge screenId="dsa" size={68} />
-          </div>
 
-          <DSATrackerView />
-        </section>
+              <LearnScreen />
+            </section>
 
-        {/* SECTION 06: FORWARD DEPLOYED CAREER HQ */}
-        <section id="jobs" className="scroll-mt-20 space-y-4">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-secondary)] shadow-[0_0_10px_var(--accent-secondary)] animate-pulse" />
-                <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent-secondary)] font-black">
-                  06 // CAREER RADAR HQ
-                </span>
+            {/* SECTION 05: DSA & ALGORITHMS LABORATORY */}
+            <section id="dsa" className="scroll-mt-24 space-y-4">
+              <div className="p-4 sm:p-5 rounded-2xl crimson-glass border border-[#E5B84B]/20 flex items-center justify-between gap-4 shadow-xl">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#E5B84B] shadow-[0_0_10px_#E5B84B] animate-pulse" />
+                    <span className="text-xs font-mono uppercase tracking-widest text-[#F9D976] font-black">
+                      05 // ALGORITHM LABORATORY
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-white">
+                    DSA Problem Engine & Analytics
+                  </h2>
+                  <p className="text-xs font-mono text-[#BFA997] uppercase">
+                    LeetCode patterns, difficulty distribution & blind 75/150 progress
+                  </p>
+                </div>
+
+                <KineticDomainBadge screenId="dsa" size={68} />
               </div>
-              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
-                Technical Interview & Job Pipeline
-              </h2>
-              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
-                Applications, compensation benchmarks & interview stages
-              </p>
-            </div>
-            
-            {/* Kinetic 3D Radar Globe Badge */}
-            <KineticDomainBadge screenId="jobs" size={68} />
-          </div>
 
-          <JobTrackerView />
-        </section>
+              <DSATrackerView />
+            </section>
 
-        {/* SECTION 07: KNOWLEDGE VAULT & INBOX */}
-        <section id="vault" className="scroll-mt-20 space-y-4">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-purple-400 shadow-[0_0_10px_rgba(192,132,252,0.6)] animate-pulse" />
-                <span className="text-xs font-mono uppercase tracking-widest text-purple-400 font-black">
-                  07 // KNOWLEDGE VAULT
-                </span>
+            {/* SECTION 06: CAREER PIPELINE & OPPORTUNITIES */}
+            <section id="jobs" className="scroll-mt-24 space-y-4">
+              <div className="p-4 sm:p-5 rounded-2xl crimson-glass border border-[#E5B84B]/20 flex items-center justify-between gap-4 shadow-xl">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#E5B84B] shadow-[0_0_10px_#E5B84B] animate-pulse" />
+                    <span className="text-xs font-mono uppercase tracking-widest text-[#F9D976] font-black">
+                      06 // CAREER PIPELINE
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-white">
+                    FDE & Tech Job Applications
+                  </h2>
+                  <p className="text-xs font-mono text-[#BFA997] uppercase">
+                    Stage-by-stage Kanban tracking, salaries & referral follow-ups
+                  </p>
+                </div>
+
+                <KineticDomainBadge screenId="jobs" size={68} />
               </div>
-              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
-                Memory Crystal & Rapid Capture
-              </h2>
-              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
-                Resource bookmarks, technical whitepapers & quick inbox
-              </p>
-            </div>
-            
-            {/* Kinetic 3D Memory Crystal Badge */}
-            <KineticDomainBadge screenId="vault" size={68} />
-          </div>
 
-          <ResourceInboxView />
-        </section>
+              <JobTrackerView />
+            </section>
 
-        {/* SECTION 08: SHIPPED SYSTEMS & PROJECTS */}
-        <section id="projects" className="scroll-mt-20 space-y-4">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8] shadow-[0_0_10px_#38BDF8] animate-pulse" />
-                <span className="text-xs font-mono uppercase tracking-widest text-[#38BDF8] font-black">
-                  08 // ARCHITECTURE STACK
-                </span>
+            {/* SECTION 07: KNOWLEDGE VAULT & BOOKMARKS */}
+            <section id="vault" className="scroll-mt-24 space-y-4">
+              <div className="p-4 sm:p-5 rounded-2xl crimson-glass border border-[#E5B84B]/20 flex items-center justify-between gap-4 shadow-xl">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#E5B84B] shadow-[0_0_10px_#E5B84B] animate-pulse" />
+                    <span className="text-xs font-mono uppercase tracking-widest text-[#F9D976] font-black">
+                      07 // KNOWLEDGE VAULT
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-white">
+                    Resource Inbox & Bookmarks
+                  </h2>
+                  <p className="text-xs font-mono text-[#BFA997] uppercase">
+                    Saved technical articles, research papers & architectural references
+                  </p>
+                </div>
+
+                <KineticDomainBadge screenId="vault" size={68} />
               </div>
-              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
-                Production Systems & Engineering Portfolios
-              </h2>
-              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
-                Distributed systems, repositories, architecture diagrams & deployments
-              </p>
-            </div>
-            
-            {/* Kinetic 3D Slabs Badge */}
-            <KineticDomainBadge screenId="projects" size={68} />
-          </div>
 
-          <ProjectsScreen />
-        </section>
+              <ResourceInboxView />
+            </section>
 
-        {/* SECTION 09: PERFORMANCE TELEMETRY & ANALYTICS */}
-        <section id="progress" className="scroll-mt-20 space-y-4">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-secondary)] shadow-[0_0_10px_var(--accent-secondary)] animate-pulse" />
-                <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent-secondary)] font-black">
-                  09 // PERFORMANCE MATRIX
-                </span>
+            {/* SECTION 08: PRODUCTION PROJECTS LABORATORY */}
+            <section id="projects" className="scroll-mt-24 space-y-4">
+              <div className="p-4 sm:p-5 rounded-2xl crimson-glass border border-[#E5B84B]/20 flex items-center justify-between gap-4 shadow-xl">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#E5B84B] shadow-[0_0_10px_#E5B84B] animate-pulse" />
+                    <span className="text-xs font-mono uppercase tracking-widest text-[#F9D976] font-black">
+                      08 // ENGINEERING LAB
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-white">
+                    Portfolio & Production Builds
+                  </h2>
+                  <p className="text-xs font-mono text-[#BFA997] uppercase">
+                    Enterprise architecture projects, system design & GitHub repos
+                  </p>
+                </div>
+
+                <KineticDomainBadge screenId="projects" size={68} />
               </div>
-              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
-                Master Composite Score & Telemetry
-              </h2>
-              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
-                Curriculum velocity, focus ratio consistency & heatmaps
-              </p>
-            </div>
-            
-            {/* Kinetic 3D Bar Matrix Badge */}
-            <KineticDomainBadge screenId="progress" size={68} />
-          </div>
 
-          <ProgressScreen />
-        </section>
+              <ProjectsScreen />
+            </section>
 
-        {/* SECTION 10: ACCOUNTABILITY AUDIT */}
-        <section id="wasted" className="scroll-mt-20 space-y-4">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.6)] animate-pulse" />
-                <span className="text-xs font-mono uppercase tracking-widest text-rose-400 font-black">
-                  10 // ENTROPY PROTOCOL
-                </span>
+            {/* SECTION 09: TEMPORAL TELEMETRY & ANALYTICS */}
+            <section id="progress" className="scroll-mt-24 space-y-4">
+              <div className="p-4 sm:p-5 rounded-2xl crimson-glass border border-[#E5B84B]/20 flex items-center justify-between gap-4 shadow-xl">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#E5B84B] shadow-[0_0_10px_#E5B84B] animate-pulse" />
+                    <span className="text-xs font-mono uppercase tracking-widest text-[#F9D976] font-black">
+                      09 // TELEMETRY CORE
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-white">
+                    Longitudinal Analytics & Heatmaps
+                  </h2>
+                  <p className="text-xs font-mono text-[#BFA997] uppercase">
+                    Study velocity, streak momentum & cognitive performance trends
+                  </p>
+                </div>
+
+                <KineticDomainBadge screenId="progress" size={68} />
               </div>
-              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
-                Temporal Drift & Accountability Audit
-              </h2>
-              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
-                Distraction root-cause analysis & instant recovery logging
-              </p>
-            </div>
-            
-            {/* Kinetic 3D Hourglass Badge */}
-            <KineticDomainBadge screenId="wasted" size={68} />
-          </div>
 
-          <WastedDaysScreen />
-        </section>
+              <ProgressScreen />
+            </section>
 
-      </main>
+            {/* SECTION 10: ACCOUNTABILITY & ENTROPY LEDGER */}
+            <section id="wasted" className="scroll-mt-24 space-y-4">
+              <div className="p-4 sm:p-5 rounded-2xl crimson-glass border border-[#E5B84B]/20 flex items-center justify-between gap-4 shadow-xl">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.6)] animate-pulse" />
+                    <span className="text-xs font-mono uppercase tracking-widest text-rose-400 font-black">
+                      10 // ACCOUNTABILITY
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-white">
+                    Entropy Singularity & Wasted Days Ledger
+                  </h2>
+                  <p className="text-xs font-mono text-[#BFA997] uppercase">
+                    Zero-compromise time audits, distraction breakdown & recovery plans
+                  </p>
+                </div>
 
-      {/* Floating macOS-Style Smoked Obsidian Glass Dock */}
-      <FloatingDock
-        activeScreen={activeScreen}
-        onSelectScreen={handleScrollTo}
-      />
+                <KineticDomainBadge screenId="wasted" size={68} />
+              </div>
+
+              <WastedDaysScreen />
+            </section>
+
+          </main>
+        </div>
+      </div>
+
+      {/* Floating Bottom Navigation Dock */}
+      <FloatingDock activeScreen={activeScreen} onSelectScreen={handleScrollTo} />
 
       {/* Cloud Sync Modal */}
       <CloudSyncModal

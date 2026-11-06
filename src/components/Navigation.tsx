@@ -14,12 +14,11 @@ import {
   Code2, 
   Briefcase, 
   Bookmark,
-  Palette
+  Sparkles
 } from 'lucide-react';
 import { db } from '../services/db';
 import { cloudSyncService, SyncState } from '../services/cloudSyncService';
 import { LearnVaultLogo } from './LearnVaultLogo';
-import { useTheme } from '../context/ThemeContext';
 
 export type ScreenId = 
   | 'today' 
@@ -46,7 +45,7 @@ export const NAV_ITEMS: { id: ScreenId; label: string; shortLabel: string; icon:
   { id: 'today', label: 'Today', shortLabel: 'Today', icon: Sun },
   { id: 'timer', label: 'Timer', shortLabel: 'Timer', icon: TimerIcon },
   { id: 'plan', label: 'Plan', shortLabel: 'Plan', icon: CalendarRange },
-  { id: 'learn', label: 'Curriculum', shortLabel: 'Curriculum', icon: BookOpen },
+  { id: 'learn', label: 'Curriculum', shortLabel: 'Learn', icon: BookOpen },
   { id: 'dsa', label: 'DSA Lab', shortLabel: 'DSA', icon: Code2 },
   { id: 'jobs', label: 'Career HQ', shortLabel: 'Jobs', icon: Briefcase },
   { id: 'vault', label: 'Vault', shortLabel: 'Vault', icon: Bookmark },
@@ -56,7 +55,7 @@ export const NAV_ITEMS: { id: ScreenId; label: string; shortLabel: string; icon:
 ];
 
 /* ==========================================================================
-   TOP MINIMALIST HUD BAR (SMOKED OBSIDIAN & POLISHED MERCURY)
+   TOP MINIMALIST HUD BAR (OBSIDIAN VOID & BRUSHED METALLIC GOLD)
    ========================================================================== */
 export const TopNavBar: React.FC<NavigationProps> = ({
   activeScreen,
@@ -66,7 +65,6 @@ export const TopNavBar: React.FC<NavigationProps> = ({
   onOpenSyncModal,
   onQuickFocus,
 }) => {
-  const { theme, cycleTheme, themeConfig } = useTheme();
   const curriculumTopics = useLiveQuery(() => db.curriculumTopics.toArray()) || [];
   const [syncState, setSyncState] = useState<SyncState>(cloudSyncService.getState());
 
@@ -80,6 +78,7 @@ export const TopNavBar: React.FC<NavigationProps> = ({
     totalSub += t.subtopics?.length || 0;
     doneSub += t.subtopics?.filter((s) => s.completed).length || 0;
   });
+  const displayTotal = totalSub > 0 ? totalSub : 892;
   const overallPercent = totalSub > 0 ? Math.round((doneSub / totalSub) * 100) : 0;
 
   // Day calculation (Day X of 1,460)
@@ -101,21 +100,21 @@ export const TopNavBar: React.FC<NavigationProps> = ({
   const currentNav = NAV_ITEMS.find((item) => item.id === activeScreen);
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[var(--surface-glass)]/95 backdrop-blur-2xl border-b border-[var(--surface-border)] transition-colors duration-300 px-3 sm:px-6 py-2.5 select-none">
+    <header className="sticky top-0 z-40 w-full bg-[#080304]/90 backdrop-blur-2xl border-b border-[#E5B84B]/20 transition-colors duration-300 px-3 sm:px-6 py-2.5 select-none">
       <div className="max-w-[1560px] mx-auto flex items-center justify-between gap-3">
         {/* Left: Minimalist Hardware Mark & Active Domain Pill */}
         <div className="flex items-center gap-3">
           <div 
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex items-center gap-2 cursor-pointer group shrink-0"
-            title="Scroll to Coverpage"
+            title="Scroll to Chronometer Hero"
           >
-            <LearnVaultLogo size={28} showText={true} badge="// OS 2.0" />
+            <LearnVaultLogo size={28} showText={true} badge="// VAULT 2.0" />
           </div>
 
           {/* Active Domain Indicator Breadcrumb */}
-          <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[var(--bg-canvas)] border border-[var(--surface-border)] text-[10px] font-mono uppercase text-[var(--text-secondary)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500]" />
+          <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#180509]/80 border border-[#E5B84B]/25 text-[10px] font-mono uppercase text-[#F9D976]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E5B84B] animate-pulse" />
             <span className="text-white font-bold">{currentNav?.label || 'Cover'}</span>
           </div>
         </div>
@@ -123,70 +122,55 @@ export const TopNavBar: React.FC<NavigationProps> = ({
         {/* Center: High-Density Macro Progress Scrubber */}
         <div 
           onClick={() => onSelectScreen('progress')}
-          className="hidden md:flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-[var(--bg-canvas)] border border-[var(--surface-border)] shadow-inner hover:border-white/20 cursor-pointer transition-all"
+          className="hidden md:flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-[#140407]/90 border border-[#E5B84B]/25 shadow-inner hover:border-[#E5B84B]/50 cursor-pointer transition-all"
         >
-          <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold text-[var(--text-primary)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500] animate-pulse" />
+          <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold text-[#F9D976]">
+            <Sparkles className="w-3 h-3 text-[#E5B84B] animate-pulse" />
             <span>DAY {String(currentDayNumber).padStart(3, '0')} / 1,460</span>
           </div>
 
-          <div className="w-20 bg-black/60 h-1.5 rounded-full overflow-hidden border border-white/[0.06]">
+          <div className="w-24 bg-[#080304] h-1.5 rounded-full overflow-hidden border border-[#E5B84B]/20">
             <div 
-              className="h-full bg-gradient-to-r from-white to-[#FF5500] rounded-full transition-all duration-500 shadow-sm"
+              className="h-full bg-gradient-to-r from-[#E5B84B] to-[#F9D976] rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(229,184,75,0.4)]"
               style={{ width: `${Math.max(overallPercent, 2)}%` }}
             />
           </div>
 
-          <div className="text-[10px] font-mono text-[#9898A0]">
-            <strong className="text-white">{doneSub}/{totalSub}</strong> TOPICS ({overallPercent}%)
+          <div className="text-[10px] font-mono text-[#BFA997]">
+            <strong className="text-white">{doneSub}/{displayTotal}</strong> TOPICS ({overallPercent}%)
           </div>
         </div>
 
-        {/* Right: Theme Switcher, Cloud Sync, Date Badge & Start Focus */}
-        <div className="flex items-center gap-2 shrink-0">
-          {/* Aesthetic Color Theme Cycler */}
-          <button
-            onClick={cycleTheme}
-            className="px-2.5 py-1 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.12] flex items-center gap-1.5 text-[10px] font-mono font-bold transition-all cursor-pointer shadow-sm"
-            title={`Current Theme: ${themeConfig.name}. Click to switch theme.`}
-          >
-            <span 
-              className="w-2 h-2 rounded-full shadow-[0_0_8px_currentColor]" 
-              style={{ backgroundColor: themeConfig.accentColor, color: themeConfig.accentColor }} 
-            />
-            <span className="hidden sm:inline uppercase text-white tracking-wider">
-              {themeConfig.name}
-            </span>
-          </button>
-
+        {/* Right: Cloud Sync, Date Badge & Start Focus */}
+        <div className="flex items-center gap-2.5 shrink-0">
           {/* Cloud Sync Status */}
           <button
             onClick={onOpenSyncModal}
-            className="p-1.5 sm:px-2.5 sm:py-1 rounded-full bg-[var(--bg-canvas)] border border-[var(--surface-border)] hover:border-white/25 text-[#9898A0] hover:text-white transition-all flex items-center gap-1.5 text-xs font-mono shadow-sm cursor-pointer"
+            className="p-1.5 sm:px-2.5 sm:py-1 rounded-full bg-[#140407]/80 border border-[#E5B84B]/25 hover:border-[#E5B84B]/50 text-[#BFA997] hover:text-white transition-all flex items-center gap-1.5 text-xs font-mono shadow-sm cursor-pointer"
             title="Cloud Sync"
           >
-            <Cloud className="w-3 h-3 text-[#9898A0]" />
+            <Cloud className="w-3.5 h-3.5 text-[#E5B84B]" />
             <span className="hidden xl:inline text-[9px] font-bold">
-              {syncState.syncId ? 'SYNC' : 'LINK'}
+              {syncState.syncId ? 'SYNCED' : 'BACKUP'}
             </span>
             {syncState.syncId && (
-              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] shadow-[0_0_6px_#10B981]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E5B84B] shadow-[0_0_6px_#E5B84B]" />
             )}
           </button>
 
           {/* Date Badge */}
-          <div className="hidden sm:flex items-center px-2.5 py-1 rounded-full bg-[var(--bg-canvas)] border border-[var(--surface-border)] text-[10px] font-mono font-bold text-[var(--text-primary)] shadow-sm">
+          <div className="hidden sm:flex items-center px-3 py-1 rounded-full bg-[#140407]/80 border border-[#E5B84B]/20 text-[10px] font-mono font-bold text-[#F9D976] shadow-sm">
             {formattedDate}
           </div>
 
-          {/* Hero Action: Start Pomodoro (Liquid Mercury / Platinum Trigger) */}
+          {/* Hero Action: Start Pomodoro (Liquid Gold Shimmer Trigger) */}
           <button
             type="button"
             onClick={onQuickFocus || (() => onSelectScreen('timer'))}
-            className="px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full btn-mercury text-xs font-black flex items-center gap-1.5 cursor-pointer shadow-md"
+            className="px-4 py-1.5 rounded-full btn-liquid-gold text-xs font-black flex items-center gap-2 cursor-pointer shadow-md pulse-gold"
           >
-            <Play className="w-3 h-3 fill-current text-[#050507]" />
-            <span className="tracking-wide uppercase font-mono text-[10px] sm:text-[11px] text-[#050507]">
+            <Play className="w-3 h-3 fill-current text-black" />
+            <span className="tracking-wide uppercase font-mono text-[11px] text-black">
               Start Focus
             </span>
           </button>
@@ -197,7 +181,7 @@ export const TopNavBar: React.FC<NavigationProps> = ({
 };
 
 /* ==========================================================================
-   FLOATING MACOS-STYLE GLASS DOCK (SMOKED OBSIDIAN CAPSULE - CONTINUOUS SCROLL)
+   FLOATING MACOS-STYLE GLASS DOCK (CRIMSON GLASS & LIQUID GOLD INDICATORS)
    ========================================================================== */
 export const FloatingDock: React.FC<NavigationProps> = ({
   activeScreen,
@@ -205,7 +189,7 @@ export const FloatingDock: React.FC<NavigationProps> = ({
 }) => {
   return (
     <div className="fixed bottom-4 inset-x-0 z-40 flex justify-center pointer-events-none px-2 sm:px-4">
-      <nav className="glass-dock pointer-events-auto flex items-center gap-1 sm:gap-1.5 p-1.5 max-w-full overflow-x-auto no-scrollbar shadow-2xl">
+      <nav className="pointer-events-auto flex items-center gap-1 sm:gap-1.5 p-1.5 max-w-full overflow-x-auto no-scrollbar rounded-full bg-[#180509]/90 backdrop-blur-2xl border border-[#E5B84B]/30 shadow-[0_20px_40px_rgba(0,0,0,0.8),0_0_20px_rgba(229,184,75,0.15)]">
         {NAV_ITEMS.map((item) => {
           const isActive = activeScreen === item.id;
           const Icon = item.icon;
@@ -217,16 +201,16 @@ export const FloatingDock: React.FC<NavigationProps> = ({
               title={item.label}
               className={`relative px-2.5 sm:px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-medium transition-all duration-150 cursor-pointer shrink-0 ${
                 isActive
-                  ? 'bg-gradient-to-b from-white to-[#E0E0E6] text-[#050507] font-black shadow-md'
-                  : 'text-[#9898A0] hover:text-white hover:bg-white/[0.06]'
+                  ? 'btn-liquid-gold text-black font-black shadow-md'
+                  : 'text-[#BFA997] hover:text-white hover:bg-white/[0.06]'
               }`}
             >
-              <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#FF5500]' : 'text-current'}`} />
+              <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-black' : 'text-current'}`} />
               <span className="hidden md:inline font-mono tracking-tight text-[10px] uppercase font-bold">{item.shortLabel}</span>
               {isActive && (
                 <motion.span
                   layoutId="dock-active-dot"
-                  className="w-1 h-1 rounded-full bg-[#FF5500] shadow-[0_0_4px_#FF5500]"
+                  className="w-1 h-1 rounded-full bg-black shadow-sm"
                 />
               )}
             </button>
