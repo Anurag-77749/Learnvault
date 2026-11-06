@@ -1,7 +1,6 @@
-// LearnVault - Apple-Style Continuous Scrollytelling Workspace with Interactive 3D Canvas Visualizers
+// LearnVault - Apple-Style Continuous Scrollytelling Workspace (Ultra-Smooth 120 FPS Architecture)
 import React, { useState, useEffect } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { motion } from 'framer-motion';
 import { db } from './services/db';
 import { ScreenId, TopNavBar, FloatingDock, NAV_ITEMS } from './components/Navigation';
 import { AppleScrollShowcase } from './components/AppleScrollShowcase';
@@ -18,19 +17,7 @@ import { WastedDaysScreen } from './components/WastedDaysScreen';
 import { CloudSyncModal } from './components/CloudSyncModal';
 import { cloudSyncService, SyncState } from './services/cloudSyncService';
 import { cleanupSampleProjects } from './services/projectService';
-import { Interactive3DCard } from './components/Interactive3DCard';
-
-// 3D Canvas Visualizers for Every Page
-import { ThreeMomentumOrb } from './components/3d/ThreeMomentumOrb';
-import { ThreeChronometer3D } from './components/3d/ThreeChronometer3D';
-import { ThreeTimelineMesh3D } from './components/3d/ThreeTimelineMesh3D';
-import { ThreeKnowledgeGalaxy3D } from './components/3d/ThreeKnowledgeGalaxy3D';
-import { ThreeAlgorithmMatrix3D } from './components/3d/ThreeAlgorithmMatrix3D';
-import { ThreeRadarGlobe3D } from './components/3d/ThreeRadarGlobe3D';
-import { ThreeMemoryCrystal3D } from './components/3d/ThreeMemoryCrystal3D';
-import { ThreeArchitectureStack3D } from './components/3d/ThreeArchitectureStack3D';
-import { ThreeTelemetryHistogram3D } from './components/3d/ThreeTelemetryHistogram3D';
-import { ThreeEntropySingularity3D } from './components/3d/ThreeEntropySingularity3D';
+import { KineticDomainBadge } from './components/KineticDomainBadge';
 
 export const App: React.FC = () => {
   const [activeScreen, setActiveScreen] = useState<ScreenId>('today');
@@ -68,21 +55,29 @@ export const App: React.FC = () => {
     handleScrollTo('timer');
   };
 
-  // Active section spy on scroll
+  // Active section spy on scroll with rAF throttle for maximum smoothness
   useEffect(() => {
-    const handleScrollSpy = () => {
-      const scrollPosition = window.scrollY + 220;
+    let ticking = false;
 
-      for (const item of NAV_ITEMS) {
-        const el = document.getElementById(item.id);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveScreen(item.id);
-            break;
+    const handleScrollSpy = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollPosition = window.scrollY + 220;
+
+          for (const item of NAV_ITEMS) {
+            const el = document.getElementById(item.id);
+            if (el) {
+              const top = el.offsetTop;
+              const height = el.offsetHeight;
+              if (scrollPosition >= top && scrollPosition < top + height) {
+                setActiveScreen(item.id);
+                break;
+              }
+            }
           }
-        }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
@@ -91,7 +86,7 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen text-[var(--text-primary)] flex flex-col antialiased selection:bg-[var(--accent-primary)] selection:text-black relative font-sans overflow-x-hidden transition-colors duration-400">
+    <div className="min-h-screen text-[var(--text-primary)] flex flex-col antialiased selection:bg-[var(--accent-primary)] selection:text-black relative font-sans overflow-x-hidden transition-colors duration-300">
       {/* Top Minimalist HUD Bar with Theme Switcher */}
       <TopNavBar
         activeScreen={activeScreen}
@@ -105,12 +100,12 @@ export const App: React.FC = () => {
       {/* 1. COVERPAGE: APPLE-STYLE 3D SCROLL-DRIVEN REVEAL */}
       <AppleScrollShowcase onEnterWorkspace={() => handleScrollTo('today')} />
 
-      {/* 2. CONTINUOUS SCROLL WORKSPACE SECTIONS (EVERY SECTION HAS ANIMATED 3D VISUALIZERS) */}
-      <main className="w-full max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-8 space-y-28 relative z-10 pb-36">
+      {/* 2. CONTINUOUS SCROLL WORKSPACE SECTIONS */}
+      <main className="w-full max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-8 space-y-24 relative z-10 pb-36">
         
         {/* SECTION 01: TODAY'S BLUEPRINT */}
-        <section id="today" className="scroll-mt-20 space-y-5">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+        <section id="today" className="scroll-mt-20 space-y-4">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-primary)] shadow-[0_0_10px_var(--accent-primary)] animate-pulse" />
@@ -126,24 +121,20 @@ export const App: React.FC = () => {
               </p>
             </div>
             
-            {/* Interactive 3D Momentum Gyroscope */}
-            <div className="shrink-0 flex items-center justify-center">
-              <ThreeMomentumOrb size={170} studyMinutes={totalStudyMinutes} />
-            </div>
+            {/* Kinetic 3D Gyroscope Badge */}
+            <KineticDomainBadge screenId="today" size={68} />
           </div>
 
-          <Interactive3DCard maxTilt={3} depth={8}>
-            <TodayScreen
-              onNavigateToTimer={handleStartTimerWithTopic}
-              onNavigateToPlan={() => handleScrollTo('plan')}
-              onNavigateToLearn={() => handleScrollTo('learn')}
-            />
-          </Interactive3DCard>
+          <TodayScreen
+            onNavigateToTimer={handleStartTimerWithTopic}
+            onNavigateToPlan={() => handleScrollTo('plan')}
+            onNavigateToLearn={() => handleScrollTo('learn')}
+          />
         </section>
 
         {/* SECTION 02: DEEP WORK FOCUS TIMER */}
-        <section id="timer" className="scroll-mt-20 space-y-5">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+        <section id="timer" className="scroll-mt-20 space-y-4">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-primary)] shadow-[0_0_10px_var(--accent-primary)] animate-pulse" />
@@ -159,20 +150,16 @@ export const App: React.FC = () => {
               </p>
             </div>
             
-            {/* Interactive 3D Chronometer */}
-            <div className="shrink-0 flex items-center justify-center">
-              <ThreeChronometer3D size={170} isRunning={true} />
-            </div>
+            {/* Kinetic 3D Chronometer Badge */}
+            <KineticDomainBadge screenId="timer" size={68} />
           </div>
 
-          <Interactive3DCard maxTilt={3} depth={8}>
-            <TimerScreen initialTopic={timerTopic} />
-          </Interactive3DCard>
+          <TimerScreen initialTopic={timerTopic} />
         </section>
 
         {/* SECTION 03: 4-YEAR SPRINT ROADMAP */}
-        <section id="plan" className="scroll-mt-20 space-y-5">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+        <section id="plan" className="scroll-mt-20 space-y-4">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-secondary)] shadow-[0_0_10px_var(--accent-secondary)] animate-pulse" />
@@ -188,20 +175,16 @@ export const App: React.FC = () => {
               </p>
             </div>
             
-            {/* Interactive 3D Timeline Mesh */}
-            <div className="shrink-0 flex items-center justify-center">
-              <ThreeTimelineMesh3D size={170} />
-            </div>
+            {/* Kinetic 3D Timeline Pillars Badge */}
+            <KineticDomainBadge screenId="plan" size={68} />
           </div>
 
-          <Interactive3DCard maxTilt={3} depth={8}>
-            <PlanScreen />
-          </Interactive3DCard>
+          <PlanScreen />
         </section>
 
         {/* SECTION 04: KNOWLEDGE CURRICULUM ATLAS */}
-        <section id="learn" className="scroll-mt-20 space-y-5">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+        <section id="learn" className="scroll-mt-20 space-y-4">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-primary)] shadow-[0_0_10px_var(--accent-primary)] animate-pulse" />
@@ -217,20 +200,16 @@ export const App: React.FC = () => {
               </p>
             </div>
             
-            {/* Interactive 3D Knowledge Galaxy */}
-            <div className="shrink-0 flex items-center justify-center">
-              <ThreeKnowledgeGalaxy3D size={170} />
-            </div>
+            {/* Kinetic 3D Constellation Badge */}
+            <KineticDomainBadge screenId="learn" size={68} />
           </div>
 
-          <Interactive3DCard maxTilt={3} depth={8}>
-            <LearnScreen />
-          </Interactive3DCard>
+          <LearnScreen />
         </section>
 
         {/* SECTION 05: DSA & ALGORITHMS LABORATORY */}
-        <section id="dsa" className="scroll-mt-20 space-y-5">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+        <section id="dsa" className="scroll-mt-20 space-y-4">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-secondary)] shadow-[0_0_10px_var(--accent-secondary)] animate-pulse" />
@@ -246,20 +225,16 @@ export const App: React.FC = () => {
               </p>
             </div>
             
-            {/* Interactive 3D Algorithm Lattice */}
-            <div className="shrink-0 flex items-center justify-center">
-              <ThreeAlgorithmMatrix3D size={170} />
-            </div>
+            {/* Kinetic 3D Algorithm Lattice Badge */}
+            <KineticDomainBadge screenId="dsa" size={68} />
           </div>
 
-          <Interactive3DCard maxTilt={3} depth={8}>
-            <DSATrackerView />
-          </Interactive3DCard>
+          <DSATrackerView />
         </section>
 
         {/* SECTION 06: FORWARD DEPLOYED CAREER HQ */}
-        <section id="jobs" className="scroll-mt-20 space-y-5">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+        <section id="jobs" className="scroll-mt-20 space-y-4">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-secondary)] shadow-[0_0_10px_var(--accent-secondary)] animate-pulse" />
@@ -275,20 +250,16 @@ export const App: React.FC = () => {
               </p>
             </div>
             
-            {/* Interactive 3D Career Radar */}
-            <div className="shrink-0 flex items-center justify-center">
-              <ThreeRadarGlobe3D size={170} />
-            </div>
+            {/* Kinetic 3D Radar Globe Badge */}
+            <KineticDomainBadge screenId="jobs" size={68} />
           </div>
 
-          <Interactive3DCard maxTilt={3} depth={8}>
-            <JobTrackerView />
-          </Interactive3DCard>
+          <JobTrackerView />
         </section>
 
         {/* SECTION 07: KNOWLEDGE VAULT & INBOX */}
-        <section id="vault" className="scroll-mt-20 space-y-5">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+        <section id="vault" className="scroll-mt-20 space-y-4">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-purple-400 shadow-[0_0_10px_rgba(192,132,252,0.6)] animate-pulse" />
@@ -304,20 +275,16 @@ export const App: React.FC = () => {
               </p>
             </div>
             
-            {/* Interactive 3D Memory Crystal */}
-            <div className="shrink-0 flex items-center justify-center">
-              <ThreeMemoryCrystal3D size={170} />
-            </div>
+            {/* Kinetic 3D Memory Crystal Badge */}
+            <KineticDomainBadge screenId="vault" size={68} />
           </div>
 
-          <Interactive3DCard maxTilt={3} depth={8}>
-            <ResourceInboxView />
-          </Interactive3DCard>
+          <ResourceInboxView />
         </section>
 
         {/* SECTION 08: SHIPPED SYSTEMS & PROJECTS */}
-        <section id="projects" className="scroll-mt-20 space-y-5">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+        <section id="projects" className="scroll-mt-20 space-y-4">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8] shadow-[0_0_10px_#38BDF8] animate-pulse" />
@@ -333,20 +300,16 @@ export const App: React.FC = () => {
               </p>
             </div>
             
-            {/* Interactive 3D Architecture Stack */}
-            <div className="shrink-0 flex items-center justify-center">
-              <ThreeArchitectureStack3D size={170} />
-            </div>
+            {/* Kinetic 3D Slabs Badge */}
+            <KineticDomainBadge screenId="projects" size={68} />
           </div>
 
-          <Interactive3DCard maxTilt={3} depth={8}>
-            <ProjectsScreen />
-          </Interactive3DCard>
+          <ProjectsScreen />
         </section>
 
         {/* SECTION 09: PERFORMANCE TELEMETRY & ANALYTICS */}
-        <section id="progress" className="scroll-mt-20 space-y-5">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+        <section id="progress" className="scroll-mt-20 space-y-4">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-secondary)] shadow-[0_0_10px_var(--accent-secondary)] animate-pulse" />
@@ -362,20 +325,16 @@ export const App: React.FC = () => {
               </p>
             </div>
             
-            {/* Interactive 3D Telemetry Histogram */}
-            <div className="shrink-0 flex items-center justify-center">
-              <ThreeTelemetryHistogram3D size={170} />
-            </div>
+            {/* Kinetic 3D Bar Matrix Badge */}
+            <KineticDomainBadge screenId="progress" size={68} />
           </div>
 
-          <Interactive3DCard maxTilt={3} depth={8}>
-            <ProgressScreen />
-          </Interactive3DCard>
+          <ProgressScreen />
         </section>
 
         {/* SECTION 10: ACCOUNTABILITY AUDIT */}
-        <section id="wasted" className="scroll-mt-20 space-y-5">
-          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+        <section id="wasted" className="scroll-mt-20 space-y-4">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex items-center justify-between gap-4 shadow-xl">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.6)] animate-pulse" />
@@ -391,15 +350,11 @@ export const App: React.FC = () => {
               </p>
             </div>
             
-            {/* Interactive 3D Entropy Singularity */}
-            <div className="shrink-0 flex items-center justify-center">
-              <ThreeEntropySingularity3D size={170} />
-            </div>
+            {/* Kinetic 3D Hourglass Badge */}
+            <KineticDomainBadge screenId="wasted" size={68} />
           </div>
 
-          <Interactive3DCard maxTilt={3} depth={8}>
-            <WastedDaysScreen />
-          </Interactive3DCard>
+          <WastedDaysScreen />
         </section>
 
       </main>

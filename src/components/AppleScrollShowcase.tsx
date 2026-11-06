@@ -170,12 +170,20 @@ export const AppleScrollShowcase: React.FC<AppleScrollShowcaseProps> = ({ onEnte
       particles,
     };
 
-    // Animation Render Loop
+    // Animation Render Loop with Viewport Visibility Observer (Saves 100% GPU when out of view)
     let animationFrameId: number;
     let clock = new THREE.Clock();
+    let isVisible = true;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+    });
+    if (containerRef.current) observer.observe(containerRef.current);
 
     const render = () => {
       animationFrameId = requestAnimationFrame(render);
+      if (!isVisible) return; // Pause rendering when user is working in the workspace!
+
       const elapsed = clock.getElapsedTime();
 
       // Continuous subtle ambient drift
@@ -201,6 +209,7 @@ export const AppleScrollShowcase: React.FC<AppleScrollShowcaseProps> = ({ onEnte
     window.addEventListener('resize', handleResize);
 
     return () => {
+      observer.disconnect();
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', handleResize);
       if (renderer.domElement && mount.contains(renderer.domElement)) {
@@ -210,61 +219,59 @@ export const AppleScrollShowcase: React.FC<AppleScrollShowcaseProps> = ({ onEnte
     };
   }, []);
 
-  // 2. Scroll-Driven 3D Frame Interpolation (Apple Scrollytelling Mechanics)
+  // 2. Scroll-Driven 3D Frame Interpolation (Apple Scrollytelling Mechanics with rAF throttle)
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const container = containerRef.current;
-      if (!container) return;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const container = containerRef.current;
+          if (container) {
+            const rect = container.getBoundingClientRect();
+            const totalScrollable = container.scrollHeight - window.innerHeight;
+            const currentScroll = Math.max(0, -rect.top);
+            const fraction = Math.min(1, Math.max(0, currentScroll / totalScrollable));
+            setScrollFraction(fraction);
 
-      const rect = container.getBoundingClientRect();
-      const totalScrollable = container.scrollHeight - window.innerHeight;
-      const currentScroll = Math.max(0, -rect.top);
-      const fraction = Math.min(1, Math.max(0, currentScroll / totalScrollable));
-      setScrollFraction(fraction);
+            // Scrub 3D elements based on scroll fraction
+            const comps = componentsRef.current;
+            const camera = cameraRef.current;
+            if (comps && camera) {
+              const targetZ = 6.2 - fraction * 1.8;
+              const targetY = (fraction - 0.5) * 0.8;
+              camera.position.z = targetZ;
+              camera.position.y = targetY;
+              camera.lookAt(0, 0, 0);
 
-      // Scrub 3D elements based on scroll fraction
-      const comps = componentsRef.current;
-      const camera = cameraRef.current;
-      if (!comps || !camera) return;
+              const explosionFactor = Math.sin(fraction * Math.PI);
 
-      // Camera Orbit & Zoom
-      const targetZ = 6.2 - fraction * 1.8; // 6.2 -> 4.4
-      const targetY = (fraction - 0.5) * 0.8;
-      camera.position.z = targetZ;
-      camera.position.y = targetY;
-      camera.lookAt(0, 0, 0);
+              comps.ring1.position.x = explosionFactor * 1.6;
+              comps.ring1.position.y = explosionFactor * 0.8;
+              comps.ring1.rotation.z = fraction * Math.PI * 2;
 
-      // Phase 1 (0 to 0.3): Assembled Rotation
-      // Phase 2 (0.3 to 0.7): Exploded Disassembly (Exploded View Animation)
-      // Phase 3 (0.7 to 1.0): Convergence into Final Core
+              comps.ring2.position.x = -explosionFactor * 1.5;
+              comps.ring2.position.z = explosionFactor * 1.2;
+              comps.ring2.rotation.y = -fraction * Math.PI * 2.5;
 
-      const explosionFactor = Math.sin(fraction * Math.PI); // 0 -> 1 -> 0
+              const laserScale = 1 + explosionFactor * 0.8;
+              comps.laserRing.scale.set(laserScale, laserScale, laserScale);
+              comps.laserRing.rotation.z = fraction * Math.PI * 3;
 
-      // Explode Titanium Ring along X/Y
-      comps.ring1.position.x = explosionFactor * 1.6;
-      comps.ring1.position.y = explosionFactor * 0.8;
-      comps.ring1.rotation.z = fraction * Math.PI * 2;
+              comps.sphere.rotation.y = fraction * Math.PI * 3;
+              comps.sphere.rotation.x = fraction * Math.PI * 0.8;
 
-      // Explode Optical Glass Ring along -X/-Z
-      comps.ring2.position.x = -explosionFactor * 1.5;
-      comps.ring2.position.z = explosionFactor * 1.2;
-      comps.ring2.rotation.y = -fraction * Math.PI * 2.5;
-
-      // Explode Laser Ring outwards (Expansion)
-      const laserScale = 1 + explosionFactor * 0.8;
-      comps.laserRing.scale.set(laserScale, laserScale, laserScale);
-      comps.laserRing.rotation.z = fraction * Math.PI * 3;
-
-      // Central Sphere gentle rotation
-      comps.sphere.rotation.y = fraction * Math.PI * 3;
-      comps.sphere.rotation.x = fraction * Math.PI * 0.8;
-
-      // Inner Core Glow intensity
-      comps.innerCore.scale.set(
-        1 + explosionFactor * 0.4,
-        1 + explosionFactor * 0.4,
-        1 + explosionFactor * 0.4
-      );
+              comps.innerCore.scale.set(
+                1 + explosionFactor * 0.4,
+                1 + explosionFactor * 0.4,
+                1 + explosionFactor * 0.4
+              );
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
