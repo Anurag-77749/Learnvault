@@ -7,213 +7,189 @@
     box-sizing: border-box;
   }
   
-  html, body, select, option, input, textarea {
-    color-scheme: dark;
+  html, body {
+    color-scheme: light;
   }
 
   select {
-    color-scheme: dark;
-    background-color: #080E11;
-    color: #E2F1F8;
-    border: 1px solid rgba(0, 240, 255, 0.2);
+    color-scheme: light;
+    background-color: #FFFFFF;
+    color: #111110;
+    border: 1px solid #E6E3DC;
   }
 
   select option {
-    background-color: #050A0D;
-    color: #E2F1F8;
+    background-color: #FFFFFF;
+    color: #111110;
     padding: 8px 12px;
   }
 
   body {
     margin: 0;
     padding: 0;
-    background-color: #040709;
-    background-image: 
-      linear-gradient(rgba(0, 240, 255, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 240, 255, 0.025) 1px, transparent 1px);
-    background-size: 32px 32px;
+    background-color: #F4F2EE;
+    background-image: radial-gradient(#D8D4CC 1px, transparent 1px);
+    background-size: 16px 16px;
     background-attachment: fixed;
-    color: #D4ECF4;
-    font-family: 'JetBrains Mono', 'Inter', monospace;
+    color: #111110;
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
-  h1, h2, h3, .font-serif, .font-display {
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
+  h1, h2, h3, .font-display {
+    font-family: 'Syne', 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.035em;
   }
 
   .font-mono, .tabular-nums {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
     font-variant-numeric: tabular-nums;
   }
 }
 
 /* ==========================================================================
-   CYBERPUNK / TERMINAL HUD DESIGN TOKENS
+   SWISS ALABASTER, BRUSHED TITANIUM & INTERNATIONAL ORANGE (OS 2.0)
    ========================================================================== */
 
-/* HUD Panel Surface */
-.hud-panel,
+/* Ceramic White Bento Surface */
+.bento-ceramic,
 .card-glass,
 .card-obsidian,
 .card-maroon,
 .card-maroon-gold {
-  background-color: #080E11;
-  background-image: linear-gradient(180deg, rgba(0, 240, 255, 0.03) 0%, rgba(0, 0, 0, 0.4) 100%);
-  border: 1px solid rgba(0, 240, 255, 0.18);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(0, 240, 255, 0.1);
-  position: relative;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #FFFFFF;
+  border: 1px solid #E6E3DC;
+  box-shadow: 
+    0 12px 32px -8px rgba(20, 18, 15, 0.05),
+    0 2px 6px -1px rgba(20, 18, 15, 0.03);
+  border-radius: 20px;
+  color: #111110;
+  transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.hud-panel:hover,
-.card-glass:hover,
-.card-obsidian:hover {
-  border-color: rgba(0, 240, 255, 0.35);
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.08), 0 8px 24px rgba(0, 0, 0, 0.8);
+.bento-ceramic:hover {
+  box-shadow: 
+    0 18px 40px -10px rgba(20, 18, 15, 0.09),
+    0 4px 12px -2px rgba(20, 18, 15, 0.04);
+  transform: translateY(-2px);
 }
 
-/* HUD Corner Brackets Accent */
-.hud-corner {
-  position: relative;
+/* High-Contrast Matte Anodized Carbon Core */
+.bento-carbon {
+  background-color: #111110;
+  background-image: radial-gradient(circle at 80% 20%, rgba(255, 79, 0, 0.08) 0%, transparent 60%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 20px 40px -10px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: #FFFFFF;
 }
 
-.hud-corner::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  width: 6px;
-  height: 6px;
-  border-top: 2px solid #00F0FF;
-  border-left: 2px solid #00F0FF;
-}
-
-.hud-corner::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
-  width: 6px;
-  height: 6px;
-  border-bottom: 2px solid #00FF9D;
-  border-right: 2px solid #00FF9D;
-}
-
-/* Primary Cyber Action Button: Emerald / Cyan Pulse */
+/* Signature Accent 1: International Aerospace Orange */
+.btn-orange,
 .btn-cyber-primary,
 .btn-nova-primary,
 .btn-champagne,
 .btn-shiny-gold {
-  background: linear-gradient(135deg, #00FF9D 0%, #00F0FF 100%);
-  color: #030708 !important;
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border: 1px solid #00FF9D;
-  box-shadow: 0 0 14px rgba(0, 255, 157, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  border-radius: 6px;
-  transition: all 0.15s ease;
+  background-color: #FF4F00;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 14px rgba(255, 79, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  transition: all 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.btn-orange:hover,
 .btn-cyber-primary:hover,
 .btn-nova-primary:hover,
 .btn-champagne:hover,
 .btn-shiny-gold:hover {
-  filter: brightness(1.15);
-  box-shadow: 0 0 22px rgba(0, 240, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  transform: translateY(-1px);
+  background-color: #FF621E;
+  box-shadow: 0 6px 20px rgba(255, 79, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transform: translateY(-1px) scale(1.01);
 }
 
+.btn-orange:active,
 .btn-cyber-primary:active,
 .btn-nova-primary:active {
-  transform: translateY(0);
-  filter: brightness(0.9);
+  transform: scale(0.97);
 }
 
-/* Secondary Terminal Glass Button */
+/* Tactile Pill Button */
+.btn-tactile,
 .btn-cyber-ghost,
 .btn-nova-glass,
 .btn-anodized {
-  background: #091216;
-  border: 1px solid rgba(0, 240, 255, 0.2);
-  color: #D4ECF4 !important;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  background: #F7F5F0;
+  border: 1px solid #E6E3DC;
+  color: #111110 !important;
   font-weight: 600;
-  letter-spacing: 0.03em;
-  border-radius: 6px;
-  transition: all 0.15s ease;
+  border-radius: 999px;
+  box-shadow: 0 1px 3px rgba(20, 18, 15, 0.04);
+  transition: all 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.btn-tactile:hover,
 .btn-cyber-ghost:hover,
-.btn-nova-glass:hover,
-.btn-anodized:hover {
-  background: #0F1D24;
-  border-color: #00F0FF;
-  color: #00F0FF !important;
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+.btn-nova-glass:hover {
+  background: #FFFFFF;
+  border-color: #D8D4CC;
+  color: #FF4F00 !important;
+  box-shadow: 0 4px 12px rgba(20, 18, 15, 0.06);
+  transform: translateY(-1px);
 }
 
-/* Glowing Neon Text */
-.text-cyan-glow,
-.text-nova-gradient,
-.text-champagne,
-.text-shiny-gold {
-  color: #00F0FF;
-  text-shadow: 0 0 8px rgba(0, 240, 255, 0.45);
+.btn-tactile:active {
+  transform: scale(0.97);
 }
 
-.text-emerald-glow {
-  color: #00FF9D;
-  text-shadow: 0 0 8px rgba(0, 255, 157, 0.45);
+/* Floating macOS-Style Glass Dock */
+.glass-dock {
+  background: rgba(17, 17, 16, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 24px 50px rgba(0, 0, 0, 0.28),
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
 }
 
-/* Terminal Input Bar */
+/* Command Bar Input */
 .input-command-bar {
-  background: #04080A;
-  border: 1px solid rgba(0, 240, 255, 0.2);
-  color: #00F0FF;
-  font-family: 'JetBrains Mono', monospace;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
-  transition: all 0.15s ease;
+  background: #F7F5F0;
+  border: 1px solid #E6E3DC;
+  color: #111110;
+  box-shadow: inset 0 2px 4px rgba(20, 18, 15, 0.03);
+  transition: all 0.18s ease;
 }
 
 .input-command-bar:focus {
-  border-color: #00F0FF;
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.8);
+  background: #FFFFFF;
+  border-color: #FF4F00;
+  box-shadow: 0 0 0 3px rgba(255, 79, 0, 0.12), inset 0 1px 2px rgba(20, 18, 15, 0.03);
 }
 
-/* Active Top Navigation Tab */
-.nav-tab-active,
-.nav-pill-active {
-  background: rgba(0, 240, 255, 0.12);
-  color: #00F0FF !important;
-  border: 1px solid #00F0FF;
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
-  font-weight: 700;
-}
-
-/* Terminal Scrollbar */
+/* Minimalist Clean Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #040709;
+  background: #F4F2EE;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #11232B;
-  border: 1px solid rgba(0, 240, 255, 0.2);
+  background: #D8D4CC;
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00F0FF;
+  background: #A39E93;
 }

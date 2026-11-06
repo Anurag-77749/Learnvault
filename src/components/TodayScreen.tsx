@@ -6,7 +6,6 @@ import {
   Plus, 
   Clock, 
   Moon, 
-  Terminal, 
   Trash2, 
   ChevronUp, 
   ChevronDown, 
@@ -15,8 +14,11 @@ import {
   X,
   Play,
   ArrowRight,
-  ShieldAlert,
-  Target
+  Flame,
+  Activity,
+  Layers,
+  Sparkles,
+  GripVertical
 } from 'lucide-react';
 import { db, getTodayDateString, TaskItem } from '../services/db';
 import { 
@@ -28,7 +30,7 @@ import {
   updateTaskNote, 
   clearCompletedTasks 
 } from '../services/taskService';
-import { formatMinutes, updateDailyNote } from '../services/dailyLogService';
+import { formatMinutes, updateDailyNote, logSleep } from '../services/dailyLogService';
 import { triggerGoldSparkle } from '../utils/confetti';
 import { DailyDsaCommunicationWidget } from './DailyDsaCommunicationWidget';
 import { LogWastedModal } from './modals/LogWastedModal';
@@ -170,570 +172,535 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
     await reorderTasks(ids);
   };
 
-  // Day calculation
-  const currentDayNumber = React.useMemo(() => {
-    const start = new Date(2026, 10, 1);
-    const now = new Date();
-    const startMidnight = new Date(start.getFullYear(), start.getMonth(), start.getDate()).getTime();
-    const nowMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
-    const diffDays = Math.floor((nowMidnight - startMidnight) / (1000 * 60 * 60 * 24));
-    return Math.min(1460, Math.max(1, diffDays + 1));
-  }, []);
-
-  const formattedToday = new Date().toLocaleDateString('en-GB', {
-    weekday: 'short',
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-  }).toUpperCase();
-
-  const nextUpInfo = {
-    track: 'TRACK 00: FDE GLOSSARY',
-    topic: 'Delta, UAT, Last-Mile Integration & Day 2 Ops',
-    presetDates: 'NOV 01 – NOV 03, 2026',
+  const handleQuickLogSleep = async (hours: number) => {
+    const bedtimeMap: Record<number, string> = { 6: '01:00', 7: '00:00', 8: '23:00' };
+    await logSleep(bedtimeMap[hours] || '23:30', '07:00', 4);
   };
 
   const completedCount = tasks.filter((t) => t.completed).length;
   const progressPercent = tasks.length > 0 ? Math.round((completedCount / tasks.length) * 100) : 0;
 
+  const studiedMins = Math.max(dailyLog?.studyMinutes || 0, (dailyLog?.studyMinutes || 0) + activeLiveElapsedMins);
+  const wastedMins = dailyLog?.wastedMinutes || 0;
+  const totalTrackedMins = studiedMins + wastedMins;
+  const studyRatioPercent = totalTrackedMins > 0 ? Math.round((studiedMins / totalTrackedMins) * 100) : 100;
+
+  const nextUpInfo = {
+    track: 'Track 0: Introduction',
+    topic: 'FDE Glossary & Field Engineering Roles',
+    desc: 'Master Delta, UAT, Last-Mile Integration, Day 2 Operations, and FDE Tiers.',
+    presetDates: 'Nov 1 – Nov 3, 2026',
+  };
+
   return (
-    <div className="space-y-3 max-w-[1500px] mx-auto font-mono pb-20 md:pb-6 text-xs">
+    <div className="space-y-6 pb-28 max-w-[1500px] mx-auto select-none">
       {/* ==========================================================================
-          TOP HUD TELEMETRY HEADER
+          FULL-VIEWPORT ASYMMETRIC BENTO GRID (12 COLUMNS)
           ========================================================================== */}
-      <div className="flex flex-wrap items-center justify-between gap-2 px-1">
-        <div className="flex items-center gap-2">
-          <span className="px-2 py-0.5 rounded bg-[#00FF9D]/10 border border-[#00FF9D]/40 text-[#00FF9D] font-bold text-[11px] flex items-center gap-1.5 shadow-[0_0_8px_rgba(0,255,157,0.2)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#00FF9D] animate-ping" />
-            MISSION DAY {currentDayNumber} / 1,460
-          </span>
-          <span className="text-[#5A7E8D] text-[11px] font-bold">
-            [{formattedToday}]
-          </span>
-        </div>
-
-        <div className="text-[11px] text-[#5A7E8D] hidden sm:flex items-center gap-1.5">
-          <span className="text-[#00F0FF]">&gt;&gt;</span>
-          <span>DIRECTIVE: "YOUR KNOWLEDGE. YOUR PROGRESS. YOUR FUTURE."</span>
-        </div>
-      </div>
-
-      {/* ==========================================================================
-          HIGH-DENSITY BENTO GRID: NO-SCROLL COMMAND HUD
-          ========================================================================== */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        
         {/* ========================================================================
-            LEFT COLUMN (7 COLS): TASK EXECUTION MATRIX
+            COLUMN 1 (LEFT 4 COLS): THE "COMMAND & EXECUTION" STACK
             ======================================================================== */}
-        <section className="lg:col-span-7 rounded-lg hud-panel hud-corner p-3.5 space-y-3">
-          {/* Matrix Header */}
-          <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-[#00F0FF]/15">
-            <div className="flex items-center gap-2">
-              <Terminal className="w-4 h-4 text-[#00F0FF]" />
-              <h2 className="text-xs font-bold text-white tracking-wider uppercase">
-                TASK EXECUTION MATRIX
-              </h2>
+        <div className="lg:col-span-4 space-y-5">
+          {/* 1A. MISSION CONTROL HEADER CARD (CERAMIC WHITE) */}
+          <div className="bento-ceramic p-6 space-y-4 relative overflow-hidden">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="w-2 h-2 rounded-full bg-[#FF4F00]" />
+                <span className="text-[11px] font-mono uppercase tracking-widest text-[#68645E] font-bold">
+                  MISSION CONTROL
+                </span>
+              </div>
+              <h1 className="font-display font-black text-3xl sm:text-4xl text-[#111110] tracking-tight leading-tight">
+                Today's Blueprint
+              </h1>
+              <p className="text-xs text-[#68645E] mt-1 font-sans">
+                Daily execution matrix for forward deployed engineering mastery.
+              </p>
             </div>
 
-            <div className="flex items-center gap-2">
-              <span className="text-[11px] px-2 py-0.5 rounded bg-[#04080A] text-[#00FF9D] font-bold border border-[#00FF9D]/30">
-                {completedCount}/{tasks.length} DONE [{progressPercent}%]
+            {/* Embedded Interactive Quick-Action Dock */}
+            <div className="pt-2 border-t border-[#E6E3DC]">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-[#A39E93] block mb-2">
+                QUICK-ACTION DOCK
               </span>
-              {completedCount > 0 && (
+              <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="button"
-                  onClick={() => clearCompletedTasks()}
-                  className="text-[10px] px-2 py-0.5 rounded bg-[#FF2A55]/15 border border-[#FF2A55]/30 text-[#FF2A55] hover:bg-[#FF2A55]/30 transition-colors cursor-pointer"
-                  title="Purge completed tasks"
+                  onClick={() => setShowSleepModal(true)}
+                  className="px-3 py-1.5 rounded-full btn-tactile text-xs flex items-center gap-1.5 cursor-pointer"
                 >
-                  [PURGE DONE]
+                  <Moon className="w-3.5 h-3.5 text-[#FF4F00]" />
+                  <span>+ Log Sleep</span>
                 </button>
-              )}
+
+                <button
+                  type="button"
+                  onClick={() => setShowWastedModal(true)}
+                  className="px-3 py-1.5 rounded-full btn-tactile text-xs flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Clock className="w-3.5 h-3.5 text-[#68645E]" />
+                  <span>+ Log Wasted</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setShowQuestionModal(true)}
+                  className="px-3 py-1.5 rounded-full btn-tactile text-xs flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5 text-[#10B981] stroke-[2.5]" />
+                  <span>+1 Question</span>
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* Progress Gauge */}
-          <div className="w-full bg-[#04080A] h-1.5 rounded overflow-hidden border border-[#00F0FF]/15">
-            <div 
-              className="h-full bg-gradient-to-r from-[#00FF9D] to-[#00F0FF] rounded transition-all duration-300 shadow-[0_0_8px_rgba(0,255,157,0.4)]"
-              style={{ width: `${Math.max(progressPercent, tasks.length > 0 ? 3 : 0)}%` }}
-            />
-          </div>
+          {/* 1B. THE "ZERO-FRICTION" TASK ENGINE (TO-DO LIST) */}
+          <div className="bento-ceramic p-6 space-y-4 relative">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <h2 className="font-display font-extrabold text-xl text-[#111110] tracking-tight">
+                  Task Engine
+                </h2>
+                <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#F7F5F0] border border-[#E6E3DC] text-[#111110]">
+                  {completedCount}/{tasks.length}
+                </span>
+              </div>
+              <span className="text-[10px] font-mono uppercase text-[#A39E93] tracking-wider">
+                AUTO-CARRYOVER ACTIVE
+              </span>
+            </div>
 
-          {/* Terminal Command Input */}
-          <form onSubmit={handleAddTask} className="space-y-1.5">
-            <div className="flex items-center gap-1.5">
-              <div className="flex-1 min-w-0 relative flex items-center">
-                <span className="absolute left-2.5 text-[#00F0FF] pointer-events-none">&gt;</span>
+            {/* Floating Command-Style Input Bar */}
+            <form onSubmit={handleAddTask} className="space-y-2">
+              <div className="flex items-center gap-1.5">
                 <input
                   ref={taskInputRef}
                   type="text"
-                  placeholder="Enter directive / goal..."
+                  placeholder="Type a task and press Enter..."
                   value={newTaskTitle}
                   onChange={(e) => setNewTaskTitle(e.target.value)}
-                  className="w-full min-h-[38px] pl-6 pr-12 rounded input-command-bar text-xs placeholder-[#486877] focus:outline-none"
+                  className="flex-1 min-w-0 min-h-[44px] px-4 rounded-xl input-command-bar text-xs sm:text-sm placeholder-[#A39E93] focus:outline-none"
                 />
-                <kbd className="hidden sm:inline-flex items-center absolute right-2 text-[10px] text-[#5A7E8D] bg-[#09151B] border border-[#00F0FF]/20 px-1 rounded pointer-events-none">
-                  ↵
-                </kbd>
-              </div>
 
-              {/* Note Toggle */}
-              <button
-                type="button"
-                onClick={() => setShowNoteInput(!showNoteInput)}
-                className={`min-h-[38px] px-2.5 rounded border text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                  showNoteInput || newTaskNote
-                    ? 'bg-[#00F0FF]/20 border-[#00F0FF] text-[#00F0FF]'
-                    : 'bg-[#060D10] border-[#00F0FF]/20 text-[#6B8E9E] hover:text-white'
-                }`}
-                title="Add task note"
-              >
-                <FileText className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">{newTaskNote ? '+NOTE*' : '+NOTE'}</span>
-              </button>
-
-              {/* Link Topic */}
-              <button
-                type="button"
-                onClick={() => setShowTopicLink(!showTopicLink)}
-                className={`min-h-[38px] px-2.5 rounded border text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
-                  showTopicLink || selectedSubtopic
-                    ? 'bg-[#00FF9D]/20 border-[#00FF9D] text-[#00FF9D]'
-                    : 'bg-[#060D10] border-[#00F0FF]/20 text-[#6B8E9E] hover:text-white'
-                }`}
-                title="Link curriculum topic"
-              >
-                <Link2 className="w-3.5 h-3.5" />
-              </button>
-
-              {/* Add Button */}
-              <button
-                type="submit"
-                className="min-h-[38px] px-3.5 rounded btn-cyber-primary text-xs font-black cursor-pointer shrink-0"
-              >
-                [+ADD]
-              </button>
-            </div>
-
-            {/* Note Sub-input */}
-            <AnimatePresence>
-              {showNoteInput && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden pt-1"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[10px] text-[#00F0FF] font-bold shrink-0">// NOTE:</span>
-                    <input
-                      type="text"
-                      placeholder="e.g. solve #121 on Striver sheet, revise edge cases..."
-                      value={newTaskNote}
-                      onChange={(e) => setNewTaskNote(e.target.value)}
-                      className="flex-1 min-w-0 min-h-[32px] px-2 rounded input-command-bar text-[11px] focus:outline-none"
-                      autoFocus
-                    />
-                    {newTaskNote && (
-                      <button
-                        type="button"
-                        onClick={() => setNewTaskNote('')}
-                        className="text-[10px] text-[#FF2A55] hover:underline px-1"
-                      >
-                        [CLR]
-                      </button>
-                    )}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Topic Link Sub-input */}
-            <AnimatePresence>
-              {showTopicLink && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden pt-1"
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[10px] text-[#00FF9D] font-bold shrink-0">// TOPIC:</span>
-                    <input
-                      type="text"
-                      placeholder="e.g. Python Variables, DSA Binary Search, FDE Glossary"
-                      value={selectedSubtopic}
-                      onChange={(e) => setSelectedSubtopic(e.target.value)}
-                      className="flex-1 min-w-0 min-h-[32px] px-2 rounded input-command-bar text-[11px] text-[#00FF9D] focus:outline-none"
-                    />
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </form>
-
-          {/* High-Density Task Items Queue */}
-          <div className="space-y-1.5 max-h-[480px] overflow-y-auto pr-1">
-            {tasks.length === 0 ? (
-              <div className="text-center py-8 text-[#486877] text-xs border border-dashed border-[#00F0FF]/20 rounded bg-[#04080A]">
-                <span>// QUEUE EMPTY. INPUT NEW DIRECTIVE ABOVE.</span>
-              </div>
-            ) : (
-              tasks.map((task, idx) => (
-                <div
-                  key={task.id}
-                  className={`group flex items-center justify-between gap-2 p-2 rounded border transition-all ${
-                    task.completed
-                      ? 'bg-[#04080A]/60 border-[#00F0FF]/10 text-[#486877]'
-                      : 'bg-[#060D10] border-[#00F0FF]/20 hover:border-[#00F0FF]/50 text-[#D4ECF4]'
-                  }`}
-                >
-                  {/* Left: Terminal Checkbox & Directive Title */}
-                  <div className="flex items-center gap-2 flex-1 min-w-0">
-                    <button
-                      onClick={(e) => handleToggleTask(task, e)}
-                      className={`w-5 h-5 rounded flex items-center justify-center font-bold text-xs transition-all shrink-0 cursor-pointer ${
-                        task.completed
-                          ? 'bg-[#00FF9D] text-[#030708] shadow-[0_0_6px_rgba(0,255,157,0.4)]'
-                          : 'border border-[#00F0FF]/40 hover:border-[#00FF9D] text-transparent'
-                      }`}
-                      aria-label={task.completed ? 'Mark pending' : 'Mark complete'}
-                    >
-                      <Check className="w-3.5 h-3.5 stroke-[3]" />
-                    </button>
-
-                    <div className="flex-1 min-w-0 space-y-0.5">
-                      <div className="flex items-center gap-2">
-                        <span className={`text-[12px] font-bold truncate ${task.completed ? 'line-through text-[#486877]' : 'text-white'}`}>
-                          {task.title}
-                        </span>
-                        {task.subtopicTitle && (
-                          <span className="text-[10px] text-[#00F0FF] bg-[#00F0FF]/10 px-1 py-0.2 rounded border border-[#00F0FF]/20 shrink-0">
-                            #{task.subtopicTitle}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Attached Note Preview */}
-                      {task.note && task.note.trim() && (
-                        <div className="text-[10px] text-[#84A5B5] bg-[#04080A] px-2 py-0.5 rounded border border-[#00F0FF]/10 truncate">
-                          // {task.note}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Right: Quick Controls */}
-                  <div className="flex items-center gap-1 shrink-0">
-                    <button
-                      onClick={() => {
-                        setEditingTaskForNote(task);
-                        setEditNoteText(task.note || '');
-                      }}
-                      className={`px-1.5 py-0.5 rounded text-[10px] border transition-colors cursor-pointer ${
-                        task.note
-                          ? 'bg-[#00F0FF]/15 border-[#00F0FF] text-[#00F0FF]'
-                          : 'border-transparent text-[#486877] hover:text-[#D4ECF4]'
-                      }`}
-                      title="Edit note"
-                    >
-                      <FileText className="w-3 h-3" />
-                    </button>
-
-                    <button
-                      onClick={() => handleMoveTask(idx, 'up')}
-                      disabled={idx === 0}
-                      className="p-1 rounded text-[#486877] hover:text-[#00F0FF] disabled:opacity-20 cursor-pointer"
-                      title="Move Up"
-                    >
-                      <ChevronUp className="w-3 h-3" />
-                    </button>
-
-                    <button
-                      onClick={() => handleMoveTask(idx, 'down')}
-                      disabled={idx === tasks.length - 1}
-                      className="p-1 rounded text-[#486877] hover:text-[#00F0FF] disabled:opacity-20 cursor-pointer"
-                      title="Move Down"
-                    >
-                      <ChevronDown className="w-3 h-3" />
-                    </button>
-
-                    <button
-                      onClick={async (e) => {
-                        e.stopPropagation();
-                        await deleteTask(task);
-                      }}
-                      className="p-1 rounded text-[#486877] hover:text-[#FF2A55] cursor-pointer"
-                      title="Delete directive"
-                    >
-                      <Trash2 className="w-3 h-3" />
-                    </button>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </section>
-
-        {/* ========================================================================
-            RIGHT COLUMN (5 COLS): TELEMETRY GAUGES + DSA + QUICK ACTIONS
-            ======================================================================== */}
-        <div className="lg:col-span-5 space-y-3">
-          {/* TILE 1: 4-CELL TELEMETRY INSTRUMENT CLUSTER */}
-          <section className="rounded-lg hud-panel hud-corner p-3 space-y-2">
-            <div className="flex items-center justify-between pb-1.5 border-b border-[#00F0FF]/15">
-              <span className="text-[11px] font-bold text-[#00F0FF] flex items-center gap-1.5">
-                <Target className="w-3.5 h-3.5 text-[#00FF9D]" />
-                TELEMETRY CLUSTER [TODAY]
-              </span>
-              <span className="text-[9px] text-[#5A7E8D]">SYS_OK</span>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2">
-              {/* Studied */}
-              <div 
-                onClick={() => setShowStudyModal(true)}
-                className="p-2.5 rounded bg-[#04080A] border border-[#00F0FF]/25 hover:border-[#00F0FF] cursor-pointer transition-all"
-                title="Click to log study minutes"
-              >
-                <div className="flex items-center justify-between text-[10px] text-[#5A7E8D]">
-                  <span>TIME_STUDIED</span>
-                  <span className="text-[9px] text-[#00FF9D] font-bold px-1 bg-[#00FF9D]/10 rounded border border-[#00FF9D]/30">
-                    +LOG
-                  </span>
-                </div>
-                <div className="my-1">
-                  <span className="text-2xl font-black text-[#00F0FF] tracking-tight block">
-                    {formatMinutes(Math.max(dailyLog?.studyMinutes || 0, (dailyLog?.studyMinutes || 0) + activeLiveElapsedMins))}
-                  </span>
-                </div>
-                <span className="text-[9px] text-[#486877] flex items-center gap-1">
-                  <Clock className="w-2.5 h-2.5 text-[#00F0FF]" /> AUTO / MANUAL
-                </span>
-              </div>
-
-              {/* Wasted */}
-              <div 
-                onClick={() => setShowWastedModal(true)}
-                className="p-2.5 rounded bg-[#04080A] border border-[#FF2A55]/30 hover:border-[#FF2A55] cursor-pointer transition-all"
-                title="Click to log wasted time"
-              >
-                <div className="flex items-center justify-between text-[10px] text-[#5A7E8D]">
-                  <span>TIME_WASTED</span>
-                  <span className="text-[9px] text-[#FF2A55] font-bold px-1 bg-[#FF2A55]/10 rounded border border-[#FF2A55]/30">
-                    LOG
-                  </span>
-                </div>
-                <div className="my-1">
-                  <span className="text-2xl font-black text-[#FF2A55] tracking-tight block">
-                    {formatMinutes(dailyLog?.wastedMinutes || 0)}
-                  </span>
-                </div>
-                <span className="text-[9px] text-[#FF2A55]/70 flex items-center gap-1">
-                  <ShieldAlert className="w-2.5 h-2.5" /> ACCOUNTABILITY
-                </span>
-              </div>
-
-              {/* Questions */}
-              <div 
-                onClick={() => setShowQuestionModal(true)}
-                className="p-2.5 rounded bg-[#04080A] border border-[#00FF9D]/25 hover:border-[#00FF9D] cursor-pointer transition-all"
-              >
-                <div className="text-[10px] text-[#5A7E8D]">QUESTIONS_DONE</div>
-                <div className="my-1">
-                  <span className="text-2xl font-black text-[#00FF9D] tracking-tight block">
-                    {dailyLog?.questionsCount || 0}
-                  </span>
-                </div>
-                <span className="text-[9px] text-[#486877]">DSA / SHEETS</span>
-              </div>
-
-              {/* Sleep */}
-              <div 
-                onClick={() => setShowSleepModal(true)}
-                className="p-2.5 rounded bg-[#04080A] border border-[#00F0FF]/25 hover:border-[#00F0FF] cursor-pointer transition-all"
-              >
-                <div className="text-[10px] text-[#5A7E8D]">SLEEP_TELEMETRY</div>
-                <div className="my-1">
-                  <span className="text-2xl font-black text-white tracking-tight block">
-                    {dailyLog?.sleepHours ? `${dailyLog.sleepHours}H` : '—'}
-                  </span>
-                </div>
-                <span className="text-[9px] text-[#486877] flex items-center gap-1">
-                  <Moon className="w-2.5 h-2.5 text-[#00F0FF]" />
-                  {dailyLog?.sleepQuality ? `QUALITY: ${dailyLog.sleepQuality}/5` : 'AWAITING LOG'}
-                </span>
-              </div>
-            </div>
-          </section>
-
-          {/* TILE 2: DSA & COMMUNICATION PROTOCOL */}
-          <DailyDsaCommunicationWidget />
-
-          {/* TILE 3: QUICK ACTION COMMANDS & PROTOCOL TRIGGER */}
-          <section className="rounded-lg hud-panel hud-corner p-3 space-y-2">
-            <span className="text-[10px] font-bold text-[#5A7E8D] uppercase tracking-wider block">
-              // QUICK COMMAND EXECUTION
-            </span>
-            <div className="grid grid-cols-2 gap-1.5">
-              <button
-                onClick={() => onNavigateToTimer()}
-                className="col-span-2 min-h-[38px] rounded btn-cyber-primary text-xs font-black flex items-center justify-center gap-2 cursor-pointer shadow-md"
-              >
-                <Play className="w-3.5 h-3.5 fill-current stroke-[2]" />
-                <span>START POMODORO TIMER</span>
-              </button>
-
-              <button
-                onClick={() => setShowWastedModal(true)}
-                className="min-h-[32px] rounded btn-cyber-ghost text-[10px] font-bold flex items-center justify-center gap-1.5 cursor-pointer"
-              >
-                <Clock className="w-3 h-3 text-[#FF2A55]" />
-                <span>LOG WASTED</span>
-              </button>
-
-              <button
-                onClick={() => setShowQuestionModal(true)}
-                className="min-h-[32px] rounded btn-cyber-ghost text-[10px] font-bold flex items-center justify-center gap-1.5 cursor-pointer"
-              >
-                <Plus className="w-3 h-3 text-[#00FF9D] stroke-[3]" />
-                <span>+1 QUESTION</span>
-              </button>
-
-              <button
-                onClick={() => setShowSleepModal(true)}
-                className="min-h-[32px] rounded btn-cyber-ghost text-[10px] font-bold flex items-center justify-center gap-1.5 cursor-pointer"
-              >
-                <Moon className="w-3 h-3 text-[#00F0FF]" />
-                <span>LOG SLEEP</span>
-              </button>
-
-              <button
-                onClick={() => setShowStudyModal(true)}
-                className="min-h-[32px] rounded btn-cyber-ghost text-[10px] font-bold flex items-center justify-center gap-1.5 cursor-pointer"
-              >
-                <Clock className="w-3 h-3 text-[#00FF9D]" />
-                <span>LOG STUDY</span>
-              </button>
-            </div>
-          </section>
-
-          {/* TILE 4: NEXT UP IN TIMELINE & ONE-LINE REFLECTION */}
-          <section className="rounded-lg hud-panel hud-corner p-3 space-y-2.5">
-            <div className="flex items-center justify-between pb-1 border-b border-[#00F0FF]/15">
-              <span className="text-[10px] font-bold text-[#00F0FF]">
-                // NEXT PROTOCOL [{nextUpInfo.track}]
-              </span>
-              <button
-                onClick={onNavigateToPlan}
-                className="text-[10px] text-[#00FF9D] hover:underline flex items-center gap-1 cursor-pointer"
-              >
-                PLAN <ArrowRight className="w-2.5 h-2.5" />
-              </button>
-            </div>
-
-            <div className="p-2 rounded bg-[#04080A] border border-[#00F0FF]/15 space-y-1.5">
-              <span className="text-white font-bold text-xs block leading-tight">
-                {nextUpInfo.topic}
-              </span>
-              <button
-                onClick={() => onNavigateToTimer(nextUpInfo.topic)}
-                className="w-full py-1.5 rounded btn-cyber-ghost hover:border-[#00FF9D] text-[10px] font-bold text-[#00FF9D] flex items-center justify-center gap-1 cursor-pointer"
-              >
-                <Play className="w-3 h-3 fill-current" />
-                <span>EXECUTE FOCUS SESSION</span>
-              </button>
-            </div>
-
-            {/* Daily Reflection Input */}
-            <div className="pt-1">
-              <span className="text-[10px] font-bold text-[#5A7E8D] block mb-1">
-                // DAILY BREAKTHROUGH LOG:
-              </span>
-              <div className="flex items-center gap-1">
-                <input
-                  type="text"
-                  placeholder="Record single-line breakthrough..."
-                  value={noteText}
-                  onChange={(e) => setNoteText(e.target.value)}
-                  onBlur={() => updateDailyNote(noteText)}
-                  className="flex-1 min-w-0 min-h-[32px] px-2 rounded input-command-bar text-[11px] focus:outline-none"
-                />
                 <button
                   type="button"
-                  onClick={() => updateDailyNote(noteText)}
-                  className="min-h-[32px] px-2.5 rounded btn-cyber-primary text-[10px] font-bold cursor-pointer shrink-0"
+                  onClick={() => setShowNoteInput(!showNoteInput)}
+                  className={`min-h-[44px] px-2.5 rounded-xl border text-xs font-mono font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                    showNoteInput || newTaskNote
+                      ? 'bg-[#111110] text-white border-[#111110]'
+                      : 'bg-[#F7F5F0] text-[#68645E] border-[#E6E3DC] hover:text-[#111110]'
+                  }`}
+                  title="Add short note"
                 >
-                  SAVE
+                  <FileText className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">NOTE</span>
+                </button>
+
+                <button
+                  type="submit"
+                  className="min-h-[44px] px-4 rounded-xl btn-orange text-xs font-bold cursor-pointer shrink-0"
+                >
+                  <Plus className="w-4 h-4 stroke-[3]" />
                 </button>
               </div>
+
+              {/* Expandable Note Drawer */}
+              <AnimatePresence>
+                {showNoteInput && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="overflow-hidden pt-1"
+                  >
+                    <input
+                      type="text"
+                      placeholder="Note detail (e.g. solve #121, revise edge cases)..."
+                      value={newTaskNote}
+                      onChange={(e) => setNewTaskNote(e.target.value)}
+                      className="w-full min-h-[36px] px-3 rounded-lg input-command-bar text-xs text-[#111110] focus:outline-none"
+                      autoFocus
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </form>
+
+            {/* Tactile Task Cards List */}
+            <div className="space-y-2 max-h-[420px] overflow-y-auto pr-1">
+              {tasks.length === 0 ? (
+                <div className="text-center py-10 text-[#A39E93] text-xs font-mono border-2 border-dashed border-[#E6E3DC] rounded-xl bg-[#F7F5F0]/50">
+                  NO ACTIVE DIRECTIVES. TYPE ABOVE TO ENGAGE.
+                </div>
+              ) : (
+                tasks.map((task, idx) => (
+                  <div
+                    key={task.id}
+                    className={`group flex items-center justify-between gap-3 p-3 rounded-xl border transition-all duration-200 hover:translate-x-1 ${
+                      task.completed
+                        ? 'bg-[#F7F5F0]/70 border-[#E6E3DC] text-[#A39E93]'
+                        : 'bg-white border-[#E6E3DC] hover:border-[#111110] hover:shadow-sm text-[#111110]'
+                    }`}
+                  >
+                    {/* Circular Checkbox & Title */}
+                    <div className="flex items-center gap-2.5 flex-1 min-w-0">
+                      <button
+                        type="button"
+                        onClick={(e) => handleToggleTask(task, e)}
+                        className={`w-6 h-6 rounded-full flex items-center justify-center transition-all shrink-0 cursor-pointer ${
+                          task.completed
+                            ? 'bg-[#10B981] text-white shadow-sm'
+                            : 'border-2 border-[#D8D4CC] hover:border-[#111110] bg-white text-transparent'
+                        }`}
+                        aria-label={task.completed ? 'Mark pending' : 'Mark complete'}
+                      >
+                        <Check className="w-3.5 h-3.5 stroke-[3]" />
+                      </button>
+
+                      <div className="flex-1 min-w-0 space-y-0.5">
+                        <p className={`text-xs sm:text-sm font-semibold truncate ${task.completed ? 'line-through text-[#A39E93]' : 'text-[#111110]'}`}>
+                          {task.title}
+                        </p>
+                        {task.note && (
+                          <p className="text-[11px] text-[#68645E] truncate font-mono">
+                            // {task.note}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Hover-Reveal Action Controls */}
+                    <div className="flex items-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditingTaskForNote(task);
+                          setEditNoteText(task.note || '');
+                        }}
+                        className="p-1 rounded text-[#68645E] hover:text-[#111110] cursor-pointer"
+                        title="Edit note"
+                      >
+                        <FileText className="w-3.5 h-3.5" />
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleMoveTask(idx, 'up')}
+                        disabled={idx === 0}
+                        className="p-1 rounded text-[#68645E] hover:text-[#111110] disabled:opacity-20 cursor-pointer"
+                        title="Move Up"
+                      >
+                        <ChevronUp className="w-3.5 h-3.5" />
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleMoveTask(idx, 'down')}
+                        disabled={idx === tasks.length - 1}
+                        className="p-1 rounded text-[#68645E] hover:text-[#111110] disabled:opacity-20 cursor-pointer"
+                        title="Move Down"
+                      >
+                        <ChevronDown className="w-3.5 h-3.5" />
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={async (e) => {
+                          e.stopPropagation();
+                          await deleteTask(task);
+                        }}
+                        className="p-1 rounded text-[#A39E93] hover:text-rose-600 cursor-pointer"
+                        title="Delete task"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
-          </section>
+
+            {completedCount > 0 && (
+              <button
+                type="button"
+                onClick={() => clearCompletedTasks()}
+                className="w-full py-2 rounded-lg text-xs font-mono text-[#68645E] hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer text-center"
+              >
+                Clear {completedCount} Completed {completedCount === 1 ? 'Task' : 'Tasks'}
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* ========================================================================
+            COLUMN 2 (CENTER 5 COLS): THE "TELEMETRY & MOMENTUM" VISUAL CORE
+            ======================================================================== */}
+        <div className="lg:col-span-5 space-y-5">
+          {/* 2A. HERO DUAL-DIAL CARD (MATTE ANODIZED CARBON FOR INTENSE CONTRAST) */}
+          <div className="bento-carbon p-6 space-y-5 relative overflow-hidden shadow-2xl">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-mono tracking-widest text-[#A39E93] uppercase">
+                // TEMPORAL MOMENTUM CORE
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowStudyModal(true)}
+                className="px-3 py-1 rounded-full bg-[#FF4F00] text-white text-[11px] font-mono font-bold shadow-md shadow-[#FF4F00]/30 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              >
+                + LOG STUDY
+              </button>
+            </div>
+
+            {/* Massive Dual-Dial Readout */}
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <span className="text-[11px] font-mono uppercase tracking-wider text-[#A39E93] block">
+                  TIME STUDIED
+                </span>
+                <div className="font-display font-black text-5xl sm:text-6xl text-white tracking-tighter leading-none mt-1">
+                  {formatMinutes(studiedMins)}
+                </div>
+                <span className="text-[10px] font-mono text-[#10B981] mt-2 block font-bold">
+                  FOCUS RATIO: {studyRatioPercent}%
+                </span>
+              </div>
+
+              <div>
+                <span className="text-[11px] font-mono uppercase tracking-wider text-[#A39E93] block">
+                  TIME WASTED
+                </span>
+                <div className="font-display font-black text-5xl sm:text-6xl text-[#A39E93] tracking-tighter leading-none mt-1">
+                  {formatMinutes(wastedMins)}
+                </div>
+                <span className="text-[10px] font-mono text-rose-400 mt-2 block font-bold">
+                  ACCOUNTABILITY
+                </span>
+              </div>
+            </div>
+
+            {/* Split-Bar Gauge (Productive vs Wasted) */}
+            <div className="space-y-1.5 pt-1">
+              <div className="w-full bg-[#222220] h-2 rounded-full overflow-hidden flex">
+                <div 
+                  className="h-full bg-[#FF4F00] transition-all duration-500"
+                  style={{ width: `${Math.max(studyRatioPercent, 2)}%` }}
+                />
+                <div 
+                  className="h-full bg-rose-500/80 transition-all duration-500"
+                  style={{ width: `${100 - studyRatioPercent}%` }}
+                />
+              </div>
+              <div className="flex items-center justify-between text-[10px] font-mono text-[#A39E93]">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#FF4F00]" /> Productive Flow
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-rose-500/80" /> Wasted Drift
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* 2B. 3-TILE ASYMMETRIC SUB-GRID BELOW THE DARK CARD */}
+          <div className="grid grid-cols-3 gap-4">
+            {/* Tile 1: Questions Done */}
+            <div className="bento-ceramic p-4 flex flex-col justify-between relative overflow-hidden group">
+              <div className="flex items-start justify-between">
+                <span className="text-[10px] font-mono uppercase text-[#A39E93] font-bold">
+                  QUESTIONS
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setShowQuestionModal(true)}
+                  className="w-6 h-6 rounded-full bg-[#F7F5F0] hover:bg-[#FF4F00] text-[#111110] hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                  title="Quick +1 question"
+                >
+                  <Plus className="w-3.5 h-3.5 stroke-[3]" />
+                </button>
+              </div>
+              <div className="my-2">
+                <span className="font-display font-black text-4xl sm:text-5xl text-[#111110] tracking-tight block">
+                  {dailyLog?.questionsCount || 0}
+                </span>
+              </div>
+              <span className="text-[10px] font-mono text-[#68645E]">
+                DSA / Sheets
+              </span>
+            </div>
+
+            {/* Tile 2: Topics Learned */}
+            <div className="bento-ceramic p-4 flex flex-col justify-between relative overflow-hidden">
+              <span className="text-[10px] font-mono uppercase text-[#A39E93] font-bold">
+                TOPICS
+              </span>
+              <div className="my-2 flex items-baseline gap-1">
+                <span className="font-display font-black text-4xl sm:text-5xl text-[#111110] tracking-tight block">
+                  {(dailyLog?.topicsLearned || []).length}
+                </span>
+                <span className="text-[10px] font-mono text-[#A39E93]">TRACKED</span>
+              </div>
+              <span className="text-[10px] font-mono text-[#10B981] font-bold">
+                Curriculum Items
+              </span>
+            </div>
+
+            {/* Tile 3: Sleep Recovery with Inline 6h | 7h | 8h Selector */}
+            <div className="bento-ceramic p-4 flex flex-col justify-between relative overflow-hidden">
+              <span className="text-[10px] font-mono uppercase text-[#A39E93] font-bold">
+                RECOVERY
+              </span>
+              <div className="my-2">
+                <span className="font-display font-black text-4xl sm:text-5xl text-[#111110] tracking-tight block">
+                  {dailyLog?.sleepHours ? `${dailyLog.sleepHours}h` : '—'}
+                </span>
+              </div>
+              {/* Inline Selector */}
+              <div className="flex items-center gap-1">
+                {[6, 7, 8].map((h) => (
+                  <button
+                    key={h}
+                    type="button"
+                    onClick={() => handleQuickLogSleep(h)}
+                    className="flex-1 py-1 rounded text-[10px] font-mono font-bold bg-[#F7F5F0] hover:bg-[#111110] text-[#68645E] hover:text-white transition-colors cursor-pointer"
+                  >
+                    {h}h
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* 2C. NEXT UP IN TIMELINE (HORIZONTAL TICKER STRIP) */}
+          <div className="bento-ceramic p-5 space-y-3 relative overflow-hidden">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#10B981]" />
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#68645E] font-bold">
+                  NEXT UP IN TIMELINE
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={onNavigateToPlan}
+                className="text-xs font-mono font-bold text-[#FF4F00] hover:underline flex items-center gap-1 cursor-pointer"
+              >
+                View Full Timeline →
+              </button>
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-[#F7F5F0] border border-[#E6E3DC]">
+              <div>
+                <span className="text-[10px] font-mono uppercase text-[#A39E93] block font-bold">
+                  {nextUpInfo.track} • {nextUpInfo.presetDates}
+                </span>
+                <h4 className="font-display font-bold text-sm text-[#111110] mt-0.5">
+                  {nextUpInfo.topic}
+                </h4>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => onNavigateToTimer(nextUpInfo.topic)}
+                className="px-4 py-2 rounded-full btn-orange text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+              >
+                <Play className="w-3 h-3 fill-current" />
+                <span>Launch Session</span>
+              </button>
+            </div>
+
+            {/* Daily Reflection Single-Line Input */}
+            <div className="pt-1 flex items-center gap-2">
+              <input
+                type="text"
+                placeholder="Today's single-line engineering breakthrough..."
+                value={noteText}
+                onChange={(e) => setNoteText(e.target.value)}
+                onBlur={() => updateDailyNote(noteText)}
+                className="flex-1 min-w-0 min-h-[38px] px-3.5 rounded-xl input-command-bar text-xs text-[#111110] focus:outline-none"
+              />
+              <button
+                type="button"
+                onClick={() => updateDailyNote(noteText)}
+                className="min-h-[38px] px-4 rounded-xl btn-tactile text-xs font-bold font-mono cursor-pointer shrink-0"
+              >
+                SAVE
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* ========================================================================
+            COLUMN 3 (RIGHT 3 COLS): THE "DSA & COMMUNICATION LAB"
+            ======================================================================== */}
+        <div className="lg:col-span-3">
+          <DailyDsaCommunicationWidget />
         </div>
       </div>
 
       {/* Edit Task Note Modal */}
       <AnimatePresence>
         {editingTaskForNote && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="w-full max-w-md bg-[#080E11] border border-[#00F0FF] rounded-lg p-4 shadow-[0_0_30px_rgba(0,240,255,0.25)] space-y-3 font-mono"
+              className="w-full max-w-md bento-ceramic p-6 shadow-2xl space-y-4 font-sans"
             >
-              <div className="flex items-center justify-between pb-2 border-b border-[#00F0FF]/20">
-                <span className="text-xs font-bold text-[#00F0FF] flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-[#00FF9D]" />
-                  // DIRECTIVE NOTE ATTACHMENT
-                </span>
+              <div className="flex items-center justify-between pb-3 border-b border-[#E6E3DC]">
+                <div className="flex items-center gap-2">
+                  <FileText className="w-4 h-4 text-[#FF4F00]" />
+                  <h3 className="font-display text-lg font-bold text-[#111110]">Task Note</h3>
+                </div>
                 <button
+                  type="button"
                   onClick={() => setEditingTaskForNote(null)}
-                  className="text-[#5A7E8D] hover:text-[#00F0FF] cursor-pointer"
+                  className="text-[#A39E93] hover:text-[#111110] cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
 
-              <div className="space-y-1">
-                <p className="text-[11px] text-[#5A7E8D]">
-                  TARGET: <span className="text-white font-bold">{editingTaskForNote.title}</span>
+              <div className="space-y-1.5">
+                <p className="text-xs text-[#68645E]">
+                  Task: <span className="text-[#111110] font-semibold">{editingTaskForNote.title}</span>
                 </p>
                 <textarea
                   value={editNoteText}
                   onChange={(e) => setEditNoteText(e.target.value)}
-                  placeholder="Enter directive note..."
+                  placeholder="Enter a short note..."
                   rows={3}
-                  className="w-full p-2 rounded input-command-bar text-xs focus:outline-none"
+                  className="w-full p-3.5 rounded-xl input-command-bar text-xs text-[#111110] focus:outline-none"
                   autoFocus
                 />
               </div>
 
-              <div className="flex items-center justify-between pt-1">
+              <div className="flex items-center justify-between pt-2">
                 {editNoteText && (
                   <button
                     type="button"
                     onClick={() => setEditNoteText('')}
-                    className="text-[10px] text-[#FF2A55] hover:underline cursor-pointer"
+                    className="text-xs text-rose-600 hover:underline font-semibold cursor-pointer"
                   >
-                    [CLEAR]
+                    Clear Note
                   </button>
                 )}
                 <div className="flex items-center gap-2 ml-auto">
                   <button
                     type="button"
                     onClick={() => setEditingTaskForNote(null)}
-                    className="px-3 py-1 rounded text-xs text-[#5A7E8D] hover:text-white cursor-pointer"
+                    className="px-4 py-2 rounded-xl text-xs text-[#68645E] hover:text-[#111110] cursor-pointer font-medium"
                   >
-                    CANCEL
+                    Cancel
                   </button>
                   <button
                     type="button"
                     onClick={handleSaveEditNote}
-                    className="px-3.5 py-1 rounded btn-cyber-primary text-xs font-bold cursor-pointer"
+                    className="px-5 py-2 rounded-xl btn-orange text-xs font-bold cursor-pointer"
                   >
-                    SAVE NOTE
+                    Save Note
                   </button>
                 </div>
               </div>

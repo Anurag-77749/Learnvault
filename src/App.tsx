@@ -1,9 +1,9 @@
-// LearnVault - Cyberpunk / Terminal HUD OS
+// LearnVault - OS 2.0 (Swiss Alabaster, Brushed Titanium & International Orange)
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from './services/db';
-import { ScreenId, TopNavBar, MobileTabBar } from './components/Navigation';
+import { ScreenId, TopNavBar, FloatingDock } from './components/Navigation';
 import { TodayScreen } from './components/TodayScreen';
 import { TimerScreen } from './components/TimerScreen';
 import { PlanScreen } from './components/PlanScreen';
@@ -42,8 +42,8 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#040709] text-[#D4ECF4] flex flex-col antialiased selection:bg-[#00F0FF] selection:text-black relative font-mono overflow-x-hidden">
-      {/* Top Terminal HUD Navigation Bar */}
+    <div className="min-h-screen bg-[#F4F2EE] text-[#111110] flex flex-col antialiased selection:bg-[#FF4F00] selection:text-white relative font-sans overflow-x-hidden">
+      {/* Top Minimalist HUD Bar */}
       <TopNavBar
         activeScreen={activeScreen}
         onSelectScreen={(screen) => {
@@ -56,16 +56,16 @@ export const App: React.FC = () => {
         onQuickFocus={() => handleStartTimerWithTopic()}
       />
 
-      {/* Main Terminal Grid Viewport */}
-      <main className="flex-1 min-w-0 px-3 sm:px-6 py-3 max-w-[1500px] mx-auto w-full">
+      {/* Main Asymmetric Bento Grid Viewport */}
+      <main className="flex-1 min-w-0 px-4 sm:px-8 py-6 max-w-[1500px] mx-auto w-full">
         <AnimatePresence mode="wait">
           {activeScreen === 'today' && (
             <motion.div
               key="today"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.12 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             >
               <TodayScreen
                 onNavigateToTimer={handleStartTimerWithTopic}
@@ -78,10 +78,10 @@ export const App: React.FC = () => {
           {activeScreen === 'timer' && (
             <motion.div
               key="timer"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.12 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             >
               <TimerScreen initialTopic={timerTopic} />
             </motion.div>
@@ -90,10 +90,10 @@ export const App: React.FC = () => {
           {activeScreen === 'plan' && (
             <motion.div
               key="plan"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.12 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             >
               <PlanScreen />
             </motion.div>
@@ -102,10 +102,10 @@ export const App: React.FC = () => {
           {activeScreen === 'learn' && (
             <motion.div
               key="learn"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.12 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             >
               <LearnScreen />
             </motion.div>
@@ -114,10 +114,10 @@ export const App: React.FC = () => {
           {activeScreen === 'projects' && (
             <motion.div
               key="projects"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.12 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             >
               <ProjectsScreen />
             </motion.div>
@@ -126,10 +126,10 @@ export const App: React.FC = () => {
           {activeScreen === 'progress' && (
             <motion.div
               key="progress"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.12 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             >
               <ProgressScreen />
             </motion.div>
@@ -138,10 +138,10 @@ export const App: React.FC = () => {
           {activeScreen === 'wasted' && (
             <motion.div
               key="wasted"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.12 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             >
               <WastedDaysScreen />
             </motion.div>
@@ -149,8 +149,8 @@ export const App: React.FC = () => {
         </AnimatePresence>
       </main>
 
-      {/* Mobile Bottom Tab Bar */}
-      <MobileTabBar
+      {/* Floating macOS-Style Glass Dock (Bottom Center) */}
+      <FloatingDock
         activeScreen={activeScreen}
         onSelectScreen={(screen) => {
           setActiveScreen(screen);
