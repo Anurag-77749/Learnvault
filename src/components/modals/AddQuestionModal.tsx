@@ -44,21 +44,21 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
           transition={{ duration: 0.2 }}
-          className="w-full max-w-md bg-[#110E0E] border border-[rgba(255,240,220,0.08)] rounded-2xl p-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_24px_48px_rgba(0,0,0,0.9)] relative max-h-[92vh] overflow-y-auto"
+          className="w-full max-w-md bg-[#121212] border border-[#D4AF37]/40 rounded-3xl p-6 shadow-2xl relative"
         >
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-[rgba(255,240,220,0.07)]">
+          <div className="flex items-center justify-between pb-4 border-b border-[#D4AF37]/20">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-[#0A0808] border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37]">
+              <div className="w-8 h-8 rounded-xl bg-black border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37]">
                 <CheckCircle2 className="w-4 h-4" />
               </div>
-              <h2 className="font-serif-display text-2xl font-bold text-[#F5F2EB]">
+              <h2 className="font-serif text-2xl font-bold text-[#F9F6EE]">
                 Log Solved Questions
               </h2>
             </div>
             <button
               onClick={onClose}
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#9E958E] hover:text-[#F5F2EB] rounded-lg transition-colors cursor-pointer"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#A09D95] hover:text-[#D4AF37] rounded-xl transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -67,7 +67,7 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
           <form onSubmit={handleSubmit} className="mt-5 space-y-5">
             {/* Platform Selection */}
             <div>
-              <label className="block text-[11px] font-mono font-bold text-[#9E958E] mb-2 uppercase tracking-wider">
+              <label className="block text-xs font-semibold text-[#A09D95] mb-2 uppercase tracking-wider">
                 Platform / Sheet
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -80,10 +80,10 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
                     key={p.id}
                     type="button"
                     onClick={() => setPlatform(p.id as 'leetcode' | 'striver' | 'other')}
-                    className={`min-h-[44px] rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                    className={`min-h-[44px] rounded-xl text-xs font-semibold transition-all ${
                       platform === p.id
-                        ? 'bg-gradient-to-r from-[#F6E6C2] via-[#D4AF37] to-[#AA8222] text-[#090808] font-bold shadow-sm'
-                        : 'bg-[#0A0808] text-[#9E958E] hover:text-[#F5F2EB] border border-[rgba(255,240,220,0.06)]'
+                        ? 'bg-[#D4AF37] text-black shadow-md shadow-[#D4AF37]/20'
+                        : 'bg-black text-[#A09D95] hover:text-[#F9F6EE] border border-[#D4AF37]/25'
                     }`}
                   >
                     {p.label}
@@ -92,25 +92,25 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
               </div>
             </div>
 
-            {/* Difficulty Selection */}
+            {/* Difficulty Selection: Easy, Medium, Hard */}
             <div>
-              <label className="block text-[11px] font-mono font-bold text-[#9E958E] mb-2 uppercase tracking-wider">
+              <label className="block text-xs font-semibold text-[#A09D95] mb-2 uppercase tracking-wider">
                 Difficulty
               </label>
               <div className="grid grid-cols-3 gap-2">
                 {[
-                  { id: 'easy', label: 'Easy' },
-                  { id: 'medium', label: 'Medium' },
-                  { id: 'hard', label: 'Hard' },
+                  { id: 'easy', label: 'Easy', color: 'text-[#39D353]' },
+                  { id: 'medium', label: 'Medium', color: 'text-[#FFD700]' },
+                  { id: 'hard', label: 'Hard', color: 'text-red-400' },
                 ].map((d) => (
                   <button
                     key={d.id}
                     type="button"
                     onClick={() => setDifficulty(d.id as 'easy' | 'medium' | 'hard')}
-                    className={`min-h-[44px] rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                    className={`min-h-[44px] rounded-xl text-xs font-semibold transition-all ${
                       difficulty === d.id
-                        ? 'bg-[#181313] border border-[#D4AF37]/50 text-[#F6E6C2] font-bold shadow-sm'
-                        : 'bg-[#0A0808] text-[#9E958E] hover:text-[#F5F2EB] border border-[rgba(255,240,220,0.06)]'
+                        ? 'bg-[#D4AF37] text-black shadow-md shadow-[#D4AF37]/20 font-bold'
+                        : `bg-black ${d.color} hover:text-[#F9F6EE] border border-[#D4AF37]/25`
                     }`}
                   >
                     {d.label}
@@ -121,7 +121,7 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
 
             {/* Question Count */}
             <div>
-              <label className="block text-[11px] font-mono font-bold text-[#9E958E] mb-2 uppercase tracking-wider">
+              <label className="block text-xs font-semibold text-[#A09D95] mb-2 uppercase tracking-wider">
                 Number of Problems
               </label>
               <div className="grid grid-cols-4 gap-2 mb-3">
@@ -130,10 +130,10 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
                     key={n}
                     type="button"
                     onClick={() => setCount(n)}
-                    className={`min-h-[44px] rounded-lg text-sm font-semibold transition-all cursor-pointer ${
+                    className={`min-h-[44px] rounded-xl text-sm font-semibold transition-all ${
                       count === n
-                        ? 'bg-gradient-to-r from-[#F6E6C2] via-[#D4AF37] to-[#AA8222] text-[#090808] font-bold shadow-sm'
-                        : 'bg-[#0A0808] text-[#9E958E] hover:text-[#F5F2EB] border border-[rgba(255,240,220,0.06)]'
+                        ? 'bg-[#D4AF37] text-black shadow-md'
+                        : 'bg-black text-[#A09D95] hover:text-[#F9F6EE] border border-[#D4AF37]/25'
                     }`}
                   >
                     +{n}
@@ -146,7 +146,7 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
                 max="50"
                 value={count}
                 onChange={(e) => setCount(Math.max(1, parseInt(e.target.value) || 0))}
-                className="w-full min-h-[44px] px-4 rounded-lg bg-[#0A0808] border border-[rgba(255,240,220,0.08)] text-[#F5F2EB] text-center font-bold font-mono focus:outline-none focus:border-[#D4AF37]/50 shadow-inner"
+                className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#D4AF37]/30 text-[#F9F6EE] text-center font-bold focus:outline-none focus:border-[#D4AF37]"
               />
             </div>
 
@@ -155,14 +155,14 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 min-h-[46px] rounded-lg border border-[rgba(255,240,220,0.08)] text-sm text-[#9E958E] hover:text-[#F5F2EB] font-semibold transition-colors cursor-pointer"
+                className="flex-1 min-h-[46px] rounded-xl border border-[#D4AF37]/30 text-sm text-[#A09D95] hover:text-[#F9F6EE] font-semibold transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting || count <= 0}
-                className="flex-1 min-h-[46px] rounded-lg btn-liquid-gold text-[#090808] text-sm font-bold transition-all shadow-md disabled:opacity-40 cursor-pointer"
+                className="flex-1 min-h-[46px] rounded-xl bg-[#D4AF37] hover:bg-[#FFD700] text-black text-sm font-bold transition-all shadow-md shadow-[#D4AF37]/20 disabled:opacity-40"
               >
                 {isSubmitting ? 'Logging...' : `Log +${count} Question${count > 1 ? 's' : ''}`}
               </button>

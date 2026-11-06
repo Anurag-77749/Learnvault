@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Cloud, Check, RefreshCw, X, Smartphone, Laptop, AlertCircle, Unlink } from 'lucide-react';
+import { Cloud, Check, RefreshCw, X, Shield, Smartphone, Laptop, AlertCircle, Unlink } from 'lucide-react';
 import { cloudSyncService, SyncState } from '../services/cloudSyncService';
 
 interface CloudSyncModalProps {
@@ -72,47 +72,47 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 10 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 10 }}
-        className="relative w-full max-w-lg rounded-2xl border border-[rgba(255,240,220,0.08)] bg-[#110E0E] p-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_24px_48px_rgba(0,0,0,0.9)] text-[#F5F2EB] max-h-[92vh] overflow-y-auto"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        className="relative w-full max-w-lg rounded-2xl border border-[#4A101D] bg-[#0E0205] p-6 shadow-2xl text-white"
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[rgba(255,240,220,0.07)] pb-4">
+        <div className="flex items-center justify-between border-b border-[#4A101D]/60 pb-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0A0808] border border-[#D4AF37]/40 text-[#D4AF37]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#24060D] border border-[#D4AF37]/40 text-shiny-gold">
               <Cloud className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="font-serif-display text-lg font-bold text-[#F5F2EB]">Cross-Device Cloud Sync</h3>
-              <p className="text-xs text-[#9E958E]">Sync tasks, streak, timers & wasted days</p>
+              <h3 className="font-serif text-lg font-bold text-shiny-gold">Cross-Device Cloud Sync</h3>
+              <p className="text-xs text-[#E6C687]/70">Sync tasks, streak, timers & wasted days</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-[#9E958E] hover:text-[#F5F2EB] hover:bg-white/[0.04] transition-colors cursor-pointer"
+            className="rounded-lg p-1.5 text-gray-400 hover:bg-[#24060D] hover:text-white transition-colors"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
         {/* Status Banner */}
-        <div className="my-5 rounded-xl border border-[rgba(255,240,220,0.07)] bg-[#0A0808] p-4 shadow-inner">
+        <div className="my-5 rounded-xl border border-[#4A101D] bg-[#1A040A] p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <span
-                className={`h-2.5 w-2.5 rounded-full ${
+                className={`h-3 w-3 rounded-full ${
                   syncState.syncId
                     ? syncState.status === 'syncing'
-                      ? 'bg-[#D4AF37] animate-pulse'
+                      ? 'bg-amber-400 animate-pulse'
                       : 'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]'
-                    : 'bg-[#635B55]'
+                    : 'bg-gray-500'
                 }`}
               />
-              <span className="text-sm font-medium text-[#F5F2EB]">
+              <span className="text-sm font-medium text-white">
                 {syncState.syncId ? (
                   <>
-                    Connected as <span className="font-bold text-[#D4AF37] font-mono">{syncState.syncId}</span>
+                    Connected as <span className="font-bold text-shiny-gold">{syncState.syncId}</span>
                   </>
                 ) : (
                   'Not Connected (Local Mode Only)'
@@ -123,7 +123,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
               <button
                 onClick={handleManualSync}
                 disabled={isLoading}
-                className="flex items-center gap-1.5 rounded-lg border border-[#D4AF37]/35 bg-[#181313] px-2.5 py-1 text-xs font-semibold text-[#F6E6C2] hover:bg-[#201818] transition-colors disabled:opacity-50 cursor-pointer"
+                className="flex items-center gap-1.5 rounded-lg border border-[#D4AF37]/30 bg-[#24060D] px-2.5 py-1 text-xs font-semibold text-shiny-gold hover:bg-[#380A15] transition-colors disabled:opacity-50"
               >
                 <RefreshCw className={`h-3.5 w-3.5 ${isLoading ? 'animate-spin' : ''}`} />
                 Sync Now
@@ -132,7 +132,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
           </div>
 
           {syncState.lastSyncedAt && (
-            <p className="mt-2 text-[11px] font-mono text-[#9E958E]">
+            <p className="mt-2 text-[11px] text-[#E6C687]/60">
               Last synced: {syncState.lastSyncedAt.toLocaleTimeString()}
             </p>
           )}
@@ -141,7 +141,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
         {/* Form / Connect Box */}
         <form onSubmit={handleConnect} className="space-y-4">
           <div>
-            <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#9E958E] mb-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-[#E6C687] mb-1.5">
               Your Personal Sync ID (or Email)
             </label>
             <input
@@ -149,9 +149,9 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
               value={inputId}
               onChange={(e) => setInputId(e.target.value)}
               placeholder="e.g. anurag or your email"
-              className="w-full rounded-xl border border-[rgba(255,240,220,0.08)] bg-[#0A0808] px-3.5 py-2.5 text-sm text-[#F5F2EB] placeholder-[#635B55] focus:border-[#D4AF37]/50 focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/30 shadow-inner font-mono"
+              className="w-full rounded-xl border border-[#4A101D] bg-[#030303] px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:border-[#D4AF37] focus:outline-none focus:ring-1 focus:ring-[#D4AF37]"
             />
-            <p className="mt-1.5 text-[11px] text-[#9E958E]">
+            <p className="mt-1.5 text-[11px] text-[#E6C687]/70">
               💡 Use this <strong>exact same Sync ID</strong> on both your Laptop and Mobile phone to link them!
             </p>
           </div>
@@ -177,7 +177,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 rounded-xl btn-liquid-gold py-2.5 text-xs font-bold uppercase tracking-wider text-[#090808] shadow-lg disabled:opacity-50 cursor-pointer"
+              className="flex-1 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#AA771C] py-2.5 text-xs font-bold uppercase tracking-wider text-black shadow-lg hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50"
             >
               {isLoading ? 'Syncing...' : syncState.syncId ? 'Update & Sync' : 'Connect & Sync'}
             </button>
@@ -186,7 +186,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
               <button
                 type="button"
                 onClick={handleDisconnect}
-                className="flex items-center gap-1.5 rounded-xl border border-red-500/30 bg-red-950/40 px-3.5 py-2.5 text-xs font-bold text-red-300 hover:bg-red-900/50 transition-colors cursor-pointer"
+                className="flex items-center gap-1.5 rounded-xl border border-red-500/40 bg-red-950/40 px-3.5 py-2.5 text-xs font-bold text-red-300 hover:bg-red-900/60 transition-colors"
                 title="Disconnect"
               >
                 <Unlink className="h-3.5 w-3.5" />
@@ -197,23 +197,23 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
         </form>
 
         {/* How It Works Diagram */}
-        <div className="mt-6 border-t border-[rgba(255,240,220,0.07)] pt-4">
-          <div className="flex items-center justify-around text-center text-xs text-[#9E958E]">
+        <div className="mt-6 border-t border-[#4A101D]/60 pt-4">
+          <div className="flex items-center justify-around text-center text-xs text-[#E6C687]/80">
             <div className="flex flex-col items-center gap-1">
-              <Laptop className="h-5 w-5 text-[#D4AF37]" />
-              <span className="text-[10px] font-mono">Laptop</span>
+              <Laptop className="h-5 w-5 text-shiny-gold" />
+              <span className="text-[10px]">Laptop</span>
             </div>
             <div className="flex flex-col items-center">
-              <div className="flex items-center gap-1 text-[11px] font-mono text-[#D4AF37]">
+              <div className="flex items-center gap-1 text-[11px] font-mono text-emerald-400">
                 <span>⟷</span>
-                <Cloud className="h-4 w-4 text-[#D4AF37]" />
+                <Cloud className="h-4 w-4 text-shiny-gold" />
                 <span>⟷</span>
               </div>
-              <span className="text-[9px] text-[#635B55] font-mono">Instant Sync</span>
+              <span className="text-[9px] text-[#E6C687]/50">Instant Sync</span>
             </div>
             <div className="flex flex-col items-center gap-1">
-              <Smartphone className="h-5 w-5 text-[#D4AF37]" />
-              <span className="text-[10px] font-mono">Mobile</span>
+              <Smartphone className="h-5 w-5 text-shiny-gold" />
+              <span className="text-[10px]">Mobile</span>
             </div>
           </div>
         </div>

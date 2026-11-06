@@ -1,36 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { 
   Sun, 
   Timer as TimerIcon, 
   CalendarRange, 
   BookOpen, 
-  FolderGit2, 
-  BarChart3, 
-  Hourglass, 
-  Cloud, 
-  Play, 
-  Code2, 
-  Briefcase, 
-  Bookmark,
-  Sparkles
+  FolderGit2,
+  BarChart3,
+  Hourglass,
+  Crown,
+  Code2,
+  Target,
+  Cloud
 } from 'lucide-react';
 import { db } from '../services/db';
+import { DailyDsaCommunicationWidget } from './DailyDsaCommunicationWidget';
 import { cloudSyncService, SyncState } from '../services/cloudSyncService';
-import { LearnVaultLogo } from './LearnVaultLogo';
 
-export type ScreenId = 
-  | 'today' 
-  | 'timer' 
-  | 'plan' 
-  | 'learn' 
-  | 'dsa' 
-  | 'jobs' 
-  | 'vault' 
-  | 'projects' 
-  | 'progress' 
-  | 'wasted';
+export type ScreenId = 'today' | 'timer' | 'plan' | 'learn' | 'projects' | 'progress' | 'wasted';
 
 interface NavigationProps {
   activeScreen: ScreenId;
@@ -38,34 +26,27 @@ interface NavigationProps {
   streakCount?: number;
   totalStudyHours?: number;
   onOpenSyncModal?: () => void;
-  onQuickFocus?: () => void;
 }
 
-export const NAV_ITEMS: { id: ScreenId; label: string; shortLabel: string; icon: React.ComponentType<{ className?: string }> }[] = [
-  { id: 'today', label: 'Today', shortLabel: 'Today', icon: Sun },
-  { id: 'timer', label: 'Timer', shortLabel: 'Timer', icon: TimerIcon },
-  { id: 'plan', label: 'Plan', shortLabel: 'Plan', icon: CalendarRange },
-  { id: 'learn', label: 'Curriculum', shortLabel: 'Learn', icon: BookOpen },
-  { id: 'dsa', label: 'DSA Lab', shortLabel: 'DSA', icon: Code2 },
-  { id: 'jobs', label: 'Career HQ', shortLabel: 'Jobs', icon: Briefcase },
-  { id: 'vault', label: 'Vault', shortLabel: 'Vault', icon: Bookmark },
-  { id: 'projects', label: 'Projects', shortLabel: 'Projects', icon: FolderGit2 },
-  { id: 'progress', label: 'Analytics', shortLabel: 'Stats', icon: BarChart3 },
-  { id: 'wasted', label: 'Wasted Days', shortLabel: 'Wasted', icon: Hourglass },
+const NAV_ITEMS: { id: ScreenId; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
+  { id: 'today', label: 'Today', icon: Sun },
+  { id: 'timer', label: 'Timer', icon: TimerIcon },
+  { id: 'plan', label: 'Plan', icon: CalendarRange },
+  { id: 'learn', label: 'Learn', icon: BookOpen },
+  { id: 'projects', label: 'Projects', icon: FolderGit2 },
+  { id: 'progress', label: 'Progress', icon: BarChart3 },
+  { id: 'wasted', label: 'Wasted Days', icon: Hourglass },
 ];
 
-/* ==========================================================================
-   TOP MINIMALIST HUD BAR (OBSIDIAN VOID & BRUSHED METALLIC GOLD)
-   ========================================================================== */
-export const TopNavBar: React.FC<NavigationProps> = ({
+export const DesktopSidebar: React.FC<NavigationProps> = ({
   activeScreen,
   onSelectScreen,
   streakCount = 1,
   totalStudyHours = 0,
   onOpenSyncModal,
-  onQuickFocus,
 }) => {
   const curriculumTopics = useLiveQuery(() => db.curriculumTopics.toArray()) || [];
+  const wastedDaysCount = useLiveQuery(() => db.wastedDays.count()) || 0;
   const [syncState, setSyncState] = useState<SyncState>(cloudSyncService.getState());
 
   useEffect(() => {
@@ -78,145 +59,186 @@ export const TopNavBar: React.FC<NavigationProps> = ({
     totalSub += t.subtopics?.length || 0;
     doneSub += t.subtopics?.filter((s) => s.completed).length || 0;
   });
-  const displayTotal = totalSub > 0 ? totalSub : 892;
   const overallPercent = totalSub > 0 ? Math.round((doneSub / totalSub) * 100) : 0;
 
-  // Day calculation (Day X of 1,460)
-  const currentDayNumber = React.useMemo(() => {
-    const start = new Date(2026, 10, 1);
-    const now = new Date();
-    const startMidnight = new Date(start.getFullYear(), start.getMonth(), start.getDate()).getTime();
-    const nowMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
-    const diffDays = Math.floor((nowMidnight - startMidnight) / (1000 * 60 * 60 * 24));
-    return Math.min(1460, Math.max(1, diffDays + 1));
-  }, []);
-
-  const formattedDate = new Date().toLocaleDateString('en-GB', {
-    weekday: 'short',
-    day: '2-digit',
-    month: 'short',
-  }).toUpperCase();
-
-  const currentNav = NAV_ITEMS.find((item) => item.id === activeScreen);
-
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#080304]/90 backdrop-blur-2xl border-b border-[#E5B84B]/20 transition-colors duration-300 px-3 sm:px-6 py-2.5 select-none">
-      <div className="max-w-[1560px] mx-auto flex items-center justify-between gap-3">
-        {/* Left: Minimalist Hardware Mark & Active Domain Pill */}
-        <div className="flex items-center gap-3">
-          <div 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center gap-2 cursor-pointer group shrink-0"
-            title="Scroll to Chronometer Hero"
-          >
-            <LearnVaultLogo size={28} showText={true} badge="// VAULT 2.0" />
+    <aside className="hidden md:flex flex-col w-72 h-screen sticky top-0 bg-[#000000] border-r border-[#360A0F] p-4 select-none overflow-y-auto scrollbar-thin scrollbar-thumb-[#360A0F] shrink-0">
+      <div>
+        {/* Brand Header */}
+        <div className="flex items-center gap-3 px-2 py-3 mb-3 border-b border-[#360A0F]">
+          <div className="w-10 h-10 rounded-xl bg-black border border-[#D4AF37]/50 flex items-center justify-center p-0.5 shadow-md shadow-[#D4AF37]/20 overflow-hidden shrink-0">
+            <img 
+              src="/learnvault-logo.png" 
+              alt="LearnVault Logo" 
+              className="w-full h-full object-contain"
+            />
           </div>
-
-          {/* Active Domain Indicator Breadcrumb */}
-          <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#180509]/80 border border-[#E5B84B]/25 text-[10px] font-mono uppercase text-[#F9D976]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E5B84B] animate-pulse" />
-            <span className="text-white font-bold">{currentNav?.label || 'Cover'}</span>
+          <div className="min-w-0">
+            <h1 className="font-serif text-xl font-bold tracking-wide text-white leading-none">
+              Learn<span className="text-shiny-gold">Vault</span>
+            </h1>
+            <p className="text-[8.5px] font-sans text-[#B8B0AA] mt-1 tracking-wider uppercase font-semibold truncate" title="Your Knowledge. Your Progress. Your Future.">
+              Your Knowledge. Your Progress.
+            </p>
           </div>
         </div>
 
-        {/* Center: High-Density Macro Progress Scrubber */}
+        {/* Overall Progress Quick Tracker */}
         <div 
           onClick={() => onSelectScreen('progress')}
-          className="hidden md:flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-[#140407]/90 border border-[#E5B84B]/25 shadow-inner hover:border-[#E5B84B]/50 cursor-pointer transition-all"
+          className="p-3 rounded-2xl bg-[#160406] border border-[#360A0F] hover:border-[#D4AF37]/60 cursor-pointer transition-all mb-3.5 group shadow-sm"
+          title="Click to view full Overall Progress Tracker"
         >
-          <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold text-[#F9D976]">
-            <Sparkles className="w-3 h-3 text-[#E5B84B] animate-pulse" />
-            <span>DAY {String(currentDayNumber).padStart(3, '0')} / 1,460</span>
+          <div className="flex items-center justify-between text-xs mb-1.5">
+            <span className="text-[#B8B0AA] font-semibold text-[11px] group-hover:text-white transition-colors flex items-center gap-1.5">
+              <Target className="w-3.5 h-3.5 text-[#D4AF37]" />
+              Overall Progress
+            </span>
+            <span className="text-shiny-gold font-bold text-xs">{overallPercent}%</span>
           </div>
-
-          <div className="w-24 bg-[#080304] h-1.5 rounded-full overflow-hidden border border-[#E5B84B]/20">
+          <div className="w-full bg-black h-2 rounded-full overflow-hidden border border-[#360A0F]">
             <div 
-              className="h-full bg-gradient-to-r from-[#E5B84B] to-[#F9D976] rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(229,184,75,0.4)]"
+              className="bg-gradient-to-r from-[#D4AF37] to-[#FFDF73] h-full rounded-full transition-all duration-500 shadow-sm shadow-[#D4AF37]/30"
               style={{ width: `${Math.max(overallPercent, 2)}%` }}
             />
           </div>
-
-          <div className="text-[10px] font-mono text-[#BFA997]">
-            <strong className="text-white">{doneSub}/{displayTotal}</strong> TOPICS ({overallPercent}%)
+          <div className="flex items-center justify-between text-[10px] text-[#B8B0AA]/80 mt-1.5 font-sans">
+            <span>{doneSub}/{totalSub} Topics</span>
+            <span className="text-shiny-gold group-hover:underline font-semibold">View Tracker →</span>
           </div>
         </div>
 
-        {/* Right: Cloud Sync, Date Badge & Start Focus */}
-        <div className="flex items-center gap-2.5 shrink-0">
-          {/* Cloud Sync Status */}
-          <button
-            onClick={onOpenSyncModal}
-            className="p-1.5 sm:px-2.5 sm:py-1 rounded-full bg-[#140407]/80 border border-[#E5B84B]/25 hover:border-[#E5B84B]/50 text-[#BFA997] hover:text-white transition-all flex items-center gap-1.5 text-xs font-mono shadow-sm cursor-pointer"
-            title="Cloud Sync"
-          >
-            <Cloud className="w-3.5 h-3.5 text-[#E5B84B]" />
-            <span className="hidden xl:inline text-[9px] font-bold">
-              {syncState.syncId ? 'SYNCED' : 'BACKUP'}
+        {/* Navigation Links */}
+        <nav className="space-y-1.5" aria-label="Main Navigation">
+          {NAV_ITEMS.map((item) => {
+            const Icon = item.icon;
+            const isActive = activeScreen === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => onSelectScreen(item.id)}
+                className={`w-full min-h-[44px] flex items-center gap-3 px-3.5 py-2 rounded-xl font-medium text-sm transition-all duration-200 relative ${
+                  isActive
+                    ? 'btn-shiny-gold text-black font-bold shadow-lg shadow-[#D4AF37]/30'
+                    : 'text-[#B8B0AA] hover:text-white hover:bg-[#160406] border border-transparent hover:border-[#360A0F]'
+                }`}
+              >
+                <Icon className={`w-4 h-4 ${isActive ? 'text-black stroke-[2.5]' : 'text-[#D4AF37]'}`} />
+                <span className="tracking-wide">{item.label}</span>
+                {isActive && (
+                  <motion.div
+                    layoutId="active-pill-modern"
+                    className="absolute right-3 w-1.5 h-1.5 rounded-full bg-black"
+                    transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                  />
+                )}
+              </button>
+            );
+          })}
+        </nav>
+      </div>
+
+      {/* Left-Side Bar: Daily Communication and DSA */}
+      <div className="my-4">
+        <DailyDsaCommunicationWidget />
+      </div>
+
+      {/* Royal Bottom Status Card & Cloud Sync */}
+      <div className="mt-auto space-y-2">
+        {/* Cloud Sync Button */}
+        <button
+          onClick={onOpenSyncModal}
+          className="w-full p-2.5 rounded-xl border border-[#360A0F] bg-[#120306] hover:border-[#D4AF37]/60 flex items-center justify-between text-xs transition-colors group cursor-pointer shadow-sm"
+          title="Connect or manage cloud sync across devices"
+        >
+          <div className="flex items-center gap-2 min-w-0">
+            <span
+              className={`w-2.5 h-2.5 rounded-full shrink-0 ${
+                syncState.syncId
+                  ? syncState.status === 'syncing'
+                    ? 'bg-amber-400 animate-pulse'
+                    : 'bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]'
+                  : 'bg-gray-500'
+              }`}
+            />
+            <span className="text-[#B8B0AA] group-hover:text-white font-medium text-[11px] truncate">
+              {syncState.syncId ? `Sync: ${syncState.syncId}` : 'Cloud Sync (Link Phone)'}
             </span>
-            {syncState.syncId && (
-              <span className="w-1.5 h-1.5 rounded-full bg-[#E5B84B] shadow-[0_0_6px_#E5B84B]" />
-            )}
-          </button>
-
-          {/* Date Badge */}
-          <div className="hidden sm:flex items-center px-3 py-1 rounded-full bg-[#140407]/80 border border-[#E5B84B]/20 text-[10px] font-mono font-bold text-[#F9D976] shadow-sm">
-            {formattedDate}
           </div>
+          <Cloud className="w-4 h-4 text-shiny-gold group-hover:scale-110 transition-transform shrink-0" />
+        </button>
 
-          {/* Hero Action: Start Pomodoro (Liquid Gold Shimmer Trigger) */}
+        {/* Stats Summary */}
+        <div className="p-3.5 rounded-2xl card-maroon-gold shadow-lg">
+          <div className="flex items-center justify-between text-xs text-[#B8B0AA] mb-1.5 font-sans">
+            <span>Target: Forward Deployed</span>
+            <span className="text-shiny-gold font-bold">Year 1</span>
+          </div>
+          <div className="flex items-center justify-between pt-1.5 border-t border-[#360A0F] text-xs">
+            <span className="text-[#B8B0AA]">Daily Streak</span>
+            <span className="text-white font-bold flex items-center gap-1">
+              <span className="text-[#D4AF37]">🔥</span> <span className="text-shiny-gold">{streakCount}</span> {streakCount === 1 ? 'day' : 'days'}
+            </span>
+          </div>
+          <div className="flex items-center justify-between pt-1 text-xs">
+            <span className="text-[#B8B0AA]">Total Studied</span>
+            <span className="text-shiny-gold font-bold text-sm">{totalStudyHours}h</span>
+          </div>
           <button
-            type="button"
-            onClick={onQuickFocus || (() => onSelectScreen('timer'))}
-            className="px-4 py-1.5 rounded-full btn-liquid-gold text-xs font-black flex items-center gap-2 cursor-pointer shadow-md pulse-gold"
+            onClick={() => onSelectScreen('wasted')}
+            className="w-full flex items-center justify-between pt-1.5 mt-1 border-t border-[#4A101D] text-xs hover:opacity-85 transition-opacity cursor-pointer text-left"
           >
-            <Play className="w-3 h-3 fill-current text-black" />
-            <span className="tracking-wide uppercase font-mono text-[11px] text-black">
-              Start Focus
+            <span className="text-[#B8B0AA] flex items-center gap-1.5">
+              <Hourglass className="w-3.5 h-3.5 text-red-400" /> Wasted Days
+            </span>
+            <span className="text-red-400 font-bold flex items-center gap-1">
+              <span>{wastedDaysCount}</span> {wastedDaysCount === 1 ? 'day' : 'days'}
             </span>
           </button>
         </div>
       </div>
-    </header>
+    </aside>
   );
 };
 
-/* ==========================================================================
-   FLOATING MACOS-STYLE GLASS DOCK (CRIMSON GLASS & LIQUID GOLD INDICATORS)
-   ========================================================================== */
-export const FloatingDock: React.FC<NavigationProps> = ({
+export const MobileTabBar: React.FC<NavigationProps> = ({
   activeScreen,
   onSelectScreen,
 }) => {
   return (
-    <div className="fixed bottom-4 inset-x-0 z-40 flex justify-center pointer-events-none px-2 sm:px-4">
-      <nav className="pointer-events-auto flex items-center gap-1 sm:gap-1.5 p-1.5 max-w-full overflow-x-auto no-scrollbar rounded-full bg-[#180509]/90 backdrop-blur-2xl border border-[#E5B84B]/30 shadow-[0_20px_40px_rgba(0,0,0,0.8),0_0_20px_rgba(229,184,75,0.15)]">
+    <nav 
+      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#000000] border-t border-[#360A0F] px-1 py-1 safe-area-pb"
+      aria-label="Mobile Navigation"
+    >
+      <div className="flex items-center justify-around">
         {NAV_ITEMS.map((item) => {
-          const isActive = activeScreen === item.id;
           const Icon = item.icon;
-
+          const isActive = activeScreen === item.id;
           return (
             <button
               key={item.id}
               onClick={() => onSelectScreen(item.id)}
-              title={item.label}
-              className={`relative px-2.5 sm:px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-medium transition-all duration-150 cursor-pointer shrink-0 ${
-                isActive
-                  ? 'btn-liquid-gold text-black font-black shadow-md'
-                  : 'text-[#BFA997] hover:text-white hover:bg-white/[0.06]'
+              className={`flex-1 min-h-[48px] rounded-xl flex flex-col items-center justify-center py-1 transition-colors relative ${
+                isActive ? 'text-[#FFDF73]' : 'text-[#B8B0AA] hover:text-white'
               }`}
             >
-              <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-black' : 'text-current'}`} />
-              <span className="hidden md:inline font-mono tracking-tight text-[10px] uppercase font-bold">{item.shortLabel}</span>
-              {isActive && (
-                <motion.span
-                  layoutId="dock-active-dot"
-                  className="w-1 h-1 rounded-full bg-black shadow-sm"
-                />
-              )}
+              <div className="relative">
+                <Icon className={`w-4 h-4 ${isActive ? 'text-[#FFDF73]' : 'text-[#B8B0AA]'}`} />
+                {isActive && (
+                  <motion.div
+                    layoutId="active-dot-modern"
+                    className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full bg-[#D4AF37]"
+                    transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                  />
+                )}
+              </div>
+              <span className={`text-[10px] mt-0.5 font-medium ${isActive ? 'text-[#FFDF73] font-bold' : 'text-[#B8B0AA]'}`}>
+                {item.label}
+              </span>
             </button>
           );
         })}
-      </nav>
-    </div>
+      </div>
+    </nav>
   );
 };

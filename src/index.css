@@ -3,240 +3,135 @@
 @tailwind utilities;
 
 @layer base {
-  *, ::before, ::after {
+  * {
     box-sizing: border-box;
+  }
+  
+  html, body, select, option, input, textarea {
+    color-scheme: dark;
+  }
+
+  select {
+    color-scheme: dark;
+    background-color: #0E0205;
+    color: #F9F6EE;
+  }
+
+  select option {
+    background-color: #160406;
+    color: #FFFFFF;
+    padding: 8px 12px;
   }
 
   body {
     margin: 0;
     padding: 0;
-    font-family: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-color: #030303;
+    color: #FFFFFF;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    background-color: #080707;
-    background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(180, 130, 70, 0.12), transparent);
-    background-attachment: fixed;
-    color: #F5F2EB;
-    selection-background-color: #D4AF37;
-    selection-color: #080707;
   }
 
-  h1, h2, h3, .font-display, .font-serif-display {
-    font-family: 'Outfit', 'Geist', sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
-  .font-mono, .tabular-nums {
-    font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
-    font-variant-numeric: tabular-nums;
+  h1, h2, h3, .font-serif {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: -0.01em;
   }
 }
 
-/* ==========================================================================
-   COLOR ARCHITECTURE: BESPOKE OBSIDIAN, ESPRESSO & LIQUID CHAMPAGNE
-   ZERO NAVY, ZERO SLATE, TRUE LUXURY PALETTE
-   ========================================================================== */
-
-:root {
-  color-scheme: dark;
-  --bg-canvas: #080707;
-  --bg-card: #110E0E;
-  --bg-card-hover: #181313;
-  --text-primary: #F5F2EB;
-  --text-secondary: #9E958E;
-  --text-muted: #635B55;
-  
-  /* Champagne Gold Palette */
-  --accent-champagne-light: #F6E6C2;
-  --accent-champagne: #D4AF37;
-  --accent-champagne-dark: #AA8222;
-  --accent-copper: #E5A970;
-  
-  /* 1px Specular Borders & Studio Lighting */
-  --border-specular: rgba(255, 240, 220, 0.07);
-  --border-specular-hover: rgba(212, 175, 55, 0.35);
-  --border-active: rgba(212, 175, 55, 0.45);
-  
-  /* Liquid Champagne Gradient */
-  --btn-champagne-gradient: linear-gradient(135deg, #F6E6C2 0%, #D4AF37 50%, #AA8222 100%);
-  --btn-champagne-text: #090808;
-}
-
-/* ==========================================================================
-   GLOBAL SUBTLE ANODIZED METAL NOISE TEXTURE (OPACITY: 0.018)
-   ========================================================================== */
-.anodized-noise-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.018'/%3E%3C/svg%3E");
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 50;
-  opacity: 0.018;
-  mix-blend-mode: overlay;
-}
-
-/* ==========================================================================
-   GLASSMORPHIC CARDS: #110E0E WITH 1PX SPECULAR BORDER & VERTICAL GRADIENT
-   ========================================================================== */
-
-.crimson-glass,
-.smoked-glass,
-.card-maroon,
-.card-maroon-gold,
-.card-obsidian,
-.card-espresso {
-  background: #110E0E;
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 240, 220, 0.07);
-  box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
-    0 16px 36px -8px rgba(0, 0, 0, 0.85);
-  border-radius: 12px;
-  color: #F5F2EB;
-  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
-              background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.crimson-glass:hover,
-.smoked-glass:hover,
-.card-obsidian:hover,
-.card-espresso:hover {
-  background-color: #181313;
-  border-color: rgba(212, 175, 55, 0.3);
-  box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
-    0 20px 40px -8px rgba(0, 0, 0, 0.95),
-    inset 0 0 16px rgba(212, 175, 55, 0.04);
-}
-
-/* ==========================================================================
-   PRIMARY CTA: LIQUID METALLIC CHAMPAGNE GOLD
-   ========================================================================== */
-
-@keyframes champagne-sheen {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.btn-liquid-gold,
-.liquid-gold-pill {
-  background: linear-gradient(135deg, #F6E6C2 0%, #D4AF37 50%, #AA8222 100%);
-  background-size: 200% 200%;
-  animation: champagne-sheen 6s ease infinite;
-  color: #090808 !important;
+/* Shiny Gold Metallic Accents & Buttons (10% Gold Balance) */
+.btn-shiny-gold {
+  background: linear-gradient(135deg, #FFF0A8 0%, #FFDF73 25%, #D4AF37 60%, #997A15 100%);
+  color: #000000;
   font-weight: 700;
-  border: 1px solid rgba(255, 240, 200, 0.45);
-  border-radius: 8px;
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.4),
-    0 4px 16px -2px rgba(212, 175, 55, 0.3);
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.2s ease;
-}
-
-.btn-liquid-gold:hover,
-.liquid-gold-pill:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.06);
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.6),
-    0 8px 20px -2px rgba(212, 175, 55, 0.45);
-}
-
-.btn-liquid-gold:active,
-.liquid-gold-pill:active {
-  transform: translateY(0.5px) scale(0.98);
-}
-
-/* ==========================================================================
-   SECONDARY ANODIZED GLASS PILLS (QUICK ACTIONS, TABS)
-   ========================================================================== */
-
-.btn-crimson-pill,
-.btn-tactile,
-.btn-cyber-ghost {
-  background: #110E0E;
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 240, 220, 0.07);
-  box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
-    0 4px 12px rgba(0, 0, 0, 0.5);
-  color: #F5F2EB !important;
-  font-weight: 600;
-  border-radius: 8px;
+  box-shadow: 0 3px 14px rgba(212, 175, 55, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 240, 168, 0.6);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.btn-crimson-pill:hover,
-.btn-tactile:hover,
-.btn-cyber-ghost:hover {
-  background: #181313;
-  border-color: rgba(212, 175, 55, 0.35);
-  color: #FFFFFF !important;
+.btn-shiny-gold:hover {
+  filter: brightness(1.15);
+  box-shadow: 0 6px 22px rgba(212, 175, 55, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   transform: translateY(-1px);
-  box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
-    0 6px 16px rgba(0, 0, 0, 0.7);
 }
 
-.btn-crimson-pill:active,
-.btn-tactile:active {
-  transform: translateY(0);
-}
-
-/* ==========================================================================
-   RECESSED COMMAND INPUTS (RAYCAST / LINEAR STYLE)
-   ========================================================================== */
-
-.recessed-input {
-  background-color: #0A0808;
-  border: 1px solid rgba(255, 240, 220, 0.07);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
-  color: #F5F2EB;
-  border-radius: 8px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.recessed-input:focus {
-  outline: none;
-  border-color: rgba(212, 175, 55, 0.45);
-  box-shadow: 
-    inset 0 2px 4px rgba(0, 0, 0, 0.6),
-    inset 0 0 12px rgba(212, 175, 55, 0.08);
-}
-
-/* ==========================================================================
-   METRIC TYPOGRAPHY: METALLIC TEXT GRADIENT
-   ========================================================================== */
-
-.text-metric-champagne {
-  background: linear-gradient(180deg, #FFFFFF 0%, #F5F2EB 45%, #D4AF37 100%);
+.text-shiny-gold {
+  background: linear-gradient(135deg, #FFF0A8 0%, #FFDF73 35%, #D4AF37 70%, #C4971E 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Utility to hide scrollbars while allowing touch scrolling */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+.gold-glow {
+  box-shadow: 0 0 18px rgba(212, 175, 55, 0.32);
 }
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+
+.border-gold-shine {
+  border-color: rgba(212, 175, 55, 0.45);
+}
+
+.border-gold-shine:hover {
+  border-color: #D4AF37;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+}
+
+/* Royal Maroon Cards */
+.card-maroon,
+.card-emerald,
+.card-burgundy {
+  background-color: #24060D;
+  border: 1px solid #4A101D;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.95);
+}
+
+.card-maroon:hover,
+.card-emerald:hover,
+.card-burgundy:hover {
+  border-color: #631728;
+}
+
+/* Royal Maroon with 10% Gold Trim */
+.card-maroon-gold,
+.card-emerald-gold,
+.card-burgundy-gold {
+  background-color: #24060D;
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.95), 0 0 10px rgba(212, 175, 55, 0.1);
+}
+
+.card-maroon-gold:hover,
+.card-emerald-gold:hover,
+.card-burgundy-gold:hover {
+  border-color: #D4AF37;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.98), 0 0 18px rgba(212, 175, 55, 0.25);
+}
+
+/* Minimal Luxury Scrollbar with #030303 Track and Rich Maroon Thumb */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030303;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4A101D;
+  border-radius: 9999px;
+  border: 1px solid #030303;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

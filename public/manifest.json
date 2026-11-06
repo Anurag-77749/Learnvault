@@ -1,19 +1,19 @@
 {
-  "name": "LearnVault // Workspace",
-  "short_name": "LearnVault",
+  "name": "NEUROVA Adaptive Learning",
+  "short_name": "NEUROVA",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#050505",
-  "theme_color": "#050505",
-  "description": "Forward Deployed Engineering & Mastery Workspace",
+  "background_color": "#0f172a",
+  "theme_color": "#1e1b4b",
+  "description": "Adaptive Multimodal Homework & Diagnostic Learning Platform for Indian Schools",
   "icons": [
     {
-      "src": "/learnvault-logo.svg",
+      "src": "/orbital-logo.svg",
       "sizes": "192x192",
       "type": "image/svg+xml"
     },
     {
-      "src": "/learnvault-logo.svg",
+      "src": "/orbital-logo.svg",
       "sizes": "512x512",
       "type": "image/svg+xml"
     }

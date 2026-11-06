@@ -1,17 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Briefcase, 
-  Plus, 
-  Trash2, 
-  Calendar, 
-  CheckCircle, 
-  MessageSquare, 
-  HelpCircle, 
-  X,
-  Building,
-  FileText,
-  UserCheck
-} from 'lucide-react';
 import { JobApplication } from '../types';
 import { dataService } from '../services/dataService';
 
@@ -123,58 +110,54 @@ export const JobTrackerView: React.FC = () => {
   const getStatusColor = (st: string) => {
     switch (st) {
       case 'offer':
-        return 'bg-[#10B981]/15 text-[#10B981] border-[#10B981]/40';
+        return 'bg-emerald-950/60 text-emerald-400 border-emerald-800/40';
       case 'interviewing':
-        return 'bg-[#FF5500]/15 text-[#FF5500] border-[#FF5500]/40';
+        return 'bg-indigo-950/60 text-indigo-400 border-indigo-800/40';
       case 'applied':
-        return 'bg-white/[0.08] text-white border-white/[0.15]';
+        return 'bg-amber-950/60 text-amber-400 border-amber-800/40';
       case 'wishlist':
-        return 'bg-white/[0.04] text-[#9898A0] border-white/[0.08]';
+        return 'bg-slate-800 text-slate-300 border-slate-700';
       case 'rejected':
-        return 'bg-rose-500/15 text-rose-400 border-rose-500/40';
+        return 'bg-rose-950/60 text-rose-400 border-rose-800/40';
       default:
-        return 'bg-white/[0.04] text-[#9898A0] border-white/[0.08]';
+        return 'bg-slate-800 text-slate-300 border-slate-700';
     }
   };
 
   return (
-    <div className="space-y-6 pb-28 font-sans max-w-[1500px] mx-auto select-none">
-      {/* 1. TOP PIPELINE COMMAND HEADER (SMOKED OBSIDIAN) */}
-      <div className="smoked-glass p-6 flex flex-col md:flex-row md:items-center justify-between gap-5 relative overflow-hidden">
+    <div className="space-y-6 pb-20">
+      {/* Top Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 rounded-2xl p-6">
         <div>
-          <div className="flex items-center gap-2 mb-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#FF5500] shadow-[0_0_8px_#FF5500]" />
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#9898A0] font-bold">
-              CAREER HQ // FORWARD DEPLOYED PIPELINE
-            </span>
+          <div className="flex items-center gap-2">
+            <span className="text-2xl">💼</span>
+            <h1 className="text-2xl font-bold text-white tracking-tight">Interview & Application Tracker</h1>
           </div>
-          <h1 className="font-display font-black text-2xl sm:text-3xl text-white tracking-tight">
-            Interview & Application Command
-          </h1>
-          <p className="text-xs text-[#9898A0] mt-1">
-            Track Forward Deployed Engineer & Solutions Engineering pipelines, real technical interview rounds, and mock feedback.
+          <p className="text-slate-400 text-sm mt-1">
+            Track Forward Deployed Engineer & Solutions Engineering pipelines, real interview questions, and mock feedback.
           </p>
         </div>
-
         <button
           onClick={() => setIsModalOpen(true)}
-          className="px-4 py-2.5 rounded-full btn-mercury text-xs font-black flex items-center gap-2 shadow-lg cursor-pointer self-start md:self-auto"
+          className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2.5 rounded-xl transition shadow-lg shadow-indigo-600/20 text-sm"
         >
-          <Plus className="w-4 h-4 stroke-[3]" />
-          <span className="font-mono uppercase text-[11px]">Add Application</span>
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+          Add Application
         </button>
       </div>
 
-      {/* 2. PIPELINE STAGE CHIPS (HIGH DENSITY / LEAST MESS) */}
+      {/* Filter Tabs */}
       <div className="flex flex-wrap gap-2">
         {['all', 'wishlist', 'applied', 'interviewing', 'offer', 'rejected'].map(st => (
           <button
             key={st}
             onClick={() => setFilterStatus(st)}
-            className={`px-3.5 py-1.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider transition-all cursor-pointer ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition ${
               filterStatus === st
-                ? 'bg-gradient-to-b from-white to-[#E0E0E6] text-[#050507] shadow-md font-black'
-                : 'bg-white/[0.04] text-[#9898A0] hover:text-white border border-white/[0.08]'
+                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20'
+                : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
             }`}
           >
             {st} ({st === 'all' ? jobs.length : jobs.filter(j => j.status === st).length})
@@ -182,32 +165,33 @@ export const JobTrackerView: React.FC = () => {
         ))}
       </div>
 
-      {/* 3. APPLICATIONS LIST */}
+      {/* Applications List */}
       <div className="space-y-4">
         {filteredJobs.length === 0 ? (
-          <div className="smoked-glass p-12 text-center text-[#9898A0] font-mono text-xs border border-dashed border-white/[0.08]">
-            NO APPLICATIONS CURRENTLY TRACKED IN THIS PIPELINE STAGE.
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center text-slate-400">
+            <span className="text-3xl block mb-2">📋</span>
+            <p>No job applications found in this category.</p>
           </div>
         ) : (
           filteredJobs.map(job => (
             <div
               key={job.id}
-              className="smoked-glass p-5 sm:p-6 space-y-4 relative overflow-hidden"
+              className="bg-slate-900 border border-slate-800 hover:border-slate-700 transition rounded-2xl p-6 space-y-5"
             >
-              {/* Header: Company, Role & Status Selector */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/[0.08]">
+              {/* Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                  <div className="flex items-center gap-2">
-                    <Building className="w-4 h-4 text-[#FF5500]" />
-                    <h3 className="font-display font-extrabold text-lg text-white">
-                      {job.company}
-                    </h3>
-                    <span className="text-xs text-[#9898A0]">({job.role})</span>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xl font-bold text-white">{job.company}</span>
+                    <span className="text-slate-500">|</span>
+                    <span className="text-slate-300 font-medium text-sm">{job.role}</span>
                   </div>
-                  <div className="flex items-center gap-3 mt-1 text-[10px] font-mono text-[#9898A0]">
-                    <span>APPLIED: {job.applied_date}</span>
+                  <div className="flex items-center gap-2 text-xs text-slate-400">
+                    <span>Applied: {job.applied_date}</span>
                     <span>•</span>
-                    <span>RESUME: {job.resume_version}</span>
+                    <span className="bg-slate-800 px-2 py-0.5 rounded border border-slate-700/60 font-mono text-[11px]">
+                      {job.resume_version}
+                    </span>
                   </div>
                 </div>
 
@@ -215,7 +199,7 @@ export const JobTrackerView: React.FC = () => {
                   <select
                     value={job.status}
                     onChange={e => handleUpdateStatus(job.id, e.target.value)}
-                    className={`text-[10px] font-mono font-bold uppercase rounded-lg px-2.5 py-1.5 border focus:outline-none ${getStatusColor(
+                    className={`text-xs font-bold uppercase rounded-xl px-3 py-1.5 border focus:outline-none ${getStatusColor(
                       job.status
                     )}`}
                   >
@@ -228,44 +212,46 @@ export const JobTrackerView: React.FC = () => {
 
                   <button
                     onClick={() => handleDeleteJob(job.id)}
-                    className="p-1.5 text-[#9898A0] hover:text-rose-400 bg-white/[0.04] border border-white/[0.08] rounded-lg transition cursor-pointer"
+                    className="p-1.5 text-slate-400 hover:text-rose-400 bg-slate-800 hover:bg-slate-700 rounded-lg transition"
                     title="Delete Application"
                   >
-                    <Trash2 className="w-3.5 h-3.5" />
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
                   </button>
                 </div>
               </div>
 
-              {/* Sub-Section 1: Interview Rounds Timeline */}
-              <div className="p-3.5 rounded-xl bg-black/40 border border-white/[0.08] space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase text-[#9898A0]">
-                    <Calendar className="w-3.5 h-3.5 text-[#FF5500]" />
-                    <span>INTERVIEW ROUNDS ({job.rounds.length})</span>
+              {/* Rounds Timeline */}
+              <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4">
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
+                    <span>⏱️</span>
+                    <span>Interview Rounds ({job.rounds.length})</span>
                   </div>
                   <button
                     onClick={() => setActiveRoundJobId(activeRoundJobId === job.id ? null : job.id)}
-                    className="text-[10px] font-mono text-[#FF5500] hover:underline font-bold cursor-pointer"
+                    className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold"
                   >
                     {activeRoundJobId === job.id ? 'Cancel' : '+ Add Round'}
                   </button>
                 </div>
 
                 {activeRoundJobId === job.id && (
-                  <div className="p-3 rounded-lg bg-white/[0.03] border border-white/[0.1] space-y-2">
+                  <div className="bg-slate-900 border border-slate-700/80 rounded-xl p-3 mb-3 space-y-2">
                     <div className="grid grid-cols-2 gap-2">
                       <input
                         type="text"
-                        placeholder="Round Name (e.g. System Design)"
+                        placeholder="Round Name (e.g. System Decomp)"
                         value={newRoundName}
                         onChange={e => setNewRoundName(e.target.value)}
-                        className="input-command-bar text-xs rounded-lg px-2.5 py-1.5"
+                        className="bg-slate-800 border border-slate-700 text-white text-xs rounded-lg px-2.5 py-1.5"
                       />
                       <input
                         type="date"
                         value={newRoundDate}
                         onChange={e => setNewRoundDate(e.target.value)}
-                        className="input-command-bar text-xs rounded-lg px-2.5 py-1.5"
+                        className="bg-slate-800 border border-slate-700 text-white text-xs rounded-lg px-2.5 py-1.5"
                       />
                     </div>
                     <input
@@ -273,12 +259,12 @@ export const JobTrackerView: React.FC = () => {
                       placeholder="Notes or areas evaluated..."
                       value={newRoundNotes}
                       onChange={e => setNewRoundNotes(e.target.value)}
-                      className="w-full input-command-bar text-xs rounded-lg px-2.5 py-1.5"
+                      className="w-full bg-slate-800 border border-slate-700 text-white text-xs rounded-lg px-2.5 py-1.5"
                     />
                     <div className="flex justify-end">
                       <button
                         onClick={() => handleAddRound(job.id)}
-                        className="px-3 py-1 btn-mercury text-[10px] font-mono font-bold rounded-full"
+                        className="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg"
                       >
                         Save Round
                       </button>
@@ -287,152 +273,223 @@ export const JobTrackerView: React.FC = () => {
                 )}
 
                 {job.rounds.length === 0 ? (
-                  <p className="text-[11px] font-mono text-[#9898A0] italic">No interview rounds recorded yet.</p>
+                  <p className="text-xs text-slate-500 italic">No interview rounds recorded yet.</p>
                 ) : (
-                  <div className="space-y-1.5">
+                  <div className="space-y-2">
                     {job.rounds.map((rnd, idx) => (
                       <div
                         key={rnd.id || idx}
-                        className="p-2 rounded-lg bg-white/[0.02] border border-white/[0.06] flex items-start justify-between gap-2 text-xs"
+                        className="bg-slate-900/80 border border-slate-800 rounded-lg p-2.5 flex items-start justify-between gap-3 text-xs"
                       >
                         <div>
                           <div className="font-semibold text-white flex items-center gap-2">
                             <span>{rnd.name}</span>
-                            <span className="text-[10px] font-mono text-[#9898A0]">({rnd.date})</span>
+                            <span className="text-[11px] text-slate-400 font-normal">({rnd.date})</span>
                           </div>
-                          {rnd.notes && <p className="text-[11px] text-[#9898A0] mt-0.5 font-mono">{rnd.notes}</p>}
+                          {rnd.notes && <p className="text-slate-400 mt-0.5">{rnd.notes}</p>}
                         </div>
+                        <span
+                          className={`px-2 py-0.5 rounded text-[11px] font-semibold border ${
+                            rnd.passed
+                              ? 'bg-emerald-950 text-emerald-400 border-emerald-800'
+                              : 'bg-amber-950 text-amber-300 border-amber-800'
+                          }`}
+                        >
+                          {rnd.passed ? 'Passed ✓' : 'Pending'}
+                        </span>
                       </div>
                     ))}
                   </div>
                 )}
               </div>
 
-              {/* Sub-Section 2: Questions Asked Bank */}
-              <div className="p-3.5 rounded-xl bg-black/40 border border-white/[0.08] space-y-2">
-                <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase text-[#9898A0]">
-                  <HelpCircle className="w-3.5 h-3.5 text-[#10B981]" />
-                  <span>TECHNICAL QUESTIONS ASKED ({job.questions_asked?.length || 0})</span>
-                </div>
+              {/* Questions Asked & Mock Feedback Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Questions Asked */}
+                <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4">
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+                    <span>💡</span>
+                    <span>Real Interview Questions ({job.questions_asked.length})</span>
+                  </div>
 
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    placeholder="Log a question asked in this company's interviews..."
-                    value={newQuestions[job.id] || ''}
-                    onChange={e => setNewQuestions({ ...newQuestions, [job.id]: e.target.value })}
-                    onKeyDown={e => e.key === 'Enter' && handleAddQuestion(job.id)}
-                    className="flex-1 input-command-bar text-xs rounded-lg px-3 py-1.5"
-                  />
-                  <button
-                    onClick={() => handleAddQuestion(job.id)}
-                    className="px-3 py-1 btn-tactile text-[10px] font-mono font-bold rounded-lg"
-                  >
-                    Add
-                  </button>
-                </div>
+                  <div className="flex gap-2 mb-2">
+                    <input
+                      type="text"
+                      placeholder="Add question asked in interview..."
+                      value={newQuestions[job.id] || ''}
+                      onChange={e => setNewQuestions({ ...newQuestions, [job.id]: e.target.value })}
+                      onKeyDown={e => e.key === 'Enter' && handleAddQuestion(job.id)}
+                      className="flex-1 bg-slate-800 border border-slate-700 text-white text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-indigo-500"
+                    />
+                    <button
+                      onClick={() => handleAddQuestion(job.id)}
+                      className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold rounded-lg"
+                    >
+                      + Add
+                    </button>
+                  </div>
 
-                {job.questions_asked && job.questions_asked.length > 0 && (
-                  <div className="space-y-1 pt-1">
+                  <div className="space-y-1.5 max-h-40 overflow-y-auto">
                     {job.questions_asked.map((q, idx) => (
-                      <div key={idx} className="text-xs text-[#F5F5F7] font-mono bg-white/[0.02] px-2.5 py-1 rounded border border-white/[0.04]">
+                      <div
+                        key={idx}
+                        className="bg-slate-900/60 border border-slate-800/60 text-xs text-slate-300 p-2 rounded-lg"
+                      >
                         • {q}
                       </div>
                     ))}
                   </div>
-                )}
+                </div>
+
+                {/* Mock Interviews */}
+                <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
+                      <span>🎯</span>
+                      <span>Mock Interview Feedback ({job.mock_interviews.length})</span>
+                    </div>
+                    <button
+                      onClick={() => setActiveMockJobId(activeMockJobId === job.id ? null : job.id)}
+                      className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold"
+                    >
+                      {activeMockJobId === job.id ? 'Cancel' : '+ Add Mock'}
+                    </button>
+                  </div>
+
+                  {activeMockJobId === job.id && (
+                    <div className="bg-slate-900 border border-slate-700/80 rounded-xl p-3 mb-2 space-y-2">
+                      <div className="grid grid-cols-2 gap-2">
+                        <input
+                          type="text"
+                          placeholder="Interviewer (Mentor / Senior)"
+                          value={mockInterviewer}
+                          onChange={e => setMockInterviewer(e.target.value)}
+                          className="bg-slate-800 border border-slate-700 text-white text-xs rounded-lg px-2.5 py-1.5"
+                        />
+                        <input
+                          type="date"
+                          value={mockDate}
+                          onChange={e => setMockDate(e.target.value)}
+                          className="bg-slate-800 border border-slate-700 text-white text-xs rounded-lg px-2.5 py-1.5"
+                        />
+                      </div>
+                      <textarea
+                        rows={2}
+                        placeholder="Feedback, areas to strengthen..."
+                        value={mockFeedback}
+                        onChange={e => setMockFeedback(e.target.value)}
+                        className="w-full bg-slate-800 border border-slate-700 text-white text-xs rounded-lg px-2.5 py-1.5"
+                      />
+                      <div className="flex justify-end">
+                        <button
+                          onClick={() => handleAddMock(job.id)}
+                          className="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg"
+                        >
+                          Save Mock
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="space-y-2 max-h-40 overflow-y-auto">
+                    {job.mock_interviews.map((m, idx) => (
+                      <div
+                        key={m.id || idx}
+                        className="bg-slate-900/60 border border-slate-800/60 text-xs p-2 rounded-lg space-y-1"
+                      >
+                        <div className="flex justify-between text-slate-400 text-[11px]">
+                          <span className="font-semibold text-slate-200">{m.interviewer}</span>
+                          <span>{m.date}</span>
+                        </div>
+                        <p className="text-slate-300">{m.feedback}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           ))
         )}
       </div>
 
-      {/* 4. MODAL: ADD APPLICATION */}
+      {/* Add Job Application Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-          <div className="w-full max-w-md smoked-glass p-6 space-y-4 shadow-2xl font-sans">
-            <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-              <div className="flex items-center gap-2">
-                <Briefcase className="w-4 h-4 text-[#FF5500]" />
-                <h3 className="font-display font-bold text-lg text-white">Add Job Application</h3>
-              </div>
-              <button onClick={() => setIsModalOpen(false)} className="text-[#9898A0] hover:text-white">
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <form onSubmit={handleAddJob} className="space-y-3">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6">
+            <h2 className="text-xl font-bold text-white mb-4">Add Job Application</h2>
+            <form onSubmit={handleAddJob} className="space-y-4">
               <div>
-                <label className="text-[10px] font-mono uppercase text-[#9898A0] block mb-1">Company</label>
+                <label className="block text-xs font-medium text-slate-400 mb-1">Company</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Palantir Technologies"
                   value={company}
                   onChange={e => setCompany(e.target.value)}
-                  className="w-full input-command-bar rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none"
+                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label className="text-[10px] font-mono uppercase text-[#9898A0] block mb-1">Role Title</label>
+                <label className="block text-xs font-medium text-slate-400 mb-1">Role Title</label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Forward Deployed Engineer"
+                  placeholder="e.g. Forward Deployed Software Engineer"
                   value={role}
                   onChange={e => setRole(e.target.value)}
-                  className="w-full input-command-bar rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none"
+                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[10px] font-mono uppercase text-[#9898A0] block mb-1">Status</label>
+                  <label className="block text-xs font-medium text-slate-400 mb-1">Status</label>
                   <select
                     value={status}
                     onChange={e => setStatus(e.target.value as any)}
-                    className="w-full input-command-bar rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"
                   >
                     <option value="wishlist">Wishlist</option>
                     <option value="applied">Applied</option>
                     <option value="interviewing">Interviewing</option>
                     <option value="offer">Offer</option>
+                    <option value="rejected">Rejected</option>
                   </select>
                 </div>
                 <div>
-                  <label className="text-[10px] font-mono uppercase text-[#9898A0] block mb-1">Applied Date</label>
+                  <label className="block text-xs font-medium text-slate-400 mb-1">Date Applied</label>
                   <input
                     type="date"
                     value={appliedDate}
                     onChange={e => setAppliedDate(e.target.value)}
-                    className="w-full input-command-bar rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-[10px] font-mono uppercase text-[#9898A0] block mb-1">Resume Version</label>
+                <label className="block text-xs font-medium text-slate-400 mb-1">Resume Version Used</label>
                 <input
                   type="text"
+                  placeholder="e.g. v2.1-systems-fde.pdf"
                   value={resumeVersion}
                   onChange={e => setResumeVersion(e.target.value)}
-                  placeholder="v1.2-fde-systems.pdf"
-                  className="w-full input-command-bar rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none"
+                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/[0.08]">
+              <div className="flex justify-end gap-3 pt-3 border-t border-slate-800">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-xs text-[#9898A0] hover:text-white"
+                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-medium rounded-xl transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-full btn-mercury text-xs font-black shadow-md cursor-pointer"
+                  className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-xl transition shadow-lg shadow-indigo-600/20"
                 >
                   Save Application
                 </button>
