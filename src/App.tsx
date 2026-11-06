@@ -68,7 +68,7 @@ export const App: React.FC = () => {
   const isLight = theme === 'light';
 
   return (
-    <div className={`min-h-screen ${isLight ? 'bg-[#F8F9FA] text-[#0A0A0A]' : 'bg-[#000000] text-white'} flex flex-col antialiased selection:bg-[#FF5500] selection:text-white transition-colors duration-200`}>
+    <div className={`min-h-screen ${isLight ? 'bg-[#F8F9FA] text-[#0A0A0A]' : 'bg-[#000000] text-white'} flex flex-col antialiased selection:bg-[#D97736] selection:text-white transition-colors duration-200`}>
       {/* Top Header with Navigation Features in the Center Space */}
       <header className={`flex items-center justify-between px-3 sm:px-6 py-2.5 ${isLight ? 'bg-white/95 border-b border-gray-200 shadow-xs' : 'bg-[#000000]/98 border-b border-[#141414]'} backdrop-blur-md sticky top-0 z-30 gap-2 sm:gap-4 select-none transition-colors`}>
         {/* Left: Brand Mark */}
@@ -80,14 +80,14 @@ export const App: React.FC = () => {
           className="flex items-center gap-2.5 cursor-pointer shrink-0 group"
           title="Go to Today"
         >
-          <div className={`w-8 h-8 rounded-xl ${isLight ? 'bg-white border border-[#FF5500]/60' : 'bg-[#000000] border border-[#FF5500]/50'} flex items-center justify-center p-0.5 shadow-md shadow-[#FF5500]/20 overflow-hidden shrink-0`}>
+          <div className={`w-8 h-8 rounded-xl ${isLight ? 'bg-white border border-[#D97736]/60' : 'bg-[#000000] border border-[#D97736]/50'} flex items-center justify-center p-0.5 shadow-md shadow-[#D97736]/20 overflow-hidden shrink-0`}>
             <img src="/learnvault-logo.png" alt="LearnVault" className="w-full h-full object-contain" />
           </div>
           <div>
             <span className={`text-base sm:text-lg font-bold tracking-tight ${isLight ? 'text-[#0A0A0A]' : 'text-white'} leading-none block group-hover:text-shiny-gold transition-colors font-display`}>
               Learn<span className="text-shiny-gold">Vault</span>
             </span>
-            <span className="text-[8px] sm:text-[9px] text-[#FF5500] uppercase tracking-wider block font-semibold">
+            <span className="text-[8px] sm:text-[9px] text-[#D97736] uppercase tracking-wider block font-semibold">
               YOUR KNOWLEDGE • YOUR PROGRESS
             </span>
           </div>
@@ -109,18 +109,18 @@ export const App: React.FC = () => {
           {/* Light / Dark Mode Toggle Button */}
           <button
             onClick={toggleTheme}
-            className={`p-1 sm:p-1.5 px-2 sm:px-2.5 rounded-full ${isLight ? 'bg-white border border-gray-300 hover:border-[#FF5500] text-[#0A0A0A]' : 'bg-[#080808] border border-[#1a1a1a] hover:border-[#FF5500]/60 text-white'} flex items-center gap-1.5 cursor-pointer transition-colors shadow-xs`}
+            className={`p-1 sm:p-1.5 px-2 sm:px-2.5 rounded-full ${isLight ? 'bg-white border border-gray-300 hover:border-[#D97736] text-[#0A0A0A]' : 'bg-[#080808] border border-[#1a1a1a] hover:border-[#D97736]/60 text-white'} flex items-center gap-1.5 cursor-pointer transition-colors shadow-xs`}
             title={isLight ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
             aria-label="Toggle Light/Dark Theme"
           >
             {isLight ? (
               <>
-                <Moon className="w-3.5 h-3.5 text-[#FF5500]" />
+                <Moon className="w-3.5 h-3.5 text-[#D97736]" />
                 <span className="hidden md:inline text-[11px] font-semibold text-[#0A0A0A]">Dark</span>
               </>
             ) : (
               <>
-                <Sun className="w-3.5 h-3.5 text-[#FF5500]" />
+                <Sun className="w-3.5 h-3.5 text-[#D97736]" />
                 <span className="hidden md:inline text-[11px] font-medium text-[#B8B0AA]">Light</span>
               </>
             )}
@@ -128,7 +128,7 @@ export const App: React.FC = () => {
 
           <button
             onClick={() => setIsSyncModalOpen(true)}
-            className={`p-1 sm:p-1.5 px-2 sm:px-2.5 rounded-full ${isLight ? 'bg-white border border-gray-300 hover:border-[#FF5500]' : 'bg-[#080808] border border-[#1a1a1a] hover:border-[#FF5500]/60'} text-shiny-gold flex items-center gap-1.5 cursor-pointer transition-colors shadow-xs`}
+            className={`p-1 sm:p-1.5 px-2 sm:px-2.5 rounded-full ${isLight ? 'bg-white border border-gray-300 hover:border-[#D97736]' : 'bg-[#080808] border border-[#1a1a1a] hover:border-[#D97736]/60'} text-shiny-gold flex items-center gap-1.5 cursor-pointer transition-colors shadow-xs`}
             title="Cloud Sync"
           >
             <Cloud className="w-3.5 h-3.5" />
@@ -155,7 +155,7 @@ export const App: React.FC = () => {
             ⏳ {wastedDaysCount}d
           </button>
 
-          <span className={`px-2 sm:px-2.5 py-1 rounded-full ${isLight ? 'bg-white border border-gray-300 text-[#0A0A0A]' : 'bg-[#080808] border border-[#FF5500]/40 text-white'} font-bold shadow-xs`}>
+          <span className={`px-2 sm:px-2.5 py-1 rounded-full ${isLight ? 'bg-white border border-gray-300 text-[#0A0A0A]' : 'bg-[#080808] border border-[#D97736]/40 text-white'} font-bold shadow-xs`}>
             {totalStudyHours}h
           </span>
         </div>

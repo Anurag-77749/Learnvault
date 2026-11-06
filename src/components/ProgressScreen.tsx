@@ -156,10 +156,10 @@ export const ProgressScreen: React.FC = () => {
   // Level badge determination
   const getRankBadge = (score: number) => {
     if (score >= 80) return { title: 'Forward Deployed Engineer', level: 'Level 5 (Mastery)', color: 'text-shiny-gold' };
-    if (score >= 55) return { title: 'Senior Systems Engineer', level: 'Level 4 (Advanced)', color: 'text-[#FFA040]' };
+    if (score >= 55) return { title: 'Senior Systems Engineer', level: 'Level 4 (Advanced)', color: 'text-[#E8935A]' };
     if (score >= 30) return { title: 'Systems Developer', level: 'Level 3 (Intermediate)', color: 'text-white' };
     if (score >= 15) return { title: 'Apprentice Architect', level: 'Level 2 (Foundation)', color: 'text-[#B8B0AA]' };
-    return { title: 'Novice Engineer', level: 'Level 1 (Kickoff)', color: 'text-[#FF5500]' };
+    return { title: 'Novice Engineer', level: 'Level 1 (Kickoff)', color: 'text-[#D97736]' };
   };
 
   const rank = getRankBadge(masterScore);
@@ -176,7 +176,7 @@ export const ProgressScreen: React.FC = () => {
     <div className="space-y-6 pb-28 md:pb-16 max-w-5xl mx-auto">
       {/* Top Header */}
       <div className="pt-2">
-        <span className="text-xs uppercase tracking-widest text-[#FF5500] font-semibold flex items-center gap-1.5 mb-1 font-sans">
+        <span className="text-xs uppercase tracking-widest text-[#D97736] font-semibold flex items-center gap-1.5 mb-1 font-sans">
           <BarChart3 className="w-3.5 h-3.5" /> Telemetry & 4-Year Totals
         </span>
         <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white">
@@ -190,17 +190,17 @@ export const ProgressScreen: React.FC = () => {
       {/* 0. MASTER OVERALL PROGRESS TRACKER (LEARNVAULT COMPOSITE SCORE) */}
       <section className="p-6 sm:p-8 rounded-3xl card-maroon-gold shadow-2xl space-y-6 relative overflow-hidden">
         {/* Glow ambient background accent */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-[#FF5500]/5 blur-3xl rounded-full pointer-events-none" />
+        <div className="absolute top-0 right-0 w-80 h-80 bg-[#D97736]/5 blur-3xl rounded-full pointer-events-none" />
 
         {/* Master Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-[#1a1a1a] relative">
           <div className="flex items-start sm:items-center gap-3.5">
-            <div className="w-14 h-14 rounded-2xl bg-black border border-[#FF5500]/60 p-1 flex items-center justify-center shadow-lg shadow-[#FF5500]/25 shrink-0 overflow-hidden">
+            <div className="w-14 h-14 rounded-2xl bg-black border border-[#D97736]/60 p-1 flex items-center justify-center shadow-lg shadow-[#D97736]/25 shrink-0 overflow-hidden">
               <img src="/learnvault-logo.png" alt="LearnVault Logo" className="w-full h-full object-contain" />
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#FFA040] bg-[#000000] px-2.5 py-0.5 rounded-full border border-[#FF5500]/40 shadow-sm">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[#E8935A] bg-[#000000] px-2.5 py-0.5 rounded-full border border-[#D97736]/40 shadow-sm">
                   Master Telemetry
                 </span>
                 <span className="text-[10px] font-semibold text-[#B8B0AA] tracking-wide">
@@ -210,14 +210,14 @@ export const ProgressScreen: React.FC = () => {
               <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white mt-1">
                 Overall Progress Tracker
               </h2>
-              <p className="text-xs text-[#FF5500] font-sans font-medium tracking-wider uppercase mt-0.5">
+              <p className="text-xs text-[#D97736] font-sans font-medium tracking-wider uppercase mt-0.5">
                 Your Knowledge. Your Progress. Your Future.
               </p>
             </div>
           </div>
 
           {/* Master Progress Radial / Stat */}
-          <div className="flex items-center gap-4 bg-black/80 px-5 py-3 rounded-2xl border border-[#FF5500]/40 shadow-inner self-start md:self-auto">
+          <div className="flex items-center gap-4 bg-black/80 px-5 py-3 rounded-2xl border border-[#D97736]/40 shadow-inner self-start md:self-auto">
             <div>
               <div className="flex items-baseline gap-1.5">
                 <span className="font-serif text-4xl sm:text-5xl font-bold text-shiny-gold">
@@ -241,14 +241,14 @@ export const ProgressScreen: React.FC = () => {
         <div className="space-y-2">
           <div className="flex items-center justify-between text-xs font-sans">
             <span className="text-[#B8B0AA] font-semibold flex items-center gap-1.5">
-              <Target className="w-3.5 h-3.5 text-[#FFA040]" />
+              <Target className="w-3.5 h-3.5 text-[#E8935A]" />
               4-Year Composite Mastery (Curriculum + DSA + Projects + Study)
             </span>
             <span className="font-bold text-shiny-gold">{masterScore}% / 100%</span>
           </div>
           <div className="w-full bg-black h-3.5 rounded-full overflow-hidden border border-[#1a1a1a] p-0.5 shadow-inner">
             <div 
-              className="bg-gradient-to-r from-[#8B0000] via-[#FF5500] to-[#FFA040] h-full rounded-full transition-all duration-700 shadow-md shadow-[#FF5500]/30"
+              className="bg-gradient-to-r from-[#8B0000] via-[#D97736] to-[#E8935A] h-full rounded-full transition-all duration-700 shadow-md shadow-[#D97736]/30"
               style={{ width: `${Math.max(masterScore, 1)}%` }}
             />
           </div>
@@ -257,10 +257,10 @@ export const ProgressScreen: React.FC = () => {
         {/* 4 Core Progress Pillars */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
           {/* Pillar 1: Curriculum */}
-          <div className="p-4 rounded-2xl bg-black/80 border border-[#1a1a1a] hover:border-[#FF5500]/50 transition-all space-y-3">
+          <div className="p-4 rounded-2xl bg-black/80 border border-[#1a1a1a] hover:border-[#D97736]/50 transition-all space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold text-[#FFA040] uppercase tracking-wide flex items-center gap-1.5">
-                <BookOpen className="w-3.5 h-3.5 text-[#FFA040]" />
+              <span className="text-[11px] font-bold text-[#E8935A] uppercase tracking-wide flex items-center gap-1.5">
+                <BookOpen className="w-3.5 h-3.5 text-[#E8935A]" />
                 Curriculum
               </span>
               <span className="text-xs font-bold text-white">{curriculumStats.curriculumPercent}%</span>
@@ -272,15 +272,15 @@ export const ProgressScreen: React.FC = () => {
               <p className="text-[11px] text-shiny-gold mt-0.5 truncate">Angela Yu + 12 Core Tracks</p>
             </div>
             <div className="w-full bg-[#080808] h-1.5 rounded-full overflow-hidden border border-[#1a1a1a]">
-              <div className="bg-[#FF5500] h-full transition-all duration-500" style={{ width: `${curriculumStats.curriculumPercent}%` }} />
+              <div className="bg-[#D97736] h-full transition-all duration-500" style={{ width: `${curriculumStats.curriculumPercent}%` }} />
             </div>
           </div>
 
           {/* Pillar 2: DSA */}
-          <div className="p-4 rounded-2xl bg-black/80 border border-[#1a1a1a] hover:border-[#FF5500]/50 transition-all space-y-3">
+          <div className="p-4 rounded-2xl bg-black/80 border border-[#1a1a1a] hover:border-[#D97736]/50 transition-all space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold text-[#FFA040] uppercase tracking-wide flex items-center gap-1.5">
-                <Code2 className="w-3.5 h-3.5 text-[#FFA040]" />
+              <span className="text-[11px] font-bold text-[#E8935A] uppercase tracking-wide flex items-center gap-1.5">
+                <Code2 className="w-3.5 h-3.5 text-[#E8935A]" />
                 DSA Mastery
               </span>
               <span className="text-xs font-bold text-white">{dsaPercent}%</span>
@@ -294,15 +294,15 @@ export const ProgressScreen: React.FC = () => {
               </p>
             </div>
             <div className="w-full bg-[#080808] h-1.5 rounded-full overflow-hidden border border-[#1a1a1a]">
-              <div className="bg-[#FFA040] h-full transition-all duration-500" style={{ width: `${dsaPercent}%` }} />
+              <div className="bg-[#E8935A] h-full transition-all duration-500" style={{ width: `${dsaPercent}%` }} />
             </div>
           </div>
 
           {/* Pillar 3: Projects */}
-          <div className="p-4 rounded-2xl bg-black/80 border border-[#1a1a1a] hover:border-[#FF5500]/50 transition-all space-y-3">
+          <div className="p-4 rounded-2xl bg-black/80 border border-[#1a1a1a] hover:border-[#D97736]/50 transition-all space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold text-[#FFA040] uppercase tracking-wide flex items-center gap-1.5">
-                <FolderGit2 className="w-3.5 h-3.5 text-[#FFA040]" />
+              <span className="text-[11px] font-bold text-[#E8935A] uppercase tracking-wide flex items-center gap-1.5">
+                <FolderGit2 className="w-3.5 h-3.5 text-[#E8935A]" />
                 Projects
               </span>
               <span className="text-xs font-bold text-white">{projectStats.projectPercent}%</span>
@@ -314,15 +314,15 @@ export const ProgressScreen: React.FC = () => {
               <p className="text-[11px] text-shiny-gold mt-0.5 truncate">{projectStats.totalProjects} in active portfolio</p>
             </div>
             <div className="w-full bg-[#080808] h-1.5 rounded-full overflow-hidden border border-[#1a1a1a]">
-              <div className="bg-[#FF5500] h-full transition-all duration-500" style={{ width: `${projectStats.projectPercent}%` }} />
+              <div className="bg-[#D97736] h-full transition-all duration-500" style={{ width: `${projectStats.projectPercent}%` }} />
             </div>
           </div>
 
           {/* Pillar 4: Study Consistency */}
-          <div className="p-4 rounded-2xl bg-black/80 border border-[#1a1a1a] hover:border-[#FF5500]/50 transition-all space-y-3">
+          <div className="p-4 rounded-2xl bg-black/80 border border-[#1a1a1a] hover:border-[#D97736]/50 transition-all space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold text-[#FFA040] uppercase tracking-wide flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-[#FFA040]" />
+              <span className="text-[11px] font-bold text-[#E8935A] uppercase tracking-wide flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-[#E8935A]" />
                 Study Hours
               </span>
               <span className="text-xs font-bold text-white">{studyPercent}%</span>
@@ -336,7 +336,7 @@ export const ProgressScreen: React.FC = () => {
               </p>
             </div>
             <div className="w-full bg-[#080808] h-1.5 rounded-full overflow-hidden border border-[#1a1a1a]">
-              <div className="bg-[#FFA040] h-full transition-all duration-500" style={{ width: `${studyPercent}%` }} />
+              <div className="bg-[#E8935A] h-full transition-all duration-500" style={{ width: `${studyPercent}%` }} />
             </div>
           </div>
         </div>
@@ -345,7 +345,7 @@ export const ProgressScreen: React.FC = () => {
         <div className="space-y-3 pt-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Layers className="w-4 h-4 text-[#FF5500]" />
+              <Layers className="w-4 h-4 text-[#D97736]" />
               <h3 className="font-serif text-lg font-bold text-white">Curriculum Track Breakdown</h3>
             </div>
             <button
@@ -370,7 +370,7 @@ export const ProgressScreen: React.FC = () => {
                 return (
                   <div 
                     key={trackId}
-                    className="p-3 rounded-xl bg-black/60 border border-[#1a1a1a] hover:border-[#FF5500]/50 transition-all flex flex-col justify-between space-y-2"
+                    className="p-3 rounded-xl bg-black/60 border border-[#1a1a1a] hover:border-[#D97736]/50 transition-all flex flex-col justify-between space-y-2"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="min-w-0">
@@ -393,7 +393,7 @@ export const ProgressScreen: React.FC = () => {
                       </div>
                       <div className="w-full bg-[#080808] h-1.5 rounded-full overflow-hidden border border-[#1a1a1a]">
                         <div 
-                          className="bg-gradient-to-r from-[#FF5500] to-[#FFA040] h-full transition-all duration-500" 
+                          className="bg-gradient-to-r from-[#D97736] to-[#E8935A] h-full transition-all duration-500" 
                           style={{ width: `${stats.percent}%` }}
                         />
                       </div>
@@ -409,8 +409,8 @@ export const ProgressScreen: React.FC = () => {
       <section className="p-5 sm:p-6 rounded-3xl card-maroon-gold shadow-2xl space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#1a1a1a]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-black border-2 border-[#FF5500] flex items-center justify-center text-shiny-gold shadow-md shadow-[#FF5500]/20">
-              <Code2 className="w-5 h-5 text-[#FFA040]" />
+            <div className="w-10 h-10 rounded-2xl bg-black border-2 border-[#D97736] flex items-center justify-center text-shiny-gold shadow-md shadow-[#D97736]/20">
+              <Code2 className="w-5 h-5 text-[#E8935A]" />
             </div>
             <div>
               <h2 className="font-serif text-2xl font-bold text-white">
@@ -423,8 +423,8 @@ export const ProgressScreen: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2 self-start sm:self-auto">
-            <span className="text-xs px-3 py-1.5 rounded-xl bg-black border border-[#FF5500]/40 text-shiny-gold font-bold flex items-center gap-1.5 shadow-sm">
-              <TrendingUp className="w-3.5 h-3.5 text-[#FFA040]" />
+            <span className="text-xs px-3 py-1.5 rounded-xl bg-black border border-[#D97736]/40 text-shiny-gold font-bold flex items-center gap-1.5 shadow-sm">
+              <TrendingUp className="w-3.5 h-3.5 text-[#E8935A]" />
               Today: {todayLog?.questionsCount || 0} Solved
             </span>
           </div>
@@ -433,8 +433,8 @@ export const ProgressScreen: React.FC = () => {
         {/* Big Numbers Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {/* Total Solved */}
-          <div className="p-4 rounded-2xl bg-black/80 border border-[#FF5500]/40 shadow-inner">
-            <span className="text-[11px] font-bold text-[#FFA040] uppercase">
+          <div className="p-4 rounded-2xl bg-black/80 border border-[#D97736]/40 shadow-inner">
+            <span className="text-[11px] font-bold text-[#E8935A] uppercase">
               Total Solved
             </span>
             <div className="font-serif text-3xl sm:text-4xl font-bold text-shiny-gold mt-1">
@@ -458,7 +458,7 @@ export const ProgressScreen: React.FC = () => {
           </div>
 
           {/* Medium */}
-          <div className="p-4 rounded-2xl bg-black/80 border border-[#FF5500]/50 shadow-inner">
+          <div className="p-4 rounded-2xl bg-black/80 border border-[#D97736]/50 shadow-inner">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold text-[#FFD700] uppercase">
                 Medium
@@ -492,11 +492,11 @@ export const ProgressScreen: React.FC = () => {
             <span>Difficulty Distribution</span>
             <span className="text-shiny-gold font-bold">{telemetry.totalDSA} total problems</span>
           </div>
-          <div className="w-full h-3 bg-black rounded-full overflow-hidden flex border border-[#FF5500]/40 shadow-inner">
+          <div className="w-full h-3 bg-black rounded-full overflow-hidden flex border border-[#D97736]/40 shadow-inner">
             {telemetry.totalDSA > 0 ? (
               <>
                 <div style={{ width: `${telemetry.easyPct}%` }} className="bg-[#26A641] h-full" title={`Easy: ${telemetry.easyDSA}`} />
-                <div style={{ width: `${telemetry.medPct}%` }} className="bg-[#FF5500] h-full shadow-[0_0_8px_rgba(255, 85, 0,0.6)]" title={`Medium: ${telemetry.medDSA}`} />
+                <div style={{ width: `${telemetry.medPct}%` }} className="bg-[#D97736] h-full shadow-[0_0_8px_rgba(217, 119, 54,0.6)]" title={`Medium: ${telemetry.medDSA}`} />
                 <div style={{ width: `${telemetry.hardPct}%` }} className="bg-[#E53E3E] h-full" title={`Hard: ${telemetry.hardDSA}`} />
               </>
             ) : (
@@ -507,15 +507,15 @@ export const ProgressScreen: React.FC = () => {
 
         {/* Platforms Attribution */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-          <div className="p-3 rounded-xl bg-black/80 border border-[#FF5500]/25 flex items-center justify-between text-xs">
+          <div className="p-3 rounded-xl bg-black/80 border border-[#D97736]/25 flex items-center justify-between text-xs">
             <span className="text-[#B8B0AA]">LeetCode Practice:</span>
             <span className="font-bold text-white">{telemetry.leetcodeCount}</span>
           </div>
-          <div className="p-3 rounded-xl bg-black/80 border border-[#FF5500]/35 flex items-center justify-between text-xs">
+          <div className="p-3 rounded-xl bg-black/80 border border-[#D97736]/35 flex items-center justify-between text-xs">
             <span className="text-[#B8B0AA]">Striver A2Z Sheet:</span>
             <span className="font-bold text-shiny-gold">{telemetry.striverCount}</span>
           </div>
-          <div className="p-3 rounded-xl bg-black/80 border border-[#FF5500]/25 flex items-center justify-between text-xs">
+          <div className="p-3 rounded-xl bg-black/80 border border-[#D97736]/25 flex items-center justify-between text-xs">
             <span className="text-[#B8B0AA]">Code & Debug / Other:</span>
             <span className="font-bold text-white">{telemetry.otherCount}</span>
           </div>
@@ -526,8 +526,8 @@ export const ProgressScreen: React.FC = () => {
       <section className="p-5 sm:p-6 rounded-3xl card-maroon-gold shadow-2xl space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#1a1a1a]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-black border-2 border-[#FF5500] flex items-center justify-center text-shiny-gold shadow-md shadow-[#FF5500]/20">
-              <MessageSquare className="w-5 h-5 text-[#FFA040]" />
+            <div className="w-10 h-10 rounded-2xl bg-black border-2 border-[#D97736] flex items-center justify-center text-shiny-gold shadow-md shadow-[#D97736]/20">
+              <MessageSquare className="w-5 h-5 text-[#E8935A]" />
             </div>
             <div>
               <h2 className="font-serif text-2xl font-bold text-white">
@@ -546,7 +546,7 @@ export const ProgressScreen: React.FC = () => {
                 Completed Today
               </span>
             ) : (
-              <span className="text-xs px-3 py-1.5 rounded-xl bg-black border border-[#FF5500]/35 text-[#B8B0AA] font-semibold">
+              <span className="text-xs px-3 py-1.5 rounded-xl bg-black border border-[#D97736]/35 text-[#B8B0AA] font-semibold">
                 Pending Today
               </span>
             )}
@@ -554,8 +554,8 @@ export const ProgressScreen: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div className="p-4 rounded-2xl bg-black/80 border border-[#FF5500]/35">
-            <span className="text-[11px] font-bold text-[#FFA040] uppercase">
+          <div className="p-4 rounded-2xl bg-black/80 border border-[#D97736]/35">
+            <span className="text-[11px] font-bold text-[#E8935A] uppercase">
               Total Days Practiced
             </span>
             <div className="font-serif text-3xl sm:text-4xl font-bold text-shiny-gold mt-1">
@@ -564,8 +564,8 @@ export const ProgressScreen: React.FC = () => {
             <span className="text-[11px] text-[#B8B0AA] mt-1 block">Active immersion</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-black/80 border border-[#FF5500]/35">
-            <span className="text-[11px] font-bold text-[#FFA040] uppercase">
+          <div className="p-4 rounded-2xl bg-black/80 border border-[#D97736]/35">
+            <span className="text-[11px] font-bold text-[#E8935A] uppercase">
               Consistency Rate
             </span>
             <div className="font-serif text-3xl sm:text-4xl font-bold text-white mt-1">
@@ -574,8 +574,8 @@ export const ProgressScreen: React.FC = () => {
             <span className="text-[11px] text-shiny-gold mt-1 block">Of study days</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-black/80 border border-[#FF5500]/35">
-            <span className="text-[11px] font-bold text-[#FFA040] uppercase">
+          <div className="p-4 rounded-2xl bg-black/80 border border-[#D97736]/35">
+            <span className="text-[11px] font-bold text-[#E8935A] uppercase">
               FDE Focus
             </span>
             <div className="font-serif text-xl sm:text-2xl font-bold text-white mt-1">
@@ -589,7 +589,7 @@ export const ProgressScreen: React.FC = () => {
       {/* 3. STUDY HOURS & TOTALS */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="p-4 rounded-2xl card-maroon-gold shadow-md">
-          <span className="text-[11px] uppercase tracking-wider text-[#FFA040] font-bold">
+          <span className="text-[11px] uppercase tracking-wider text-[#E8935A] font-bold">
             Total Hours Studied
           </span>
           <div className="mt-1 font-serif text-3xl sm:text-4xl font-bold text-white">
@@ -599,7 +599,7 @@ export const ProgressScreen: React.FC = () => {
         </div>
 
         <div className="p-4 rounded-2xl card-maroon-gold shadow-md">
-          <span className="text-[11px] uppercase tracking-wider text-[#FFA040] font-bold">
+          <span className="text-[11px] uppercase tracking-wider text-[#E8935A] font-bold">
             Active Days
           </span>
           <div className="mt-1 font-serif text-3xl sm:text-4xl font-bold text-shiny-gold">
@@ -619,7 +619,7 @@ export const ProgressScreen: React.FC = () => {
         </div>
 
         <div className="p-4 rounded-2xl card-maroon-gold shadow-md">
-          <span className="text-[11px] uppercase tracking-wider text-[#FFA040] font-bold">
+          <span className="text-[11px] uppercase tracking-wider text-[#E8935A] font-bold">
             Current Streak
           </span>
           <div className="mt-1 font-serif text-3xl sm:text-4xl font-bold text-shiny-gold">

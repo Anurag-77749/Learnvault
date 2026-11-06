@@ -203,7 +203,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
         className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pt-2"
       >
         <div>
-          <span className="text-xs uppercase tracking-widest text-[#FF5500] font-semibold flex items-center gap-1.5 mb-1 font-sans">
+          <span className="text-xs uppercase tracking-widest text-[#D97736] font-semibold flex items-center gap-1.5 mb-1 font-sans">
             <Sparkles className="w-3.5 h-3.5" /> Day {currentDayNumber} of 1,460
           </span>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white tracking-tight">
@@ -214,8 +214,8 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
           </p>
         </div>
 
-        <div className="text-xs text-[#FF5500] card-maroon px-4 py-2 rounded-xl flex items-center gap-2 self-start sm:self-auto font-sans shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-[#FF5500]" />
+        <div className="text-xs text-[#D97736] card-maroon px-4 py-2 rounded-xl flex items-center gap-2 self-start sm:self-auto font-sans shadow-sm">
+          <span className="w-2 h-2 rounded-full bg-[#D97736]" />
           <span>LearnVault: Your Knowledge. Your Progress. Your Future.</span>
         </div>
       </motion.div>
@@ -231,7 +231,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
             <h2 className="font-serif text-xl sm:text-2xl font-bold text-white">
               To-Do List
             </h2>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-black text-[#FF5500] font-semibold border border-[#FF5500]/35 whitespace-nowrap">
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-black text-[#D97736] font-semibold border border-[#D97736]/35 whitespace-nowrap">
               {completedCount}/{tasks.length} Done
             </span>
             {completedCount > 0 && (
@@ -259,7 +259,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
               placeholder="Add a new task in one tap..."
               value={newTaskTitle}
               onChange={(e) => setNewTaskTitle(e.target.value)}
-              className="flex-1 min-w-0 min-h-[44px] sm:min-h-[46px] px-3 sm:px-4 rounded-xl bg-[#000000] border border-[#1a1a1a] focus:border-[#FF5500] text-white placeholder-[#B8B0AA]/50 text-xs sm:text-sm focus:outline-none transition-colors"
+              className="flex-1 min-w-0 min-h-[44px] sm:min-h-[46px] px-3 sm:px-4 rounded-xl bg-[#000000] border border-[#1a1a1a] focus:border-[#D97736] text-white placeholder-[#B8B0AA]/50 text-xs sm:text-sm focus:outline-none transition-colors"
             />
 
             {/* Note Toggle Button */}
@@ -269,11 +269,11 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
               title="Add short note (optional)"
               className={`min-h-[44px] sm:min-h-[46px] px-2.5 sm:px-3 rounded-xl border flex items-center justify-center gap-1.5 transition-colors text-xs font-semibold shrink-0 cursor-pointer ${
                 showNoteInput || newTaskNote
-                  ? 'bg-[#080808] border-[#FF5500] text-shiny-gold shadow-sm'
+                  ? 'bg-[#080808] border-[#D97736] text-shiny-gold shadow-sm'
                   : 'bg-[#000000] border-[#1a1a1a] text-[#B8B0AA] hover:text-white'
               }`}
             >
-              <FileText className="w-4 h-4 text-[#FF5500]" />
+              <FileText className="w-4 h-4 text-[#D97736]" />
               <span className="hidden md:inline">{newTaskNote ? 'Note Added' : '+ Note'}</span>
             </button>
 
@@ -284,7 +284,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
               title="Link to topic/curriculum"
               className={`min-h-[44px] w-[40px] sm:min-h-[46px] sm:w-[46px] rounded-xl border flex items-center justify-center transition-colors shrink-0 cursor-pointer ${
                 showTopicLink || selectedSubtopic
-                  ? 'bg-[#080808] border-[#FF5500] text-[#FF5500]'
+                  ? 'bg-[#080808] border-[#D97736] text-[#D97736]'
                   : 'bg-[#000000] border-[#1a1a1a] text-[#B8B0AA] hover:text-white'
               }`}
             >
@@ -294,7 +294,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
             {/* Add Button */}
             <button
               type="submit"
-              className="min-h-[44px] sm:min-h-[46px] px-3.5 sm:px-5 rounded-xl btn-shiny-gold text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-[#FF5500]/20 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer shrink-0"
+              className="min-h-[44px] sm:min-h-[46px] px-3.5 sm:px-5 rounded-xl btn-shiny-gold text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-[#D97736]/20 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer shrink-0"
               title="Add task"
             >
               <Plus className="w-4 h-4 stroke-[3]" />
@@ -312,7 +312,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                 className="overflow-hidden"
               >
                 <div className="pt-2 flex items-center gap-2">
-                  <span className="text-xs text-[#FF5500] font-semibold flex items-center gap-1 shrink-0">
+                  <span className="text-xs text-[#D97736] font-semibold flex items-center gap-1 shrink-0">
                     <FileText className="w-3.5 h-3.5" /> Note:
                   </span>
                   <input
@@ -320,14 +320,14 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     placeholder="Short note (e.g. solve #121 on Striver sheet, revise edge cases, 20+ questions)..."
                     value={newTaskNote}
                     onChange={(e) => setNewTaskNote(e.target.value)}
-                    className="flex-1 min-w-0 min-h-[38px] px-3.5 rounded-lg bg-black border border-[#FF5500]/35 text-xs text-white placeholder-[#B8B0AA]/40 focus:outline-none focus:border-[#FF5500]"
+                    className="flex-1 min-w-0 min-h-[38px] px-3.5 rounded-lg bg-black border border-[#D97736]/35 text-xs text-white placeholder-[#B8B0AA]/40 focus:outline-none focus:border-[#D97736]"
                     autoFocus
                   />
                   {newTaskNote && (
                     <button
                       type="button"
                       onClick={() => setNewTaskNote('')}
-                      className="text-xs text-[#B8B0AA] hover:text-[#FF5500] px-2 py-1 shrink-0"
+                      className="text-xs text-[#B8B0AA] hover:text-[#D97736] px-2 py-1 shrink-0"
                     >
                       Clear
                     </button>
@@ -353,7 +353,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     placeholder="e.g. Python Variables, DSA Binary Search, FDE Glossary"
                     value={selectedSubtopic}
                     onChange={(e) => setSelectedSubtopic(e.target.value)}
-                    className="flex-1 min-w-0 min-h-[38px] px-3 rounded-lg bg-black border border-[#FF5500]/30 text-xs text-[#FF5500] focus:outline-none focus:border-[#FF5500]"
+                    className="flex-1 min-w-0 min-h-[38px] px-3 rounded-lg bg-black border border-[#D97736]/30 text-xs text-[#D97736] focus:outline-none focus:border-[#D97736]"
                   />
                 </div>
               </motion.div>
@@ -364,7 +364,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
         {/* Task Items List */}
         <div className="space-y-2">
           {tasks.length === 0 ? (
-            <div className="text-center py-8 text-[#A09D95] text-sm font-sans border border-dashed border-[#FF5500]/20 rounded-2xl bg-black/40">
+            <div className="text-center py-8 text-[#A09D95] text-sm font-sans border border-dashed border-[#D97736]/20 rounded-2xl bg-black/40">
               <p>No tasks yet today. Add your first goal above!</p>
             </div>
           ) : (
@@ -373,8 +373,8 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                 key={task.id}
                 className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-2xl border transition-all ${
                   task.completed
-                    ? 'bg-black/40 border-[#FF5500]/15 text-[#A09D95]'
-                    : 'bg-black border-[#FF5500]/30 text-[#F9F6EE] hover:border-[#FF5500]/60'
+                    ? 'bg-black/40 border-[#D97736]/15 text-[#A09D95]'
+                    : 'bg-black border-[#D97736]/30 text-[#F9F6EE] hover:border-[#D97736]/60'
                 }`}
               >
                 {/* Left/Top: Checkbox & Title + Short Note */}
@@ -383,8 +383,8 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     onClick={(e) => handleToggleTask(task, e)}
                     className={`min-h-[38px] min-w-[38px] sm:min-h-[42px] sm:min-w-[42px] rounded-xl flex items-center justify-center transition-all shrink-0 mt-0.5 sm:mt-0 cursor-pointer ${
                       task.completed
-                        ? 'bg-[#FF5500] text-black shadow-sm'
-                        : 'border-2 border-[#FF5500]/40 hover:border-[#FF5500] bg-transparent text-transparent'
+                        ? 'bg-[#D97736] text-black shadow-sm'
+                        : 'border-2 border-[#D97736]/40 hover:border-[#D97736] bg-transparent text-transparent'
                     }`}
                     aria-label={task.completed ? 'Mark incomplete' : 'Mark complete'}
                   >
@@ -396,7 +396,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                       {task.title}
                     </p>
                     {task.subtopicTitle && (
-                      <span className="inline-flex items-center gap-1 text-[11px] text-[#FF5500] font-semibold break-all">
+                      <span className="inline-flex items-center gap-1 text-[11px] text-[#D97736] font-semibold break-all">
                         <BookMarked className="w-3 h-3 shrink-0" />
                         {task.subtopicTitle}
                       </span>
@@ -421,7 +421,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     }}
                     className={`min-h-[34px] px-2 rounded-lg border flex items-center gap-1 transition-colors text-xs cursor-pointer ${
                       task.note
-                        ? 'bg-[#080808] border-[#FF5500]/40 text-shiny-gold hover:text-[#FFA040]'
+                        ? 'bg-[#080808] border-[#D97736]/40 text-shiny-gold hover:text-[#E8935A]'
                         : 'border-transparent text-[#B8B0AA]/60 hover:text-white hover:bg-white/5'
                     }`}
                     title={task.note ? 'Edit note' : 'Add note'}
@@ -434,7 +434,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     <button
                       onClick={() => handleMoveTask(idx, 'up')}
                       disabled={idx === 0}
-                      className="w-8 h-8 rounded-md flex items-center justify-center text-[#A09D95] hover:text-[#FF5500] hover:bg-white/5 disabled:opacity-20 transition-colors cursor-pointer"
+                      className="w-8 h-8 rounded-md flex items-center justify-center text-[#A09D95] hover:text-[#D97736] hover:bg-white/5 disabled:opacity-20 transition-colors cursor-pointer"
                       title="Move up"
                     >
                       <ChevronUp className="w-4 h-4" />
@@ -442,7 +442,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     <button
                       onClick={() => handleMoveTask(idx, 'down')}
                       disabled={idx === tasks.length - 1}
-                      className="w-8 h-8 rounded-md flex items-center justify-center text-[#A09D95] hover:text-[#FF5500] hover:bg-white/5 disabled:opacity-20 transition-colors cursor-pointer"
+                      className="w-8 h-8 rounded-md flex items-center justify-center text-[#A09D95] hover:text-[#D97736] hover:bg-white/5 disabled:opacity-20 transition-colors cursor-pointer"
                       title="Move down"
                     >
                       <ChevronDown className="w-4 h-4" />
@@ -474,7 +474,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="w-full max-w-md bg-[#080808] border border-[#FF5500]/40 rounded-3xl p-6 shadow-2xl space-y-4"
+                className="w-full max-w-md bg-[#080808] border border-[#D97736]/40 rounded-3xl p-6 shadow-2xl space-y-4"
               >
                 <div className="flex items-center justify-between pb-3 border-b border-[#1a1a1a]">
                   <div className="flex items-center gap-2">
@@ -498,7 +498,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     onChange={(e) => setEditNoteText(e.target.value)}
                     placeholder="Enter a short note (or leave empty to remove note)..."
                     rows={3}
-                    className="w-full p-3 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#FF5500] text-xs text-white placeholder-[#B8B0AA]/40 focus:outline-none"
+                    className="w-full p-3 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#D97736] text-xs text-white placeholder-[#B8B0AA]/40 focus:outline-none"
                     autoFocus
                   />
                 </div>
@@ -564,10 +564,10 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
             title="Click to manually log study time"
           >
             <div className="flex items-center justify-between">
-              <span className="text-[11px] uppercase tracking-wider text-[#FFA040] font-bold">
+              <span className="text-[11px] uppercase tracking-wider text-[#E8935A] font-bold">
                 Time Studied
               </span>
-              <span className="text-[10px] text-shiny-gold font-bold px-1.5 py-0.5 rounded bg-black/60 border border-[#FF5500]/40 hover:underline">
+              <span className="text-[10px] text-shiny-gold font-bold px-1.5 py-0.5 rounded bg-black/60 border border-[#D97736]/40 hover:underline">
                 +Log
               </span>
             </div>
@@ -577,7 +577,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
               </span>
             </div>
             <div className="mt-2 flex items-center gap-1.5 text-[11px] text-shiny-gold font-medium">
-              <Clock className="w-3.5 h-3.5 text-[#FFA040]" /> Auto / Manual
+              <Clock className="w-3.5 h-3.5 text-[#E8935A]" /> Auto / Manual
             </div>
           </div>
 
@@ -598,7 +598,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
 
           {/* Questions */}
           <div className="p-4 rounded-2xl card-maroon-gold hover:scale-[1.02] flex flex-col justify-between transition-all">
-            <span className="text-[11px] uppercase tracking-wider text-[#FFA040] font-bold">
+            <span className="text-[11px] uppercase tracking-wider text-[#E8935A] font-bold">
               Questions Done
             </span>
             <div className="mt-2">
@@ -606,7 +606,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                 {dailyLog?.questionsCount || 0}
               </span>
             </div>
-            <div className="mt-2 text-[11px] text-[#FFA040]/80 font-medium">
+            <div className="mt-2 text-[11px] text-[#E8935A]/80 font-medium">
               DSA / Sheets
             </div>
           </div>
@@ -628,7 +628,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
 
           {/* Sleep */}
           <div className="p-4 rounded-2xl card-maroon-gold flex flex-col justify-between col-span-2 sm:col-span-1">
-            <span className="text-[11px] uppercase tracking-wider text-[#FFA040] font-bold">
+            <span className="text-[11px] uppercase tracking-wider text-[#E8935A] font-bold">
               Sleep Last Night
             </span>
             <div className="mt-2">
@@ -637,7 +637,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
               </span>
             </div>
             <div className="mt-2 text-[11px] text-[#B8B0AA] flex items-center gap-1">
-              <Moon className="w-3.5 h-3.5 text-[#FFA040]" />
+              <Moon className="w-3.5 h-3.5 text-[#E8935A]" />
               {dailyLog?.sleepQuality ? `Quality: ${dailyLog.sleepQuality}/5` : 'Not logged'}
             </div>
           </div>
@@ -664,25 +664,25 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
 
           <button
             onClick={() => setShowWastedModal(true)}
-            className="min-h-[48px] px-4 rounded-2xl card-maroon border-gold-shine hover:border-[#FF5500] text-white hover:text-shiny-gold text-sm font-medium flex items-center justify-center gap-2 transition-all shadow-sm"
+            className="min-h-[48px] px-4 rounded-2xl card-maroon border-gold-shine hover:border-[#D97736] text-white hover:text-shiny-gold text-sm font-medium flex items-center justify-center gap-2 transition-all shadow-sm"
           >
-            <Clock className="w-4 h-4 text-[#FFA040]" />
+            <Clock className="w-4 h-4 text-[#E8935A]" />
             <span>Log Wasted Time</span>
           </button>
 
           <button
             onClick={() => setShowQuestionModal(true)}
-            className="min-h-[48px] px-4 rounded-2xl card-maroon border-gold-shine hover:border-[#FF5500] text-white hover:text-shiny-gold text-sm font-medium flex items-center justify-center gap-2 transition-all shadow-sm"
+            className="min-h-[48px] px-4 rounded-2xl card-maroon border-gold-shine hover:border-[#D97736] text-white hover:text-shiny-gold text-sm font-medium flex items-center justify-center gap-2 transition-all shadow-sm"
           >
-            <Plus className="w-4 h-4 text-[#FFA040] stroke-[2.5]" />
+            <Plus className="w-4 h-4 text-[#E8935A] stroke-[2.5]" />
             <span>+1 Question</span>
           </button>
 
           <button
             onClick={() => setShowSleepModal(true)}
-            className="min-h-[48px] px-4 rounded-2xl card-maroon border-gold-shine hover:border-[#FF5500] text-white hover:text-shiny-gold text-sm font-medium flex items-center justify-center gap-2 transition-all shadow-sm"
+            className="min-h-[48px] px-4 rounded-2xl card-maroon border-gold-shine hover:border-[#D97736] text-white hover:text-shiny-gold text-sm font-medium flex items-center justify-center gap-2 transition-all shadow-sm"
           >
-            <Moon className="w-4 h-4 text-[#FFA040]" />
+            <Moon className="w-4 h-4 text-[#E8935A]" />
             <span>Log Sleep</span>
           </button>
         </div>
@@ -696,7 +696,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
       >
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FF5500] shadow-md shadow-[#FF5500]" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#D97736] shadow-md shadow-[#D97736]" />
             <h2 className="font-serif text-2xl font-bold text-white">
               Next Up in Timeline
             </h2>
@@ -714,7 +714,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
             <span className="text-xs uppercase tracking-wider text-shiny-gold font-bold">
               {nextUpInfo.track}
             </span>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#080808] text-[#FFA040] border border-[#1a1a1a] font-semibold self-start sm:self-auto">
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#080808] text-[#E8935A] border border-[#1a1a1a] font-semibold self-start sm:self-auto">
               {nextUpInfo.presetDates}
             </span>
           </div>
@@ -736,7 +736,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
             </button>
             <button
               onClick={onNavigateToLearn}
-              className="min-h-[44px] px-4 rounded-xl bg-[#000000] hover:bg-[#080808] text-[#B8B0AA] hover:text-shiny-gold border border-[#1a1a1a] hover:border-[#FF5500] text-xs font-medium transition-colors"
+              className="min-h-[44px] px-4 rounded-xl bg-[#000000] hover:bg-[#080808] text-[#B8B0AA] hover:text-shiny-gold border border-[#1a1a1a] hover:border-[#D97736] text-xs font-medium transition-colors"
             >
               Open in Learn Curriculum
             </button>
@@ -760,7 +760,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
             value={noteText}
             onChange={(e) => setNoteText(e.target.value)}
             onBlur={() => updateDailyNote(noteText)}
-            className="flex-1 min-w-0 min-h-[44px] px-4 rounded-xl bg-black border border-[#FF5500]/35 text-sm text-white placeholder-[#B8B0AA]/50 focus:outline-none focus:border-[#FF5500] focus:ring-1 focus:ring-[#FF5500]"
+            className="flex-1 min-w-0 min-h-[44px] px-4 rounded-xl bg-black border border-[#D97736]/35 text-sm text-white placeholder-[#B8B0AA]/50 focus:outline-none focus:border-[#D97736] focus:ring-1 focus:ring-[#D97736]"
           />
           <button
             type="button"

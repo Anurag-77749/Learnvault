@@ -145,7 +145,7 @@ export const PlanScreen: React.FC = () => {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
         <div>
-          <span className="text-xs uppercase tracking-widest text-[#FF5500] font-semibold flex items-center gap-1.5 mb-1 font-sans">
+          <span className="text-xs uppercase tracking-widest text-[#D97736] font-semibold flex items-center gap-1.5 mb-1 font-sans">
             <CalendarRange className="w-3.5 h-3.5" /> 4-Year Timeline Architecture
           </span>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white">
@@ -169,7 +169,7 @@ export const PlanScreen: React.FC = () => {
       {/* Control Bar: I'm Behind Shift & Exam Week */}
       <div className="p-4 rounded-3xl card-maroon-gold flex flex-wrap items-center justify-between gap-3 shadow-lg">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-[#FFA040] shrink-0" />
+          <Sparkles className="w-4 h-4 text-[#E8935A] shrink-0" />
           <span className="text-xs text-white font-bold tracking-wide">
             Timeline Actions:
           </span>
@@ -178,25 +178,25 @@ export const PlanScreen: React.FC = () => {
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => handleShiftPlan(7)}
-            className="min-h-[38px] px-3.5 py-1.5 rounded-xl bg-black border border-[#FF5500]/40 text-shiny-gold hover:border-[#FF5500] text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm"
+            className="min-h-[38px] px-3.5 py-1.5 rounded-xl bg-black border border-[#D97736]/40 text-shiny-gold hover:border-[#D97736] text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm"
             title="Shift remaining plan by +7 days"
           >
-            <FastForward className="w-3.5 h-3.5 text-[#FFA040]" />
+            <FastForward className="w-3.5 h-3.5 text-[#E8935A]" />
             <span>I'm Behind (+7 Days)</span>
           </button>
 
           <button
             onClick={() => handleShiftPlan(14)}
-            className="min-h-[38px] px-3.5 py-1.5 rounded-xl bg-black border border-[#FF5500]/40 text-white hover:text-shiny-gold hover:border-[#FF5500] text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+            className="min-h-[38px] px-3.5 py-1.5 rounded-xl bg-black border border-[#D97736]/40 text-white hover:text-shiny-gold hover:border-[#D97736] text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
             title="Pause plan for Exam Week (+14 days)"
           >
-            <PauseCircle className="w-3.5 h-3.5 text-[#FFA040]" />
+            <PauseCircle className="w-3.5 h-3.5 text-[#E8935A]" />
             <span>Exam Week (+14 Days)</span>
           </button>
 
           <button
             onClick={handleResetPreset}
-            className="min-h-[38px] px-3.5 py-1.5 rounded-xl bg-[#000000] border border-[#1a1a1a] text-[#B8B0AA] hover:text-shiny-gold hover:border-[#FF5500] text-xs font-medium flex items-center gap-1.5 transition-all"
+            className="min-h-[38px] px-3.5 py-1.5 rounded-xl bg-[#000000] border border-[#1a1a1a] text-[#B8B0AA] hover:text-shiny-gold hover:border-[#D97736] text-xs font-medium flex items-center gap-1.5 transition-all"
             title="Reset to notebook preset"
           >
             <RotateCcw className="w-3 h-3" />
@@ -233,13 +233,13 @@ export const PlanScreen: React.FC = () => {
                 {/* Left: Track Title, Dates & Parallel Lane Badge */}
                 <div className="space-y-1.5 flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#FF5500] shadow-sm shadow-[#FF5500] shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-[#D97736] shadow-sm shadow-[#D97736] shrink-0" />
                     <h3 className="font-serif text-lg sm:text-xl font-bold text-white truncate">
                       {block.title}
                     </h3>
 
                     {block.isParallel && (
-                      <span className="inline-flex items-center gap-1 text-[10px] px-2.5 py-0.5 rounded-full bg-[#000000] text-shiny-gold border border-[#FF5500]/45 font-bold">
+                      <span className="inline-flex items-center gap-1 text-[10px] px-2.5 py-0.5 rounded-full bg-[#000000] text-shiny-gold border border-[#D97736]/45 font-bold">
                         <Layers className="w-2.5 h-2.5" /> Parallel Lane
                       </span>
                     )}
@@ -248,7 +248,7 @@ export const PlanScreen: React.FC = () => {
                   {/* Dates & Duration */}
                   <div className="flex flex-wrap items-center gap-3 text-xs text-[#B8B0AA] font-sans">
                     <span className="flex items-center gap-1.5 text-shiny-gold font-medium">
-                      <Calendar className="w-3.5 h-3.5 text-[#FFA040]" />
+                      <Calendar className="w-3.5 h-3.5 text-[#E8935A]" />
                       {block.startDate} &mdash; {block.endDate}
                     </span>
 
@@ -270,7 +270,7 @@ export const PlanScreen: React.FC = () => {
                         await updateTimelineBlock(block.id, { status: e.target.value });
                       }
                     }}
-                    style={{ colorScheme: 'dark' }} className="min-h-[42px] px-3 py-1.5 rounded-xl bg-[#0E0205] border border-[#1a1a1a] text-xs text-[#FFA040] font-semibold focus:outline-none focus:border-[#FF5500] cursor-pointer"
+                    style={{ colorScheme: 'dark' }} className="min-h-[42px] px-3 py-1.5 rounded-xl bg-[#0E0205] border border-[#1a1a1a] text-xs text-[#E8935A] font-semibold focus:outline-none focus:border-[#D97736] cursor-pointer"
                   >
                     <option value="Ready to Start" className="bg-[#080808] text-white py-1.5">Ready to Start</option>
                     <option value="In Progress" className="bg-[#080808] text-white py-1.5">In Progress</option>
@@ -282,7 +282,7 @@ export const PlanScreen: React.FC = () => {
                   {/* Edit button */}
                   <button
                     onClick={() => openEditModal(block)}
-                    className="min-h-[42px] min-w-[42px] rounded-xl bg-black border border-[#1a1a1a] text-[#B8B0AA] hover:text-[#FF5500] hover:border-[#FF5500] flex items-center justify-center transition-colors"
+                    className="min-h-[42px] min-w-[42px] rounded-xl bg-black border border-[#1a1a1a] text-[#B8B0AA] hover:text-[#D97736] hover:border-[#D97736] flex items-center justify-center transition-colors"
                     title="Edit block"
                   >
                     <Edit3 className="w-4 h-4" />
@@ -309,15 +309,15 @@ export const PlanScreen: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-lg bg-[#121212] border border-[#FF5500]/40 rounded-3xl p-6 shadow-2xl space-y-4"
+            className="w-full max-w-lg bg-[#121212] border border-[#D97736]/40 rounded-3xl p-6 shadow-2xl space-y-4"
           >
-            <div className="flex items-center justify-between pb-3 border-b border-[#FF5500]/20">
+            <div className="flex items-center justify-between pb-3 border-b border-[#D97736]/20">
               <h3 className="font-serif text-2xl font-bold text-[#F9F6EE]">
                 {editingBlock ? 'Edit Timeline Block' : 'Add Track / Timeline Block'}
               </h3>
               <button
                 onClick={() => setShowAddModal(false)}
-                className="text-[#A09D95] hover:text-[#FF5500]"
+                className="text-[#A09D95] hover:text-[#D97736]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -332,7 +332,7 @@ export const PlanScreen: React.FC = () => {
                 <select
                   value={selectedTrack}
                   onChange={(e) => setSelectedTrack(e.target.value)}
-                  style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#FF5500]/35 text-[#F9F6EE] text-sm focus:outline-none focus:border-[#FF5500] cursor-pointer"
+                  style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#D97736]/35 text-[#F9F6EE] text-sm focus:outline-none focus:border-[#D97736] cursor-pointer"
                 >
                   {TRACK_OPTIONS.map((opt) => (
                     <option key={opt} value={opt}>
@@ -346,14 +346,14 @@ export const PlanScreen: React.FC = () => {
               {selectedTrack === 'Custom Topic / Track' && (
                 <div>
                   <label className="text-[11px] font-semibold text-[#A09D95] uppercase block mb-1">
-                    Custom Title <span className="text-[#FF5500]">*</span>
+                    Custom Title <span className="text-[#D97736]">*</span>
                   </label>
                   <input
                     type="text"
                     value={customTitle}
                     onChange={(e) => setCustomTitle(e.target.value)}
                     placeholder="e.g. Distributed Consensus, Redis Deep Dive..."
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#FF5500]/35 text-[#F9F6EE] text-sm focus:outline-none focus:border-[#FF5500]"
+                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#D97736]/35 text-[#F9F6EE] text-sm focus:outline-none focus:border-[#D97736]"
                     required
                   />
                 </div>
@@ -369,7 +369,7 @@ export const PlanScreen: React.FC = () => {
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#FF5500]/35 text-[#F9F6EE] text-sm focus:outline-none focus:border-[#FF5500]"
+                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#D97736]/35 text-[#F9F6EE] text-sm focus:outline-none focus:border-[#D97736]"
                     required
                   />
                 </div>
@@ -382,7 +382,7 @@ export const PlanScreen: React.FC = () => {
                     type="date"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#FF5500]/35 text-[#F9F6EE] text-sm focus:outline-none focus:border-[#FF5500]"
+                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#D97736]/35 text-[#F9F6EE] text-sm focus:outline-none focus:border-[#D97736]"
                     required
                   />
                 </div>
@@ -390,12 +390,12 @@ export const PlanScreen: React.FC = () => {
 
               {/* Parallel Lane Checkbox & Status */}
               <div className="grid grid-cols-2 gap-3 items-center pt-1">
-                <label className="flex items-center gap-2 cursor-pointer p-2.5 rounded-xl bg-black border border-[#FF5500]/25">
+                <label className="flex items-center gap-2 cursor-pointer p-2.5 rounded-xl bg-black border border-[#D97736]/25">
                   <input
                     type="checkbox"
                     checked={isParallel}
                     onChange={(e) => setIsParallel(e.target.checked)}
-                    className="w-4 h-4 accent-[#FF5500] rounded"
+                    className="w-4 h-4 accent-[#D97736] rounded"
                   />
                   <span className="text-xs font-semibold text-[#F9F6EE]">
                     Run in Parallel Lane
@@ -406,7 +406,7 @@ export const PlanScreen: React.FC = () => {
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#FF5500]/35 text-[#FFA040] text-sm font-semibold focus:outline-none focus:border-[#FF5500] cursor-pointer"
+                    style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#D97736]/35 text-[#E8935A] text-sm font-semibold focus:outline-none focus:border-[#D97736] cursor-pointer"
                   >
                     <option value="Ready to Start" className="bg-[#080808] text-white py-1.5">Ready to Start</option>
                     <option value="In Progress" className="bg-[#080808] text-white py-1.5">In Progress</option>
@@ -427,12 +427,12 @@ export const PlanScreen: React.FC = () => {
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="e.g. 1 to 2 problems daily, Striver sheet step 3..."
-                  className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#FF5500]/35 text-[#F9F6EE] text-sm focus:outline-none focus:border-[#FF5500]"
+                  className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#D97736]/35 text-[#F9F6EE] text-sm focus:outline-none focus:border-[#D97736]"
                 />
               </div>
 
               {/* Buttons */}
-              <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-[#FF5500]/20">
+              <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-[#D97736]/20">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
@@ -442,7 +442,7 @@ export const PlanScreen: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="min-h-[44px] px-6 py-2 rounded-2xl bg-[#FF5500] text-black font-semibold text-xs hover:bg-[#FFD700] transition-colors"
+                  className="min-h-[44px] px-6 py-2 rounded-2xl bg-[#D97736] text-black font-semibold text-xs hover:bg-[#FFD700] transition-colors"
                 >
                   {editingBlock ? 'Update Block' : 'Save Block'}
                 </button>

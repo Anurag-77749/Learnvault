@@ -54,7 +54,7 @@ export const ActivityHeatmap: React.FC = () => {
   // 3: < 180 -> #26A641
   // 4: >= 180 -> #39D353
   const getHeatmapColor = (score: number) => {
-    if (score <= 0) return 'bg-[#000000] border border-[#1f1f1f] hover:border-[#FF5500]/50';
+    if (score <= 0) return 'bg-[#000000] border border-[#1f1f1f] hover:border-[#D97736]/50';
     if (score < 30) return 'bg-[#0E4429] border border-[#145A32]';
     if (score < 90) return 'bg-[#006D32] border border-[#0B843E]';
     if (score < 180) return 'bg-[#26A641] border border-[#2ECC71]';
@@ -248,12 +248,12 @@ export const ActivityHeatmap: React.FC = () => {
 
         {/* View mode toggle + Streak pill */}
         <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
-          <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-black border border-[#FF5500]/45 text-xs font-sans shadow-inner">
+          <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-black border border-[#D97736]/45 text-xs font-sans shadow-inner">
             <span className="text-shiny-gold font-bold">🔥 {currentStreak}</span>
-            <span className="text-[#FFA040]/80">streak (max: {longestStreak})</span>
+            <span className="text-[#E8935A]/80">streak (max: {longestStreak})</span>
           </div>
 
-          <div className="flex items-center rounded-xl bg-black border border-[#FF5500]/40 p-0.5 shadow-sm">
+          <div className="flex items-center rounded-xl bg-black border border-[#D97736]/40 p-0.5 shadow-sm">
             {[
               { id: 'year1', label: 'Year 1' },
               { id: 'year2', label: 'Year 2' },
@@ -280,12 +280,12 @@ export const ActivityHeatmap: React.FC = () => {
       {/* Range Info Label */}
       <div className="mb-3 flex items-center justify-between text-xs text-[#B8B0AA]">
         <span className="text-shiny-gold font-bold font-sans">{dateRange.label}</span>
-        <span className="text-[11px] text-[#FFA040]/70 font-medium">Hover any square for date & points</span>
+        <span className="text-[11px] text-[#E8935A]/70 font-medium">Hover any square for date & points</span>
       </div>
 
       {/* Heatmap Grid */}
       <div className="overflow-x-auto pb-3">
-        <div className="min-w-[760px] p-4 rounded-2xl bg-black border border-[#FF5500]/20">
+        <div className="min-w-[760px] p-4 rounded-2xl bg-black border border-[#D97736]/20">
           {/* Month labels along the top */}
           <div className="flex ml-7 mb-2 text-[10px] text-[#A09D95] font-sans font-medium relative h-4 select-none">
             {monthHeaders.map((m, idx) => (
@@ -295,7 +295,7 @@ export const ActivityHeatmap: React.FC = () => {
                   position: 'absolute',
                   left: `${(m.weekIndex / weeks.length) * 100}%`,
                 }}
-                className="text-[#FF5500]"
+                className="text-[#D97736]"
               >
                 {m.label}
               </span>
@@ -352,9 +352,9 @@ export const ActivityHeatmap: React.FC = () => {
       </div>
 
       {/* Legend & Score Formula */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mt-4 pt-3 border-t border-[#FF5500]/15 text-xs text-[#A09D95]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mt-4 pt-3 border-t border-[#D97736]/15 text-xs text-[#A09D95]">
         <div className="text-[11px]">
-          <span className="text-[#FF5500] font-semibold">Score Formula:</span> study minutes + 5 × questions solved
+          <span className="text-[#D97736] font-semibold">Score Formula:</span> study minutes + 5 × questions solved
         </div>
 
         <div className="flex items-center gap-2 text-[11px] self-end sm:self-auto">
@@ -383,9 +383,9 @@ export const ActivityHeatmap: React.FC = () => {
               pointerEvents: 'none',
               zIndex: 100,
             }}
-            className="px-3.5 py-2 rounded-xl bg-[#121212] border border-[#FF5500] text-white text-xs shadow-2xl font-sans text-center"
+            className="px-3.5 py-2 rounded-xl bg-[#121212] border border-[#D97736] text-white text-xs shadow-2xl font-sans text-center"
           >
-            <p className="font-bold text-[#FF5500]">
+            <p className="font-bold text-[#D97736]">
               {hoveredDay.formattedDate} <span className="text-[#A09D95] text-[10px] font-normal">(Day {hoveredDay.dayNumber})</span>
             </p>
             <p className="text-[#F9F6EE] text-[11px] mt-0.5">
