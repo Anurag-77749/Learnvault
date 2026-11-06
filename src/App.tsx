@@ -10,7 +10,7 @@ import {
   Hourglass,
   Cloud,
   Play,
-  Layers
+  Code2
 } from 'lucide-react';
 import { ScreenId } from './components/Navigation';
 import { TodayScreen } from './components/TodayScreen';
@@ -29,13 +29,13 @@ import { cleanupSampleProjects } from './services/projectService';
 import { KineticDomainBadge } from './components/KineticDomainBadge';
 import { AmbientGoldCanvas } from './components/AmbientGoldCanvas';
 import { LearnVaultLogo } from './components/LearnVaultLogo';
-import { BottomControlDeck } from './components/BottomControlDeck';
 
 const TOP_NAV_ITEMS: { id: ScreenId; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
   { id: 'today', label: 'Today', icon: Sun },
   { id: 'timer', label: 'Timer', icon: TimerIcon },
   { id: 'plan', label: 'Plan', icon: CalendarRange },
   { id: 'learn', label: 'Learn', icon: BookOpen },
+  { id: 'dsa', label: 'DSA', icon: Code2 },
   { id: 'projects', label: 'Projects', icon: FolderGit2 },
   { id: 'progress', label: 'Progress', icon: BarChart3 },
   { id: 'wasted', label: 'Wasted Days', icon: Hourglass },
@@ -85,10 +85,10 @@ export const App: React.FC = () => {
       <AmbientGoldCanvas className="opacity-80" />
 
       {/* ========================================================================
-          TOP SLEEK NAVIGATION HUD BAR
+          TOP SLEEK NAVIGATION HUD BAR (ALL FEATURES IN ONE CLEAN BAR)
           ======================================================================== */}
-      <header className="sticky top-0 z-40 w-full bg-[#000000]/90 backdrop-blur-xl border-b border-[rgba(255,255,255,0.08)] px-4 sm:px-6 py-2.5 select-none transition-colors">
-        <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
+      <header className="sticky top-0 z-40 w-full bg-[#000000]/90 backdrop-blur-xl border-b border-[rgba(255,255,255,0.08)] px-3 sm:px-6 py-2.5 select-none transition-colors">
+        <div className="max-w-6xl mx-auto flex items-center justify-between gap-3 sm:gap-4">
           
           {/* Brand Mark */}
           <div 
@@ -106,8 +106,8 @@ export const App: React.FC = () => {
             </div>
           </div>
 
-          {/* Desktop Navigation Tabs Pills */}
-          <nav className="hidden md:flex items-center gap-1 p-1 rounded-full bg-[#080808] border border-[rgba(255,255,255,0.08)] shadow-inner">
+          {/* Navigation Tabs Pills (All Features at Top, Scrollable on Mobile) */}
+          <nav className="flex items-center gap-1 p-1 rounded-full bg-[#080808] border border-[rgba(255,255,255,0.08)] shadow-inner overflow-x-auto no-scrollbar max-w-[55vw] sm:max-w-none">
             {TOP_NAV_ITEMS.map((item) => {
               const isActive = activeScreen === item.id;
               const Icon = item.icon;
@@ -117,7 +117,7 @@ export const App: React.FC = () => {
                   key={item.id}
                   type="button"
                   onClick={() => handleSelectScreen(item.id)}
-                  className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-semibold transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-semibold transition-all cursor-pointer shrink-0 ${
                     isActive
                       ? 'bg-gradient-to-r from-[#F6E6C2] via-[#D4AF37] to-[#AA8222] text-[#000000] shadow-sm font-bold'
                       : 'text-[#9E958E] hover:text-[#F5F2EB] hover:bg-white/[0.04]'
@@ -164,9 +164,9 @@ export const App: React.FC = () => {
       </header>
 
       {/* ========================================================================
-          MAIN WORKSPACE VIEW (FULL-WIDTH EXPANSIVE, NO SIDEBAR CONSTRAINTS)
+          MAIN WORKSPACE VIEW (EXPANSIVE FULL-WIDTH, NO CLUTTER AT BOTTOM)
           ======================================================================== */}
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 relative z-10 pb-28">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 relative z-10">
         <main className="w-full">
           {activeScreen === 'today' && (
             <TodayScreen
@@ -383,44 +383,16 @@ export const App: React.FC = () => {
               <WastedDaysScreen />
             </div>
           )}
-
-          {/* ========================================================================
-              BOTTOM FEATURES & CONTROL DECK ("PUT ALL FEATURES AT DOWN")
-              ======================================================================== */}
-          <BottomControlDeck
-            activeScreen={activeScreen}
-            onSelectScreen={handleSelectScreen}
-          />
         </main>
-      </div>
 
-      {/* ========================================================================
-          FLOATING BOTTOM PILL DOCK (ACCESSIBLE EVERYWHERE)
-          ======================================================================== */}
-      <div className="fixed bottom-4 inset-x-0 z-40 flex justify-center pointer-events-none px-4">
-        <nav className="pointer-events-auto flex items-center gap-1 sm:gap-1.5 p-1.5 rounded-full bg-[#080808]/90 backdrop-blur-2xl border border-[rgba(255,255,255,0.1)] shadow-[0_20px_40px_rgba(0,0,0,0.9),inset_0_1px_0_0_rgba(255,255,255,0.08)]">
-          {TOP_NAV_ITEMS.map((item) => {
-            const isActive = activeScreen === item.id;
-            const Icon = item.icon;
-
-            return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => handleSelectScreen(item.id)}
-                className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-medium transition-all cursor-pointer ${
-                  isActive
-                    ? 'bg-gradient-to-r from-[#F6E6C2] via-[#D4AF37] to-[#AA8222] text-[#000000] font-bold shadow-md'
-                    : 'text-[#9E958E] hover:text-[#F5F2EB] hover:bg-white/[0.04]'
-                }`}
-                aria-label={item.label}
-              >
-                <Icon className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline text-[11px] font-semibold">{item.label}</span>
-              </button>
-            );
-          })}
-        </nav>
+        {/* Minimalist Clean Footer */}
+        <footer className="mt-16 py-6 border-t border-[rgba(255,255,255,0.06)] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-[#55504A]">
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
+            <span>LearnVault // 1,460-Day Forward Deployed Engineering Mastery</span>
+          </div>
+          <span>Precision Engineered Focus & Accountability</span>
+        </footer>
       </div>
 
       {/* Cloud Sync Modal */}
