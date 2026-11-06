@@ -13,13 +13,13 @@
 
   select {
     color-scheme: dark;
-    background-color: #060606;
-    color: #F9F6EE;
-    border-color: #1a1a1a;
+    background-color: #080808;
+    color: #F5F5F5;
+    border-color: rgba(255, 255, 255, 0.08);
   }
 
   select option {
-    background-color: #0a0a0a;
+    background-color: #0c0c0c;
     color: #FFFFFF;
     padding: 8px 12px;
   }
@@ -28,89 +28,86 @@
     margin: 0;
     padding: 0;
     background-color: #000000;
-    color: #FFFFFF;
-    font-family: 'Outfit', 'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #EDEDED;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6, .font-serif, .font-sans, .font-display {
-    font-family: 'Outfit', 'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     letter-spacing: -0.025em;
   }
 }
 
-/* Shiny Gold Metallic Accents & Buttons (10% Gold Balance) */
-.btn-shiny-gold {
-  background: linear-gradient(135deg, #FFF0A8 0%, #FFDF73 25%, #D4AF37 60%, #997A15 100%);
-  color: #000000;
-  font-weight: 700;
-  box-shadow: 0 3px 14px rgba(212, 175, 55, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 240, 168, 0.6);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+/* ==========================================================================
+   LUXURY DESIGN TOKENS (ANTI-SLOP: LINEAR / RAYCAST / STRIPE STANDARDS)
+   ========================================================================== */
+
+/* Refined Champagne Gold Metallic Accent (Not Muddy Yellow) */
+.btn-shiny-gold,
+.btn-gold-luxury {
+  background: linear-gradient(180deg, #F6E6C2 0%, #D8B76E 60%, #B89338 100%);
+  color: #0A0804;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: all 0.15s ease-out;
 }
 
-.btn-shiny-gold:hover {
-  filter: brightness(1.15);
-  box-shadow: 0 6px 22px rgba(212, 175, 55, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  transform: translateY(-1px);
+.btn-shiny-gold:hover,
+.btn-gold-luxury:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 2px 8px rgba(216, 183, 110, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transform: translateY(-0.5px);
 }
 
 .text-shiny-gold {
-  background: linear-gradient(135deg, #FFF0A8 0%, #FFDF73 35%, #D4AF37 70%, #C4971E 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #D8B76E;
 }
 
-.gold-glow {
-  box-shadow: 0 0 18px rgba(212, 175, 55, 0.32);
-}
-
-.border-gold-shine {
-  border-color: rgba(212, 175, 55, 0.45);
-}
-
-.border-gold-shine:hover {
-  border-color: #D4AF37;
-  box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
-}
-
-/* Deepest Obsidian & Pitch Black Cards */
+/* Luxury Obsidian Cards with Whisper-Thin Highlight */
 .card-maroon,
 .card-emerald,
-.card-burgundy {
-  background-color: #070707;
-  border: 1px solid #181818;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 1);
+.card-burgundy,
+.card-obsidian {
+  background-color: #080808;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .card-maroon:hover,
 .card-emerald:hover,
-.card-burgundy:hover {
-  border-color: #262626;
+.card-burgundy:hover,
+.card-obsidian:hover {
+  border-color: rgba(255, 255, 255, 0.14);
 }
 
-/* Pitch Black with Refined Gold Trim */
+/* Luxury Obsidian with Subtle Gold Trim */
 .card-maroon-gold,
 .card-emerald-gold,
-.card-burgundy-gold {
-  background-color: #070707;
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 1), 0 0 12px rgba(212, 175, 55, 0.12);
+.card-burgundy-gold,
+.card-obsidian-gold {
+  background-color: #080808;
+  border: 1px solid rgba(216, 183, 110, 0.22);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.85), inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+  transition: all 0.15s ease;
 }
 
 .card-maroon-gold:hover,
 .card-emerald-gold:hover,
-.card-burgundy-gold:hover {
-  border-color: #D4AF37;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 1), 0 0 18px rgba(212, 175, 55, 0.25);
+.card-burgundy-gold:hover,
+.card-obsidian-gold:hover {
+  border-color: rgba(216, 183, 110, 0.45);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.9), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
 }
 
 /* Minimal Pitch Black OLED Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -118,13 +115,26 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1c1c1c;
+  background: #202020;
   border-radius: 9999px;
-  border: 1px solid #000000;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D4AF37;
+  background: #D8B76E;
+}
+
+/* Tabular figures for telemetry & counters */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hide scrollbars where requested */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Respect prefers-reduced-motion */
