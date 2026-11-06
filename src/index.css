@@ -10,47 +10,42 @@
   body {
     margin: 0;
     padding: 0;
-    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    background-color: #080707;
+    background-color: #000000;
     color: #F5F2EB;
     selection-background-color: #D4AF37;
-    selection-color: #080707;
+    selection-color: #000000;
   }
 
-  h1, h2, h3, .font-display {
-    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  h1, h2, h3, .font-display, .font-serif-display {
+    font-family: 'Outfit', 'Geist', sans-serif;
     font-weight: 700;
-    letter-spacing: -0.025em;
-  }
-
-  .font-serif-display {
-    font-family: 'Playfair Display', 'Instrument Serif', Georgia, serif;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
   }
 
   .font-mono, .tabular-nums {
-    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    font-family: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
     font-variant-numeric: tabular-nums;
   }
 }
 
 /* ==========================================================================
-   COLOR ARCHITECTURE: LUXURY OBSIDIAN, ESPRESSO & LIQUID CHAMPAGNE GOLD
-   ZERO NAVY, ZERO SLATE, ZERO AI GRADIENTS.
+   COLOR ARCHITECTURE: PURE PITCH BLACK VOID & BRUSHED CHAMPAGNE GOLD
+   ZERO NAVY, ZERO SLATE, TRUE OLED DEEP BLACK.
    ========================================================================== */
 
 :root {
   color-scheme: dark;
-  --bg-canvas: #080707;
-  --bg-card: #110E0E;
-  --bg-card-hover: #181313;
+  --bg-canvas: #000000;
+  --bg-card: #080808;
+  --bg-card-hover: #0E0E0E;
   --text-primary: #F5F2EB;
   --text-secondary: #9E958E;
-  --text-muted: #635B55;
+  --text-muted: #55504A;
   
   /* Champagne Gold Palette */
   --accent-champagne-light: #F6E6C2;
@@ -59,20 +54,20 @@
   --accent-copper: #E5A970;
   
   /* 1px Specular Borders & Studio Lighting */
-  --border-specular: rgba(255, 240, 220, 0.07);
-  --border-specular-hover: rgba(246, 230, 194, 0.25);
-  --border-active: rgba(212, 175, 55, 0.45);
+  --border-specular: rgba(255, 255, 255, 0.08);
+  --border-specular-hover: rgba(212, 175, 55, 0.35);
+  --border-active: rgba(212, 175, 55, 0.55);
   
   /* Liquid Champagne Gradient */
   --btn-champagne-gradient: linear-gradient(135deg, #F6E6C2 0%, #D4AF37 50%, #AA8222 100%);
-  --btn-champagne-text: #090808;
+  --btn-champagne-text: #000000;
 }
 
-/* Ambient Canvas Void with Top-Center Radial Mesh */
+/* Ambient Canvas Void with Top Apex Radial Mesh */
 body {
-  background-color: #080707;
+  background-color: #000000;
   background-image: 
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(180, 130, 70, 0.12), transparent);
+    radial-gradient(ellipse 70% 35% at 50% 0%, rgba(212, 175, 55, 0.08), transparent);
   background-attachment: fixed;
   color: #F5F2EB;
 }
@@ -88,12 +83,12 @@ body {
   width: 100%;
   height: 100%;
   z-index: 50;
-  opacity: 0.65;
+  opacity: 0.5;
   mix-blend-mode: overlay;
 }
 
 /* ==========================================================================
-   GLASSMORPHIC CARDS: OBSIDIAN & ESPRESSO WITH 1PX SPECULAR BORDER
+   GLASSMORPHIC CARDS: PITCH OBSIDIAN (#080808) WITH 1PX SPECULAR BORDER
    ========================================================================== */
 
 .crimson-glass,
@@ -102,30 +97,29 @@ body {
 .card-maroon-gold,
 .card-obsidian,
 .card-espresso {
-  background: #110E0E;
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 240, 220, 0.07);
+  background: #080808;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
-    0 16px 36px -12px rgba(0, 0, 0, 0.85);
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
+    0 20px 40px -15px rgba(0, 0, 0, 0.95);
   border-radius: 12px;
   color: #F5F2EB;
-  transition: border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-              background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .crimson-glass:hover,
 .smoked-glass:hover,
 .card-obsidian:hover,
 .card-espresso:hover {
-  background-color: #181313;
-  border-color: rgba(246, 230, 194, 0.22);
+  background-color: #0E0E0E;
+  border-color: rgba(212, 175, 55, 0.3);
   box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
-    0 24px 48px -12px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
+    0 24px 48px -12px rgba(0, 0, 0, 0.98),
     inset 0 0 16px rgba(212, 175, 55, 0.04);
 }
 
@@ -149,13 +143,13 @@ body {
   background: linear-gradient(135deg, #F6E6C2 0%, #D4AF37 50%, #AA8222 100%);
   background-size: 200% 200%;
   animation: champagne-sheen 6s ease infinite;
-  color: #090808 !important;
+  color: #000000 !important;
   font-weight: 700;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 8px;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.45),
-    0 8px 20px -4px rgba(212, 175, 55, 0.25);
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 8px 24px -4px rgba(212, 175, 55, 0.28);
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
               box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
               filter 0.2s ease;
@@ -163,10 +157,10 @@ body {
 
 .btn-liquid-gold:hover {
   transform: translateY(-1.5px);
-  filter: brightness(1.04);
+  filter: brightness(1.05);
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.6),
-    0 12px 28px -4px rgba(212, 175, 55, 0.38);
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 12px 28px -4px rgba(212, 175, 55, 0.4);
 }
 
 .btn-liquid-gold:active {
@@ -180,12 +174,12 @@ body {
 .btn-crimson-pill,
 .btn-tactile,
 .btn-cyber-ghost {
-  background: #110E0E;
+  background: #080808;
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 240, 220, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 
     inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
-    0 4px 12px rgba(0, 0, 0, 0.4);
+    0 4px 12px rgba(0, 0, 0, 0.5);
   color: #F5F2EB !important;
   font-weight: 600;
   border-radius: 8px;
@@ -195,13 +189,13 @@ body {
 .btn-crimson-pill:hover,
 .btn-tactile:hover,
 .btn-cyber-ghost:hover {
-  background: #181313;
-  border-color: rgba(246, 230, 194, 0.3);
+  background: #0E0E0E;
+  border-color: rgba(212, 175, 55, 0.35);
   color: #FFFFFF !important;
   transform: translateY(-1px);
   box-shadow: 
     inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
-    0 8px 20px -2px rgba(0, 0, 0, 0.6);
+    0 8px 20px -2px rgba(0, 0, 0, 0.7);
 }
 
 .btn-crimson-pill:active,
@@ -229,8 +223,8 @@ body {
 
 /* Active Focused States */
 .active-champagne-border {
-  border: 1px solid rgba(212, 175, 55, 0.45) !important;
-  box-shadow: inset 0 0 12px rgba(212, 175, 55, 0.08) !important;
+  border: 1px solid rgba(212, 175, 55, 0.5) !important;
+  box-shadow: inset 0 0 12px rgba(212, 175, 55, 0.1) !important;
 }
 
 /* Refined Micro Pulse */
@@ -247,19 +241,19 @@ body {
   animation: champagne-pulse 4s infinite ease-in-out;
 }
 
-/* Custom Scrollbar - Obsidian & Champagne */
+/* Custom Scrollbar - Pitch Black & Champagne */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #080707;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #181313;
-  border: 1px solid rgba(255, 240, 220, 0.08);
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 999px;
 }
 

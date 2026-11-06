@@ -70,22 +70,22 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
   };
 
   return (
-    <div className="rounded-xl bg-[#0E0C0C] p-4 space-y-4 border border-[rgba(255,240,220,0.07)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_12px_28px_rgba(0,0,0,0.7)] transition-all">
+    <div className="rounded-xl bg-[#080808] p-5 space-y-4 border border-[rgba(255,255,255,0.08)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_16px_36px_rgba(0,0,0,0.9)] transition-all">
       {/* Widget Header */}
-      <div className="flex items-center justify-between pb-2.5 border-b border-[rgba(255,240,220,0.06)]">
+      <div className="flex items-center justify-between pb-3 border-b border-[rgba(255,255,255,0.06)]">
         <div className="flex items-center gap-2">
-          <Code2 className="w-3.5 h-3.5 text-[#D4AF37]" />
-          <span className="font-mono font-bold text-[11px] tracking-wider text-[#D4AF37] uppercase">
+          <Code2 className="w-4 h-4 text-[#D4AF37]" />
+          <span className="font-mono font-bold text-xs tracking-wider text-[#D4AF37] uppercase">
             DSA & COMMUNICATION
           </span>
         </div>
-        <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-[#181313] text-[#9E958E] border border-[rgba(255,240,220,0.08)] font-bold uppercase tracking-wider">
+        <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-[#000000] text-[#9E958E] border border-[rgba(255,255,255,0.08)] font-bold uppercase tracking-wider">
           Daily
         </span>
       </div>
 
       {/* DSA Problems Today */}
-      <div className="space-y-2.5">
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
           <span className="text-xs font-mono text-[#D4AF37]/90 font-medium">
             &lt;/&gt; Problems Today
@@ -98,7 +98,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
         {/* Stepper & Segmented Pills */}
         <div className="flex items-center gap-2">
           {/* Tactile Stepper */}
-          <div className="flex items-center bg-[#070606] border border-[rgba(255,240,220,0.08)] rounded-lg p-0.5 shadow-inner">
+          <div className="flex items-center bg-[#000000] border border-[rgba(255,255,255,0.08)] rounded-lg p-0.5 shadow-inner">
             <button
               type="button"
               onClick={() => handleAdjustDSA(-1)}
@@ -114,7 +114,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
             <button
               type="button"
               onClick={() => handleAdjustDSA(1)}
-              className="w-7 h-7 rounded-md flex items-center justify-center bg-gradient-to-br from-[#F6E6C2] via-[#D4AF37] to-[#AA8222] text-[#090808] font-bold hover:brightness-110 active:scale-95 transition-all cursor-pointer shadow-sm"
+              className="w-7 h-7 rounded-md flex items-center justify-center bg-gradient-to-br from-[#F6E6C2] via-[#D4AF37] to-[#AA8222] text-[#000000] font-bold hover:brightness-110 active:scale-95 transition-all cursor-pointer shadow-sm"
               title="Increase"
             >
               <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -122,21 +122,21 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
           </div>
 
           {/* Segmented Difficulty Matrix */}
-          <div className="flex-1 grid grid-cols-3 gap-1 bg-[#070606] p-0.5 rounded-lg border border-[rgba(255,240,220,0.06)] shadow-inner">
+          <div className="flex-1 grid grid-cols-3 gap-1 bg-[#000000] p-0.5 rounded-lg border border-[rgba(255,255,255,0.06)] shadow-inner">
             <button
               type="button"
               onClick={() => {
                 setSelectedDifficulty('easy');
                 handleAdjustDSA(1, 'easy');
               }}
-              className={`py-1 px-1 rounded-md text-center transition-all cursor-pointer ${
+              className={`py-1.5 px-1 rounded-md text-center transition-all cursor-pointer ${
                 selectedDifficulty === 'easy'
-                  ? 'bg-[#181313] border border-[#D4AF37]/50 text-[#F6E6C2] shadow-sm'
+                  ? 'bg-[#121212] border border-[#D4AF37]/50 text-[#F6E6C2] shadow-sm'
                   : 'text-[#9E958E] hover:text-[#F5F2EB] border border-transparent hover:bg-white/[0.02]'
               }`}
             >
               <div className="text-[9px] font-mono uppercase font-bold tracking-tight">Easy</div>
-              <div className="text-[11px] font-mono font-bold text-[#F5F2EB] tabular-nums">
+              <div className="text-xs font-mono font-bold text-[#F5F2EB] tabular-nums">
                 <SpringCounter value={diffCounts.easy} />
               </div>
             </button>
@@ -147,14 +147,14 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
                 setSelectedDifficulty('medium');
                 handleAdjustDSA(1, 'medium');
               }}
-              className={`py-1 px-1 rounded-md text-center transition-all cursor-pointer ${
+              className={`py-1.5 px-1 rounded-md text-center transition-all cursor-pointer ${
                 selectedDifficulty === 'medium'
-                  ? 'bg-[#181313] border border-[#D4AF37]/50 text-[#F6E6C2] shadow-sm'
+                  ? 'bg-[#121212] border border-[#D4AF37]/50 text-[#F6E6C2] shadow-sm'
                   : 'text-[#9E958E] hover:text-[#F5F2EB] border border-transparent hover:bg-white/[0.02]'
               }`}
             >
               <div className="text-[9px] font-mono uppercase font-bold tracking-tight">Med</div>
-              <div className="text-[11px] font-mono font-bold text-[#F5F2EB] tabular-nums">
+              <div className="text-xs font-mono font-bold text-[#F5F2EB] tabular-nums">
                 <SpringCounter value={diffCounts.medium} />
               </div>
             </button>
@@ -165,14 +165,14 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
                 setSelectedDifficulty('hard');
                 handleAdjustDSA(1, 'hard');
               }}
-              className={`py-1 px-1 rounded-md text-center transition-all cursor-pointer ${
+              className={`py-1.5 px-1 rounded-md text-center transition-all cursor-pointer ${
                 selectedDifficulty === 'hard'
-                  ? 'bg-[#181313] border border-[#D4AF37]/50 text-[#F6E6C2] shadow-sm'
+                  ? 'bg-[#121212] border border-[#D4AF37]/50 text-[#F6E6C2] shadow-sm'
                   : 'text-[#9E958E] hover:text-[#F5F2EB] border border-transparent hover:bg-white/[0.02]'
               }`}
             >
               <div className="text-[9px] font-mono uppercase font-bold tracking-tight">Hard</div>
-              <div className="text-[11px] font-mono font-bold text-[#F5F2EB] tabular-nums">
+              <div className="text-xs font-mono font-bold text-[#F5F2EB] tabular-nums">
                 <SpringCounter value={diffCounts.hard} />
               </div>
             </button>
@@ -180,14 +180,14 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
         </div>
 
         {/* All-time telemetry */}
-        <div className="text-[10px] font-mono text-[#635B55] flex items-center justify-between pt-1">
+        <div className="text-[10px] font-mono text-[#55504A] flex items-center justify-between pt-1">
           <span>All-time: <strong className="text-[#9E958E]"><SpringCounter value={cumulativeStats.totalQuestions} /></strong></span>
           <span>E:{cumulativeStats.easy} M:{cumulativeStats.medium} H:{cumulativeStats.hard}</span>
         </div>
       </div>
 
       {/* English Daily Check-in Toggle */}
-      <div className="pt-2.5 border-t border-[rgba(255,240,220,0.06)] space-y-2">
+      <div className="pt-3 border-t border-[rgba(255,255,255,0.06)] space-y-2">
         <p className="text-[11px] font-sans text-[#9E958E] leading-snug">
           Today did you minimum speak, learn or hear high-level English?
         </p>
@@ -196,23 +196,23 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
           <button
             type="button"
             onClick={() => handleToggleCommunication(false)}
-            className={`py-1.5 px-3 rounded-lg border text-xs font-mono font-medium transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            className={`py-2 px-3 rounded-lg border text-xs font-mono font-medium transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
               isCommNotDone
-                ? 'bg-[#1C0E10] border-[#E5A970]/50 text-[#E5A970] shadow-sm'
-                : 'bg-[#0A0808] border-[rgba(255,240,220,0.06)] text-[#9E958E] hover:text-[#F5F2EB] hover:border-[rgba(255,240,220,0.15)]'
+                ? 'bg-[#180A0C] border-[#E5A970]/50 text-[#E5A970] shadow-sm'
+                : 'bg-[#000000] border-[rgba(255,255,255,0.06)] text-[#9E958E] hover:text-[#F5F2EB] hover:border-[rgba(255,255,255,0.15)]'
             }`}
           >
-            <X className="w-3 h-3 text-[#E5A970]" />
+            <X className="w-3.5 h-3.5 text-[#E5A970]" />
             <span>Didn't</span>
           </button>
 
           <button
             type="button"
             onClick={() => handleToggleCommunication(true)}
-            className={`py-1.5 px-3 rounded-lg border text-xs font-mono font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            className={`py-2 px-3 rounded-lg border text-xs font-mono font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
               isCommDone
-                ? 'bg-gradient-to-r from-[#F6E6C2] via-[#D4AF37] to-[#AA8222] border-transparent text-[#090808] shadow-[0_0_12px_rgba(212,175,55,0.25)]'
-                : 'bg-[#0A0808] border-[rgba(255,240,220,0.06)] text-[#D4AF37] hover:border-[#D4AF37]/30'
+                ? 'bg-gradient-to-r from-[#F6E6C2] via-[#D4AF37] to-[#AA8222] border-transparent text-[#000000] shadow-[0_0_12px_rgba(212,175,55,0.3)]'
+                : 'bg-[#000000] border-[rgba(255,255,255,0.06)] text-[#D4AF37] hover:border-[#D4AF37]/40'
             }`}
           >
             <Check className="w-3.5 h-3.5 stroke-[2.5]" />
