@@ -15,7 +15,8 @@ import {
   Briefcase, 
   Bookmark,
   Boxes,
-  LayoutGrid
+  LayoutGrid,
+  Sparkles
 } from 'lucide-react';
 import { db } from '../services/db';
 import { cloudSyncService, SyncState } from '../services/cloudSyncService';
@@ -39,8 +40,9 @@ interface NavigationProps {
   totalStudyHours?: number;
   onOpenSyncModal?: () => void;
   onQuickFocus?: () => void;
-  viewMode?: '2d' | '3d';
+  viewMode?: '2d' | '3d' | 'showcase';
   onToggleViewMode?: () => void;
+  onOpenShowcase?: () => void;
 }
 
 export const NAV_ITEMS: { id: ScreenId; label: string; shortLabel: string; icon: React.ComponentType<{ className?: string }> }[] = [
@@ -68,6 +70,7 @@ export const TopNavBar: React.FC<NavigationProps> = ({
   onQuickFocus,
   viewMode = '3d',
   onToggleViewMode,
+  onOpenShowcase,
 }) => {
   const curriculumTopics = useLiveQuery(() => db.curriculumTopics.toArray()) || [];
   const [syncState, setSyncState] = useState<SyncState>(cloudSyncService.getState());
@@ -154,6 +157,22 @@ export const TopNavBar: React.FC<NavigationProps> = ({
 
         {/* Right: Mode Toggle, Date Badge, Sync & Hero "Start Pomodoro" Action */}
         <div className="flex items-center gap-2 shrink-0">
+          {/* Apple-Style 3D Reel Scrollytelling Trigger */}
+          {onOpenShowcase && (
+            <button
+              onClick={onOpenShowcase}
+              className={`px-3 py-1 rounded-full text-[10px] font-mono font-black uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer shadow-sm ${
+                viewMode === 'showcase'
+                  ? 'bg-gradient-to-r from-white to-[#E0E0E6] text-black shadow-[0_0_12px_rgba(255,255,255,0.4)]'
+                  : 'bg-white/[0.05] text-[#D2D2D8] hover:text-white border border-white/[0.1]'
+              }`}
+              title="Launch Apple-style 3D Scrollytelling Reel"
+            >
+              <Sparkles className="w-3 h-3 text-[#FF5500]" />
+              <span className="hidden sm:inline">3D Reel</span>
+            </button>
+          )}
+
           {/* 3D / 2D Spatial Mode Toggle */}
           {onToggleViewMode && (
             <button

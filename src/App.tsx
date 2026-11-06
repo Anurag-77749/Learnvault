@@ -1,4 +1,4 @@
-// LearnVault - Smoked Obsidian & Polished Mercury Workspace (Spatial 3D & Clean Maximalism)
+// LearnVault - Smoked Obsidian & Polished Mercury Workspace (Apple 3D Reel & Clean Maximalism)
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLiveQuery } from 'dexie-react-hooks';
@@ -16,13 +16,14 @@ import { ProgressScreen } from './components/ProgressScreen';
 import { WastedDaysScreen } from './components/WastedDaysScreen';
 import { Cylindrical3DDisplay } from './components/Cylindrical3DDisplay';
 import { ThreeGlassSphere } from './components/ThreeGlassSphere';
+import { AppleScrollShowcase } from './components/AppleScrollShowcase';
 import { CloudSyncModal } from './components/CloudSyncModal';
 import { cloudSyncService, SyncState } from './services/cloudSyncService';
 import { cleanupSampleProjects } from './services/projectService';
 
 export const App: React.FC = () => {
   const [activeScreen, setActiveScreen] = useState<ScreenId>('today');
-  const [viewMode, setViewMode] = useState<'2d' | '3d'>('3d');
+  const [viewMode, setViewMode] = useState<'2d' | '3d' | 'showcase'>('showcase');
   const [timerTopic, setTimerTopic] = useState<string | undefined>(undefined);
   const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
   const [syncState, setSyncState] = useState<SyncState>(cloudSyncService.getState());
@@ -62,10 +63,13 @@ export const App: React.FC = () => {
         onQuickFocus={() => handleStartTimerWithTopic()}
         viewMode={viewMode}
         onToggleViewMode={() => setViewMode((prev) => (prev === '3d' ? '2d' : '3d'))}
+        onOpenShowcase={() => setViewMode('showcase')}
       />
 
-      {/* VIEWPORT MODE: 3D ROTUNDA VS 2D BENTO GRID */}
-      {viewMode === '3d' ? (
+      {/* VIEWPORT MODE: SHOWCASE (APPLE 3D REEL) vs 3D ROTUNDA vs 2D BENTO GRID */}
+      {viewMode === 'showcase' ? (
+        <AppleScrollShowcase onEnterWorkspace={() => setViewMode('3d')} />
+      ) : viewMode === '3d' ? (
         <Cylindrical3DDisplay
           activeScreen={activeScreen}
           onSelectScreen={setActiveScreen}
