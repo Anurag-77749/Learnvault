@@ -253,7 +253,7 @@ export const LearnScreen: React.FC = () => {
         <div className="flex items-center gap-2.5">
           <button
             onClick={() => setShowCoverageModal(true)}
-            className="min-h-[44px] px-3.5 py-2 rounded-2xl bg-[#160406] border border-[#360A0F] hover:border-[#D4AF37] text-shiny-gold transition-colors flex items-center gap-2 text-xs font-semibold shadow-sm"
+            className="min-h-[44px] px-3.5 py-2 rounded-2xl bg-[#080808] border border-[#1a1a1a] hover:border-[#D4AF37] text-shiny-gold transition-colors flex items-center gap-2 text-xs font-semibold shadow-sm"
           >
             <Sparkles className="w-4 h-4" />
             <span>Coverage Report</span>
@@ -261,7 +261,7 @@ export const LearnScreen: React.FC = () => {
 
           <button
             onClick={() => setShowImportModal(true)}
-            className="min-h-[44px] px-3.5 py-2 rounded-2xl bg-[#160406] border border-[#360A0F] text-white hover:border-[#D4AF37] transition-colors flex items-center gap-2 text-xs font-semibold shadow-sm"
+            className="min-h-[44px] px-3.5 py-2 rounded-2xl bg-[#080808] border border-[#1a1a1a] text-white hover:border-[#D4AF37] transition-colors flex items-center gap-2 text-xs font-semibold shadow-sm"
           >
             <Upload className="w-4 h-4 text-[#D4AF37]" />
             <span>Import List</span>
@@ -277,7 +277,7 @@ export const LearnScreen: React.FC = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search topics, subtopics, concepts (e.g. 'Binary Search', 'Docker', 'RAG')..."
-          className="w-full min-h-[46px] pl-11 pr-4 py-2.5 rounded-2xl bg-black border border-[#360A0F] text-white placeholder-[#B8B0AA]/50 text-sm focus:outline-none focus:border-[#D4AF37] transition-colors font-sans shadow-inner"
+          className="w-full min-h-[46px] pl-11 pr-4 py-2.5 rounded-2xl bg-black border border-[#1a1a1a] text-white placeholder-[#B8B0AA]/50 text-sm focus:outline-none focus:border-[#D4AF37] transition-colors font-sans shadow-inner"
         />
         {searchQuery && (
           <button
@@ -307,7 +307,7 @@ export const LearnScreen: React.FC = () => {
                   className={`min-h-[44px] px-3.5 py-2 rounded-2xl text-xs font-semibold shrink-0 transition-all border flex items-center gap-2 ${
                     isSelected
                       ? 'btn-shiny-gold shadow-lg shadow-[#D4AF37]/20 font-bold'
-                      : 'bg-[#160406] text-[#B8B0AA] border-[#360A0F] hover:border-[#D4AF37]/60 hover:text-white'
+                      : 'bg-[#080808] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#D4AF37]/60 hover:text-white'
                   }`}
                 >
                   <span className={`w-5 h-5 rounded-lg flex items-center justify-center text-[10px] ${
@@ -564,11 +564,11 @@ export const LearnScreen: React.FC = () => {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="border-t border-[#360A0F] p-4 sm:p-5 bg-[#000000] space-y-4"
+                      className="border-t border-[#1a1a1a] p-4 sm:p-5 bg-[#000000] space-y-4"
                     >
                       {/* Topic Level Resources List */}
                       {topicResources.length > 0 && (
-                        <div className="p-3.5 rounded-2xl bg-[#160406] border border-[#360A0F]">
+                        <div className="p-3.5 rounded-2xl bg-[#080808] border border-[#1a1a1a]">
                           <span className="text-[11px] font-semibold text-shiny-gold uppercase tracking-wider block mb-2">
                             Topic Resources
                           </span>
@@ -579,7 +579,7 @@ export const LearnScreen: React.FC = () => {
                                 href={res.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#000000] border border-[#360A0F] hover:border-[#D4AF37] text-xs text-white hover:text-shiny-gold transition-colors"
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#000000] border border-[#1a1a1a] hover:border-[#D4AF37] text-xs text-white hover:text-shiny-gold transition-colors"
                               >
                                 {res.isVideo ? <Video className="w-3.5 h-3.5 text-red-400" /> : <Link2 className="w-3.5 h-3.5 text-[#D4AF37]" />}
                                 <span>{res.title}</span>
@@ -605,8 +605,8 @@ export const LearnScreen: React.FC = () => {
                               key={sub.id}
                               className={`p-3 rounded-2xl border transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                                 sub.completed
-                                  ? 'bg-[#000000] border-[#360A0F] opacity-85'
-                                  : 'bg-[#160406] border-[#360A0F] hover:border-[#D4AF37]/50'
+                                  ? 'bg-[#000000] border-[#1a1a1a] opacity-85'
+                                  : 'bg-[#080808] border-[#1a1a1a] hover:border-[#D4AF37]/50'
                               }`}
                             >
                               {/* Left: Checkbox + Title / Rename */}
@@ -616,7 +616,7 @@ export const LearnScreen: React.FC = () => {
                                   className={`min-h-[44px] min-w-[44px] rounded-xl border flex items-center justify-center shrink-0 transition-all ${
                                     sub.completed
                                       ? 'btn-shiny-gold shadow-md shadow-[#D4AF37]/30'
-                                      : 'bg-black border-[#360A0F] hover:border-[#D4AF37] text-transparent'
+                                      : 'bg-black border-[#1a1a1a] hover:border-[#D4AF37] text-transparent'
                                   }`}
                                   aria-label={sub.completed ? 'Mark subtopic incomplete' : 'Mark subtopic complete'}
                                 >
@@ -722,10 +722,10 @@ export const LearnScreen: React.FC = () => {
                                   }}
                                   style={{ colorScheme: 'dark' }} className="min-h-[44px] px-2.5 py-1 rounded-xl bg-[#0E0205] border border-[#D4AF37]/30 text-xs text-[#F9F6EE] focus:outline-none focus:border-[#D4AF37] cursor-pointer"
                                 >
-                                  <option value="not_started" className="bg-[#160406] text-white py-1">Not Started</option>
-                                  <option value="learning" className="bg-[#160406] text-white py-1">Learning</option>
-                                  <option value="done" className="bg-[#160406] text-white py-1">Done</option>
-                                  <option value="revising" className="bg-[#160406] text-white py-1">Revising</option>
+                                  <option value="not_started" className="bg-[#080808] text-white py-1">Not Started</option>
+                                  <option value="learning" className="bg-[#080808] text-white py-1">Learning</option>
+                                  <option value="done" className="bg-[#080808] text-white py-1">Done</option>
+                                  <option value="revising" className="bg-[#080808] text-white py-1">Revising</option>
                                 </select>
 
                                 {/* Add resource button */}

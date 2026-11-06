@@ -259,7 +259,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
               placeholder="Add a new task in one tap..."
               value={newTaskTitle}
               onChange={(e) => setNewTaskTitle(e.target.value)}
-              className="flex-1 min-w-0 min-h-[44px] sm:min-h-[46px] px-3 sm:px-4 rounded-xl bg-[#000000] border border-[#360A0F] focus:border-[#D4AF37] text-white placeholder-[#B8B0AA]/50 text-xs sm:text-sm focus:outline-none transition-colors"
+              className="flex-1 min-w-0 min-h-[44px] sm:min-h-[46px] px-3 sm:px-4 rounded-xl bg-[#000000] border border-[#1a1a1a] focus:border-[#D4AF37] text-white placeholder-[#B8B0AA]/50 text-xs sm:text-sm focus:outline-none transition-colors"
             />
 
             {/* Note Toggle Button */}
@@ -269,8 +269,8 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
               title="Add short note (optional)"
               className={`min-h-[44px] sm:min-h-[46px] px-2.5 sm:px-3 rounded-xl border flex items-center justify-center gap-1.5 transition-colors text-xs font-semibold shrink-0 cursor-pointer ${
                 showNoteInput || newTaskNote
-                  ? 'bg-[#160406] border-[#D4AF37] text-shiny-gold shadow-sm'
-                  : 'bg-[#000000] border-[#360A0F] text-[#B8B0AA] hover:text-white'
+                  ? 'bg-[#080808] border-[#D4AF37] text-shiny-gold shadow-sm'
+                  : 'bg-[#000000] border-[#1a1a1a] text-[#B8B0AA] hover:text-white'
               }`}
             >
               <FileText className="w-4 h-4 text-[#D4AF37]" />
@@ -284,8 +284,8 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
               title="Link to topic/curriculum"
               className={`min-h-[44px] w-[40px] sm:min-h-[46px] sm:w-[46px] rounded-xl border flex items-center justify-center transition-colors shrink-0 cursor-pointer ${
                 showTopicLink || selectedSubtopic
-                  ? 'bg-[#160406] border-[#D4AF37] text-[#D4AF37]'
-                  : 'bg-[#000000] border-[#360A0F] text-[#B8B0AA] hover:text-white'
+                  ? 'bg-[#080808] border-[#D4AF37] text-[#D4AF37]'
+                  : 'bg-[#000000] border-[#1a1a1a] text-[#B8B0AA] hover:text-white'
               }`}
             >
               <Link2 className="w-4 h-4" />
@@ -404,7 +404,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
 
                     {/* Short Note: DISPLAY CLEARLY IF PRESENT */}
                     {task.note && task.note.trim() && (
-                      <div className="flex items-start gap-2 text-xs text-[#E5E0DC] bg-[#160406] px-3 py-1.5 rounded-xl border border-[#360A0F] max-w-full">
+                      <div className="flex items-start gap-2 text-xs text-[#E5E0DC] bg-[#080808] px-3 py-1.5 rounded-xl border border-[#1a1a1a] max-w-full">
                         <FileText className="w-3.5 h-3.5 text-shiny-gold shrink-0 mt-0.5" />
                         <span className="leading-relaxed font-sans break-words">{task.note}</span>
                       </div>
@@ -421,7 +421,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     }}
                     className={`min-h-[34px] px-2 rounded-lg border flex items-center gap-1 transition-colors text-xs cursor-pointer ${
                       task.note
-                        ? 'bg-[#160406] border-[#D4AF37]/40 text-shiny-gold hover:text-[#FFDF73]'
+                        ? 'bg-[#080808] border-[#D4AF37]/40 text-shiny-gold hover:text-[#FFDF73]'
                         : 'border-transparent text-[#B8B0AA]/60 hover:text-white hover:bg-white/5'
                     }`}
                     title={task.note ? 'Edit note' : 'Add note'}
@@ -430,7 +430,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     <span className="text-[11px] sm:hidden">{task.note ? 'Edit Note' : '+ Note'}</span>
                   </button>
 
-                  <div className="flex items-center bg-[#160406]/60 sm:bg-transparent rounded-lg border border-[#360A0F]/60 sm:border-0 p-0.5 sm:p-0">
+                  <div className="flex items-center bg-[#080808]/60 sm:bg-transparent rounded-lg border border-[#1a1a1a]/60 sm:border-0 p-0.5 sm:p-0">
                     <button
                       onClick={() => handleMoveTask(idx, 'up')}
                       disabled={idx === 0}
@@ -474,9 +474,9 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="w-full max-w-md bg-[#160406] border border-[#D4AF37]/40 rounded-3xl p-6 shadow-2xl space-y-4"
+                className="w-full max-w-md bg-[#080808] border border-[#D4AF37]/40 rounded-3xl p-6 shadow-2xl space-y-4"
               >
-                <div className="flex items-center justify-between pb-3 border-b border-[#360A0F]">
+                <div className="flex items-center justify-between pb-3 border-b border-[#1a1a1a]">
                   <div className="flex items-center gap-2">
                     <FileText className="w-4 h-4 text-shiny-gold" />
                     <h3 className="font-serif text-lg font-bold text-white">Task Note</h3>
@@ -498,7 +498,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     onChange={(e) => setEditNoteText(e.target.value)}
                     placeholder="Enter a short note (or leave empty to remove note)..."
                     rows={3}
-                    className="w-full p-3 rounded-xl bg-black border border-[#360A0F] focus:border-[#D4AF37] text-xs text-white placeholder-[#B8B0AA]/40 focus:outline-none"
+                    className="w-full p-3 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#D4AF37] text-xs text-white placeholder-[#B8B0AA]/40 focus:outline-none"
                     autoFocus
                   />
                 </div>
@@ -709,12 +709,12 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
           </button>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#000000] border border-[#360A0F]">
+        <div className="p-4 rounded-2xl bg-[#000000] border border-[#1a1a1a]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
             <span className="text-xs uppercase tracking-wider text-shiny-gold font-bold">
               {nextUpInfo.track}
             </span>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#160406] text-[#FFDF73] border border-[#360A0F] font-semibold self-start sm:self-auto">
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#080808] text-[#FFDF73] border border-[#1a1a1a] font-semibold self-start sm:self-auto">
               {nextUpInfo.presetDates}
             </span>
           </div>
@@ -736,7 +736,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
             </button>
             <button
               onClick={onNavigateToLearn}
-              className="min-h-[44px] px-4 rounded-xl bg-[#000000] hover:bg-[#160406] text-[#B8B0AA] hover:text-shiny-gold border border-[#360A0F] hover:border-[#D4AF37] text-xs font-medium transition-colors"
+              className="min-h-[44px] px-4 rounded-xl bg-[#000000] hover:bg-[#080808] text-[#B8B0AA] hover:text-shiny-gold border border-[#1a1a1a] hover:border-[#D4AF37] text-xs font-medium transition-colors"
             >
               Open in Learn Curriculum
             </button>

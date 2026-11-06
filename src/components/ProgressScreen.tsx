@@ -193,7 +193,7 @@ export const ProgressScreen: React.FC = () => {
         <div className="absolute top-0 right-0 w-80 h-80 bg-[#D4AF37]/5 blur-3xl rounded-full pointer-events-none" />
 
         {/* Master Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-[#360A0F] relative">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-[#1a1a1a] relative">
           <div className="flex items-start sm:items-center gap-3.5">
             <div className="w-14 h-14 rounded-2xl bg-black border border-[#D4AF37]/60 p-1 flex items-center justify-center shadow-lg shadow-[#D4AF37]/25 shrink-0 overflow-hidden">
               <img src="/learnvault-logo.png" alt="LearnVault Logo" className="w-full h-full object-contain" />
@@ -229,7 +229,7 @@ export const ProgressScreen: React.FC = () => {
                 {rank.level}
               </span>
             </div>
-            <div className="border-l border-[#360A0F] pl-4 space-y-0.5">
+            <div className="border-l border-[#1a1a1a] pl-4 space-y-0.5">
               <span className="text-[10px] text-[#B8B0AA] uppercase font-semibold block">Current Rank</span>
               <span className="text-xs font-bold text-white block">{rank.title}</span>
               <span className="text-[10px] text-shiny-gold block">Forward Deployed Target</span>
@@ -246,7 +246,7 @@ export const ProgressScreen: React.FC = () => {
             </span>
             <span className="font-bold text-shiny-gold">{masterScore}% / 100%</span>
           </div>
-          <div className="w-full bg-black h-3.5 rounded-full overflow-hidden border border-[#360A0F] p-0.5 shadow-inner">
+          <div className="w-full bg-black h-3.5 rounded-full overflow-hidden border border-[#1a1a1a] p-0.5 shadow-inner">
             <div 
               className="bg-gradient-to-r from-[#8B0000] via-[#D4AF37] to-[#FFDF73] h-full rounded-full transition-all duration-700 shadow-md shadow-[#D4AF37]/30"
               style={{ width: `${Math.max(masterScore, 1)}%` }}
@@ -257,7 +257,7 @@ export const ProgressScreen: React.FC = () => {
         {/* 4 Core Progress Pillars */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
           {/* Pillar 1: Curriculum */}
-          <div className="p-4 rounded-2xl bg-black/80 border border-[#360A0F] hover:border-[#D4AF37]/50 transition-all space-y-3">
+          <div className="p-4 rounded-2xl bg-black/80 border border-[#1a1a1a] hover:border-[#D4AF37]/50 transition-all space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold text-[#FFDF73] uppercase tracking-wide flex items-center gap-1.5">
                 <BookOpen className="w-3.5 h-3.5 text-[#FFDF73]" />
@@ -271,13 +271,13 @@ export const ProgressScreen: React.FC = () => {
               </div>
               <p className="text-[11px] text-shiny-gold mt-0.5 truncate">Angela Yu + 12 Core Tracks</p>
             </div>
-            <div className="w-full bg-[#160406] h-1.5 rounded-full overflow-hidden border border-[#360A0F]">
+            <div className="w-full bg-[#080808] h-1.5 rounded-full overflow-hidden border border-[#1a1a1a]">
               <div className="bg-[#D4AF37] h-full transition-all duration-500" style={{ width: `${curriculumStats.curriculumPercent}%` }} />
             </div>
           </div>
 
           {/* Pillar 2: DSA */}
-          <div className="p-4 rounded-2xl bg-black/80 border border-[#360A0F] hover:border-[#D4AF37]/50 transition-all space-y-3">
+          <div className="p-4 rounded-2xl bg-black/80 border border-[#1a1a1a] hover:border-[#D4AF37]/50 transition-all space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold text-[#FFDF73] uppercase tracking-wide flex items-center gap-1.5">
                 <Code2 className="w-3.5 h-3.5 text-[#FFDF73]" />
@@ -293,13 +293,13 @@ export const ProgressScreen: React.FC = () => {
                 E: {telemetry.easyDSA} | M: {telemetry.medDSA} | H: {telemetry.hardDSA}
               </p>
             </div>
-            <div className="w-full bg-[#160406] h-1.5 rounded-full overflow-hidden border border-[#360A0F]">
+            <div className="w-full bg-[#080808] h-1.5 rounded-full overflow-hidden border border-[#1a1a1a]">
               <div className="bg-[#FFDF73] h-full transition-all duration-500" style={{ width: `${dsaPercent}%` }} />
             </div>
           </div>
 
           {/* Pillar 3: Projects */}
-          <div className="p-4 rounded-2xl bg-black/80 border border-[#360A0F] hover:border-[#D4AF37]/50 transition-all space-y-3">
+          <div className="p-4 rounded-2xl bg-black/80 border border-[#1a1a1a] hover:border-[#D4AF37]/50 transition-all space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold text-[#FFDF73] uppercase tracking-wide flex items-center gap-1.5">
                 <FolderGit2 className="w-3.5 h-3.5 text-[#FFDF73]" />
@@ -313,13 +313,13 @@ export const ProgressScreen: React.FC = () => {
               </div>
               <p className="text-[11px] text-shiny-gold mt-0.5 truncate">{projectStats.totalProjects} in active portfolio</p>
             </div>
-            <div className="w-full bg-[#160406] h-1.5 rounded-full overflow-hidden border border-[#360A0F]">
+            <div className="w-full bg-[#080808] h-1.5 rounded-full overflow-hidden border border-[#1a1a1a]">
               <div className="bg-[#D4AF37] h-full transition-all duration-500" style={{ width: `${projectStats.projectPercent}%` }} />
             </div>
           </div>
 
           {/* Pillar 4: Study Consistency */}
-          <div className="p-4 rounded-2xl bg-black/80 border border-[#360A0F] hover:border-[#D4AF37]/50 transition-all space-y-3">
+          <div className="p-4 rounded-2xl bg-black/80 border border-[#1a1a1a] hover:border-[#D4AF37]/50 transition-all space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold text-[#FFDF73] uppercase tracking-wide flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-[#FFDF73]" />
@@ -335,7 +335,7 @@ export const ProgressScreen: React.FC = () => {
                 Active: {telemetry.activeDaysCount} days ({telemetry.commDays} English)
               </p>
             </div>
-            <div className="w-full bg-[#160406] h-1.5 rounded-full overflow-hidden border border-[#360A0F]">
+            <div className="w-full bg-[#080808] h-1.5 rounded-full overflow-hidden border border-[#1a1a1a]">
               <div className="bg-[#FFDF73] h-full transition-all duration-500" style={{ width: `${studyPercent}%` }} />
             </div>
           </div>
@@ -370,7 +370,7 @@ export const ProgressScreen: React.FC = () => {
                 return (
                   <div 
                     key={trackId}
-                    className="p-3 rounded-xl bg-black/60 border border-[#360A0F] hover:border-[#D4AF37]/50 transition-all flex flex-col justify-between space-y-2"
+                    className="p-3 rounded-xl bg-black/60 border border-[#1a1a1a] hover:border-[#D4AF37]/50 transition-all flex flex-col justify-between space-y-2"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="min-w-0">
@@ -381,7 +381,7 @@ export const ProgressScreen: React.FC = () => {
                           {title.replace(/Track \d+:\s*/, '')}
                         </h4>
                       </div>
-                      <span className="text-[11px] font-bold text-shiny-gold bg-[#160406] px-2 py-0.5 rounded border border-[#360A0F] shrink-0">
+                      <span className="text-[11px] font-bold text-shiny-gold bg-[#080808] px-2 py-0.5 rounded border border-[#1a1a1a] shrink-0">
                         {stats.percent}%
                       </span>
                     </div>
@@ -391,7 +391,7 @@ export const ProgressScreen: React.FC = () => {
                         <span>{stats.completed} of {stats.total} subtopics</span>
                         <span>{stats.total - stats.completed} remaining</span>
                       </div>
-                      <div className="w-full bg-[#160406] h-1.5 rounded-full overflow-hidden border border-[#360A0F]">
+                      <div className="w-full bg-[#080808] h-1.5 rounded-full overflow-hidden border border-[#1a1a1a]">
                         <div 
                           className="bg-gradient-to-r from-[#D4AF37] to-[#FFDF73] h-full transition-all duration-500" 
                           style={{ width: `${stats.percent}%` }}
@@ -407,7 +407,7 @@ export const ProgressScreen: React.FC = () => {
 
       {/* 1. DEDICATED DSA PROGRESS CARD */}
       <section className="p-5 sm:p-6 rounded-3xl card-maroon-gold shadow-2xl space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#360A0F]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#1a1a1a]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-black border-2 border-[#D4AF37] flex items-center justify-center text-shiny-gold shadow-md shadow-[#D4AF37]/20">
               <Code2 className="w-5 h-5 text-[#FFDF73]" />
@@ -500,7 +500,7 @@ export const ProgressScreen: React.FC = () => {
                 <div style={{ width: `${telemetry.hardPct}%` }} className="bg-[#E53E3E] h-full" title={`Hard: ${telemetry.hardDSA}`} />
               </>
             ) : (
-              <div className="w-full bg-[#160406] h-full" />
+              <div className="w-full bg-[#080808] h-full" />
             )}
           </div>
         </div>
@@ -524,7 +524,7 @@ export const ProgressScreen: React.FC = () => {
 
       {/* 2. DEDICATED COMMUNICATION & ENGLISH TELEMETRY CARD */}
       <section className="p-5 sm:p-6 rounded-3xl card-maroon-gold shadow-2xl space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#360A0F]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#1a1a1a]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-black border-2 border-[#D4AF37] flex items-center justify-center text-shiny-gold shadow-md shadow-[#D4AF37]/20">
               <MessageSquare className="w-5 h-5 text-[#FFDF73]" />

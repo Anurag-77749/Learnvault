@@ -75,12 +75,12 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        className="relative w-full max-w-lg rounded-2xl border border-[#4A101D] bg-[#0E0205] p-6 shadow-2xl text-white"
+        className="relative w-full max-w-lg rounded-2xl border border-[#1f1f1f] bg-[#0E0205] p-6 shadow-2xl text-white"
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[#4A101D]/60 pb-4">
+        <div className="flex items-center justify-between border-b border-[#1f1f1f]/60 pb-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#24060D] border border-[#D4AF37]/40 text-shiny-gold">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#070707] border border-[#D4AF37]/40 text-shiny-gold">
               <Cloud className="h-5 w-5" />
             </div>
             <div>
@@ -90,14 +90,14 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-gray-400 hover:bg-[#24060D] hover:text-white transition-colors"
+            className="rounded-lg p-1.5 text-gray-400 hover:bg-[#070707] hover:text-white transition-colors"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
         {/* Status Banner */}
-        <div className="my-5 rounded-xl border border-[#4A101D] bg-[#1A040A] p-4">
+        <div className="my-5 rounded-xl border border-[#1f1f1f] bg-[#1A040A] p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <span
@@ -123,7 +123,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
               <button
                 onClick={handleManualSync}
                 disabled={isLoading}
-                className="flex items-center gap-1.5 rounded-lg border border-[#D4AF37]/30 bg-[#24060D] px-2.5 py-1 text-xs font-semibold text-shiny-gold hover:bg-[#380A15] transition-colors disabled:opacity-50"
+                className="flex items-center gap-1.5 rounded-lg border border-[#D4AF37]/30 bg-[#070707] px-2.5 py-1 text-xs font-semibold text-shiny-gold hover:bg-[#380A15] transition-colors disabled:opacity-50"
               >
                 <RefreshCw className={`h-3.5 w-3.5 ${isLoading ? 'animate-spin' : ''}`} />
                 Sync Now
@@ -149,7 +149,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
               value={inputId}
               onChange={(e) => setInputId(e.target.value)}
               placeholder="e.g. anurag or your email"
-              className="w-full rounded-xl border border-[#4A101D] bg-[#030303] px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:border-[#D4AF37] focus:outline-none focus:ring-1 focus:ring-[#D4AF37]"
+              className="w-full rounded-xl border border-[#1f1f1f] bg-[#000000] px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:border-[#D4AF37] focus:outline-none focus:ring-1 focus:ring-[#D4AF37]"
             />
             <p className="mt-1.5 text-[11px] text-[#E6C687]/70">
               💡 Use this <strong>exact same Sync ID</strong> on both your Laptop and Mobile phone to link them!
@@ -197,7 +197,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
         </form>
 
         {/* How It Works Diagram */}
-        <div className="mt-6 border-t border-[#4A101D]/60 pt-4">
+        <div className="mt-6 border-t border-[#1f1f1f]/60 pt-4">
           <div className="flex items-center justify-around text-center text-xs text-[#E6C687]/80">
             <div className="flex flex-col items-center gap-1">
               <Laptop className="h-5 w-5 text-shiny-gold" />

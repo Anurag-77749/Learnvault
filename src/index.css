@@ -13,12 +13,13 @@
 
   select {
     color-scheme: dark;
-    background-color: #0E0205;
+    background-color: #060606;
     color: #F9F6EE;
+    border-color: #1a1a1a;
   }
 
   select option {
-    background-color: #160406;
+    background-color: #0a0a0a;
     color: #FFFFFF;
     padding: 8px 12px;
   }
@@ -26,16 +27,16 @@
   body {
     margin: 0;
     padding: 0;
-    background-color: #030303;
+    background-color: #000000;
     color: #FFFFFF;
-    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Outfit', 'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6, .font-serif {
-    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  h1, h2, h3, h4, h5, h6, .font-serif, .font-sans, .font-display {
+    font-family: 'Outfit', 'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     letter-spacing: -0.025em;
   }
 }
@@ -75,51 +76,51 @@
   box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
 }
 
-/* Royal Maroon Cards */
+/* Deepest Obsidian & Pitch Black Cards */
 .card-maroon,
 .card-emerald,
 .card-burgundy {
-  background-color: #24060D;
-  border: 1px solid #4A101D;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.95);
+  background-color: #070707;
+  border: 1px solid #181818;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 1);
 }
 
 .card-maroon:hover,
 .card-emerald:hover,
 .card-burgundy:hover {
-  border-color: #631728;
+  border-color: #262626;
 }
 
-/* Royal Maroon with 10% Gold Trim */
+/* Pitch Black with Refined Gold Trim */
 .card-maroon-gold,
 .card-emerald-gold,
 .card-burgundy-gold {
-  background-color: #24060D;
-  border: 1px solid rgba(212, 175, 55, 0.38);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.95), 0 0 10px rgba(212, 175, 55, 0.1);
+  background-color: #070707;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 1), 0 0 12px rgba(212, 175, 55, 0.12);
 }
 
 .card-maroon-gold:hover,
 .card-emerald-gold:hover,
 .card-burgundy-gold:hover {
   border-color: #D4AF37;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.98), 0 0 18px rgba(212, 175, 55, 0.25);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 1), 0 0 18px rgba(212, 175, 55, 0.25);
 }
 
-/* Minimal Luxury Scrollbar with #030303 Track and Rich Maroon Thumb */
+/* Minimal Pitch Black OLED Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #030303;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4A101D;
+  background: #1c1c1c;
   border-radius: 9999px;
-  border: 1px solid #030303;
+  border: 1px solid #000000;
 }
 
 ::-webkit-scrollbar-thumb:hover {

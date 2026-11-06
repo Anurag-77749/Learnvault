@@ -45,9 +45,9 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#030303] text-white flex flex-col antialiased selection:bg-[#D4AF37] selection:text-black">
+    <div className="min-h-screen bg-[#000000] text-white flex flex-col antialiased selection:bg-[#D4AF37] selection:text-black">
       {/* Top Header with Navigation Features in the Center Space */}
-      <header className="flex items-center justify-between px-3 sm:px-6 py-2.5 bg-[#000000]/95 backdrop-blur-md border-b border-[#360A0F] sticky top-0 z-30 gap-2 sm:gap-4 select-none">
+      <header className="flex items-center justify-between px-3 sm:px-6 py-2.5 bg-[#000000]/98 backdrop-blur-md border-b border-[#141414] sticky top-0 z-30 gap-2 sm:gap-4 select-none">
         {/* Left: Brand Mark */}
         <div 
           onClick={() => {
@@ -57,11 +57,11 @@ export const App: React.FC = () => {
           className="flex items-center gap-2.5 cursor-pointer shrink-0 group"
           title="Go to Today"
         >
-          <div className="w-8 h-8 rounded-xl bg-black border border-[#D4AF37]/50 flex items-center justify-center p-0.5 shadow-md shadow-[#D4AF37]/20 overflow-hidden shrink-0">
+          <div className="w-8 h-8 rounded-xl bg-[#000000] border border-[#D4AF37]/50 flex items-center justify-center p-0.5 shadow-md shadow-[#D4AF37]/20 overflow-hidden shrink-0">
             <img src="/learnvault-logo.png" alt="LearnVault" className="w-full h-full object-contain" />
           </div>
           <div>
-            <span className="text-base sm:text-lg font-bold tracking-tight text-white leading-none block group-hover:text-shiny-gold transition-colors">
+            <span className="text-base sm:text-lg font-bold tracking-tight text-white leading-none block group-hover:text-shiny-gold transition-colors font-display">
               Learn<span className="text-shiny-gold">Vault</span>
             </span>
             <span className="text-[8px] sm:text-[9px] text-[#D4AF37] uppercase tracking-wider block font-semibold">
@@ -85,7 +85,7 @@ export const App: React.FC = () => {
         <div className="flex items-center gap-1.5 sm:gap-2 text-xs shrink-0">
           <button
             onClick={() => setIsSyncModalOpen(true)}
-            className="p-1 sm:p-1.5 px-2 sm:px-2.5 rounded-full bg-[#160406] border border-[#360A0F] hover:border-[#D4AF37]/60 text-shiny-gold flex items-center gap-1.5 cursor-pointer transition-colors"
+            className="p-1 sm:p-1.5 px-2 sm:px-2.5 rounded-full bg-[#080808] border border-[#1a1a1a] hover:border-[#D4AF37]/60 text-shiny-gold flex items-center gap-1.5 cursor-pointer transition-colors"
             title="Cloud Sync"
           >
             <Cloud className="w-3.5 h-3.5" />
@@ -96,7 +96,7 @@ export const App: React.FC = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
             )}
           </button>
-          <span className="px-2 sm:px-2.5 py-1 rounded-full bg-[#160406] border border-[#360A0F] text-shiny-gold font-bold flex items-center gap-1">
+          <span className="px-2 sm:px-2.5 py-1 rounded-full bg-[#080808] border border-[#1a1a1a] text-shiny-gold font-bold flex items-center gap-1">
             🔥 {streakCount}d
           </span>
           <button
@@ -104,12 +104,12 @@ export const App: React.FC = () => {
               setActiveScreen('wasted');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="px-2 sm:px-2.5 py-1 rounded-full bg-red-950/70 border border-red-500/40 text-red-300 font-bold flex items-center gap-1 cursor-pointer hover:bg-red-900/60 transition-colors"
+            className="px-2 sm:px-2.5 py-1 rounded-full bg-[#150507] border border-red-900/50 text-red-300 font-bold flex items-center gap-1 cursor-pointer hover:bg-red-950/80 transition-colors"
             title="Wasted Days Count"
           >
             ⏳ {wastedDaysCount}d
           </button>
-          <span className="px-2 sm:px-2.5 py-1 rounded-full bg-black border border-[#D4AF37]/40 text-white font-bold">
+          <span className="px-2 sm:px-2.5 py-1 rounded-full bg-[#080808] border border-[#D4AF37]/40 text-white font-bold">
             {totalStudyHours}h
           </span>
         </div>

@@ -162,7 +162,7 @@ export const WastedDaysScreen: React.FC = () => {
   return (
     <div className="space-y-6 pb-16">
       {/* Header Banner */}
-      <div className="p-5 md:p-6 rounded-2xl card-maroon-gold border border-[#4A101D] shadow-xl relative overflow-hidden">
+      <div className="p-5 md:p-6 rounded-2xl card-maroon-gold border border-[#1f1f1f] shadow-xl relative overflow-hidden">
         <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none text-red-500">
           <Hourglass className="w-56 h-56" />
         </div>
@@ -183,7 +183,7 @@ export const WastedDaysScreen: React.FC = () => {
           </div>
 
           {/* Quick Stats Pill */}
-          <div className="flex items-center gap-3 bg-[#030303]/80 p-3 rounded-xl border border-[#4A101D] shrink-0">
+          <div className="flex items-center gap-3 bg-[#000000]/80 p-3 rounded-xl border border-[#1f1f1f] shrink-0">
             <div className="text-right">
               <div className="text-[10px] uppercase font-bold text-[#B8B0AA] tracking-wider">Permanent Total</div>
               <div className="text-3xl font-bold font-serif text-red-400">
@@ -215,7 +215,7 @@ export const WastedDaysScreen: React.FC = () => {
       {/* Metric Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Cumulative Count Card */}
-        <div className="p-4 rounded-xl bg-[#24060D] border border-[#4A101D] shadow-md flex items-center gap-3.5">
+        <div className="p-4 rounded-xl bg-[#070707] border border-[#1f1f1f] shadow-md flex items-center gap-3.5">
           <div className="w-11 h-11 rounded-lg bg-red-950/60 border border-red-500/30 flex items-center justify-center text-red-400 shrink-0">
             <TrendingDown className="w-5 h-5" />
           </div>
@@ -228,7 +228,7 @@ export const WastedDaysScreen: React.FC = () => {
         </div>
 
         {/* Total Hours Lost */}
-        <div className="p-4 rounded-xl bg-[#24060D] border border-[#4A101D] shadow-md flex items-center gap-3.5">
+        <div className="p-4 rounded-xl bg-[#070707] border border-[#1f1f1f] shadow-md flex items-center gap-3.5">
           <div className="w-11 h-11 rounded-lg bg-black border border-[#D4AF37]/30 flex items-center justify-center text-shiny-gold shrink-0">
             <Clock className="w-5 h-5" />
           </div>
@@ -241,7 +241,7 @@ export const WastedDaysScreen: React.FC = () => {
         </div>
 
         {/* Biggest Weakness */}
-        <div className="p-4 rounded-xl bg-[#24060D] border border-[#4A101D] shadow-md flex items-center gap-3.5">
+        <div className="p-4 rounded-xl bg-[#070707] border border-[#1f1f1f] shadow-md flex items-center gap-3.5">
           <div className="w-11 h-11 rounded-lg bg-amber-950/40 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
             <ShieldAlert className="w-5 h-5" />
           </div>
@@ -255,8 +255,8 @@ export const WastedDaysScreen: React.FC = () => {
       </div>
 
       {/* Log Form Card */}
-      <div className="p-5 md:p-6 rounded-2xl bg-[#24060D] border border-[#4A101D] shadow-xl">
-        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#4A101D]">
+      <div className="p-5 md:p-6 rounded-2xl bg-[#070707] border border-[#1f1f1f] shadow-xl">
+        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#1f1f1f]">
           <div className="w-8 h-8 rounded-lg bg-black border border-[#D4AF37]/40 flex items-center justify-center text-shiny-gold">
             <Plus className="w-4 h-4" />
           </div>
@@ -279,7 +279,7 @@ export const WastedDaysScreen: React.FC = () => {
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   selectedDate === todayStr
                     ? 'btn-shiny-gold text-black font-bold'
-                    : 'bg-[#030303] text-[#B8B0AA] border border-[#4A101D] hover:border-[#D4AF37]'
+                    : 'bg-[#000000] text-[#B8B0AA] border border-[#1f1f1f] hover:border-[#D4AF37]'
                 }`}
               >
                 Today ({todayStr})
@@ -290,7 +290,7 @@ export const WastedDaysScreen: React.FC = () => {
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   selectedDate === yesterdayStr
                     ? 'btn-shiny-gold text-black font-bold'
-                    : 'bg-[#030303] text-[#B8B0AA] border border-[#4A101D] hover:border-[#D4AF37]'
+                    : 'bg-[#000000] text-[#B8B0AA] border border-[#1f1f1f] hover:border-[#D4AF37]'
                 }`}
               >
                 Yesterday ({yesterdayStr})
@@ -301,7 +301,7 @@ export const WastedDaysScreen: React.FC = () => {
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   selectedDate === twoDaysAgoStr
                     ? 'btn-shiny-gold text-black font-bold'
-                    : 'bg-[#030303] text-[#B8B0AA] border border-[#4A101D] hover:border-[#D4AF37]'
+                    : 'bg-[#000000] text-[#B8B0AA] border border-[#1f1f1f] hover:border-[#D4AF37]'
                 }`}
               >
                 2 Days Ago ({twoDaysAgoStr})
@@ -313,7 +313,7 @@ export const WastedDaysScreen: React.FC = () => {
                   type="date"
                   value={selectedDate}
                   onChange={(e) => setSelectedDate(e.target.value)}
-                  className="bg-[#030303] border border-[#4A101D] text-white text-xs rounded-lg px-2 py-1 outline-none focus:border-[#D4AF37]"
+                  className="bg-[#000000] border border-[#1f1f1f] text-white text-xs rounded-lg px-2 py-1 outline-none focus:border-[#D4AF37]"
                 />
               </div>
             </div>
@@ -340,7 +340,7 @@ export const WastedDaysScreen: React.FC = () => {
                     className={`px-3 py-1.5 rounded-lg text-xs transition-all border flex items-center gap-1.5 cursor-pointer ${
                       isSelected
                         ? 'bg-red-950 border-red-500 text-white font-bold shadow-md shadow-red-950/80 ring-1 ring-red-400'
-                        : 'bg-[#030303] border-[#4A101D] text-[#B8B0AA] hover:text-white hover:border-[#631728]'
+                        : 'bg-[#000000] border-[#1f1f1f] text-[#B8B0AA] hover:text-white hover:border-[#2a2a2a]'
                     }`}
                   >
                     <span>{isSelected ? '✓' : '+'}</span>
@@ -365,7 +365,7 @@ export const WastedDaysScreen: React.FC = () => {
               placeholder="Be brutally honest with yourself: e.g. I opened Instagram reels after lunch, scrolled for 3 hours, started playing games with friends, and skipped DSA entirely..."
               rows={3}
               required
-              className="w-full bg-[#030303] border border-[#4A101D] rounded-xl p-3 text-sm text-white placeholder-zinc-500 outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all resize-y"
+              className="w-full bg-[#000000] border border-[#1f1f1f] rounded-xl p-3 text-sm text-white placeholder-zinc-500 outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all resize-y"
             />
           </div>
 
@@ -382,7 +382,7 @@ export const WastedDaysScreen: React.FC = () => {
                     className={`px-2.5 py-1 rounded-md text-xs font-semibold cursor-pointer ${
                       hoursWasted === h
                         ? 'bg-black border border-[#D4AF37] text-shiny-gold'
-                        : 'bg-[#030303] border border-[#4A101D] text-[#B8B0AA]'
+                        : 'bg-[#000000] border border-[#1f1f1f] text-[#B8B0AA]'
                     }`}
                   >
                     {h}h
@@ -404,8 +404,8 @@ export const WastedDaysScreen: React.FC = () => {
       </div>
 
       {/* History / Timeline of Wasted Days (PERMANENT LOG DISPLAY AT DOWN) */}
-      <div className="p-5 md:p-6 rounded-2xl bg-[#24060D] border border-[#4A101D] shadow-xl">
-        <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#4A101D]">
+      <div className="p-5 md:p-6 rounded-2xl bg-[#070707] border border-[#1f1f1f] shadow-xl">
+        <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#1f1f1f]">
           <div>
             <div className="flex items-center gap-2">
               <h2 className="text-lg font-bold text-white font-serif">Logged Wasted Days History</h2>
@@ -420,7 +420,7 @@ export const WastedDaysScreen: React.FC = () => {
         </div>
 
         {wastedDays.length === 0 ? (
-          <div className="py-12 text-center text-[#B8B0AA] bg-[#030303]/60 rounded-xl border border-[#4A101D]/50">
+          <div className="py-12 text-center text-[#B8B0AA] bg-[#000000]/60 rounded-xl border border-[#1f1f1f]/50">
             <div className="w-14 h-14 mx-auto mb-3 rounded-full bg-black border border-[#D4AF37]/30 flex items-center justify-center text-shiny-gold">
               <Check className="w-7 h-7" />
             </div>
@@ -443,11 +443,11 @@ export const WastedDaysScreen: React.FC = () => {
               return (
                 <div
                   key={record.id}
-                  className="p-4 rounded-xl bg-[#030303] border border-[#4A101D] hover:border-[#D4AF37]/40 transition-all space-y-3 shadow-md"
+                  className="p-4 rounded-xl bg-[#000000] border border-[#1f1f1f] hover:border-[#D4AF37]/40 transition-all space-y-3 shadow-md"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="px-2 py-0.5 rounded-md bg-black border border-[#4A101D] text-shiny-gold text-xs font-mono font-bold">
+                      <span className="px-2 py-0.5 rounded-md bg-black border border-[#1f1f1f] text-shiny-gold text-xs font-mono font-bold">
                         #{wastedDays.length - index}
                       </span>
                       <span className="font-serif font-bold text-white text-sm">
@@ -466,14 +466,14 @@ export const WastedDaysScreen: React.FC = () => {
                         <>
                           <button
                             onClick={() => handleStartEdit(record)}
-                            className="p-1.5 rounded-lg text-[#B8B0AA] hover:text-white hover:bg-[#24060D] transition-colors cursor-pointer"
+                            className="p-1.5 rounded-lg text-[#B8B0AA] hover:text-white hover:bg-[#070707] transition-colors cursor-pointer"
                             title="Edit entry"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => setDeleteConfirmId(record.id || null)}
-                            className="p-1.5 rounded-lg text-[#B8B0AA] hover:text-red-400 hover:bg-[#24060D] transition-colors cursor-pointer"
+                            className="p-1.5 rounded-lg text-[#B8B0AA] hover:text-red-400 hover:bg-[#070707] transition-colors cursor-pointer"
                             title="Delete entry"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -498,7 +498,7 @@ export const WastedDaysScreen: React.FC = () => {
 
                   {/* Editing Mode */}
                   {isEditing ? (
-                    <div className="pt-2 space-y-2.5 border-t border-[#4A101D]">
+                    <div className="pt-2 space-y-2.5 border-t border-[#1f1f1f]">
                       <div>
                         <span className="text-[11px] text-[#B8B0AA] block mb-1">Update reasons (multi-select):</span>
                         <div className="flex flex-wrap gap-1.5">
@@ -512,7 +512,7 @@ export const WastedDaysScreen: React.FC = () => {
                                 className={`px-2.5 py-1 rounded-lg text-xs border cursor-pointer ${
                                   isSel
                                     ? 'bg-red-950 border-red-500 text-white font-bold'
-                                    : 'bg-black border-[#4A101D] text-[#B8B0AA]'
+                                    : 'bg-black border-[#1f1f1f] text-[#B8B0AA]'
                                 }`}
                               >
                                 {isSel ? '✓ ' : ''}{r.label}
@@ -526,7 +526,7 @@ export const WastedDaysScreen: React.FC = () => {
                         value={editExplanation}
                         onChange={(e) => setEditExplanation(e.target.value)}
                         rows={2}
-                        className="w-full bg-black border border-[#4A101D] rounded-lg p-2.5 text-xs text-white outline-none focus:border-[#D4AF37]"
+                        className="w-full bg-black border border-[#1f1f1f] rounded-lg p-2.5 text-xs text-white outline-none focus:border-[#D4AF37]"
                       />
 
                       <div className="flex items-center justify-end gap-2">
@@ -546,7 +546,7 @@ export const WastedDaysScreen: React.FC = () => {
                     </div>
                   ) : (
                     /* Display Honest Explanation */
-                    <p className="text-xs text-[#F5F0E1] bg-[#24060D]/60 p-3 rounded-lg border border-[#4A101D]/70 font-sans leading-relaxed">
+                    <p className="text-xs text-[#F5F0E1] bg-[#070707]/60 p-3 rounded-lg border border-[#1f1f1f]/70 font-sans leading-relaxed">
                       "{record.explanation}"
                     </p>
                   )}

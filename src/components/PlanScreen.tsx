@@ -196,7 +196,7 @@ export const PlanScreen: React.FC = () => {
 
           <button
             onClick={handleResetPreset}
-            className="min-h-[38px] px-3.5 py-1.5 rounded-xl bg-[#000000] border border-[#360A0F] text-[#B8B0AA] hover:text-shiny-gold hover:border-[#D4AF37] text-xs font-medium flex items-center gap-1.5 transition-all"
+            className="min-h-[38px] px-3.5 py-1.5 rounded-xl bg-[#000000] border border-[#1a1a1a] text-[#B8B0AA] hover:text-shiny-gold hover:border-[#D4AF37] text-xs font-medium flex items-center gap-1.5 transition-all"
             title="Reset to notebook preset"
           >
             <RotateCcw className="w-3 h-3" />
@@ -226,7 +226,7 @@ export const PlanScreen: React.FC = () => {
                 key={block.id}
                 className={`p-4 sm:p-5 rounded-3xl border transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
                   isDone
-                    ? 'bg-[#000000] border-[#360A0F] opacity-80'
+                    ? 'bg-[#000000] border-[#1a1a1a] opacity-80'
                     : 'card-maroon-gold shadow-md'
                 }`}
               >
@@ -270,19 +270,19 @@ export const PlanScreen: React.FC = () => {
                         await updateTimelineBlock(block.id, { status: e.target.value });
                       }
                     }}
-                    style={{ colorScheme: 'dark' }} className="min-h-[42px] px-3 py-1.5 rounded-xl bg-[#0E0205] border border-[#360A0F] text-xs text-[#FFDF73] font-semibold focus:outline-none focus:border-[#D4AF37] cursor-pointer"
+                    style={{ colorScheme: 'dark' }} className="min-h-[42px] px-3 py-1.5 rounded-xl bg-[#0E0205] border border-[#1a1a1a] text-xs text-[#FFDF73] font-semibold focus:outline-none focus:border-[#D4AF37] cursor-pointer"
                   >
-                    <option value="Ready to Start" className="bg-[#160406] text-white py-1.5">Ready to Start</option>
-                    <option value="In Progress" className="bg-[#160406] text-white py-1.5">In Progress</option>
-                    <option value="Upcoming" className="bg-[#160406] text-white py-1.5">Upcoming</option>
-                    <option value="Completed" className="bg-[#160406] text-white py-1.5">Completed</option>
-                    <option value="Queue" className="bg-[#160406] text-white py-1.5">Queue</option>
+                    <option value="Ready to Start" className="bg-[#080808] text-white py-1.5">Ready to Start</option>
+                    <option value="In Progress" className="bg-[#080808] text-white py-1.5">In Progress</option>
+                    <option value="Upcoming" className="bg-[#080808] text-white py-1.5">Upcoming</option>
+                    <option value="Completed" className="bg-[#080808] text-white py-1.5">Completed</option>
+                    <option value="Queue" className="bg-[#080808] text-white py-1.5">Queue</option>
                   </select>
 
                   {/* Edit button */}
                   <button
                     onClick={() => openEditModal(block)}
-                    className="min-h-[42px] min-w-[42px] rounded-xl bg-black border border-[#360A0F] text-[#B8B0AA] hover:text-[#D4AF37] hover:border-[#D4AF37] flex items-center justify-center transition-colors"
+                    className="min-h-[42px] min-w-[42px] rounded-xl bg-black border border-[#1a1a1a] text-[#B8B0AA] hover:text-[#D4AF37] hover:border-[#D4AF37] flex items-center justify-center transition-colors"
                     title="Edit block"
                   >
                     <Edit3 className="w-4 h-4" />
@@ -408,11 +408,11 @@ export const PlanScreen: React.FC = () => {
                     onChange={(e) => setStatus(e.target.value)}
                     style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#D4AF37]/35 text-[#FFDF73] text-sm font-semibold focus:outline-none focus:border-[#D4AF37] cursor-pointer"
                   >
-                    <option value="Ready to Start" className="bg-[#160406] text-white py-1.5">Ready to Start</option>
-                    <option value="In Progress" className="bg-[#160406] text-white py-1.5">In Progress</option>
-                    <option value="Upcoming" className="bg-[#160406] text-white py-1.5">Upcoming</option>
-                    <option value="Completed" className="bg-[#160406] text-white py-1.5">Completed</option>
-                    <option value="Queue" className="bg-[#160406] text-white py-1.5">Queue</option>
+                    <option value="Ready to Start" className="bg-[#080808] text-white py-1.5">Ready to Start</option>
+                    <option value="In Progress" className="bg-[#080808] text-white py-1.5">In Progress</option>
+                    <option value="Upcoming" className="bg-[#080808] text-white py-1.5">Upcoming</option>
+                    <option value="Completed" className="bg-[#080808] text-white py-1.5">Completed</option>
+                    <option value="Queue" className="bg-[#080808] text-white py-1.5">Queue</option>
                   </select>
                 </div>
               </div>

@@ -253,8 +253,8 @@ export const ProjectsScreen: React.FC = () => {
                             : p.status === 'MVP Ready'
                             ? 'bg-[#3D2500] text-[#FFDF73] border-[#D4AF37]'
                             : p.status === 'In Progress'
-                            ? 'bg-[#220509] text-[#FFA8C5] border-[#360A0F]'
-                            : 'bg-[#000000] text-[#B8B0AA] border-[#360A0F]'
+                            ? 'bg-[#220509] text-[#FFA8C5] border-[#1a1a1a]'
+                            : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a]'
                         }`}
                       >
                         {p.status}
@@ -305,7 +305,7 @@ export const ProjectsScreen: React.FC = () => {
                         href={p.liveDemoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="min-h-[42px] px-3.5 py-1.5 rounded-xl bg-[#000000] border border-[#360A0F] hover:border-[#D4AF37] text-[#B8B0AA] hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                        className="min-h-[42px] px-3.5 py-1.5 rounded-xl bg-[#000000] border border-[#1a1a1a] hover:border-[#D4AF37] text-[#B8B0AA] hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
                         title="Open Live Preview"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
@@ -316,7 +316,7 @@ export const ProjectsScreen: React.FC = () => {
                     {/* Edit */}
                     <button
                       onClick={() => openEditModal(p)}
-                      className="min-h-[42px] min-w-[42px] rounded-xl bg-black border border-[#360A0F] hover:border-[#D4AF37] text-[#B8B0AA] hover:text-[#D4AF37] flex items-center justify-center transition-colors"
+                      className="min-h-[42px] min-w-[42px] rounded-xl bg-black border border-[#1a1a1a] hover:border-[#D4AF37] text-[#B8B0AA] hover:text-[#D4AF37] flex items-center justify-center transition-colors"
                       title="Edit project"
                     >
                       <Edit3 className="w-4 h-4" />
@@ -339,7 +339,7 @@ export const ProjectsScreen: React.FC = () => {
                     {p.tags.map((tag, tIdx) => (
                       <span
                         key={tIdx}
-                        className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-lg bg-black/60 border border-[#360A0F] text-[#B8B0AA]"
+                        className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-lg bg-black/60 border border-[#1a1a1a] text-[#B8B0AA]"
                       >
                         <Tag className="w-2.5 h-2.5 text-[#D4AF37]" />
                         {tag}
@@ -349,8 +349,8 @@ export const ProjectsScreen: React.FC = () => {
                 )}
 
                 {/* About Project README Display */}
-                <div className="p-4 rounded-2xl bg-black/80 border border-[#360A0F] space-y-2">
-                  <div className="flex items-center justify-between pb-1.5 border-b border-[#360A0F]">
+                <div className="p-4 rounded-2xl bg-black/80 border border-[#1a1a1a] space-y-2">
+                  <div className="flex items-center justify-between pb-1.5 border-b border-[#1a1a1a]">
                     <div className="flex items-center gap-1.5 text-xs font-semibold text-[#D4AF37]">
                       <FileText className="w-3.5 h-3.5" />
                       <span>README.md</span>
@@ -385,10 +385,10 @@ export const ProjectsScreen: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-2xl bg-[#160406] border border-[#D4AF37]/40 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] flex flex-col"
+            className="w-full max-w-2xl bg-[#080808] border border-[#D4AF37]/40 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] flex flex-col"
           >
             {/* Modal Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-[#360A0F] shrink-0">
+            <div className="flex items-center justify-between pb-3 border-b border-[#1a1a1a] shrink-0">
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-xl bg-black border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37]">
                   <FolderGit2 className="w-5 h-5" />
@@ -417,7 +417,7 @@ export const ProjectsScreen: React.FC = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Autonomous Browser Agent, Distributed Log Aggregator..."
-                  style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#360A0F] focus:border-[#D4AF37] text-white text-sm focus:outline-none cursor-pointer"
+                  style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#1a1a1a] focus:border-[#D4AF37] text-white text-sm focus:outline-none cursor-pointer"
                   required
                   autoFocus
                 />
@@ -432,7 +432,7 @@ export const ProjectsScreen: React.FC = () => {
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#360A0F] focus:border-[#D4AF37] text-white text-sm focus:outline-none"
+                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#D4AF37] text-white text-sm focus:outline-none"
                   >
                     {CATEGORIES.map((cat) => (
                       <option key={cat} value={cat}>
@@ -449,7 +449,7 @@ export const ProjectsScreen: React.FC = () => {
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value as any)}
-                    style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#360A0F] focus:border-[#D4AF37] text-[#D4AF37] font-semibold text-sm focus:outline-none cursor-pointer"
+                    style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#1a1a1a] focus:border-[#D4AF37] text-[#D4AF37] font-semibold text-sm focus:outline-none cursor-pointer"
                   >
                     {STATUS_OPTIONS.map((st) => (
                       <option key={st} value={st}>
@@ -471,7 +471,7 @@ export const ProjectsScreen: React.FC = () => {
                     value={githubUrl}
                     onChange={(e) => setGithubUrl(e.target.value)}
                     placeholder="https://github.com/username/project"
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#360A0F] focus:border-[#D4AF37] text-white text-sm focus:outline-none"
+                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#D4AF37] text-white text-sm focus:outline-none"
                     required
                   />
                 </div>
@@ -485,7 +485,7 @@ export const ProjectsScreen: React.FC = () => {
                     value={liveDemoUrl}
                     onChange={(e) => setLiveDemoUrl(e.target.value)}
                     placeholder="https://my-app.vercel.app"
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#360A0F] focus:border-[#D4AF37] text-white text-sm focus:outline-none"
+                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#D4AF37] text-white text-sm focus:outline-none"
                   />
                 </div>
               </div>
@@ -501,7 +501,7 @@ export const ProjectsScreen: React.FC = () => {
                     value={tagsInput}
                     onChange={(e) => setTagsInput(e.target.value)}
                     placeholder="Python, FastAPI, Docker, PostgreSQL"
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#360A0F] focus:border-[#D4AF37] text-white text-sm focus:outline-none"
+                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#D4AF37] text-white text-sm focus:outline-none"
                   />
                 </div>
 
@@ -513,7 +513,7 @@ export const ProjectsScreen: React.FC = () => {
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#360A0F] focus:border-[#D4AF37] text-white text-sm focus:outline-none"
+                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#D4AF37] text-white text-sm focus:outline-none"
                   />
                 </div>
               </div>
@@ -528,13 +528,13 @@ export const ProjectsScreen: React.FC = () => {
                   onChange={(e) => setAboutReadme(e.target.value)}
                   placeholder={`# Project Title\n\n### Overview\nWhat does this project solve? What did you build?\n\n### Architecture & Implementation\nKey modules, database design, and concurrency.\n\n### What I Learned\nInsights, bottlenecks solved, and performance optimizations.`}
                   rows={8}
-                  className="w-full p-3.5 rounded-2xl bg-black border border-[#360A0F] focus:border-[#D4AF37] text-[#E5E0DC] text-xs font-mono focus:outline-none"
+                  className="w-full p-3.5 rounded-2xl bg-black border border-[#1a1a1a] focus:border-[#D4AF37] text-[#E5E0DC] text-xs font-mono focus:outline-none"
                   required
                 />
               </div>
 
               {/* Form Buttons */}
-              <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-[#360A0F] shrink-0">
+              <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-[#1a1a1a] shrink-0">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}

@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { 
   Sun, 
   Timer as TimerIcon, 
@@ -32,7 +31,7 @@ export const NAV_ITEMS: { id: ScreenId; label: string; icon: React.ComponentType
 
 /**
  * TopNavPills:
- * Renders the navigation features directly inside the top header space.
+ * Renders the navigation features directly inside the top header space with pitch black contrast.
  */
 export const TopNavPills: React.FC<{
   activeScreen: ScreenId;
@@ -56,7 +55,7 @@ export const TopNavPills: React.FC<{
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 relative ${
               isActive
                 ? 'btn-shiny-gold text-black font-bold shadow-md shadow-[#D4AF37]/30 scale-[1.02]'
-                : 'text-[#B8B0AA] hover:text-white hover:bg-[#160406] border border-transparent hover:border-[#360A0F]'
+                : 'text-[#B8B0AA] hover:text-white hover:bg-[#0c0c0c] border border-transparent hover:border-[#222222]'
             }`}
           >
             <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-black stroke-[2.5]' : 'text-[#D4AF37]'}`} />

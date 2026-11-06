@@ -80,7 +80,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
   return (
     <div className="rounded-2xl card-maroon-gold p-3.5 space-y-3.5 shadow-md text-left font-sans">
       {/* Header */}
-      <div className="flex items-center justify-between pb-2 border-b border-[#360A0F]">
+      <div className="flex items-center justify-between pb-2 border-b border-[#1a1a1a]">
         <div className="flex items-center gap-1.5 text-xs font-bold text-shiny-gold">
           <Code2 className="w-3.5 h-3.5 text-[#FFDF73]" />
           <span className="uppercase tracking-wider">DSA & Communication</span>
@@ -130,7 +130,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
               className={`py-1.5 px-1 rounded-xl text-[11px] font-semibold transition-all border text-center ${
                 selectedDifficulty === 'easy'
                   ? 'bg-[#004D20] text-[#73FF9D] border-[#009940] shadow-sm font-bold'
-                  : 'bg-[#000000] text-[#B8B0AA] border-[#360A0F] hover:border-[#D4AF37]/50'
+                  : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#D4AF37]/50'
               }`}
             >
               Easy
@@ -142,7 +142,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
               className={`py-1.5 px-1 rounded-xl text-[11px] font-semibold transition-all border text-center ${
                 selectedDifficulty === 'medium'
                   ? 'btn-shiny-gold text-black shadow-sm font-bold'
-                  : 'bg-[#000000] text-[#B8B0AA] border-[#360A0F] hover:border-[#D4AF37]/50'
+                  : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#D4AF37]/50'
               }`}
             >
               Med
@@ -154,7 +154,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
               className={`py-1.5 px-1 rounded-xl text-[11px] font-semibold transition-all border text-center ${
                 selectedDifficulty === 'hard'
                   ? 'bg-[#33040B] text-[#FFA8B5] border-red-500/60 shadow-sm font-bold'
-                  : 'bg-[#000000] text-[#B8B0AA] border-[#360A0F] hover:border-[#D4AF37]/50'
+                  : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#D4AF37]/50'
               }`}
             >
               Hard
@@ -171,7 +171,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
       </div>
 
       {/* 2. Communication & High-Level English Practice */}
-      <div className="pt-2 border-t border-[#360A0F] space-y-2">
+      <div className="pt-2 border-t border-[#1a1a1a] space-y-2">
         <div className="flex items-start gap-1.5">
           <MessageSquare className="w-3.5 h-3.5 text-[#FFDF73] shrink-0 mt-0.5" />
           <p className="text-[11px] text-white leading-snug">
@@ -186,7 +186,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
             className={`py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
               isCommDone
                 ? 'btn-shiny-gold text-black font-bold shadow-md shadow-[#D4AF37]/35 border-[#D4AF37]'
-                : 'bg-[#000000] text-[#B8B0AA] border-[#360A0F] hover:border-[#D4AF37] hover:text-shiny-gold'
+                : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#D4AF37] hover:text-shiny-gold'
             }`}
             title={isCommDone ? 'Click to uncheck' : 'Mark English practiced today'}
           >
@@ -200,7 +200,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
             className={`py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
               isCommNotDone
                 ? 'bg-red-950/70 border-red-500/60 text-red-200 font-bold shadow-md shadow-red-950/50'
-                : 'bg-[#000000] text-[#B8B0AA] border-[#360A0F] hover:border-red-500/40 hover:text-red-300'
+                : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-red-500/40 hover:text-red-300'
             }`}
             title={isCommNotDone ? 'Click to uncheck' : "Mark didn't complete today"}
           >

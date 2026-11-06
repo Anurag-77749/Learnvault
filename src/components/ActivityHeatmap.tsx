@@ -54,7 +54,7 @@ export const ActivityHeatmap: React.FC = () => {
   // 3: < 180 -> #26A641
   // 4: >= 180 -> #39D353
   const getHeatmapColor = (score: number) => {
-    if (score <= 0) return 'bg-[#000000] border border-[#4A101D] hover:border-[#D4AF37]/50';
+    if (score <= 0) return 'bg-[#000000] border border-[#1f1f1f] hover:border-[#D4AF37]/50';
     if (score < 30) return 'bg-[#0E4429] border border-[#145A32]';
     if (score < 90) return 'bg-[#006D32] border border-[#0B843E]';
     if (score < 180) return 'bg-[#26A641] border border-[#2ECC71]';
@@ -233,7 +233,7 @@ export const ActivityHeatmap: React.FC = () => {
   return (
     <div className="p-5 sm:p-6 rounded-3xl card-maroon-gold shadow-2xl relative">
       {/* Header with Title, Streaks & Range Switcher */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 pb-4 border-b border-[#4A101D]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 pb-4 border-b border-[#1f1f1f]">
         <div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#39D353] shadow-sm shadow-[#39D353]" />

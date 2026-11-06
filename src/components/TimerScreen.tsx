@@ -416,7 +416,7 @@ export const TimerScreen: React.FC<TimerScreenProps> = ({ initialTopic }) => {
         </div>
         <button
           onClick={() => setShowSettingsModal(true)}
-          className="min-h-[44px] px-3.5 rounded-xl bg-[#160406] hover:bg-[#25070B] border border-[#360A0F] hover:border-[#D4AF37] text-shiny-gold text-xs font-semibold flex items-center gap-2 transition-all shadow-sm"
+          className="min-h-[44px] px-3.5 rounded-xl bg-[#080808] hover:bg-[#25070B] border border-[#1a1a1a] hover:border-[#D4AF37] text-shiny-gold text-xs font-semibold flex items-center gap-2 transition-all shadow-sm"
         >
           <Settings2 className="w-4 h-4 text-[#D4AF37]" />
           <span className="hidden sm:inline">Settings</span>
@@ -467,7 +467,7 @@ export const TimerScreen: React.FC<TimerScreenProps> = ({ initialTopic }) => {
               className={`min-h-[38px] px-3.5 rounded-xl text-xs font-semibold transition-all ${
                 state.mode === 'pomodoro'
                   ? 'btn-shiny-gold'
-                  : 'bg-[#000000] text-[#B8B0AA] border border-[#360A0F] hover:border-[#D4AF37]'
+                  : 'bg-[#000000] text-[#B8B0AA] border border-[#1a1a1a] hover:border-[#D4AF37]'
               }`}
             >
               Focus ({settings.focusDurationMins}m)
@@ -477,7 +477,7 @@ export const TimerScreen: React.FC<TimerScreenProps> = ({ initialTopic }) => {
               className={`min-h-[38px] px-3.5 rounded-xl text-xs font-semibold transition-all ${
                 state.mode === 'shortBreak'
                   ? 'btn-shiny-gold'
-                  : 'bg-[#000000] text-[#B8B0AA] border border-[#360A0F] hover:border-[#D4AF37]'
+                  : 'bg-[#000000] text-[#B8B0AA] border border-[#1a1a1a] hover:border-[#D4AF37]'
               }`}
             >
               Short Break ({settings.shortBreakMins}m)
@@ -487,7 +487,7 @@ export const TimerScreen: React.FC<TimerScreenProps> = ({ initialTopic }) => {
               className={`min-h-[38px] px-3.5 rounded-xl text-xs font-semibold transition-all ${
                 state.mode === 'longBreak'
                   ? 'btn-shiny-gold'
-                  : 'bg-[#000000] text-[#B8B0AA] border border-[#360A0F] hover:border-[#D4AF37]'
+                  : 'bg-[#000000] text-[#B8B0AA] border border-[#1a1a1a] hover:border-[#D4AF37]'
               }`}
             >
               Long Break ({settings.longBreakMins}m)
@@ -505,7 +505,7 @@ export const TimerScreen: React.FC<TimerScreenProps> = ({ initialTopic }) => {
               style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3 rounded-xl bg-[#0E0205] border border-[#D4AF37]/40 text-xs sm:text-sm text-[#FFDF73] focus:outline-none focus:border-[#D4AF37] text-center font-medium shadow-inner cursor-pointer"
             >
               {TOPIC_PRESETS.map((t) => (
-                <option key={t} value={t} className="bg-[#160406] text-white">
+                <option key={t} value={t} className="bg-[#080808] text-white">
                   {t}
                 </option>
               ))}
@@ -568,7 +568,7 @@ export const TimerScreen: React.FC<TimerScreenProps> = ({ initialTopic }) => {
           <div className="flex items-center gap-4 mt-6">
             <button
               onClick={handleResetPomodoro}
-              className="min-h-[48px] min-w-[48px] rounded-2xl bg-black hover:bg-[#160406] border border-[#360A0F] hover:border-[#D4AF37] text-[#B8B0AA] hover:text-[#D4AF37] flex items-center justify-center transition-colors shadow-sm"
+              className="min-h-[48px] min-w-[48px] rounded-2xl bg-black hover:bg-[#080808] border border-[#1a1a1a] hover:border-[#D4AF37] text-[#B8B0AA] hover:text-[#D4AF37] flex items-center justify-center transition-colors shadow-sm"
               title="Reset"
             >
               <RotateCcw className="w-5 h-5" />
@@ -577,7 +577,7 @@ export const TimerScreen: React.FC<TimerScreenProps> = ({ initialTopic }) => {
             {state.isRunning ? (
               <button
                 onClick={handlePausePomodoro}
-                className="min-h-[52px] px-8 rounded-2xl bg-black hover:bg-[#160406] border-2 border-[#D4AF37] text-shiny-gold font-bold text-sm tracking-wider uppercase flex items-center gap-2 transition-all shadow-md shadow-[#D4AF37]/15"
+                className="min-h-[52px] px-8 rounded-2xl bg-black hover:bg-[#080808] border-2 border-[#D4AF37] text-shiny-gold font-bold text-sm tracking-wider uppercase flex items-center gap-2 transition-all shadow-md shadow-[#D4AF37]/15"
               >
                 <Pause className="w-5 h-5 fill-current" />
                 <span>Pause</span>
@@ -594,7 +594,7 @@ export const TimerScreen: React.FC<TimerScreenProps> = ({ initialTopic }) => {
 
             <button
               onClick={handleSkipPomodoro}
-              className="min-h-[48px] min-w-[48px] rounded-2xl bg-black hover:bg-[#160406] border border-[#360A0F] hover:border-[#D4AF37] text-[#B8B0AA] hover:text-[#D4AF37] flex items-center justify-center transition-colors shadow-sm"
+              className="min-h-[48px] min-w-[48px] rounded-2xl bg-black hover:bg-[#080808] border border-[#1a1a1a] hover:border-[#D4AF37] text-[#B8B0AA] hover:text-[#D4AF37] flex items-center justify-center transition-colors shadow-sm"
               title="Skip"
             >
               <SkipForward className="w-5 h-5" />
@@ -620,7 +620,7 @@ export const TimerScreen: React.FC<TimerScreenProps> = ({ initialTopic }) => {
               style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3 rounded-xl bg-[#0E0205] border border-[#D4AF37]/40 text-xs sm:text-sm text-[#FFDF73] focus:outline-none focus:border-[#D4AF37] text-center font-medium shadow-inner cursor-pointer"
             >
               {TOPIC_PRESETS.map((t) => (
-                <option key={t} value={t} className="bg-[#160406] text-white">
+                <option key={t} value={t} className="bg-[#080808] text-white">
                   {t}
                 </option>
               ))}
@@ -682,7 +682,7 @@ export const TimerScreen: React.FC<TimerScreenProps> = ({ initialTopic }) => {
                   className={`min-h-[40px] px-3.5 rounded-xl text-xs font-semibold transition-all ${
                     state.wastedReason === r.id
                       ? 'btn-shiny-gold shadow-sm font-bold'
-                      : 'bg-[#000000] text-[#B8B0AA] border border-[#360A0F] hover:border-[#D4AF37]'
+                      : 'bg-[#000000] text-[#B8B0AA] border border-[#1a1a1a] hover:border-[#D4AF37]'
                   }`}
                 >
                   {r.label}
