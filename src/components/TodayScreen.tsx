@@ -536,10 +536,6 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
         </AnimatePresence>
       </motion.section>
 
-      {/* Mobile Inline Quick DSA & Communication Widget */}
-      <div className="md:hidden">
-        <DailyDsaCommunicationWidget />
-      </div>
 
       {/* 2. TODAY SO FAR CARDS */}
       <motion.section
