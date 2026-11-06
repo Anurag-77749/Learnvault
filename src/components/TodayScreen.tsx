@@ -537,6 +537,11 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
       </motion.section>
 
 
+      {/* Daily DSA & Communication */}
+      <div>
+        <DailyDsaCommunicationWidget />
+      </div>
+
       {/* 2. TODAY SO FAR CARDS */}
       <motion.section
         initial={{ opacity: 0, y: 10 }}

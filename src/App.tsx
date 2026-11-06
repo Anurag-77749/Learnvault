@@ -1,10 +1,10 @@
-// LearnVault - Black & Gold Theme (v1.0.3)
+// LearnVault - Precision Obsidian & Gold Workspace (v1.0.4)
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { Cloud } from 'lucide-react';
 import { db } from './services/db';
-import { ScreenId, BottomNavigationBar, BottomFeaturesSection } from './components/Navigation';
+import { ScreenId, TopNavPills } from './components/Navigation';
 import { TodayScreen } from './components/TodayScreen';
 import { TimerScreen } from './components/TimerScreen';
 import { PlanScreen } from './components/PlanScreen';
@@ -28,7 +28,7 @@ export const App: React.FC = () => {
     return cloudSyncService.subscribe((state) => setSyncState(state));
   }, []);
 
-  // Compute live stats for quick metrics & bottom features
+  // Compute live stats for quick metrics
   const allLogs = useLiveQuery(() => db.dailyLogs.toArray()) || [];
   const totalStudyMinutes = allLogs.reduce((acc, l) => acc + (l.studyMinutes || 0), 0);
   const totalStudyHours = Math.round((totalStudyMinutes / 60) * 10) / 10;
@@ -41,41 +41,62 @@ export const App: React.FC = () => {
       setTimerTopic(topicTitle);
     }
     setActiveScreen('timer');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <div className="min-h-screen bg-[#030303] text-white flex flex-col antialiased selection:bg-[#D4AF37] selection:text-black">
-      {/* Top Header for Desktop & Mobile */}
-      <header className="flex items-center justify-between px-4 sm:px-8 py-3 bg-[#000000]/95 backdrop-blur-md border-b border-[#360A0F] sticky top-0 z-30">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-black border border-[#D4AF37]/50 flex items-center justify-center p-0.5 shadow-md shadow-[#D4AF37]/20 overflow-hidden shrink-0">
+      {/* Top Header with Navigation Features in the Center Space */}
+      <header className="flex items-center justify-between px-3 sm:px-6 py-2.5 bg-[#000000]/95 backdrop-blur-md border-b border-[#360A0F] sticky top-0 z-30 gap-2 sm:gap-4 select-none">
+        {/* Left: Brand Mark */}
+        <div 
+          onClick={() => {
+            setActiveScreen('today');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="flex items-center gap-2.5 cursor-pointer shrink-0 group"
+          title="Go to Today"
+        >
+          <div className="w-8 h-8 rounded-xl bg-black border border-[#D4AF37]/50 flex items-center justify-center p-0.5 shadow-md shadow-[#D4AF37]/20 overflow-hidden shrink-0">
             <img src="/learnvault-logo.png" alt="LearnVault" className="w-full h-full object-contain" />
           </div>
           <div>
-            <span className="text-xl font-bold tracking-tight text-white leading-none block">
+            <span className="text-base sm:text-lg font-bold tracking-tight text-white leading-none block group-hover:text-shiny-gold transition-colors">
               Learn<span className="text-shiny-gold">Vault</span>
             </span>
-            <span className="text-[9px] text-shiny-gold uppercase tracking-wider block font-semibold">
-              Your Knowledge • Your Progress
+            <span className="text-[8px] sm:text-[9px] text-[#D4AF37] uppercase tracking-wider block font-semibold">
+              YOUR KNOWLEDGE • YOUR PROGRESS
             </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-xs">
+        {/* Center: Navigation Features placed directly in top space */}
+        <div className="flex-1 flex justify-center min-w-0">
+          <TopNavPills 
+            activeScreen={activeScreen}
+            onSelectScreen={(screen) => {
+              setActiveScreen(screen);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          />
+        </div>
+
+        {/* Right: Cloud Sync & Quick Metrics */}
+        <div className="flex items-center gap-1.5 sm:gap-2 text-xs shrink-0">
           <button
             onClick={() => setIsSyncModalOpen(true)}
-            className="p-1.5 px-2.5 rounded-full bg-[#160406] border border-[#360A0F] hover:border-[#D4AF37]/60 text-shiny-gold flex items-center gap-1.5 cursor-pointer transition-colors"
+            className="p-1 sm:p-1.5 px-2 sm:px-2.5 rounded-full bg-[#160406] border border-[#360A0F] hover:border-[#D4AF37]/60 text-shiny-gold flex items-center gap-1.5 cursor-pointer transition-colors"
             title="Cloud Sync"
           >
             <Cloud className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline text-[11px] font-medium text-[#B8B0AA]">
+            <span className="hidden md:inline text-[11px] font-medium text-[#B8B0AA]">
               {syncState.syncId ? 'Synced' : 'Sync'}
             </span>
             {syncState.syncId && (
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
             )}
           </button>
-          <span className="px-2.5 py-1 rounded-full bg-[#160406] border border-[#360A0F] text-shiny-gold font-bold flex items-center gap-1">
+          <span className="px-2 sm:px-2.5 py-1 rounded-full bg-[#160406] border border-[#360A0F] text-shiny-gold font-bold flex items-center gap-1">
             🔥 {streakCount}d
           </span>
           <button
@@ -83,12 +104,12 @@ export const App: React.FC = () => {
               setActiveScreen('wasted');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="px-2.5 py-1 rounded-full bg-red-950/70 border border-red-500/40 text-red-300 font-bold flex items-center gap-1 cursor-pointer hover:bg-red-900/60 transition-colors"
+            className="px-2 sm:px-2.5 py-1 rounded-full bg-red-950/70 border border-red-500/40 text-red-300 font-bold flex items-center gap-1 cursor-pointer hover:bg-red-900/60 transition-colors"
             title="Wasted Days Count"
           >
             ⏳ {wastedDaysCount}d
           </button>
-          <span className="px-2.5 py-1 rounded-full bg-black border border-[#D4AF37]/40 text-white font-bold">
+          <span className="px-2 sm:px-2.5 py-1 rounded-full bg-black border border-[#D4AF37]/40 text-white font-bold">
             {totalStudyHours}h
           </span>
         </div>
@@ -191,27 +212,7 @@ export const App: React.FC = () => {
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Bottom Features Section (formerly in left sidebar: Overall Progress, DSA & Communication, Stats, Cloud Sync) */}
-        <BottomFeaturesSection
-          onSelectScreen={(screen) => {
-            setActiveScreen(screen);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          streakCount={streakCount}
-          totalStudyHours={totalStudyHours}
-          onOpenSyncModal={() => setIsSyncModalOpen(true)}
-        />
       </main>
-
-      {/* Persistent Bottom Navigation Bar */}
-      <BottomNavigationBar
-        activeScreen={activeScreen}
-        onSelectScreen={(screen) => {
-          setActiveScreen(screen);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-      />
 
       {/* Cloud Sync Modal */}
       <CloudSyncModal
