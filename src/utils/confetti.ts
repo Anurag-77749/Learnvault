@@ -10,7 +10,7 @@ export function triggerGoldSparkle(x = 0.5, y = 0.5) {
     particleCount: 28,
     spread: 55,
     origin: { x, y },
-    colors: ['#D4AF37', '#E5C458', '#F5F0E1', '#B08E24'],
+    colors: ['#00F0FF', '#E5C458', '#F5F0E1', '#B08E24'],
     startVelocity: 18,
     ticks: 60,
     gravity: 0.9,

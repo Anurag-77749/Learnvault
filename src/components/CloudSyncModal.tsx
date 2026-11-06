@@ -80,7 +80,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[#1f1f1f]/60 pb-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#070707] border border-[#D4AF37]/40 text-shiny-gold">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#070707] border border-[#00F0FF]/40 text-shiny-gold">
               <Cloud className="h-5 w-5" />
             </div>
             <div>
@@ -123,7 +123,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
               <button
                 onClick={handleManualSync}
                 disabled={isLoading}
-                className="flex items-center gap-1.5 rounded-lg border border-[#D4AF37]/30 bg-[#070707] px-2.5 py-1 text-xs font-semibold text-shiny-gold hover:bg-[#380A15] transition-colors disabled:opacity-50"
+                className="flex items-center gap-1.5 rounded-lg border border-[#00F0FF]/30 bg-[#070707] px-2.5 py-1 text-xs font-semibold text-shiny-gold hover:bg-[#380A15] transition-colors disabled:opacity-50"
               >
                 <RefreshCw className={`h-3.5 w-3.5 ${isLoading ? 'animate-spin' : ''}`} />
                 Sync Now
@@ -149,7 +149,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
               value={inputId}
               onChange={(e) => setInputId(e.target.value)}
               placeholder="e.g. anurag or your email"
-              className="w-full rounded-xl border border-[#1f1f1f] bg-[#000000] px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:border-[#D4AF37] focus:outline-none focus:ring-1 focus:ring-[#D4AF37]"
+              className="w-full rounded-xl border border-[#1f1f1f] bg-[#000000] px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:border-[#00F0FF] focus:outline-none focus:ring-1 focus:ring-[#00F0FF]"
             />
             <p className="mt-1.5 text-[11px] text-[#E6C687]/70">
               💡 Use this <strong>exact same Sync ID</strong> on both your Laptop and Mobile phone to link them!
@@ -177,7 +177,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#AA771C] py-2.5 text-xs font-bold uppercase tracking-wider text-black shadow-lg hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50"
+              className="flex-1 rounded-xl bg-gradient-to-r from-[#00F0FF] to-[#AA771C] py-2.5 text-xs font-bold uppercase tracking-wider text-black shadow-lg hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50"
             >
               {isLoading ? 'Syncing...' : syncState.syncId ? 'Update & Sync' : 'Connect & Sync'}
             </button>

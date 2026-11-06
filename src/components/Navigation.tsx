@@ -31,7 +31,7 @@ export const NAV_ITEMS: { id: ScreenId; label: string; icon: React.ComponentType
 
 /**
  * TopNavPills:
- * Ultra-clean, studio-grade navigation pills with champagne gold active indicator.
+ * Renders the navigation features directly inside the top header space with pitch black contrast.
  */
 export const TopNavPills: React.FC<{
   activeScreen: ScreenId;
@@ -41,7 +41,7 @@ export const TopNavPills: React.FC<{
   onSelectScreen,
 }) => {
   return (
-    <nav className="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5 px-1" aria-label="Top Navigation">
+    <nav className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar py-1 px-1" aria-label="Top Navigation">
       {NAV_ITEMS.map((item) => {
         const Icon = item.icon;
         const isActive = activeScreen === item.id;
@@ -52,13 +52,13 @@ export const TopNavPills: React.FC<{
               onSelectScreen(item.id);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 cursor-pointer whitespace-nowrap shrink-0 relative ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 relative ${
               isActive
-                ? 'btn-gold-luxury shadow-sm'
-                : 'text-[#8E8E8E] hover:text-[#EDEDED] hover:bg-[#111111]'
+                ? 'btn-shiny-gold text-black font-bold shadow-md shadow-[#00F0FF]/30 scale-[1.02]'
+                : 'text-[#B8B0AA] hover:text-white hover:bg-[#0c0c0c] border border-transparent hover:border-[#222222]'
             }`}
           >
-            <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#0A0804] stroke-[2.2]' : 'text-[#8E8E8E]'}`} />
+            <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-black stroke-[2.5]' : 'text-[#00F0FF]'}`} />
             <span>{item.label}</span>
           </button>
         );

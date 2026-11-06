@@ -15,7 +15,7 @@ export const ProgressPlaceholder: React.FC = () => {
   return (
     <div className="space-y-6 pb-24 md:pb-12 max-w-4xl mx-auto">
       <div className="pt-2">
-        <span className="text-xs uppercase tracking-widest text-[#D4AF37] font-semibold flex items-center gap-1.5 mb-1 font-sans">
+        <span className="text-xs uppercase tracking-widest text-[#00F0FF] font-semibold flex items-center gap-1.5 mb-1 font-sans">
           <BarChart3 className="w-3.5 h-3.5" /> Analytics & 4-Year Totals
         </span>
         <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#F9F6EE]">
@@ -28,27 +28,27 @@ export const ProgressPlaceholder: React.FC = () => {
 
       {/* Totals Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="p-4 rounded-2xl bg-[#121212] border border-[#D4AF37]/30 shadow-sm">
+        <div className="p-4 rounded-2xl bg-[#121212] border border-[#00F0FF]/30 shadow-sm">
           <span className="text-[11px] uppercase tracking-wider text-[#A09D95] font-semibold">
             Total Hours Studied
           </span>
           <div className="mt-2 font-serif text-3xl sm:text-4xl font-bold text-[#F9F6EE]">
-            {totalStudyHours} <span className="text-sm font-sans text-[#D4AF37]">hrs</span>
+            {totalStudyHours} <span className="text-sm font-sans text-[#00F0FF]">hrs</span>
           </div>
-          <span className="text-[11px] text-[#D4AF37] mt-1 block">Since Day 1</span>
+          <span className="text-[11px] text-[#00F0FF] mt-1 block">Since Day 1</span>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#121212] border border-[#D4AF37]/30 shadow-sm">
+        <div className="p-4 rounded-2xl bg-[#121212] border border-[#00F0FF]/30 shadow-sm">
           <span className="text-[11px] uppercase tracking-wider text-[#A09D95] font-semibold">
             Questions Solved
           </span>
-          <div className="mt-2 font-serif text-3xl sm:text-4xl font-bold text-[#D4AF37]">
+          <div className="mt-2 font-serif text-3xl sm:text-4xl font-bold text-[#00F0FF]">
             {totalQuestions}
           </div>
           <span className="text-[11px] text-[#A09D95] mt-1 block">DSA Problems</span>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#121212] border border-[#D4AF37]/30 shadow-sm">
+        <div className="p-4 rounded-2xl bg-[#121212] border border-[#00F0FF]/30 shadow-sm">
           <span className="text-[11px] uppercase tracking-wider text-[#A09D95] font-semibold">
             Wasted Recorded
           </span>
@@ -58,14 +58,14 @@ export const ProgressPlaceholder: React.FC = () => {
           <span className="text-[11px] text-[#A09D95] mt-1 block">Accountability</span>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#121212] border border-[#D4AF37]/30 shadow-sm">
+        <div className="p-4 rounded-2xl bg-[#121212] border border-[#00F0FF]/30 shadow-sm">
           <span className="text-[11px] uppercase tracking-wider text-[#A09D95] font-semibold">
             Current Streak
           </span>
-          <div className="mt-2 font-serif text-3xl sm:text-4xl font-bold text-[#D4AF37]">
+          <div className="mt-2 font-serif text-3xl sm:text-4xl font-bold text-[#00F0FF]">
             {allLogs.filter(l => (l.studyMinutes || 0) > 0 || (l.questionsCount || 0) > 0).length > 0 ? 1 : 0} <span className="text-sm font-sans text-[#F9F6EE]">day</span>
           </div>
-          <span className="text-[11px] text-[#D4AF37] mt-1 block">Active Telemetry</span>
+          <span className="text-[11px] text-[#00F0FF] mt-1 block">Active Telemetry</span>
         </div>
       </div>
 

@@ -6,7 +6,10 @@ import {
   Check, 
   X, 
   Plus, 
-  Minus
+  Minus, 
+  Sparkles,
+  Flame,
+  ChevronRight
 } from 'lucide-react';
 import { db, getTodayDateString } from '../services/db';
 import { updateDSAQuestions, setCommunicationPracticed } from '../services/dailyLogService';
@@ -16,7 +19,9 @@ interface DailyDsaCommunicationWidgetProps {
   compact?: boolean;
 }
 
-export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetProps> = () => {
+export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetProps> = ({
+  compact = false,
+}) => {
   const today = getTodayDateString();
 
   const todayLog = useLiveQuery(() => db.dailyLogs.get(today), [today]);
@@ -47,7 +52,8 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
   }, [allLogs]);
 
   const [selectedDifficulty, setSelectedDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
-  const [commNote] = useState('');
+  const [commNote, setCommNote] = useState('');
+  const [showNoteInput, setShowNoteInput] = useState(false);
 
   const diffCounts = todayLog?.questionsDifficulty || { easy: 0, medium: 0, hard: 0 };
   const todayTotal = todayLog?.questionsCount || 0;
@@ -58,38 +64,37 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
   const handleAdjustDSA = async (delta: number) => {
     await updateDSAQuestions(delta, selectedDifficulty, 'leetcode', today);
     if (delta > 0) {
-      triggerGoldSparkle(0.12, 0.6);
+      triggerGoldSparkle(0.15, 0.6);
     }
   };
 
   const handleToggleCommunication = async (practiced: boolean) => {
+    // If clicking the already selected choice, toggle back to undefined
     const nextVal = commStatus === practiced ? undefined : practiced;
     await setCommunicationPracticed(nextVal, commNote || undefined, today);
     if (nextVal === true) {
-      triggerGoldSparkle(0.12, 0.7);
+      triggerGoldSparkle(0.15, 0.75);
     }
   };
 
   return (
-    <div className="rounded-2xl bg-[#080808] border border-white/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.04)] p-4 space-y-4 text-left font-sans">
+    <div className="rounded-2xl card-maroon-gold p-3.5 space-y-3.5 shadow-md text-left font-sans">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
-        <div className="flex items-center gap-2 text-xs font-semibold text-white">
-          <Code2 className="w-3.5 h-3.5 text-[#D8B76E]" />
-          <span className="tracking-wide">DSA & Communication Practice</span>
+      <div className="flex items-center justify-between pb-2 border-b border-[#1a1a1a]">
+        <div className="flex items-center gap-1.5 text-xs font-bold text-shiny-gold">
+          <Code2 className="w-3.5 h-3.5 text-[#7DF9FF]" />
+          <span className="uppercase tracking-wider">DSA & Communication</span>
         </div>
-        <span className="text-[10px] text-[#A3A3A3] font-medium px-2 py-0.5 rounded-md bg-[#121212] border border-white/[0.08]">
-          Daily Hub
-        </span>
+        <span className="text-[10px] text-shiny-gold font-semibold px-2 py-0.5 rounded-full bg-[#000000] border border-[#00F0FF]/30">Daily</span>
       </div>
 
       {/* 1. Daily DSA Problems Counter with Difficulty Choice */}
-      <div className="space-y-2.5">
+      <div className="space-y-2">
         <div className="flex items-center justify-between text-xs">
-          <span className="text-[#A3A3A3] font-medium flex items-center gap-1.5">
-            <span>Solved Today</span>
+          <span className="text-white font-medium flex items-center gap-1">
+            <span className="font-mono text-shiny-gold">&lt;/&gt;</span> DSA Problems Today
           </span>
-          <span className="text-xs text-[#D8B76E] font-semibold tabular-nums">
+          <span className="text-[11px] text-shiny-gold font-bold">
             Total: {todayTotal}
           </span>
         </div>
@@ -97,130 +102,123 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
         {/* Counter and Difficulty Selector */}
         <div className="flex items-center gap-2">
           {/* Minus & Plus Counter */}
-          <div className="flex items-center bg-[#000000] border border-white/10 rounded-xl p-0.5 shadow-inner">
+          <div className="flex items-center bg-[#000000] border border-[#00F0FF]/40 rounded-xl p-0.5">
             <button
               onClick={() => handleAdjustDSA(-1)}
               disabled={diffCounts[selectedDifficulty] <= 0}
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-[#737373] hover:text-white disabled:opacity-20 transition-colors cursor-pointer"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-[#B8B0AA] hover:text-white disabled:opacity-30 transition-colors"
               aria-label="Decrease question"
             >
               <Minus className="w-3.5 h-3.5" />
             </button>
-            <span className="w-8 text-center text-sm font-semibold text-white tabular-nums">
+            <span className="w-8 text-center text-sm font-bold text-shiny-gold font-mono">
               {diffCounts[selectedDifficulty]}
             </span>
             <button
               onClick={() => handleAdjustDSA(1)}
-              className="w-8 h-8 rounded-lg flex items-center justify-center btn-gold-luxury transition-all cursor-pointer shadow-sm"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-black bg-[#00F0FF] hover:bg-[#7DF9FF] transition-colors"
               aria-label="Increase question"
             >
-              <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+              <Plus className="w-3.5 h-3.5 stroke-[3]" />
             </button>
           </div>
 
           {/* Difficulty Buttons: Easy, Medium, Hard */}
-          <div className="flex-1 grid grid-cols-3 gap-1.5">
+          <div className="flex-1 grid grid-cols-3 gap-1">
             <button
-              type="button"
               onClick={() => setSelectedDifficulty('easy')}
-              className={`py-1.5 px-1.5 rounded-xl text-xs font-medium transition-all border text-center cursor-pointer ${
+              className={`py-1.5 px-1 rounded-xl text-[11px] font-semibold transition-all border text-center ${
                 selectedDifficulty === 'easy'
-                  ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/40 shadow-sm'
-                  : 'bg-[#000000] text-[#737373] border-white/[0.07] hover:text-[#D4D4D4] hover:border-white/20'
+                  ? 'bg-[#004D20] text-[#73FF9D] border-[#009940] shadow-sm font-bold'
+                  : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#00F0FF]/50'
               }`}
             >
               Easy
-              <span className="block text-[10px] opacity-80 tabular-nums">{diffCounts.easy || 0}</span>
+              <span className="block text-[9px] opacity-80">{diffCounts.easy || 0}</span>
             </button>
 
             <button
-              type="button"
               onClick={() => setSelectedDifficulty('medium')}
-              className={`py-1.5 px-1.5 rounded-xl text-xs font-medium transition-all border text-center cursor-pointer ${
+              className={`py-1.5 px-1 rounded-xl text-[11px] font-semibold transition-all border text-center ${
                 selectedDifficulty === 'medium'
-                  ? 'bg-[#D8B76E]/15 text-[#D8B76E] border-[#D8B76E]/40 shadow-sm'
-                  : 'bg-[#000000] text-[#737373] border-white/[0.07] hover:text-[#D4D4D4] hover:border-white/20'
+                  ? 'btn-shiny-gold text-black shadow-sm font-bold'
+                  : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#00F0FF]/50'
               }`}
             >
               Med
-              <span className="block text-[10px] opacity-80 tabular-nums">{diffCounts.medium || 0}</span>
+              <span className="block text-[9px] opacity-80">{diffCounts.medium || 0}</span>
             </button>
 
             <button
-              type="button"
               onClick={() => setSelectedDifficulty('hard')}
-              className={`py-1.5 px-1.5 rounded-xl text-xs font-medium transition-all border text-center cursor-pointer ${
+              className={`py-1.5 px-1 rounded-xl text-[11px] font-semibold transition-all border text-center ${
                 selectedDifficulty === 'hard'
-                  ? 'bg-rose-500/10 text-rose-300 border-rose-500/40 shadow-sm'
-                  : 'bg-[#000000] text-[#737373] border-white/[0.07] hover:text-[#D4D4D4] hover:border-white/20'
+                  ? 'bg-[#33040B] text-[#FFA8B5] border-red-500/60 shadow-sm font-bold'
+                  : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#00F0FF]/50'
               }`}
             >
               Hard
-              <span className="block text-[10px] opacity-80 tabular-nums">{diffCounts.hard || 0}</span>
+              <span className="block text-[9px] opacity-80">{diffCounts.hard || 0}</span>
             </button>
           </div>
         </div>
 
         {/* All-time cumulative mini-summary */}
-        <div className="text-[11px] text-[#737373] flex items-center justify-between pt-0.5 px-1 tabular-nums">
-          <span>All-time: <strong className="text-white font-medium">{cumulativeStats.totalQuestions}</strong> questions</span>
-          <span className="text-[#A3A3A3]">E:{cumulativeStats.easy} · M:{cumulativeStats.medium} · H:{cumulativeStats.hard}</span>
+        <div className="text-[10px] text-[#B8B0AA] flex items-center justify-between pt-0.5 px-0.5">
+          <span>All-time: <strong className="text-white">{cumulativeStats.totalQuestions}</strong></span>
+          <span className="text-shiny-gold font-semibold">E:{cumulativeStats.easy} M:{cumulativeStats.medium} H:{cumulativeStats.hard}</span>
         </div>
       </div>
 
       {/* 2. Communication & High-Level English Practice */}
-      <div className="pt-3 border-t border-white/[0.06] space-y-2.5">
-        <div className="flex items-center gap-2">
-          <MessageSquare className="w-3.5 h-3.5 text-[#D8B76E]" />
-          <p className="text-xs text-[#A3A3A3]">
-            Did you practice, speak or listen to high-level English today?
+      <div className="pt-2 border-t border-[#1a1a1a] space-y-2">
+        <div className="flex items-start gap-1.5">
+          <MessageSquare className="w-3.5 h-3.5 text-[#7DF9FF] shrink-0 mt-0.5" />
+          <p className="text-[11px] text-white leading-snug">
+            Today did you minimum <span className="text-shiny-gold font-bold">speak, learn or hear high-level English</span>?
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-1.5">
           <button
             type="button"
             onClick={() => handleToggleCommunication(true)}
-            className={`py-2 px-3 rounded-xl text-xs font-medium flex items-center justify-center gap-2 transition-all border cursor-pointer ${
+            className={`py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
               isCommDone
-                ? 'btn-gold-luxury shadow-sm'
-                : 'bg-[#000000] text-[#737373] border-white/[0.08] hover:text-white hover:border-white/20'
+                ? 'btn-shiny-gold text-black font-bold shadow-md shadow-[#00F0FF]/35 border-[#00F0FF]'
+                : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#00F0FF] hover:text-shiny-gold'
             }`}
+            title={isCommDone ? 'Click to uncheck' : 'Mark English practiced today'}
           >
-            <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-            <span>Spoke English</span>
+            <Check className="w-3.5 h-3.5 stroke-[3]" />
+            <span>Yes, Done</span>
           </button>
 
           <button
             type="button"
             onClick={() => handleToggleCommunication(false)}
-            className={`py-2 px-3 rounded-xl text-xs font-medium flex items-center justify-center gap-2 transition-all border cursor-pointer ${
+            className={`py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
               isCommNotDone
-                ? 'bg-red-950/40 border-red-500/40 text-red-300 font-semibold shadow-sm'
-                : 'bg-[#000000] text-[#737373] border-white/[0.08] hover:text-red-300 hover:border-red-500/20'
+                ? 'bg-red-950/70 border-red-500/60 text-red-200 font-bold shadow-md shadow-red-950/50'
+                : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-red-500/40 hover:text-red-300'
             }`}
+            title={isCommNotDone ? 'Click to uncheck' : "Mark didn't complete today"}
           >
-            <X className="w-3.5 h-3.5 stroke-[2.2]" />
-            <span>Did Not Practice</span>
+            <X className="w-3.5 h-3.5 stroke-[2.5]" />
+            <span>Didn't Complete</span>
           </button>
         </div>
 
         {/* Status indicator */}
-        <div className="text-[11px] flex items-center justify-between px-1 text-[#737373] min-h-[16px]">
+        <div className="text-[10px] font-medium flex items-center justify-between px-1 min-h-[16px]">
           {isCommDone ? (
-            <span className="text-[#D8B76E] flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D8B76E]" />
-              English practiced today
-            </span>
+            <span className="text-shiny-gold flex items-center gap-1">✨ English practiced today</span>
           ) : isCommNotDone ? (
-            <span className="text-red-400 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
-              Not completed today
-            </span>
+            <span className="text-red-400/90 flex items-center gap-1">✕ Logged: Didn't complete today</span>
           ) : (
-            <span>Tap to record today's practice</span>
+            <span className="text-[#B8B0AA]/60 font-sans">Tap to record today's practice</span>
           )}
-          <span className="tabular-nums">Total: {cumulativeStats.commDays}d</span>
+          <span className="text-shiny-gold/80">All-time: {cumulativeStats.commDays}d</span>
         </div>
       </div>
     </div>
