@@ -1,8 +1,8 @@
-// LearnVault - Black & Gold Theme (v1.0.2)
+// LearnVault - Obsidian, Espresso & Champagne Luxury Theme
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { Cloud } from 'lucide-react';
+import { Cloud, Sparkles } from 'lucide-react';
 import { db } from './services/db';
 import { ScreenId, DesktopSidebar, MobileTabBar } from './components/Navigation';
 import { TodayScreen } from './components/TodayScreen';
@@ -44,7 +44,19 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#030303] text-white flex flex-col md:flex-row antialiased selection:bg-[#D4AF37] selection:text-black">
+    <div className="min-h-screen bg-[#080707] text-[#F5F2EB] flex flex-col md:flex-row antialiased selection:bg-[#D4AF37] selection:text-black relative">
+      {/* Global Ultra-Subtle Anodized Metal Micro-Texture Noise Overlay */}
+      <svg
+        className="pointer-events-none fixed inset-0 z-50 w-full h-full opacity-[0.018]"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <filter id="noiseFilter">
+          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+      </svg>
+
       {/* Laptop / Desktop Left Sidebar */}
       <DesktopSidebar
         activeScreen={activeScreen}
@@ -60,42 +72,42 @@ export const App: React.FC = () => {
       {/* Main Content Area */}
       <div className="flex-1 min-w-0 flex flex-col min-h-screen">
         {/* Mobile Top Header */}
-        <header className="md:hidden flex items-center justify-between px-4 py-2.5 bg-[#030303] border-b border-[#4A101D] sticky top-0 z-30">
+        <header className="md:hidden flex items-center justify-between px-4 py-2.5 bg-[#060505]/95 backdrop-blur-md border-b border-[rgba(255,240,220,0.06)] sticky top-0 z-30">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-black border border-[#D4AF37]/50 flex items-center justify-center p-0.5 shadow-sm overflow-hidden shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-[#110E0E] border border-[rgba(255,240,220,0.1)] flex items-center justify-center p-0.5 shadow-sm overflow-hidden shrink-0">
               <img src="/learnvault-logo.png" alt="LearnVault" className="w-full h-full object-contain" />
             </div>
             <div>
               <span className="font-serif text-lg font-bold tracking-wide text-white leading-none block">
-                Learn<span className="text-shiny-gold">Vault</span>
+                Learn<span className="text-champagne">Vault</span>
               </span>
-              <span className="text-[8px] font-sans text-shiny-gold uppercase tracking-wider block font-semibold">
-                Your Knowledge • Your Progress
+              <span className="text-[8px] font-mono text-[#9E958E] uppercase tracking-wider block font-semibold">
+                Your Knowledge • Your Future
               </span>
             </div>
           </div>
           <div className="flex items-center gap-1.5 text-xs">
             <button
               onClick={() => setIsSyncModalOpen(true)}
-              className="p-1 rounded-full bg-[#24060D] border border-[#4A101D] text-shiny-gold flex items-center justify-center cursor-pointer relative"
+              className="p-1.5 rounded-lg bg-[#110E0E] border border-[rgba(255,240,220,0.08)] text-[#D4AF37] hover:text-[#F6E6C2] flex items-center justify-center cursor-pointer relative"
               title="Cloud Sync"
             >
               <Cloud className="w-3.5 h-3.5" />
               {syncState.syncId && (
-                <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
               )}
             </button>
-            <span className="px-2 py-0.5 rounded-full bg-[#24060D] border border-[#4A101D] text-shiny-gold font-bold flex items-center gap-1">
+            <span className="px-2 py-0.5 rounded-lg bg-[#110E0E] border border-[rgba(255,240,220,0.08)] text-[#F6E6C2] font-mono font-bold flex items-center gap-1">
               🔥 {streakCount}d
             </span>
             <button
               onClick={() => setActiveScreen('wasted')}
-              className="px-2 py-0.5 rounded-full bg-red-950/70 border border-red-500/40 text-red-300 font-bold flex items-center gap-1 cursor-pointer"
+              className="px-2 py-0.5 rounded-lg bg-[#180A0C] border border-red-500/25 text-[#fca5a5] font-mono font-bold flex items-center gap-1 cursor-pointer"
               title="Wasted Days Count"
             >
               ⏳ {wastedDaysCount}d
             </button>
-            <span className="px-2 py-0.5 rounded-full bg-black border border-[#D4AF37]/40 text-white font-bold">
+            <span className="px-2 py-0.5 rounded-lg bg-[#110E0E] border border-[rgba(255,240,220,0.08)] text-[#F5F2EB] font-mono font-bold">
               {totalStudyHours}h
             </span>
           </div>

@@ -13,22 +13,26 @@
 
   select {
     color-scheme: dark;
-    background-color: #0E0205;
-    color: #F9F6EE;
+    background-color: #0E0C0C;
+    color: #F5F2EB;
+    border: 1px solid rgba(255, 240, 220, 0.08);
   }
 
   select option {
-    background-color: #160406;
-    color: #FFFFFF;
+    background-color: #110E0E;
+    color: #F5F2EB;
     padding: 8px 12px;
   }
 
   body {
     margin: 0;
     padding: 0;
-    background-color: #030303;
-    color: #FFFFFF;
+    background-color: #080707;
+    background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(180, 130, 70, 0.12), transparent);
+    background-attachment: fixed;
+    color: #F5F2EB;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -36,90 +40,206 @@
 
   h1, h2, h3, .font-serif {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
+  }
+
+  .font-mono, .tabular-nums {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
   }
 }
 
-/* Shiny Gold Metallic Accents & Buttons (10% Gold Balance) */
-.btn-shiny-gold {
-  background: linear-gradient(135deg, #FFF0A8 0%, #FFDF73 25%, #D4AF37 60%, #997A15 100%);
-  color: #000000;
-  font-weight: 700;
-  box-shadow: 0 3px 14px rgba(212, 175, 55, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 240, 168, 0.6);
+/* ==========================================================================
+   OBSIDIAN, ESPRESSO & CHAMPAGNE DESIGN TOKENS
+   ========================================================================== */
+
+/* 1px Specular Border with top-down studio lighting */
+.border-specular {
+  border: 1px solid rgba(255, 240, 220, 0.07);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Primary Obsidian Card Surface */
+.card-obsidian {
+  background-color: #110E0E;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 240, 220, 0.07);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 4px 20px rgba(0, 0, 0, 0.45);
+}
+
+/* Elevated/Hover Card Surface */
+.card-obsidian-hover {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.btn-shiny-gold:hover {
-  filter: brightness(1.15);
-  box-shadow: 0 6px 22px rgba(212, 175, 55, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+.card-obsidian-hover:hover {
+  background-color: #181313;
+  border-color: rgba(212, 175, 55, 0.25);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 8px 30px rgba(0, 0, 0, 0.6);
   transform: translateY(-1px);
 }
 
-.text-shiny-gold {
-  background: linear-gradient(135deg, #FFF0A8 0%, #FFDF73 35%, #D4AF37 70%, #C4971E 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.gold-glow {
-  box-shadow: 0 0 18px rgba(212, 175, 55, 0.32);
-}
-
-.border-gold-shine {
-  border-color: rgba(212, 175, 55, 0.45);
-}
-
-.border-gold-shine:hover {
-  border-color: #D4AF37;
-  box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
-}
-
-/* Royal Maroon Cards */
+/* Backward-compatible classes upgraded to Obsidian Luxury */
 .card-maroon,
 .card-emerald,
 .card-burgundy {
-  background-color: #24060D;
-  border: 1px solid #4A101D;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.95);
+  background-color: #110E0E;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0%, rgba(255, 255, 255, 0) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 240, 220, 0.07);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 4px 24px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-maroon:hover,
 .card-emerald:hover,
 .card-burgundy:hover {
-  border-color: #631728;
+  border-color: rgba(255, 240, 220, 0.12);
 }
 
-/* Royal Maroon with 10% Gold Trim */
 .card-maroon-gold,
 .card-emerald-gold,
 .card-burgundy-gold {
-  background-color: #24060D;
-  border: 1px solid rgba(212, 175, 55, 0.38);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.95), 0 0 10px rgba(212, 175, 55, 0.1);
+  background-color: #110E0E;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 240, 220, 0.08);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 6px 28px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-maroon-gold:hover,
 .card-emerald-gold:hover,
 .card-burgundy-gold:hover {
-  border-color: #D4AF37;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.98), 0 0 18px rgba(212, 175, 55, 0.25);
+  background-color: #151111;
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 8px 32px rgba(0, 0, 0, 0.7);
 }
 
-/* Minimal Luxury Scrollbar with #030303 Track and Rich Maroon Thumb */
+/* Primary Accent: Liquid Champagne Gold Hero Button */
+.btn-champagne,
+.btn-shiny-gold {
+  background: linear-gradient(135deg, #F6E6C2 0%, #D4AF37 50%, #AA8222 100%);
+  color: #090808;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.45), 0 3px 12px rgba(212, 175, 55, 0.25);
+  border-radius: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-champagne:hover,
+.btn-shiny-gold:hover {
+  filter: brightness(1.08);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.6), 0 6px 18px rgba(212, 175, 55, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-champagne:active,
+.btn-shiny-gold:active {
+  transform: translateY(0);
+  filter: brightness(0.96);
+}
+
+/* Dark Anodized Glass Pill Button */
+.btn-anodized {
+  background-color: #110E0E;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+  border: 1px solid rgba(255, 240, 220, 0.08);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.07);
+  color: #F5F2EB;
+  border-radius: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-anodized:hover {
+  background-color: #181313;
+  border-color: rgba(212, 175, 55, 0.4);
+  color: #F6E6C2;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 4px 14px rgba(0, 0, 0, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Metallic Champagne Text Gradient */
+.text-champagne,
+.text-shiny-gold {
+  background: linear-gradient(135deg, #FFF1D0 0%, #F6E6C2 40%, #D4AF37 80%, #AA8222 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Copper / Warm Rose Accent */
+.text-copper {
+  color: #E5A970;
+}
+
+.border-copper {
+  border-color: rgba(229, 169, 112, 0.3);
+}
+
+.border-gold-shine {
+  border-color: rgba(255, 240, 220, 0.08);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+}
+
+.border-gold-shine:hover {
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow: inset 0 0 12px rgba(212, 175, 55, 0.08), 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Recessed Command Bar Input */
+.input-command-bar {
+  background-color: #0A0808;
+  border: 1px solid rgba(255, 240, 220, 0.08);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  color: #F5F2EB;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.input-command-bar:focus {
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow: inset 0 0 12px rgba(212, 175, 55, 0.08), inset 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Active navigation dark glass pill with vertical left indicator */
+.nav-pill-active {
+  background-color: rgba(212, 175, 55, 0.09);
+  color: #F6E6C2;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.09);
+  position: relative;
+}
+
+.nav-pill-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  bottom: 15%;
+  width: 2px;
+  background: linear-gradient(180deg, #F6E6C2 0%, #D4AF37 100%);
+  border-radius: 9999px;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+}
+
+/* Minimal Luxury Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #030303;
+  background: #080707;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4A101D;
+  background: #221C1C;
   border-radius: 9999px;
-  border: 1px solid #030303;
+  border: 1px solid #080707;
 }
 
 ::-webkit-scrollbar-thumb:hover {

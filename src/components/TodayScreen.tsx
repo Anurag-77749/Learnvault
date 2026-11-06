@@ -22,9 +22,9 @@ import {
   toggleTaskComplete, 
   deleteTask, 
   reorderTasks, 
-  carryOverUnfinishedTasks,
-  updateTaskNote,
-  clearCompletedTasks
+  carryOverUnfinishedTasks, 
+  updateTaskNote, 
+  clearCompletedTasks 
 } from '../services/taskService';
 import { formatMinutes, updateDailyNote } from '../services/dailyLogService';
 import { triggerGoldSparkle } from '../utils/confetti';
@@ -195,85 +195,93 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
   const completedCount = tasks.filter((t) => t.completed).length;
 
   return (
-    <div className="space-y-7 pb-24 md:pb-12 max-w-4xl mx-auto">
+    <div className="space-y-6 pb-24 md:pb-12 max-w-4xl mx-auto">
       {/* Top Welcome Header */}
       <motion.div 
-        initial={{ opacity: 0, y: -8 }}
+        initial={{ opacity: 0, y: -6 }}
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pt-2"
       >
         <div>
-          <span className="text-xs uppercase tracking-widest text-[#D4AF37] font-semibold flex items-center gap-1.5 mb-1 font-sans">
-            <Sparkles className="w-3.5 h-3.5" /> Day {currentDayNumber} of 1,460
-          </span>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white tracking-tight">
+          {/* DAY X OF 1,460 Badge with Pulsing Gold Dot */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#110E0E] border border-[rgba(255,240,220,0.08)] text-[11px] font-mono text-[#E5A970] shadow-sm mb-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E5A970] animate-pulse" />
+            <span>DAY {currentDayNumber} OF 1,460</span>
+          </div>
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#F5F2EB] tracking-tight">
             Today's Mission
           </h1>
-          <p className="text-xs sm:text-sm text-[#B8B0AA] font-sans mt-0.5">
+          <p className="text-xs sm:text-sm text-[#9E958E] font-sans mt-0.5">
             {formattedToday}
           </p>
         </div>
 
-        <div className="text-xs text-[#D4AF37] card-maroon px-4 py-2 rounded-xl flex items-center gap-2 self-start sm:self-auto font-sans shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-[#D4AF37]" />
+        {/* Right-Side Quote Capsule */}
+        <div className="text-xs text-[#9E958E] bg-[#110E0E]/90 backdrop-blur-md border border-[rgba(255,240,220,0.08)] px-3.5 py-1.5 rounded-full flex items-center gap-2 self-start sm:self-auto font-sans shadow-sm">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#E5A970]" />
           <span>LearnVault: Your Knowledge. Your Progress. Your Future.</span>
         </div>
       </motion.div>
 
       {/* 1. TO-DO LIST (AT THE VERY TOP) */}
       <motion.section 
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="p-3.5 sm:p-6 rounded-3xl card-maroon shadow-xl relative overflow-hidden"
+        className="p-4 sm:p-5 rounded-2xl card-obsidian shadow-xl relative overflow-hidden space-y-4"
       >
-        <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-          <div className="flex flex-wrap items-center gap-2">
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-white">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <h2 className="font-serif text-xl sm:text-2xl font-bold text-[#F5F2EB]">
               To-Do List
             </h2>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-black text-[#D4AF37] font-semibold border border-[#D4AF37]/35 whitespace-nowrap">
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#070606] text-[#E5A970] font-mono font-semibold border border-[rgba(255,240,220,0.08)] whitespace-nowrap">
               {completedCount}/{tasks.length} Done
             </span>
             {completedCount > 0 && (
               <button
                 type="button"
                 onClick={() => clearCompletedTasks()}
-                className="text-[10px] px-2.5 py-0.5 rounded-full bg-red-950/40 border border-red-500/30 text-red-300 hover:bg-red-900/60 transition-colors cursor-pointer whitespace-nowrap"
+                className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#200A0E] border border-red-500/30 text-[#fca5a5] hover:bg-red-950/70 transition-colors cursor-pointer whitespace-nowrap"
                 title="Clear completed tasks"
               >
                 Clear Done
               </button>
             )}
           </div>
-          <span className="text-xs text-[#B8B0AA] hidden sm:inline">
+          <span className="text-xs text-[#9E958E] hidden sm:inline">
             Unfinished tasks automatically carry over
           </span>
         </div>
 
-        {/* Input Form */}
-        <form onSubmit={handleAddTask} className="mb-4 space-y-2">
+        {/* Raycast/Linear-Style Command Bar Input Form */}
+        <form onSubmit={handleAddTask} className="space-y-2">
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <input
-              ref={taskInputRef}
-              type="text"
-              placeholder="Add a new task in one tap..."
-              value={newTaskTitle}
-              onChange={(e) => setNewTaskTitle(e.target.value)}
-              className="flex-1 min-w-0 min-h-[44px] sm:min-h-[46px] px-3 sm:px-4 rounded-xl bg-[#000000] border border-[#360A0F] focus:border-[#D4AF37] text-white placeholder-[#B8B0AA]/50 text-xs sm:text-sm focus:outline-none transition-colors"
-            />
+            <div className="flex-1 min-w-0 relative flex items-center">
+              <input
+                ref={taskInputRef}
+                type="text"
+                placeholder="Add a new task in one tap..."
+                value={newTaskTitle}
+                onChange={(e) => setNewTaskTitle(e.target.value)}
+                className="w-full min-h-[42px] sm:min-h-[44px] px-3.5 sm:px-4 pr-14 rounded-xl input-command-bar text-xs sm:text-sm placeholder-[#9E958E]/50 focus:outline-none"
+              />
+              <kbd className="hidden sm:inline-flex items-center absolute right-3 text-[10px] font-mono text-[#635B55] bg-[#141010] border border-[rgba(255,240,220,0.06)] px-1.5 py-0.5 rounded pointer-events-none">
+                ↵
+              </kbd>
+            </div>
 
             {/* Note Toggle Button */}
             <button
               type="button"
               onClick={() => setShowNoteInput(!showNoteInput)}
               title="Add short note (optional)"
-              className={`min-h-[44px] sm:min-h-[46px] px-2.5 sm:px-3 rounded-xl border flex items-center justify-center gap-1.5 transition-colors text-xs font-semibold shrink-0 cursor-pointer ${
+              className={`min-h-[42px] sm:min-h-[44px] px-2.5 sm:px-3 rounded-xl border flex items-center justify-center gap-1.5 transition-all text-xs font-medium shrink-0 cursor-pointer ${
                 showNoteInput || newTaskNote
-                  ? 'bg-[#160406] border-[#D4AF37] text-shiny-gold shadow-sm'
-                  : 'bg-[#000000] border-[#360A0F] text-[#B8B0AA] hover:text-white'
+                  ? 'bg-[#181313] border-[rgba(212,175,55,0.45)] text-[#F6E6C2] shadow-sm'
+                  : 'bg-[#0B0909] border-[rgba(255,240,220,0.07)] text-[#9E958E] hover:text-[#F5F2EB]'
               }`}
             >
-              <FileText className="w-4 h-4 text-[#D4AF37]" />
+              <FileText className="w-3.5 h-3.5 text-[#E5A970]" />
               <span className="hidden md:inline">{newTaskNote ? 'Note Added' : '+ Note'}</span>
             </button>
 
@@ -282,22 +290,22 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
               type="button"
               onClick={() => setShowTopicLink(!showTopicLink)}
               title="Link to topic/curriculum"
-              className={`min-h-[44px] w-[40px] sm:min-h-[46px] sm:w-[46px] rounded-xl border flex items-center justify-center transition-colors shrink-0 cursor-pointer ${
+              className={`min-h-[42px] w-[38px] sm:min-h-[44px] sm:w-[42px] rounded-xl border flex items-center justify-center transition-all shrink-0 cursor-pointer ${
                 showTopicLink || selectedSubtopic
-                  ? 'bg-[#160406] border-[#D4AF37] text-[#D4AF37]'
-                  : 'bg-[#000000] border-[#360A0F] text-[#B8B0AA] hover:text-white'
+                  ? 'bg-[#181313] border-[rgba(212,175,55,0.45)] text-[#E5A970]'
+                  : 'bg-[#0B0909] border-[rgba(255,240,220,0.07)] text-[#9E958E] hover:text-[#F5F2EB]'
               }`}
             >
-              <Link2 className="w-4 h-4" />
+              <Link2 className="w-3.5 h-3.5" />
             </button>
 
-            {/* Add Button */}
+            {/* Chamfered Champagne Gold Add Button */}
             <button
               type="submit"
-              className="min-h-[44px] sm:min-h-[46px] px-3.5 sm:px-5 rounded-xl btn-shiny-gold text-xs font-bold flex items-center justify-center gap-1.5 shadow-md shadow-[#D4AF37]/20 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer shrink-0"
+              className="min-h-[42px] sm:min-h-[44px] px-3.5 sm:px-4 rounded-xl btn-champagne text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
               title="Add task"
             >
-              <Plus className="w-4 h-4 stroke-[3]" />
+              <Plus className="w-3.5 h-3.5 stroke-[3]" />
               <span className="hidden sm:inline">Add</span>
             </button>
           </div>
@@ -312,22 +320,22 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                 className="overflow-hidden"
               >
                 <div className="pt-2 flex items-center gap-2">
-                  <span className="text-xs text-[#D4AF37] font-semibold flex items-center gap-1 shrink-0">
+                  <span className="text-xs text-[#E5A970] font-medium flex items-center gap-1 shrink-0">
                     <FileText className="w-3.5 h-3.5" /> Note:
                   </span>
                   <input
                     type="text"
-                    placeholder="Short note (e.g. solve #121 on Striver sheet, revise edge cases, 20+ questions)..."
+                    placeholder="Short note (e.g. solve #121 on Striver sheet, revise edge cases)..."
                     value={newTaskNote}
                     onChange={(e) => setNewTaskNote(e.target.value)}
-                    className="flex-1 min-w-0 min-h-[38px] px-3.5 rounded-lg bg-black border border-[#D4AF37]/35 text-xs text-white placeholder-[#B8B0AA]/40 focus:outline-none focus:border-[#D4AF37]"
+                    className="flex-1 min-w-0 min-h-[36px] px-3 rounded-lg input-command-bar text-xs text-[#F5F2EB] placeholder-[#9E958E]/40 focus:outline-none"
                     autoFocus
                   />
                   {newTaskNote && (
                     <button
                       type="button"
                       onClick={() => setNewTaskNote('')}
-                      className="text-xs text-[#B8B0AA] hover:text-[#D4AF37] px-2 py-1 shrink-0"
+                      className="text-xs text-[#9E958E] hover:text-[#E5A970] px-2 py-1 shrink-0"
                     >
                       Clear
                     </button>
@@ -347,13 +355,13 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                 className="overflow-hidden"
               >
                 <div className="pt-2 flex items-center gap-2">
-                  <span className="text-xs text-[#A09D95] shrink-0">Link topic:</span>
+                  <span className="text-xs text-[#9E958E] shrink-0">Link topic:</span>
                   <input
                     type="text"
                     placeholder="e.g. Python Variables, DSA Binary Search, FDE Glossary"
                     value={selectedSubtopic}
                     onChange={(e) => setSelectedSubtopic(e.target.value)}
-                    className="flex-1 min-w-0 min-h-[38px] px-3 rounded-lg bg-black border border-[#D4AF37]/30 text-xs text-[#D4AF37] focus:outline-none focus:border-[#D4AF37]"
+                    className="flex-1 min-w-0 min-h-[36px] px-3 rounded-lg input-command-bar text-xs text-[#F6E6C2] focus:outline-none"
                   />
                 </div>
               </motion.div>
@@ -362,90 +370,90 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
         </form>
 
         {/* Task Items List */}
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           {tasks.length === 0 ? (
-            <div className="text-center py-8 text-[#A09D95] text-sm font-sans border border-dashed border-[#D4AF37]/20 rounded-2xl bg-black/40">
+            <div className="text-center py-7 text-[#9E958E] text-xs font-sans border border-dashed border-[rgba(255,240,220,0.08)] rounded-xl bg-[#090808]">
               <p>No tasks yet today. Add your first goal above!</p>
             </div>
           ) : (
             tasks.map((task, idx) => (
               <div
                 key={task.id}
-                className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-2xl border transition-all ${
+                className={`group flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-xl border transition-all ${
                   task.completed
-                    ? 'bg-black/40 border-[#D4AF37]/15 text-[#A09D95]'
-                    : 'bg-black border-[#D4AF37]/30 text-[#F9F6EE] hover:border-[#D4AF37]/60'
+                    ? 'bg-[#0A0808] border-[rgba(255,240,220,0.04)] text-[#635B55]'
+                    : 'bg-[#0C0A0A] border-[rgba(255,240,220,0.06)] hover:border-[rgba(255,240,220,0.12)] hover:bg-[#141010] text-[#F5F2EB]'
                 }`}
               >
-                {/* Left/Top: Checkbox & Title + Short Note */}
+                {/* Left/Top: Custom Rounded-Square Checkbox & Title */}
                 <div className="flex items-start sm:items-center gap-2.5 sm:gap-3 flex-1 min-w-0">
                   <button
                     onClick={(e) => handleToggleTask(task, e)}
-                    className={`min-h-[38px] min-w-[38px] sm:min-h-[42px] sm:min-w-[42px] rounded-xl flex items-center justify-center transition-all shrink-0 mt-0.5 sm:mt-0 cursor-pointer ${
+                    className={`w-6 h-6 sm:w-7 sm:h-7 rounded-[7px] flex items-center justify-center transition-all shrink-0 mt-0.5 sm:mt-0 cursor-pointer ${
                       task.completed
-                        ? 'bg-[#D4AF37] text-black shadow-sm'
-                        : 'border-2 border-[#D4AF37]/40 hover:border-[#D4AF37] bg-transparent text-transparent'
+                        ? 'bg-gradient-to-br from-[#F6E6C2] to-[#D4AF37] text-[#090808] shadow-sm'
+                        : 'border border-[rgba(255,240,220,0.18)] hover:border-[#D4AF37]/60 bg-[#070606] text-transparent'
                     }`}
                     aria-label={task.completed ? 'Mark incomplete' : 'Mark complete'}
                   >
-                    <Check className={`w-4 h-4 stroke-[3] ${task.completed ? 'opacity-100' : 'opacity-0'}`} />
+                    <Check className={`w-3.5 h-3.5 stroke-[3] ${task.completed ? 'opacity-100' : 'opacity-0'}`} />
                   </button>
 
-                  <div className="flex-1 min-w-0 space-y-1">
-                    <p className={`text-sm font-medium break-words ${task.completed ? 'line-through text-[#A09D95]' : 'text-[#F9F6EE]'}`}>
+                  <div className="flex-1 min-w-0 space-y-0.5">
+                    <p className={`text-xs sm:text-[13px] font-medium break-words leading-snug ${task.completed ? 'line-through text-[#635B55]' : 'text-[#F5F2EB]'}`}>
                       {task.title}
                     </p>
                     {task.subtopicTitle && (
-                      <span className="inline-flex items-center gap-1 text-[11px] text-[#D4AF37] font-semibold break-all">
+                      <span className="inline-flex items-center gap-1 text-[10px] text-[#E5A970] font-mono break-all">
                         <BookMarked className="w-3 h-3 shrink-0" />
                         {task.subtopicTitle}
                       </span>
                     )}
 
-                    {/* Short Note: DISPLAY CLEARLY IF PRESENT */}
+                    {/* Short Note Display */}
                     {task.note && task.note.trim() && (
-                      <div className="flex items-start gap-2 text-xs text-[#E5E0DC] bg-[#160406] px-3 py-1.5 rounded-xl border border-[#360A0F] max-w-full">
-                        <FileText className="w-3.5 h-3.5 text-shiny-gold shrink-0 mt-0.5" />
+                      <div className="flex items-start gap-1.5 text-[11px] text-[#9E958E] bg-[#080707] px-2.5 py-1 rounded-lg border border-[rgba(255,240,220,0.05)] max-w-full">
+                        <FileText className="w-3 h-3 text-[#E5A970] shrink-0 mt-0.5" />
                         <span className="leading-relaxed font-sans break-words">{task.note}</span>
                       </div>
                     )}
                   </div>
                 </div>
 
-                {/* Right/Bottom Action Bar: Note Edit, Reorder & Delete */}
-                <div className="flex items-center justify-end gap-1.5 shrink-0 pt-2 sm:pt-0 border-t border-white/5 sm:border-t-0 pl-[48px] sm:pl-0">
+                {/* Right/Bottom Action Bar */}
+                <div className="flex items-center justify-end gap-1 shrink-0 pt-1.5 sm:pt-0 border-t border-[rgba(255,240,220,0.04)] sm:border-t-0 pl-[34px] sm:pl-0 sm:opacity-75 sm:group-hover:opacity-100 transition-opacity">
                   <button
                     onClick={() => {
                       setEditingTaskForNote(task);
                       setEditNoteText(task.note || '');
                     }}
-                    className={`min-h-[34px] px-2 rounded-lg border flex items-center gap-1 transition-colors text-xs cursor-pointer ${
+                    className={`min-h-[30px] px-2 rounded-lg border flex items-center gap-1 transition-colors text-[11px] cursor-pointer ${
                       task.note
-                        ? 'bg-[#160406] border-[#D4AF37]/40 text-shiny-gold hover:text-[#FFDF73]'
-                        : 'border-transparent text-[#B8B0AA]/60 hover:text-white hover:bg-white/5'
+                        ? 'bg-[#181313] border-[rgba(212,175,55,0.3)] text-[#F6E6C2]'
+                        : 'border-transparent text-[#9E958E] hover:text-[#F5F2EB] hover:bg-white/5'
                     }`}
                     title={task.note ? 'Edit note' : 'Add note'}
                   >
-                    <FileText className="w-3.5 h-3.5" />
-                    <span className="text-[11px] sm:hidden">{task.note ? 'Edit Note' : '+ Note'}</span>
+                    <FileText className="w-3 h-3 text-[#E5A970]" />
+                    <span className="sm:hidden">{task.note ? 'Edit' : '+ Note'}</span>
                   </button>
 
-                  <div className="flex items-center bg-[#160406]/60 sm:bg-transparent rounded-lg border border-[#360A0F]/60 sm:border-0 p-0.5 sm:p-0">
+                  <div className="flex items-center bg-[#070606] rounded-md border border-[rgba(255,240,220,0.06)] p-0.5">
                     <button
                       onClick={() => handleMoveTask(idx, 'up')}
                       disabled={idx === 0}
-                      className="w-8 h-8 rounded-md flex items-center justify-center text-[#A09D95] hover:text-[#D4AF37] hover:bg-white/5 disabled:opacity-20 transition-colors cursor-pointer"
+                      className="w-6 h-6 rounded flex items-center justify-center text-[#9E958E] hover:text-[#F5F2EB] hover:bg-white/5 disabled:opacity-20 transition-colors cursor-pointer"
                       title="Move up"
                     >
-                      <ChevronUp className="w-4 h-4" />
+                      <ChevronUp className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => handleMoveTask(idx, 'down')}
                       disabled={idx === tasks.length - 1}
-                      className="w-8 h-8 rounded-md flex items-center justify-center text-[#A09D95] hover:text-[#D4AF37] hover:bg-white/5 disabled:opacity-20 transition-colors cursor-pointer"
+                      className="w-6 h-6 rounded flex items-center justify-center text-[#9E958E] hover:text-[#F5F2EB] hover:bg-white/5 disabled:opacity-20 transition-colors cursor-pointer"
                       title="Move down"
                     >
-                      <ChevronDown className="w-4 h-4" />
+                      <ChevronDown className="w-3.5 h-3.5" />
                     </button>
                   </div>
 
@@ -454,11 +462,11 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                       e.stopPropagation();
                       await deleteTask(task);
                     }}
-                    className="min-h-[34px] px-2.5 rounded-lg bg-red-950/20 sm:bg-transparent border border-red-500/20 sm:border-transparent flex items-center justify-center text-red-300 hover:text-red-200 hover:bg-red-950/60 transition-colors cursor-pointer"
+                    className="min-h-[30px] px-2 rounded-lg text-[#9E958E] hover:text-[#fca5a5] hover:bg-red-950/40 transition-colors cursor-pointer flex items-center justify-center"
                     title="Delete task"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
-                    <span className="text-[11px] sm:hidden font-medium ml-1">Delete</span>
+                    <span className="text-[10px] sm:hidden ml-1">Delete</span>
                   </button>
                 </div>
               </div>
@@ -474,31 +482,31 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="w-full max-w-md bg-[#160406] border border-[#D4AF37]/40 rounded-3xl p-6 shadow-2xl space-y-4"
+                className="w-full max-w-md bg-[#110E0E] border border-[rgba(255,240,220,0.1)] rounded-2xl p-5 shadow-2xl space-y-4"
               >
-                <div className="flex items-center justify-between pb-3 border-b border-[#360A0F]">
+                <div className="flex items-center justify-between pb-3 border-b border-[rgba(255,240,220,0.06)]">
                   <div className="flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-shiny-gold" />
-                    <h3 className="font-serif text-lg font-bold text-white">Task Note</h3>
+                    <FileText className="w-4 h-4 text-[#E5A970]" />
+                    <h3 className="font-serif text-lg font-bold text-[#F5F2EB]">Task Note</h3>
                   </div>
                   <button
                     onClick={() => setEditingTaskForNote(null)}
-                    className="text-[#B8B0AA] hover:text-white"
+                    className="text-[#9E958E] hover:text-[#F5F2EB] cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
                 </div>
 
                 <div className="space-y-2">
-                  <p className="text-xs text-[#B8B0AA] font-sans">
-                    Task: <span className="text-white font-medium">{editingTaskForNote.title}</span>
+                  <p className="text-xs text-[#9E958E] font-sans">
+                    Task: <span className="text-[#F5F2EB] font-medium">{editingTaskForNote.title}</span>
                   </p>
                   <textarea
                     value={editNoteText}
                     onChange={(e) => setEditNoteText(e.target.value)}
                     placeholder="Enter a short note (or leave empty to remove note)..."
                     rows={3}
-                    className="w-full p-3 rounded-xl bg-black border border-[#360A0F] focus:border-[#D4AF37] text-xs text-white placeholder-[#B8B0AA]/40 focus:outline-none"
+                    className="w-full p-3 rounded-xl input-command-bar text-xs text-[#F5F2EB] placeholder-[#9E958E]/40 focus:outline-none"
                     autoFocus
                   />
                 </div>
@@ -508,7 +516,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     <button
                       type="button"
                       onClick={() => setEditNoteText('')}
-                      className="text-xs text-red-400 hover:text-red-300 font-semibold"
+                      className="text-xs text-[#fca5a5] hover:underline font-medium cursor-pointer"
                     >
                       Clear Note
                     </button>
@@ -517,14 +525,14 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     <button
                       type="button"
                       onClick={() => setEditingTaskForNote(null)}
-                      className="px-3.5 py-1.5 rounded-xl text-xs text-[#B8B0AA] hover:text-white"
+                      className="px-3.5 py-1.5 rounded-lg text-xs text-[#9E958E] hover:text-[#F5F2EB] cursor-pointer"
                     >
                       Cancel
                     </button>
                     <button
                       type="button"
                       onClick={handleSaveEditNote}
-                      className="px-4 py-1.5 rounded-xl btn-shiny-gold text-xs font-bold"
+                      className="px-4 py-1.5 rounded-lg btn-champagne text-xs font-bold cursor-pointer"
                     >
                       Save Note
                     </button>
@@ -541,103 +549,141 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
         <DailyDsaCommunicationWidget />
       </div>
 
-      {/* 2. TODAY SO FAR CARDS */}
+      {/* 2. TODAY SO FAR - 5-CARD PRECISION GAUGE BENTO ROW */}
       <motion.section
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="space-y-3"
+        className="space-y-2.5"
       >
         <div className="flex items-center justify-between">
-          <h2 className="font-serif text-2xl font-bold text-white">
+          <h2 className="font-serif text-2xl font-bold text-[#F5F2EB]">
             Today So Far
           </h2>
-          <span className="text-xs text-shiny-gold font-semibold uppercase tracking-wider">
+          <span className="text-[10px] font-mono text-[#E5A970] font-semibold uppercase tracking-wider">
             Daily Progress Tracker
           </span>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-          {/* Studied */}
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+          {/* Card 1: Studied */}
           <div 
             onClick={() => setShowStudyModal(true)}
-            className="p-4 rounded-2xl card-maroon-gold hover:scale-[1.02] flex flex-col justify-between cursor-pointer transition-all"
+            className="p-3.5 rounded-xl card-obsidian card-obsidian-hover flex flex-col justify-between cursor-pointer group relative overflow-hidden"
             title="Click to manually log study time"
           >
             <div className="flex items-center justify-between">
-              <span className="text-[11px] uppercase tracking-wider text-[#FFDF73] font-bold">
+              <span className="text-[10px] uppercase tracking-[0.08em] text-[#9E958E] font-medium">
                 Time Studied
               </span>
-              <span className="text-[10px] text-shiny-gold font-bold px-1.5 py-0.5 rounded bg-black/60 border border-[#D4AF37]/40 hover:underline">
+              <span className="text-[9px] font-mono text-[#E5A970] font-bold px-1.5 py-0.5 rounded bg-[#070606] border border-[rgba(229,169,112,0.25)] group-hover:border-[#E5A970]">
                 +Log
               </span>
             </div>
-            <div className="mt-2">
-              <span className="font-serif text-2xl sm:text-3xl font-bold text-white">
+            <div className="my-2.5">
+              <span className="font-mono tabular-nums text-3xl font-bold text-champagne block leading-none">
                 {formatMinutes(Math.max(dailyLog?.studyMinutes || 0, (dailyLog?.studyMinutes || 0) + activeLiveElapsedMins))}
               </span>
             </div>
-            <div className="mt-2 flex items-center gap-1.5 text-[11px] text-shiny-gold font-medium">
-              <Clock className="w-3.5 h-3.5 text-[#FFDF73]" /> Auto / Manual
+            <div className="flex items-center justify-between text-[10px] text-[#9E958E] mb-2 font-mono">
+              <span className="flex items-center gap-1">
+                <Clock className="w-3 h-3 text-[#E5A970]" /> Auto / Manual
+              </span>
+            </div>
+            {/* Micro 2px Progress Bar */}
+            <div className="h-[2px] w-full rounded-full bg-[#0A0808] overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-[#E5A970] to-[#D4AF37] rounded-full"
+                style={{ width: `${Math.min(100, Math.max(8, ((dailyLog?.studyMinutes || 0) / 240) * 100))}%` }}
+              />
             </div>
           </div>
 
-          {/* Wasted */}
-          <div className="p-4 rounded-2xl card-maroon-gold flex flex-col justify-between">
-            <span className="text-[11px] uppercase tracking-wider text-[#B8B0AA] font-semibold">
+          {/* Card 2: Wasted */}
+          <div className="p-3.5 rounded-xl card-obsidian card-obsidian-hover flex flex-col justify-between relative overflow-hidden">
+            <span className="text-[10px] uppercase tracking-[0.08em] text-[#9E958E] font-medium">
               Time Wasted
             </span>
-            <div className="mt-2">
-              <span className="font-serif text-2xl sm:text-3xl font-bold text-[#B8B0AA]">
+            <div className="my-2.5">
+              <span className="font-mono tabular-nums text-3xl font-bold text-[#9E958E] block leading-none">
                 {formatMinutes(dailyLog?.wastedMinutes || 0)}
               </span>
             </div>
-            <div className="mt-2 text-[11px] text-[#B8B0AA]/80">
+            <div className="text-[10px] text-[#635B55] mb-2 font-mono">
               Accountability
+            </div>
+            {/* Micro 2px Indicator */}
+            <div className="h-[2px] w-full rounded-full bg-[#0A0808] overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-red-950 to-red-500/60 rounded-full"
+                style={{ width: `${Math.min(100, Math.max(5, ((dailyLog?.wastedMinutes || 0) / 120) * 100))}%` }}
+              />
             </div>
           </div>
 
-          {/* Questions */}
-          <div className="p-4 rounded-2xl card-maroon-gold hover:scale-[1.02] flex flex-col justify-between transition-all">
-            <span className="text-[11px] uppercase tracking-wider text-[#FFDF73] font-bold">
+          {/* Card 3: Questions Done */}
+          <div className="p-3.5 rounded-xl card-obsidian card-obsidian-hover flex flex-col justify-between relative overflow-hidden">
+            <span className="text-[10px] uppercase tracking-[0.08em] text-[#9E958E] font-medium">
               Questions Done
             </span>
-            <div className="mt-2">
-              <span className="font-serif text-2xl sm:text-3xl font-bold text-shiny-gold">
+            <div className="my-2.5">
+              <span className="font-mono tabular-nums text-3xl font-bold text-champagne block leading-none">
                 {dailyLog?.questionsCount || 0}
               </span>
             </div>
-            <div className="mt-2 text-[11px] text-[#FFDF73]/80 font-medium">
+            <div className="text-[10px] text-[#9E958E] mb-2 font-mono">
               DSA / Sheets
+            </div>
+            {/* Micro 2px Indicator */}
+            <div className="h-[2px] w-full rounded-full bg-[#0A0808] overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-[#E5A970] to-[#D4AF37] rounded-full"
+                style={{ width: `${Math.min(100, Math.max(6, ((dailyLog?.questionsCount || 0) / 5) * 100))}%` }}
+              />
             </div>
           </div>
 
-          {/* Topics learned */}
-          <div className="p-4 rounded-2xl card-maroon-gold flex flex-col justify-between">
-            <span className="text-[11px] uppercase tracking-wider text-[#B8B0AA] font-semibold">
+          {/* Card 4: Topics Learned */}
+          <div className="p-3.5 rounded-xl card-obsidian card-obsidian-hover flex flex-col justify-between relative overflow-hidden">
+            <span className="text-[10px] uppercase tracking-[0.08em] text-[#9E958E] font-medium">
               Topics Learned
             </span>
-            <div className="mt-2">
-              <span className="font-serif text-2xl sm:text-3xl font-bold text-white">
+            <div className="my-2.5">
+              <span className="font-mono tabular-nums text-3xl font-bold text-[#F5F2EB] block leading-none">
                 {(dailyLog?.topicsLearned || []).length}
               </span>
             </div>
-            <div className="mt-2 text-[11px] text-[#B8B0AA]">
+            <div className="text-[10px] text-[#635B55] mb-2 font-mono">
               Curriculum items
+            </div>
+            {/* Micro 2px Indicator */}
+            <div className="h-[2px] w-full rounded-full bg-[#0A0808] overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-[#9E958E] to-[#F5F2EB] rounded-full"
+                style={{ width: `${Math.min(100, Math.max(5, ((dailyLog?.topicsLearned || []).length / 3) * 100))}%` }}
+              />
             </div>
           </div>
 
-          {/* Sleep */}
-          <div className="p-4 rounded-2xl card-maroon-gold flex flex-col justify-between col-span-2 sm:col-span-1">
-            <span className="text-[11px] uppercase tracking-wider text-[#FFDF73] font-bold">
+          {/* Card 5: Sleep */}
+          <div className="p-3.5 rounded-xl card-obsidian card-obsidian-hover flex flex-col justify-between col-span-2 sm:col-span-1 relative overflow-hidden">
+            <span className="text-[10px] uppercase tracking-[0.08em] text-[#9E958E] font-medium">
               Sleep Last Night
             </span>
-            <div className="mt-2">
-              <span className="font-serif text-2xl sm:text-3xl font-bold text-shiny-gold">
+            <div className="my-2.5">
+              <span className="font-mono tabular-nums text-3xl font-bold text-champagne block leading-none">
                 {dailyLog?.sleepHours ? `${dailyLog.sleepHours}h` : '—'}
               </span>
             </div>
-            <div className="mt-2 text-[11px] text-[#B8B0AA] flex items-center gap-1">
-              <Moon className="w-3.5 h-3.5 text-[#FFDF73]" />
+            <div className="text-[10px] text-[#9E958E] flex items-center gap-1 mb-2 font-mono">
+              <Moon className="w-3 h-3 text-[#E5A970]" />
               {dailyLog?.sleepQuality ? `Quality: ${dailyLog.sleepQuality}/5` : 'Not logged'}
+            </div>
+            {/* Micro 2px Indicator */}
+            <div className="h-[2px] w-full rounded-full bg-[#0A0808] overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-[#D4AF37] to-[#F6E6C2] rounded-full"
+                style={{ width: `${Math.min(100, Math.max(5, ((dailyLog?.sleepHours || 0) / 8) * 100))}%` }}
+              />
             </div>
           </div>
         </div>
@@ -645,43 +691,45 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
 
       {/* 3. QUICK ACTION BUTTONS */}
       <motion.section
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="space-y-3"
+        className="space-y-2.5"
       >
-        <h2 className="font-serif text-2xl font-bold text-white">
+        <h2 className="font-serif text-2xl font-bold text-[#F5F2EB]">
           Quick Actions
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          {/* Hero Action: Start Pomodoro */}
           <button
             onClick={() => onNavigateToTimer()}
-            className="min-h-[48px] px-4 rounded-2xl btn-shiny-gold text-sm font-bold flex items-center justify-center gap-2 transition-all shadow-xl"
+            className="min-h-[44px] px-4 rounded-xl btn-champagne text-xs font-bold flex items-center justify-center gap-2 cursor-pointer shadow-md"
           >
             <Clock className="w-4 h-4 stroke-[2.5]" />
             <span>Start Pomodoro</span>
           </button>
 
+          {/* Secondary Actions: Dark Anodized Glass Pills */}
           <button
             onClick={() => setShowWastedModal(true)}
-            className="min-h-[48px] px-4 rounded-2xl card-maroon border-gold-shine hover:border-[#D4AF37] text-white hover:text-shiny-gold text-sm font-medium flex items-center justify-center gap-2 transition-all shadow-sm"
+            className="min-h-[44px] px-4 rounded-xl btn-anodized text-xs font-medium flex items-center justify-center gap-2 cursor-pointer shadow-sm"
           >
-            <Clock className="w-4 h-4 text-[#FFDF73]" />
+            <Clock className="w-3.5 h-3.5 text-[#E5A970]" />
             <span>Log Wasted Time</span>
           </button>
 
           <button
             onClick={() => setShowQuestionModal(true)}
-            className="min-h-[48px] px-4 rounded-2xl card-maroon border-gold-shine hover:border-[#D4AF37] text-white hover:text-shiny-gold text-sm font-medium flex items-center justify-center gap-2 transition-all shadow-sm"
+            className="min-h-[44px] px-4 rounded-xl btn-anodized text-xs font-medium flex items-center justify-center gap-2 cursor-pointer shadow-sm"
           >
-            <Plus className="w-4 h-4 text-[#FFDF73] stroke-[2.5]" />
+            <Plus className="w-3.5 h-3.5 text-[#E5A970] stroke-[2.5]" />
             <span>+1 Question</span>
           </button>
 
           <button
             onClick={() => setShowSleepModal(true)}
-            className="min-h-[48px] px-4 rounded-2xl card-maroon border-gold-shine hover:border-[#D4AF37] text-white hover:text-shiny-gold text-sm font-medium flex items-center justify-center gap-2 transition-all shadow-sm"
+            className="min-h-[44px] px-4 rounded-xl btn-anodized text-xs font-medium flex items-center justify-center gap-2 cursor-pointer shadow-sm"
           >
-            <Moon className="w-4 h-4 text-[#FFDF73]" />
+            <Moon className="w-3.5 h-3.5 text-[#E5A970]" />
             <span>Log Sleep</span>
           </button>
         </div>
@@ -689,53 +737,55 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
 
       {/* 4. "NEXT UP" SECTION (FROM PLAN) */}
       <motion.section
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="p-5 sm:p-6 rounded-3xl card-maroon-gold shadow-2xl relative overflow-hidden"
+        className="p-5 rounded-2xl card-obsidian shadow-xl relative overflow-hidden space-y-3"
       >
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#D4AF37] shadow-md shadow-[#D4AF37]" />
-            <h2 className="font-serif text-2xl font-bold text-white">
+            <span className="w-2 h-2 rounded-full bg-[#E5A970] shadow-sm shadow-[#E5A970]" />
+            <h2 className="font-serif text-2xl font-bold text-[#F5F2EB]">
               Next Up in Timeline
             </h2>
           </div>
           <button
             onClick={onNavigateToPlan}
-            className="text-xs text-shiny-gold hover:underline flex items-center gap-1 font-bold min-h-[44px] px-2"
+            className="text-xs text-[#E5A970] hover:text-[#F6E6C2] flex items-center gap-1 font-semibold min-h-[40px] px-2 cursor-pointer transition-colors"
           >
             View Full Timeline <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#000000] border border-[#360A0F]">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-            <span className="text-xs uppercase tracking-wider text-shiny-gold font-bold">
+        <div className="p-4 rounded-xl bg-[#090808] border border-[rgba(255,240,220,0.06)] space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-[#E5A970] font-semibold">
               {nextUpInfo.track}
             </span>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#160406] text-[#FFDF73] border border-[#360A0F] font-semibold self-start sm:self-auto">
+            <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#110E0E] text-[#9E958E] border border-[rgba(255,240,220,0.06)] self-start sm:self-auto">
               {nextUpInfo.presetDates}
             </span>
           </div>
 
-          <h3 className="font-serif text-xl sm:text-2xl font-bold text-white mb-1">
-            {nextUpInfo.topic}
-          </h3>
-          <p className="text-xs sm:text-sm text-[#B8B0AA] font-sans mb-4 leading-relaxed">
-            {nextUpInfo.desc}
-          </p>
+          <div>
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#F5F2EB] mb-1">
+              {nextUpInfo.topic}
+            </h3>
+            <p className="text-xs sm:text-sm text-[#9E958E] font-sans leading-relaxed">
+              {nextUpInfo.desc}
+            </p>
+          </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2.5 pt-1">
             <button
               onClick={() => onNavigateToTimer(nextUpInfo.topic)}
-              className="min-h-[44px] px-4 rounded-xl btn-shiny-gold text-xs font-bold flex items-center gap-2 transition-transform shadow-md"
+              className="min-h-[40px] px-4 rounded-lg btn-champagne text-xs font-bold flex items-center gap-2 cursor-pointer shadow-sm"
             >
               <Clock className="w-3.5 h-3.5 stroke-[2.5]" />
               Start Focus Session
             </button>
             <button
               onClick={onNavigateToLearn}
-              className="min-h-[44px] px-4 rounded-xl bg-[#000000] hover:bg-[#160406] text-[#B8B0AA] hover:text-shiny-gold border border-[#360A0F] hover:border-[#D4AF37] text-xs font-medium transition-colors"
+              className="min-h-[40px] px-4 rounded-lg btn-anodized text-xs font-medium cursor-pointer"
             >
               Open in Learn Curriculum
             </button>
@@ -743,13 +793,13 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
         </div>
       </motion.section>
 
-      {/* Daily Reflection Note */}
+      {/* 5. Daily Reflection Note */}
       <motion.section
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="p-5 rounded-2xl card-maroon-gold"
+        className="p-4 sm:p-5 rounded-2xl card-obsidian shadow-lg space-y-2.5"
       >
-        <label className="block text-xs font-bold text-shiny-gold mb-2 uppercase tracking-wider">
+        <label className="block text-[11px] font-mono font-semibold text-[#9E958E] uppercase tracking-wider">
           One-Line Reflection For Today
         </label>
         <div className="flex items-center gap-2">
@@ -759,12 +809,12 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
             value={noteText}
             onChange={(e) => setNoteText(e.target.value)}
             onBlur={() => updateDailyNote(noteText)}
-            className="flex-1 min-w-0 min-h-[44px] px-4 rounded-xl bg-black border border-[#D4AF37]/35 text-sm text-white placeholder-[#B8B0AA]/50 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
+            className="flex-1 min-w-0 min-h-[42px] px-4 rounded-xl input-command-bar text-xs sm:text-sm placeholder-[#9E958E]/40 focus:outline-none"
           />
           <button
             type="button"
             onClick={() => updateDailyNote(noteText)}
-            className="min-h-[44px] px-5 rounded-xl btn-shiny-gold text-xs font-bold transition-all shadow-md"
+            className="min-h-[42px] px-4 sm:px-5 rounded-xl btn-champagne text-xs font-bold cursor-pointer shrink-0"
           >
             Save Note
           </button>
