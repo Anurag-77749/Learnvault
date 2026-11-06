@@ -13,10 +13,7 @@ import {
   Play, 
   Code2, 
   Briefcase, 
-  Bookmark,
-  Boxes,
-  LayoutGrid,
-  Sparkles
+  Bookmark
 } from 'lucide-react';
 import { db } from '../services/db';
 import { cloudSyncService, SyncState } from '../services/cloudSyncService';
@@ -40,19 +37,16 @@ interface NavigationProps {
   totalStudyHours?: number;
   onOpenSyncModal?: () => void;
   onQuickFocus?: () => void;
-  viewMode?: '2d' | '3d' | 'showcase';
-  onToggleViewMode?: () => void;
-  onOpenShowcase?: () => void;
 }
 
 export const NAV_ITEMS: { id: ScreenId; label: string; shortLabel: string; icon: React.ComponentType<{ className?: string }> }[] = [
   { id: 'today', label: 'Today', shortLabel: 'Today', icon: Sun },
   { id: 'timer', label: 'Timer', shortLabel: 'Timer', icon: TimerIcon },
+  { id: 'plan', label: 'Plan', shortLabel: 'Plan', icon: CalendarRange },
   { id: 'learn', label: 'Curriculum', shortLabel: 'Curriculum', icon: BookOpen },
   { id: 'dsa', label: 'DSA Lab', shortLabel: 'DSA', icon: Code2 },
   { id: 'jobs', label: 'Career HQ', shortLabel: 'Jobs', icon: Briefcase },
   { id: 'vault', label: 'Vault', shortLabel: 'Vault', icon: Bookmark },
-  { id: 'plan', label: 'Plan', shortLabel: 'Plan', icon: CalendarRange },
   { id: 'projects', label: 'Projects', shortLabel: 'Projects', icon: FolderGit2 },
   { id: 'progress', label: 'Analytics', shortLabel: 'Stats', icon: BarChart3 },
   { id: 'wasted', label: 'Wasted Days', shortLabel: 'Wasted', icon: Hourglass },
@@ -68,9 +62,6 @@ export const TopNavBar: React.FC<NavigationProps> = ({
   totalStudyHours = 0,
   onOpenSyncModal,
   onQuickFocus,
-  viewMode = '3d',
-  onToggleViewMode,
-  onOpenShowcase,
 }) => {
   const curriculumTopics = useLiveQuery(() => db.curriculumTopics.toArray()) || [];
   const [syncState, setSyncState] = useState<SyncState>(cloudSyncService.getState());
@@ -106,13 +97,14 @@ export const TopNavBar: React.FC<NavigationProps> = ({
   const currentNav = NAV_ITEMS.find((item) => item.id === activeScreen);
 
   return (
-    <header className="sticky top-0 z-30 w-full bg-[#08080A]/85 backdrop-blur-2xl border-b border-white/[0.08] px-3 sm:px-6 py-2.5 select-none">
+    <header className="sticky top-0 z-40 w-full bg-[#08080A]/85 backdrop-blur-2xl border-b border-white/[0.08] px-3 sm:px-6 py-2.5 select-none">
       <div className="max-w-[1560px] mx-auto flex items-center justify-between gap-3">
         {/* Left: Minimalist Hardware Mark & Active Domain Pill */}
         <div className="flex items-center gap-3">
           <div 
-            onClick={() => onSelectScreen('today')}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex items-center gap-2 cursor-pointer group shrink-0"
+            title="Scroll to Coverpage"
           >
             <div className="w-7 h-7 rounded-lg bg-[#141418] border border-white/[0.12] flex items-center justify-center p-1 shadow-inner group-hover:border-white/30 transition-all">
               <span className="w-2 h-2 rounded-full bg-[#FF5500] shadow-[0_0_8px_rgba(255,85,0,0.6)]" />
@@ -122,14 +114,15 @@ export const TopNavBar: React.FC<NavigationProps> = ({
                 LEARNVAULT
               </span>
               <span className="hidden sm:inline text-[9px] font-mono text-[#9898A0] font-bold tracking-wider">
-                // OS 3.0
+                // APPLE PRO
               </span>
             </div>
           </div>
 
           {/* Active Domain Indicator Breadcrumb */}
           <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] text-[10px] font-mono uppercase text-[#9898A0]">
-            <span className="text-white font-bold">{currentNav?.label}</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500]" />
+            <span className="text-white font-bold">{currentNav?.label || 'Cover'}</span>
           </div>
         </div>
 
@@ -155,49 +148,8 @@ export const TopNavBar: React.FC<NavigationProps> = ({
           </div>
         </div>
 
-        {/* Right: Mode Toggle, Date Badge, Sync & Hero "Start Pomodoro" Action */}
+        {/* Right: Date Badge, Sync & Hero "Start Pomodoro" Action */}
         <div className="flex items-center gap-2 shrink-0">
-          {/* Apple-Style 3D Reel Scrollytelling Trigger */}
-          {onOpenShowcase && (
-            <button
-              onClick={onOpenShowcase}
-              className={`px-3 py-1 rounded-full text-[10px] font-mono font-black uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer shadow-sm ${
-                viewMode === 'showcase'
-                  ? 'bg-gradient-to-r from-white to-[#E0E0E6] text-black shadow-[0_0_12px_rgba(255,255,255,0.4)]'
-                  : 'bg-white/[0.05] text-[#D2D2D8] hover:text-white border border-white/[0.1]'
-              }`}
-              title="Launch Apple-style 3D Scrollytelling Reel"
-            >
-              <Sparkles className="w-3 h-3 text-[#FF5500]" />
-              <span className="hidden sm:inline">3D Reel</span>
-            </button>
-          )}
-
-          {/* 3D / 2D Spatial Mode Toggle */}
-          {onToggleViewMode && (
-            <button
-              onClick={onToggleViewMode}
-              className={`px-3 py-1 sm:px-3.5 sm:py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer shadow-sm ${
-                viewMode === '3d'
-                  ? 'bg-gradient-to-r from-[#FF5500] to-[#FF7700] text-white shadow-[0_0_12px_rgba(255,85,0,0.4)]'
-                  : 'bg-white/[0.06] text-[#D2D2D8] hover:text-white border border-white/[0.1]'
-              }`}
-              title="Toggle between 3D Spatial Rotunda and 2D Command Grid"
-            >
-              {viewMode === '3d' ? (
-                <>
-                  <Boxes className="w-3 h-3 text-white animate-spin" style={{ animationDuration: '8s' }} />
-                  <span>3D Rotunda</span>
-                </>
-              ) : (
-                <>
-                  <LayoutGrid className="w-3 h-3 text-[#9898A0]" />
-                  <span>2D Grid</span>
-                </>
-              )}
-            </button>
-          )}
-
           {/* Cloud Sync Status */}
           <button
             onClick={onOpenSyncModal}
@@ -226,7 +178,7 @@ export const TopNavBar: React.FC<NavigationProps> = ({
           >
             <Play className="w-3 h-3 fill-current text-[#050507]" />
             <span className="tracking-wide uppercase font-mono text-[10px] sm:text-[11px] text-[#050507]">
-              Pomodoro
+              Start Focus
             </span>
           </button>
         </div>
@@ -236,7 +188,7 @@ export const TopNavBar: React.FC<NavigationProps> = ({
 };
 
 /* ==========================================================================
-   FLOATING MACOS-STYLE GLASS DOCK (SMOKED OBSIDIAN CAPSULE - 10 PRO DOMAINS)
+   FLOATING MACOS-STYLE GLASS DOCK (SMOKED OBSIDIAN CAPSULE - CONTINUOUS SCROLL)
    ========================================================================== */
 export const FloatingDock: React.FC<NavigationProps> = ({
   activeScreen,

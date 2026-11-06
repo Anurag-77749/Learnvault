@@ -272,7 +272,7 @@ export const AppleScrollShowcase: React.FC<AppleScrollShowcaseProps> = ({ onEnte
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full h-[400vh] bg-[#050505] text-[#F5F5F7] select-none">
+    <div ref={containerRef} className="relative w-full h-[220vh] bg-[#050505] text-[#F5F5F7] select-none">
       {/* Sticky 3D Viewport (Full Screen Pin) */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
         
