@@ -7,216 +7,213 @@
     box-sizing: border-box;
   }
   
-  html, body {
-    color-scheme: light;
+  html, body, select, option, input, textarea {
+    color-scheme: dark;
   }
 
   select {
-    color-scheme: light;
-    background-color: #FFFFFF;
-    color: #0F172A;
-    border: 1px solid rgba(203, 213, 225, 0.8);
+    color-scheme: dark;
+    background-color: #080E11;
+    color: #E2F1F8;
+    border: 1px solid rgba(0, 240, 255, 0.2);
   }
 
   select option {
-    background-color: #FFFFFF;
-    color: #0F172A;
+    background-color: #050A0D;
+    color: #E2F1F8;
     padding: 8px 12px;
   }
 
   body {
     margin: 0;
     padding: 0;
-    background-color: #F1F4FA;
+    background-color: #040709;
     background-image: 
-      radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.14) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.16) 0px, transparent 50%),
-      radial-gradient(at 50% 40%, rgba(168, 85, 247, 0.08) 0px, transparent 50%),
-      radial-gradient(at 80% 100%, rgba(14, 165, 233, 0.12) 0px, transparent 50%),
-      radial-gradient(at 20% 100%, rgba(224, 231, 255, 0.8) 0px, transparent 50%);
+      linear-gradient(rgba(0, 240, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 240, 255, 0.025) 1px, transparent 1px);
+    background-size: 32px 32px;
     background-attachment: fixed;
-    color: #0F172A;
-    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    color: #D4ECF4;
+    font-family: 'JetBrains Mono', 'Inter', monospace;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
   h1, h2, h3, .font-serif, .font-display {
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    letter-spacing: -0.025em;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
   }
 
   .font-mono, .tabular-nums {
-    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-variant-numeric: tabular-nums;
   }
 }
 
 /* ==========================================================================
-   NOVA LUXURY GLASSMORPHIC DESIGN SYSTEM
+   CYBERPUNK / TERMINAL HUD DESIGN TOKENS
    ========================================================================== */
 
-/* Glass Surface with studio lighting */
+/* HUD Panel Surface */
+.hud-panel,
 .card-glass,
 .card-obsidian,
 .card-maroon,
-.card-maroon-gold,
-.card-emerald,
-.card-burgundy {
-  background: rgba(255, 255, 255, 0.82);
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 100%);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 
-    0 20px 45px -15px rgba(30, 41, 59, 0.07),
-    0 4px 16px -2px rgba(30, 41, 59, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 1);
-  color: #0F172A;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+.card-maroon-gold {
+  background-color: #080E11;
+  background-image: linear-gradient(180deg, rgba(0, 240, 255, 0.03) 0%, rgba(0, 0, 0, 0.4) 100%);
+  border: 1px solid rgba(0, 240, 255, 0.18);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(0, 240, 255, 0.1);
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.hud-panel:hover,
 .card-glass:hover,
-.card-obsidian:hover,
-.card-maroon:hover,
-.card-maroon-gold:hover {
-  background: rgba(255, 255, 255, 0.94);
-  border-color: rgba(99, 102, 241, 0.28);
-  box-shadow: 
-    0 24px 50px -12px rgba(37, 99, 235, 0.12),
-    0 6px 20px -2px rgba(30, 41, 59, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 1);
-  transform: translateY(-2px);
+.card-obsidian:hover {
+  border-color: rgba(0, 240, 255, 0.35);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.08), 0 8px 24px rgba(0, 0, 0, 0.8);
 }
 
-/* Hero Vibrant Royal Blue & Indigo Pill Button */
+/* HUD Corner Brackets Accent */
+.hud-corner {
+  position: relative;
+}
+
+.hud-corner::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid #00F0FF;
+  border-left: 2px solid #00F0FF;
+}
+
+.hud-corner::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 6px;
+  height: 6px;
+  border-bottom: 2px solid #00FF9D;
+  border-right: 2px solid #00FF9D;
+}
+
+/* Primary Cyber Action Button: Emerald / Cyan Pulse */
+.btn-cyber-primary,
 .btn-nova-primary,
 .btn-champagne,
 .btn-shiny-gold {
-  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 50%, #7C3AED 100%);
-  color: #FFFFFF !important;
-  font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 
-    0 8px 20px -4px rgba(37, 99, 235, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  border-radius: 9999px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  background: linear-gradient(135deg, #00FF9D 0%, #00F0FF 100%);
+  color: #030708 !important;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid #00FF9D;
+  box-shadow: 0 0 14px rgba(0, 255, 157, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+  transition: all 0.15s ease;
 }
 
+.btn-cyber-primary:hover,
 .btn-nova-primary:hover,
 .btn-champagne:hover,
 .btn-shiny-gold:hover {
-  filter: brightness(1.08);
-  box-shadow: 
-    0 12px 28px -4px rgba(37, 99, 235, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  transform: translateY(-1.5px);
-}
-
-.btn-nova-primary:active,
-.btn-champagne:active,
-.btn-shiny-gold:active {
-  transform: translateY(0);
-  filter: brightness(0.96);
-}
-
-/* Frosted Glass Pill Button */
-.btn-nova-glass,
-.btn-anodized {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(203, 213, 225, 0.8);
-  color: #1E293B !important;
-  font-weight: 600;
-  border-radius: 9999px;
-  box-shadow: 0 4px 12px rgba(30, 41, 59, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-nova-glass:hover,
-.btn-anodized:hover {
-  background: #FFFFFF;
-  border-color: rgba(99, 102, 241, 0.4);
-  color: #2563EB !important;
-  box-shadow: 0 8px 20px -3px rgba(37, 99, 235, 0.14), inset 0 1px 0 rgba(255, 255, 255, 1);
+  filter: brightness(1.15);
+  box-shadow: 0 0 22px rgba(0, 240, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   transform: translateY(-1px);
 }
 
-/* Vibrant Gradient Text */
+.btn-cyber-primary:active,
+.btn-nova-primary:active {
+  transform: translateY(0);
+  filter: brightness(0.9);
+}
+
+/* Secondary Terminal Glass Button */
+.btn-cyber-ghost,
+.btn-nova-glass,
+.btn-anodized {
+  background: #091216;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  color: #D4ECF4 !important;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.btn-cyber-ghost:hover,
+.btn-nova-glass:hover,
+.btn-anodized:hover {
+  background: #0F1D24;
+  border-color: #00F0FF;
+  color: #00F0FF !important;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+/* Glowing Neon Text */
+.text-cyan-glow,
 .text-nova-gradient,
 .text-champagne,
 .text-shiny-gold {
-  background: linear-gradient(135deg, #1D4ED8 0%, #4F46E5 50%, #7C3AED 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #00F0FF;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.45);
 }
 
-/* Soft Command Bar Input */
+.text-emerald-glow {
+  color: #00FF9D;
+  text-shadow: 0 0 8px rgba(0, 255, 157, 0.45);
+}
+
+/* Terminal Input Bar */
 .input-command-bar {
-  background: #FFFFFF;
-  border: 1px solid rgba(203, 213, 225, 0.8);
-  box-shadow: inset 0 2px 4px rgba(30, 41, 59, 0.03), 0 2px 6px rgba(30, 41, 59, 0.02);
-  color: #0F172A;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #04080A;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  color: #00F0FF;
+  font-family: 'JetBrains Mono', monospace;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
+  transition: all 0.15s ease;
 }
 
 .input-command-bar:focus {
-  border-color: #4F46E5;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15), inset 0 1px 2px rgba(30, 41, 59, 0.03);
+  border-color: #00F0FF;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-/* Active Top Navigation Pill */
+/* Active Top Navigation Tab */
+.nav-tab-active,
 .nav-pill-active {
-  background: linear-gradient(135deg, #2563EB 0%, #4F46E5 100%);
-  color: #FFFFFF !important;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
-  font-weight: 600;
-  border-radius: 9999px;
+  background: rgba(0, 240, 255, 0.12);
+  color: #00F0FF !important;
+  border: 1px solid #00F0FF;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+  font-weight: 700;
 }
 
-/* Minimalist Clean Scrollbar */
+/* Terminal Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F1F4FA;
+  background: #040709;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 9999px;
+  background: #11232B;
+  border: 1px solid rgba(0, 240, 255, 0.2);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
-}
-
-/* 3D Glass Sphere Floating Glow Animations */
-@keyframes float-slow {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(3deg);
-  }
-}
-
-@keyframes spin-slow {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-float {
-  animation: float-slow 6s ease-in-out infinite;
-}
-
-.animate-spin-orbit {
-  animation: spin-slow 20s linear infinite;
+  background: #00F0FF;
 }

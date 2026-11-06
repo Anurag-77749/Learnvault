@@ -1,4 +1,4 @@
-// LearnVault - Nova Luxury Glassmorphic Design System
+// LearnVault - Cyberpunk / Terminal HUD OS
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLiveQuery } from 'dexie-react-hooks';
@@ -42,12 +42,8 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F1F4FA] text-slate-900 flex flex-col antialiased selection:bg-blue-600 selection:text-white relative overflow-x-hidden">
-      {/* Background Floating Ambient Light Elements */}
-      <div className="fixed top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-gradient-to-br from-blue-400/15 to-indigo-500/10 blur-[120px] pointer-events-none -z-10" />
-      <div className="fixed bottom-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-purple-400/15 to-sky-300/15 blur-[120px] pointer-events-none -z-10" />
-
-      {/* Signature Top Floating Glass Navbar (Nova Style) */}
+    <div className="min-h-screen bg-[#040709] text-[#D4ECF4] flex flex-col antialiased selection:bg-[#00F0FF] selection:text-black relative font-mono overflow-x-hidden">
+      {/* Top Terminal HUD Navigation Bar */}
       <TopNavBar
         activeScreen={activeScreen}
         onSelectScreen={(screen) => {
@@ -60,16 +56,16 @@ export const App: React.FC = () => {
         onQuickFocus={() => handleStartTimerWithTopic()}
       />
 
-      {/* Main Content Showcase */}
-      <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 py-4 sm:py-6 max-w-7xl mx-auto w-full">
+      {/* Main Terminal Grid Viewport */}
+      <main className="flex-1 min-w-0 px-3 sm:px-6 py-3 max-w-[1500px] mx-auto w-full">
         <AnimatePresence mode="wait">
           {activeScreen === 'today' && (
             <motion.div
               key="today"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.18 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.12 }}
             >
               <TodayScreen
                 onNavigateToTimer={handleStartTimerWithTopic}
@@ -82,10 +78,10 @@ export const App: React.FC = () => {
           {activeScreen === 'timer' && (
             <motion.div
               key="timer"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.18 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.12 }}
             >
               <TimerScreen initialTopic={timerTopic} />
             </motion.div>
@@ -94,10 +90,10 @@ export const App: React.FC = () => {
           {activeScreen === 'plan' && (
             <motion.div
               key="plan"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.18 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.12 }}
             >
               <PlanScreen />
             </motion.div>
@@ -106,10 +102,10 @@ export const App: React.FC = () => {
           {activeScreen === 'learn' && (
             <motion.div
               key="learn"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.18 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.12 }}
             >
               <LearnScreen />
             </motion.div>
@@ -118,10 +114,10 @@ export const App: React.FC = () => {
           {activeScreen === 'projects' && (
             <motion.div
               key="projects"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.18 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.12 }}
             >
               <ProjectsScreen />
             </motion.div>
@@ -130,10 +126,10 @@ export const App: React.FC = () => {
           {activeScreen === 'progress' && (
             <motion.div
               key="progress"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.18 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.12 }}
             >
               <ProgressScreen />
             </motion.div>
@@ -142,10 +138,10 @@ export const App: React.FC = () => {
           {activeScreen === 'wasted' && (
             <motion.div
               key="wasted"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.18 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.12 }}
             >
               <WastedDaysScreen />
             </motion.div>

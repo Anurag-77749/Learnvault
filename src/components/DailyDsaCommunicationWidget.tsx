@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { 
-  Code2, 
-  MessageSquare, 
+  Terminal, 
   Check, 
   X, 
   Plus, 
   Minus,
-  Sparkles
+  Radio
 } from 'lucide-react';
 import { db, getTodayDateString } from '../services/db';
 import { updateDSAQuestions, setCommunicationPracticed } from '../services/dailyLogService';
@@ -71,161 +70,148 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
   };
 
   return (
-    <div className="rounded-3xl card-glass p-4 sm:p-5 space-y-4 text-left font-sans shadow-sm">
-      {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
-            <Code2 className="w-4 h-4" />
-          </div>
-          <div>
-            <h4 className="text-xs font-bold text-slate-900 tracking-tight uppercase">
-              DSA & Communication
-            </h4>
-            <span className="text-[10px] text-slate-400 font-medium">Daily Target Control</span>
-          </div>
+    <div className="rounded-lg hud-panel hud-corner p-3.5 space-y-3 font-mono text-left">
+      {/* Unit Header */}
+      <div className="flex items-center justify-between pb-2 border-b border-[#00F0FF]/15">
+        <div className="flex items-center gap-1.5 text-xs text-[#00F0FF] font-bold">
+          <Terminal className="w-3.5 h-3.5 text-[#00FF9D]" />
+          <span>DSA & COMM PROTOCOL</span>
         </div>
-        <span className="text-[10px] font-mono font-bold text-indigo-600 px-2 py-0.5 rounded-full bg-indigo-50 border border-indigo-100">
+        <span className="text-[10px] text-[#00FF9D] font-bold px-1.5 py-0.2 rounded bg-[#00FF9D]/10 border border-[#00FF9D]/30">
           DAILY
         </span>
       </div>
 
-      {/* 1. Daily DSA Problems Counter with Difficulty Choice */}
-      <div className="space-y-2.5">
+      {/* 1. Daily DSA Counter */}
+      <div className="space-y-2">
         <div className="flex items-center justify-between text-xs">
-          <span className="text-slate-600 font-semibold flex items-center gap-1.5 text-xs">
-            <span className="font-mono text-indigo-600 font-bold">&lt;/&gt;</span> LeetCode / Problems
+          <span className="text-[#84A5B5] flex items-center gap-1">
+            <span className="text-[#00F0FF]">&gt;</span> PROBLEMS TODAY
           </span>
-          <span className="text-xs font-mono font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded-full">
-            Today: {todayTotal}
+          <span className="text-xs font-bold text-[#00FF9D] bg-[#04080A] px-2 py-0.5 rounded border border-[#00FF9D]/30">
+            TOTAL: {todayTotal}
           </span>
         </div>
 
-        {/* Counter and Difficulty Segmented Control */}
+        {/* Counter and Segmented Difficulty Control */}
         <div className="flex items-center gap-2">
-          {/* Stepper (- 0 +) */}
-          <div className="flex items-center bg-white border border-slate-200/90 rounded-2xl p-1 shadow-sm">
+          {/* Stepper */}
+          <div className="flex items-center bg-[#04080A] border border-[#00F0FF]/25 rounded p-0.5">
             <button
               onClick={() => handleAdjustDSA(-1)}
               disabled={diffCounts[selectedDifficulty] <= 0}
-              className="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-800 hover:bg-slate-50 disabled:opacity-30 transition-all cursor-pointer"
+              className="w-7 h-7 rounded flex items-center justify-center text-[#5A7E8D] hover:text-[#00F0FF] hover:bg-[#09151B] disabled:opacity-20 transition-all cursor-pointer"
               aria-label="Decrease question"
             >
-              <Minus className="w-3.5 h-3.5 stroke-[2.5]" />
+              <Minus className="w-3 h-3 stroke-[3]" />
             </button>
-            <span className="w-8 text-center text-sm font-bold text-slate-900 font-mono tabular-nums">
+            <span className="w-8 text-center text-xs font-bold text-[#00F0FF] font-mono tabular-nums">
               {diffCounts[selectedDifficulty]}
             </span>
             <button
               onClick={() => handleAdjustDSA(1)}
-              className="w-8 h-8 rounded-xl flex items-center justify-center text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:brightness-110 active:brightness-95 transition-all cursor-pointer shadow-sm shadow-blue-500/25"
+              className="w-7 h-7 rounded flex items-center justify-center text-[#030708] bg-[#00FF9D] hover:bg-[#00F0FF] transition-all cursor-pointer shadow-[0_0_8px_rgba(0,255,157,0.4)]"
               aria-label="Increase question"
             >
-              <Plus className="w-3.5 h-3.5 stroke-[3]" />
+              <Plus className="w-3 h-3 stroke-[3]" />
             </button>
           </div>
 
-          {/* Segmented Pill Toggles: Easy | Med | Hard */}
-          <div className="flex-1 grid grid-cols-3 gap-1 bg-slate-100/80 p-1 rounded-2xl border border-slate-200/50">
+          {/* Difficulty Pills: EASY | MED | HARD */}
+          <div className="flex-1 grid grid-cols-3 gap-1 bg-[#04080A] p-0.5 rounded border border-[#00F0FF]/15">
             <button
               type="button"
               onClick={() => setSelectedDifficulty('easy')}
-              className={`py-1.5 rounded-xl text-[11px] font-semibold transition-all text-center cursor-pointer ${
+              className={`py-1 rounded text-[10px] font-bold transition-all text-center cursor-pointer ${
                 selectedDifficulty === 'easy'
-                  ? 'bg-emerald-500 text-white shadow-sm font-bold'
-                  : 'text-slate-500 hover:text-slate-900 hover:bg-white/60'
+                  ? 'bg-[#00FF9D] text-[#030708] shadow-[0_0_6px_rgba(0,255,157,0.4)]'
+                  : 'text-[#5A7E8D] hover:text-[#D4ECF4]'
               }`}
             >
-              Easy
-              <span className="block text-[9px] font-mono opacity-90">{diffCounts.easy || 0}</span>
+              EASY
+              <span className="block text-[9px] opacity-80">{diffCounts.easy || 0}</span>
             </button>
 
             <button
               type="button"
               onClick={() => setSelectedDifficulty('medium')}
-              className={`py-1.5 rounded-xl text-[11px] font-semibold transition-all text-center cursor-pointer ${
+              className={`py-1 rounded text-[10px] font-bold transition-all text-center cursor-pointer ${
                 selectedDifficulty === 'medium'
-                  ? 'bg-blue-600 text-white shadow-sm font-bold'
-                  : 'text-slate-500 hover:text-slate-900 hover:bg-white/60'
+                  ? 'bg-[#00F0FF] text-[#030708] shadow-[0_0_6px_rgba(0,240,255,0.4)]'
+                  : 'text-[#5A7E8D] hover:text-[#D4ECF4]'
               }`}
             >
-              Med
-              <span className="block text-[9px] font-mono opacity-90">{diffCounts.medium || 0}</span>
+              MED
+              <span className="block text-[9px] opacity-80">{diffCounts.medium || 0}</span>
             </button>
 
             <button
               type="button"
               onClick={() => setSelectedDifficulty('hard')}
-              className={`py-1.5 rounded-xl text-[11px] font-semibold transition-all text-center cursor-pointer ${
+              className={`py-1 rounded text-[10px] font-bold transition-all text-center cursor-pointer ${
                 selectedDifficulty === 'hard'
-                  ? 'bg-rose-500 text-white shadow-sm font-bold'
-                  : 'text-slate-500 hover:text-slate-900 hover:bg-white/60'
+                  ? 'bg-[#FF2A55] text-white shadow-[0_0_6px_rgba(255,42,85,0.4)]'
+                  : 'text-[#5A7E8D] hover:text-[#D4ECF4]'
               }`}
             >
-              Hard
-              <span className="block text-[9px] font-mono opacity-90">{diffCounts.hard || 0}</span>
+              HARD
+              <span className="block text-[9px] opacity-80">{diffCounts.hard || 0}</span>
             </button>
           </div>
         </div>
 
         {/* All-time cumulative mini-summary */}
-        <div className="text-[11px] text-slate-500 flex items-center justify-between pt-1 px-1 font-mono">
-          <span>All-time: <strong className="text-slate-800">{cumulativeStats.totalQuestions}</strong></span>
-          <span className="text-indigo-600 font-semibold">E:{cumulativeStats.easy} M:{cumulativeStats.medium} H:{cumulativeStats.hard}</span>
+        <div className="text-[10px] text-[#5A7E8D] flex items-center justify-between pt-0.5 px-0.5">
+          <span>ALL-TIME: <strong className="text-white">{cumulativeStats.totalQuestions}</strong></span>
+          <span className="text-[#00F0FF]">E:{cumulativeStats.easy} M:{cumulativeStats.medium} H:{cumulativeStats.hard}</span>
         </div>
       </div>
 
-      {/* 2. Communication & High-Level English Practice */}
-      <div className="pt-3 border-t border-slate-100 space-y-2.5">
-        <div className="flex items-start gap-2">
-          <div className="w-5 h-5 rounded-md bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 mt-0.5">
-            <MessageSquare className="w-3.5 h-3.5" />
-          </div>
-          <p className="text-xs text-slate-700 leading-snug">
-            Today did you <span className="font-bold text-slate-900">speak, hear or practice high-level English</span>?
-          </p>
+      {/* 2. English High-Level Communication */}
+      <div className="pt-2.5 border-t border-[#00F0FF]/15 space-y-2">
+        <div className="flex items-start gap-1.5 text-xs text-[#84A5B5] leading-snug">
+          <Radio className="w-3.5 h-3.5 text-[#00F0FF] shrink-0 mt-0.5" />
+          <span>TODAY: High-level English speech / listening practiced?</span>
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-1.5">
           <button
             type="button"
             onClick={() => handleToggleCommunication(true)}
-            className={`py-2 px-3 rounded-2xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
+            className={`py-1.5 px-2 rounded text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
               isCommDone
-                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-transparent shadow-md shadow-blue-500/25 font-bold'
-                : 'bg-white text-slate-600 border-slate-200 hover:border-blue-400 hover:text-blue-600 shadow-sm'
+                ? 'bg-[#00FF9D] text-[#030708] border-[#00FF9D] shadow-[0_0_8px_rgba(0,255,157,0.35)]'
+                : 'bg-[#04080A] text-[#84A5B5] border-[#00F0FF]/20 hover:border-[#00FF9D] hover:text-[#00FF9D]'
             }`}
-            title={isCommDone ? 'Click to uncheck' : 'Mark English practiced today'}
           >
-            <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-            <span>Yes, Done</span>
+            <Check className="w-3.5 h-3.5 stroke-[3]" />
+            <span>[✓] VERIFIED</span>
           </button>
 
           <button
             type="button"
             onClick={() => handleToggleCommunication(false)}
-            className={`py-2 px-3 rounded-2xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
+            className={`py-1.5 px-2 rounded text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
               isCommNotDone
-                ? 'bg-rose-50 border-rose-300 text-rose-700 font-bold shadow-sm'
-                : 'bg-white text-slate-600 border-slate-200 hover:border-rose-300 hover:text-rose-600 shadow-sm'
+                ? 'bg-[#FF2A55]/20 border-[#FF2A55] text-[#FF2A55] shadow-[0_0_8px_rgba(255,42,85,0.3)]'
+                : 'bg-[#04080A] text-[#84A5B5] border-[#00F0FF]/20 hover:border-[#FF2A55] hover:text-[#FF2A55]'
             }`}
-            title={isCommNotDone ? 'Click to uncheck' : "Mark didn't complete today"}
           >
-            <X className="w-3.5 h-3.5 stroke-[2.5]" />
-            <span>Didn't Complete</span>
+            <X className="w-3.5 h-3.5 stroke-[3]" />
+            <span>[✕] MISSED</span>
           </button>
         </div>
 
-        {/* Status indicator */}
-        <div className="text-[11px] font-mono flex items-center justify-between px-1">
+        {/* Status Line */}
+        <div className="text-[10px] flex items-center justify-between px-0.5">
           {isCommDone ? (
-            <span className="text-emerald-600 flex items-center gap-1 font-sans font-medium">✨ Practice logged</span>
+            <span className="text-[#00FF9D]">STATUS: LOGGED [PASS]</span>
           ) : isCommNotDone ? (
-            <span className="text-rose-600 flex items-center gap-1 font-sans font-medium">✕ Not completed</span>
+            <span className="text-[#FF2A55]">STATUS: NOT LOGGED [FAIL]</span>
           ) : (
-            <span className="text-slate-400 font-sans">Tap to record status</span>
+            <span className="text-[#486877]">AWAITING LOG...</span>
           )}
-          <span className="text-slate-500">Streak: {cumulativeStats.commDays}d</span>
+          <span className="text-[#5A7E8D]">STREAK: {cumulativeStats.commDays}D</span>
         </div>
       </div>
     </div>
