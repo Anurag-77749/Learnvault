@@ -41,6 +41,11 @@ export const FrameSequenceHero: React.FC<FrameSequenceHeroProps> = ({ onEnterWor
         const pct = Math.round((loadedCount / TOTAL_FRAMES) * 100);
         setLoadProgress(pct);
 
+        // Immediately paint first frame so there is zero delay
+        if (i === 1) {
+          requestAnimationFrame(() => renderFrame(0));
+        }
+
         if (loadedCount === TOTAL_FRAMES) {
           setIsLoaded(true);
         }
