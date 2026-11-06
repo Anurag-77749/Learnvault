@@ -218,7 +218,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-display tracking-tight text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-serif-display tracking-tight text-white">
             Today's Mission
           </h1>
 
@@ -244,10 +244,10 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
           {/* Card Header */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <h2 className="text-xl sm:text-2xl font-black font-display text-white tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-bold font-serif-display text-white tracking-tight">
                 To-Do List
               </h2>
-              <span className="px-2.5 py-0.5 rounded-full bg-[#E5B84B]/20 text-[#F9D976] border border-[#E5B84B]/40 font-mono text-xs font-bold">
+              <span className="px-2.5 py-0.5 rounded-full bg-[#180508] text-[#F9D976] border border-[#E5B84B]/40 font-mono text-xs font-bold">
                 {completedCount}/{tasks.length} Done
               </span>
             </div>
@@ -429,10 +429,10 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
           ======================================================================== */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl sm:text-2xl font-black font-display text-white tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-bold font-serif-display text-white tracking-tight">
             Today So Far
           </h2>
-          <span className="text-xs font-mono text-[#A89279] uppercase font-bold tracking-wider">
+          <span className="text-[11px] font-mono text-[#A89279] uppercase font-bold tracking-wider">
             DAILY PROGRESS TRACKER
           </span>
         </div>
@@ -562,7 +562,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
           4. "QUICK ACTIONS" ROW OF MAGNETIC HOVER BUTTONS
           ======================================================================== */}
       <div className="space-y-3">
-        <h2 className="text-xl sm:text-2xl font-black font-display text-white tracking-tight">
+        <h2 className="text-xl sm:text-2xl font-bold font-serif-display text-white tracking-tight">
           Quick Actions
         </h2>
 
@@ -619,7 +619,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
         <div className="flex items-center gap-3">
           <span className="w-2.5 h-2.5 rounded-full bg-[#E5B84B] shadow-[0_0_8px_#E5B84B] animate-pulse" />
           <div>
-            <h3 className="font-display font-bold text-base text-white tracking-tight">
+            <h3 className="font-serif-display font-bold text-lg text-white tracking-tight">
               Next Up in Timeline
             </h3>
             <p className="text-xs font-mono text-[#BFA997]">

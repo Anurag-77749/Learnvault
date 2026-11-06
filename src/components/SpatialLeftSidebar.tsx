@@ -50,15 +50,15 @@ export const SpatialLeftSidebar: React.FC<SpatialLeftSidebarProps> = ({
   const overallPercent = totalSub > 0 ? Math.round((doneSub / totalSub) * 100) : 0;
 
   return (
-    <aside className={`w-full lg:w-72 shrink-0 space-y-5 ${className}`}>
+    <aside className={`w-full lg:w-64 shrink-0 space-y-4 ${className}`}>
       {/* Brand Header */}
       <div 
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="flex items-center gap-3 p-2 cursor-pointer group"
+        onClick={() => onSelectScreen('today')}
+        className="flex items-center gap-3 p-1 cursor-pointer group"
       >
-        <LearnVaultLogo size={36} showText={false} />
+        <LearnVaultLogo size={34} showText={false} />
         <div>
-          <h2 className="font-display font-black text-lg text-white tracking-tight leading-tight group-hover:text-[#F9D976] transition-colors">
+          <h2 className="font-serif-display font-black text-xl text-white tracking-tight leading-tight group-hover:text-[#F9D976] transition-colors">
             LearnVault
           </h2>
           <p className="text-[9px] font-mono tracking-widest text-[#E5B84B] uppercase font-bold">
