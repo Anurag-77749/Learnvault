@@ -53,21 +53,21 @@ export const LogSleepModal: React.FC<LogSleepModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
           transition={{ duration: 0.2 }}
-          className="w-full max-w-md bg-[#121212] border border-[#D4AF37]/40 rounded-3xl p-6 shadow-2xl relative"
+          className="w-full max-w-md bg-[#110E0E] border border-[rgba(255,240,220,0.08)] rounded-2xl p-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_24px_48px_rgba(0,0,0,0.9)] relative max-h-[92vh] overflow-y-auto"
         >
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-[#D4AF37]/20">
+          <div className="flex items-center justify-between pb-4 border-b border-[rgba(255,240,220,0.07)]">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-black border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37]">
+              <div className="w-8 h-8 rounded-lg bg-[#0A0808] border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37]">
                 <Moon className="w-4 h-4" />
               </div>
-              <h2 className="font-serif text-2xl font-bold text-[#F9F6EE]">
+              <h2 className="font-serif-display text-2xl font-bold text-[#F5F2EB]">
                 Log Sleep
               </h2>
             </div>
             <button
               onClick={onClose}
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#A09D95] hover:text-[#D4AF37] rounded-xl transition-colors"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#9E958E] hover:text-[#F5F2EB] rounded-lg transition-colors cursor-pointer"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
@@ -78,45 +78,45 @@ export const LogSleepModal: React.FC<LogSleepModalProps> = ({
             {/* Times */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-[#A09D95] mb-2 uppercase tracking-wider">
+                <label className="block text-[11px] font-mono font-bold text-[#9E958E] mb-2 uppercase tracking-wider">
                   Bedtime
                 </label>
                 <input
                   type="time"
                   value={bedtime}
                   onChange={(e) => setBedtime(e.target.value)}
-                  className="w-full min-h-[46px] px-3 rounded-xl bg-black border border-[#D4AF37]/30 text-[#F9F6EE] text-center font-bold focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full min-h-[46px] px-3 rounded-lg bg-[#0A0808] border border-[rgba(255,240,220,0.08)] text-[#F5F2EB] text-center font-bold font-mono focus:outline-none focus:border-[#D4AF37]/50 shadow-inner"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#A09D95] mb-2 uppercase tracking-wider">
+                <label className="block text-[11px] font-mono font-bold text-[#9E958E] mb-2 uppercase tracking-wider">
                   Wake Time
                 </label>
                 <input
                   type="time"
                   value={wakeTime}
                   onChange={(e) => setWakeTime(e.target.value)}
-                  className="w-full min-h-[46px] px-3 rounded-xl bg-black border border-[#D4AF37]/30 text-[#F9F6EE] text-center font-bold focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full min-h-[46px] px-3 rounded-lg bg-[#0A0808] border border-[rgba(255,240,220,0.08)] text-[#F5F2EB] text-center font-bold font-mono focus:outline-none focus:border-[#D4AF37]/50 shadow-inner"
                   required
                 />
               </div>
             </div>
 
             {/* Calculated Hours Display */}
-            <div className="p-3.5 rounded-2xl bg-black border border-[#D4AF37]/30 flex items-center justify-between">
-              <span className="text-xs text-[#A09D95] uppercase tracking-wider font-semibold">
+            <div className="p-3.5 rounded-xl bg-[#0A0808] border border-[rgba(255,240,220,0.08)] flex items-center justify-between shadow-inner">
+              <span className="text-xs text-[#9E958E] uppercase tracking-wider font-semibold font-mono">
                 Calculated Sleep:
               </span>
-              <span className="font-serif text-2xl font-bold text-[#D4AF37]">
-                {calculatedHours} <span className="text-sm font-sans text-[#F9F6EE]">hrs</span>
+              <span className="font-mono text-2xl font-bold text-[#D4AF37] tabular-nums">
+                {calculatedHours} <span className="text-sm font-sans text-[#F5F2EB]">hrs</span>
               </span>
             </div>
 
             {/* Quality */}
             <div>
-              <label className="block text-xs font-semibold text-[#A09D95] mb-2 uppercase tracking-wider">
+              <label className="block text-[11px] font-mono font-bold text-[#9E958E] mb-2 uppercase tracking-wider">
                 Sleep Quality (1 - 5)
               </label>
               <div className="grid grid-cols-5 gap-2">
@@ -125,14 +125,14 @@ export const LogSleepModal: React.FC<LogSleepModalProps> = ({
                     key={lvl}
                     type="button"
                     onClick={() => setQuality(lvl)}
-                    className={`min-h-[44px] rounded-xl flex flex-col items-center justify-center transition-all ${
+                    className={`min-h-[44px] rounded-lg flex flex-col items-center justify-center transition-all cursor-pointer ${
                       quality === lvl
-                        ? 'bg-[#D4AF37] text-black font-bold shadow-md'
-                        : 'bg-black text-[#A09D95] hover:text-[#F9F6EE] border border-[#D4AF37]/25'
+                        ? 'bg-gradient-to-r from-[#F6E6C2] via-[#D4AF37] to-[#AA8222] text-[#090808] font-bold shadow-sm'
+                        : 'bg-[#0A0808] text-[#9E958E] hover:text-[#F5F2EB] border border-[rgba(255,240,220,0.06)]'
                     }`}
                   >
                     <Star className={`w-3.5 h-3.5 ${quality >= lvl ? 'fill-current' : ''}`} />
-                    <span className="text-xs mt-0.5">{lvl}</span>
+                    <span className="text-xs mt-0.5 font-mono">{lvl}</span>
                   </button>
                 ))}
               </div>
@@ -143,14 +143,14 @@ export const LogSleepModal: React.FC<LogSleepModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 min-h-[46px] rounded-xl border border-[#D4AF37]/30 text-sm text-[#A09D95] hover:text-[#F9F6EE] font-semibold transition-colors"
+                className="flex-1 min-h-[46px] rounded-lg border border-[rgba(255,240,220,0.08)] text-sm text-[#9E958E] hover:text-[#F5F2EB] font-semibold transition-colors cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex-1 min-h-[46px] rounded-xl bg-[#D4AF37] hover:bg-[#FFD700] text-black text-sm font-bold transition-all shadow-md shadow-[#D4AF37]/20 disabled:opacity-40"
+                className="flex-1 min-h-[46px] rounded-lg btn-liquid-gold text-[#090808] text-sm font-bold transition-all shadow-md disabled:opacity-40 cursor-pointer"
               >
                 {isSubmitting ? 'Saving...' : 'Save Sleep'}
               </button>

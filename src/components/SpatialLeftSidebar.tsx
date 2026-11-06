@@ -50,51 +50,51 @@ export const SpatialLeftSidebar: React.FC<SpatialLeftSidebarProps> = ({
   const overallPercent = totalSub > 0 ? Math.round((doneSub / totalSub) * 100) : 0;
 
   return (
-    <aside className={`w-full lg:w-64 shrink-0 space-y-4 ${className}`}>
+    <aside className={`w-full lg:w-64 shrink-0 space-y-3.5 bg-[#060505] p-3.5 rounded-2xl border border-[rgba(255,240,220,0.06)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04),0_16px_36px_rgba(0,0,0,0.8)] backdrop-blur-xl ${className}`}>
       {/* Brand Header */}
       <div 
         onClick={() => onSelectScreen('today')}
         className="flex items-center gap-3 p-1 cursor-pointer group"
       >
-        <LearnVaultLogo size={34} showText={false} />
+        <LearnVaultLogo size={32} showText={false} />
         <div>
-          <h2 className="font-serif-display font-black text-xl text-white tracking-tight leading-tight group-hover:text-[#F9D976] transition-colors">
+          <h2 className="font-serif-display font-black text-xl text-[#F5F2EB] tracking-tight leading-tight group-hover:text-[#F6E6C2] transition-colors">
             LearnVault
           </h2>
-          <p className="text-[9px] font-mono tracking-widest text-[#E5B84B] uppercase font-bold">
+          <p className="text-[9px] font-mono tracking-widest text-[#D4AF37] uppercase font-bold">
             YOUR KNOWLEDGE. YOUR PROGRESS.
           </p>
         </div>
       </div>
 
       {/* Overall Progress Widget */}
-      <div className="crimson-glass p-4 rounded-2xl border border-[#E5B84B]/20 space-y-2.5 shadow-md">
+      <div className="bg-[#0E0C0C] p-3.5 rounded-xl border border-[rgba(255,240,220,0.07)] space-y-2 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
         <div className="flex items-center justify-between text-xs">
           <div className="flex items-center gap-1.5 font-mono text-[#D4AF37]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E5B84B] animate-pulse" />
-            <span className="font-bold">Overall Progress</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E5A970] animate-pulse" />
+            <span className="font-bold text-[11px] uppercase tracking-wide">Overall Progress</span>
           </div>
-          <span className="font-mono font-bold text-white text-xs">
+          <span className="font-mono font-bold text-[#F5F2EB] text-xs tabular-nums">
             <SpringCounter value={overallPercent} suffix="%" />
           </span>
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full bg-[#120305] h-1.5 rounded-full overflow-hidden border border-[#E5B84B]/20">
+        <div className="w-full bg-[#070606] h-1.5 rounded-full overflow-hidden border border-[rgba(255,240,220,0.06)]">
           <div
-            className="h-full bg-gradient-to-r from-[#E5B84B] to-[#F9D976] transition-all duration-500 rounded-full shadow-[0_0_8px_rgba(229,184,75,0.4)]"
+            className="h-full bg-gradient-to-r from-[#D4AF37] via-[#F6E6C2] to-[#D4AF37] transition-all duration-500 rounded-full shadow-[0_0_8px_rgba(212,175,55,0.35)]"
             style={{ width: `${Math.max(overallPercent, 2)}%` }}
           />
         </div>
 
         <div className="flex items-center justify-between text-[10px] font-mono pt-0.5">
-          <span className="text-[#A89279]">
+          <span className="text-[#9E958E] tabular-nums">
             <SpringCounter value={doneSub} />/{displayTotal} Topics
           </span>
           <button
             type="button"
             onClick={() => onSelectScreen('learn')}
-            className="text-[#F9D976] hover:underline flex items-center gap-1 cursor-pointer font-bold"
+            className="text-[#D4AF37] hover:text-[#F6E6C2] flex items-center gap-1 cursor-pointer font-bold transition-colors"
           >
             <span>View Tracker</span>
             <ArrowRight className="w-3 h-3" />
@@ -103,7 +103,7 @@ export const SpatialLeftSidebar: React.FC<SpatialLeftSidebarProps> = ({
       </div>
 
       {/* Navigation Pills Stack */}
-      <nav className="space-y-1.5">
+      <nav className="space-y-1">
         {SIDEBAR_NAV_ITEMS.map((item) => {
           const isActive = activeScreen === item.id;
           const Icon = item.icon;
@@ -113,13 +113,16 @@ export const SpatialLeftSidebar: React.FC<SpatialLeftSidebarProps> = ({
               <button
                 key={item.id}
                 onClick={() => onSelectScreen(item.id)}
-                className="w-full py-2.5 px-4 rounded-xl btn-liquid-gold text-xs font-black flex items-center justify-between cursor-pointer shadow-lg"
+                className="relative w-full py-2.5 px-3.5 rounded-lg bg-[rgba(212,175,55,0.09)] border border-[#D4AF37]/35 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),inset_0_0_12px_rgba(212,175,55,0.06)] flex items-center justify-between cursor-pointer transition-all overflow-hidden"
               >
-                <div className="flex items-center gap-3">
-                  <Icon className="w-4 h-4 text-black" />
-                  <span className="tracking-wide uppercase font-bold text-black">{item.label}</span>
+                {/* 2px vertical champagne gold indicator bar on left edge */}
+                <span className="absolute left-0 top-1.5 bottom-1.5 w-[2.5px] rounded-r-full bg-gradient-to-b from-[#F6E6C2] to-[#D4AF37] shadow-[0_0_8px_rgba(212,175,55,0.5)]" />
+                
+                <div className="flex items-center gap-3 pl-1">
+                  <Icon className="w-4 h-4 text-[#F6E6C2]" />
+                  <span className="text-xs font-semibold tracking-wide text-[#F6E6C2]">{item.label}</span>
                 </div>
-                <span className="w-2 h-2 rounded-full bg-black shadow-sm" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E5A970] shadow-[0_0_6px_rgba(229,169,112,0.8)]" />
               </button>
             );
           }
@@ -128,10 +131,10 @@ export const SpatialLeftSidebar: React.FC<SpatialLeftSidebarProps> = ({
             <button
               key={item.id}
               onClick={() => onSelectScreen(item.id)}
-              className="w-full py-2.5 px-4 rounded-xl text-xs font-mono text-[#BFA997] hover:text-white hover:bg-[#1A060A]/80 border border-transparent hover:border-[#E5B84B]/20 flex items-center justify-between transition-all cursor-pointer"
+              className="w-full py-2.5 px-3.5 rounded-lg text-xs font-sans text-[#9E958E] hover:text-[#F5F2EB] hover:bg-[#120F0F] border border-transparent hover:border-[rgba(255,240,220,0.08)] flex items-center justify-between transition-all cursor-pointer group"
             >
               <div className="flex items-center gap-3">
-                <Icon className="w-4 h-4 text-[#887060]" />
+                <Icon className="w-4 h-4 text-[#635B55] group-hover:text-[#9E958E] transition-colors" />
                 <span className="font-medium tracking-wide">{item.label}</span>
               </div>
             </button>
@@ -140,7 +143,7 @@ export const SpatialLeftSidebar: React.FC<SpatialLeftSidebarProps> = ({
       </nav>
 
       {/* Bottom DSA & Communication Widget */}
-      <div className="pt-2">
+      <div className="pt-1">
         <DailyDsaCommunicationWidget />
       </div>
     </aside>

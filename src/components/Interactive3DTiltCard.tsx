@@ -12,7 +12,7 @@ export const Interactive3DTiltCard: React.FC<Interactive3DTiltCardProps> = ({
   children,
   className = '',
   maxTilt = 8,
-  glowColor = 'rgba(249, 217, 118, 0.22)',
+  glowColor = 'rgba(246, 230, 194, 0.14)',
   onClick,
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);

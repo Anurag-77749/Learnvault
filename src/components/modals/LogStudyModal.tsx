@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, BookOpen, Clock } from 'lucide-react';
+import { X, Clock } from 'lucide-react';
 import { addStudyMinutes } from '../../services/dailyLogService';
 
 interface LogStudyModalProps {
@@ -56,21 +56,21 @@ export const LogStudyModal: React.FC<LogStudyModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
           transition={{ duration: 0.2 }}
-          className="w-full max-w-md bg-[#121212] border border-[#D4AF37]/40 rounded-3xl p-6 shadow-2xl relative"
+          className="w-full max-w-md bg-[#110E0E] border border-[rgba(255,240,220,0.08)] rounded-2xl p-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_24px_48px_rgba(0,0,0,0.9)] relative max-h-[92vh] overflow-y-auto"
         >
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-[#D4AF37]/20">
+          <div className="flex items-center justify-between pb-4 border-b border-[rgba(255,240,220,0.07)]">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-black border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37]">
+              <div className="w-8 h-8 rounded-lg bg-[#0A0808] border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37]">
                 <Clock className="w-4 h-4" />
               </div>
-              <h2 className="font-serif text-2xl font-bold text-[#F9F6EE]">
+              <h2 className="font-serif-display text-2xl font-bold text-[#F5F2EB]">
                 Manual Study Log
               </h2>
             </div>
             <button
               onClick={onClose}
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#A09D95] hover:text-[#D4AF37] rounded-xl transition-colors"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#9E958E] hover:text-[#F5F2EB] rounded-lg transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -79,7 +79,7 @@ export const LogStudyModal: React.FC<LogStudyModalProps> = ({
           <form onSubmit={handleSubmit} className="mt-5 space-y-5">
             {/* Quick Presets */}
             <div>
-              <label className="block text-xs font-semibold text-[#A09D95] mb-2 uppercase tracking-wider">
+              <label className="block text-[11px] font-mono font-bold text-[#9E958E] mb-2 uppercase tracking-wider">
                 Study Duration (Minutes)
               </label>
               <div className="grid grid-cols-4 gap-2 mb-3">
@@ -88,10 +88,10 @@ export const LogStudyModal: React.FC<LogStudyModalProps> = ({
                     key={m}
                     type="button"
                     onClick={() => setMinutes(m)}
-                    className={`min-h-[44px] rounded-xl text-sm font-semibold transition-all ${
+                    className={`min-h-[44px] rounded-lg text-sm font-semibold transition-all cursor-pointer ${
                       minutes === m
-                        ? 'bg-[#D4AF37] text-black shadow-md shadow-[#D4AF37]/20'
-                        : 'bg-black text-[#A09D95] hover:text-[#F9F6EE] border border-[#D4AF37]/25'
+                        ? 'bg-gradient-to-r from-[#F6E6C2] via-[#D4AF37] to-[#AA8222] text-[#090808] font-bold shadow-sm'
+                        : 'bg-[#0A0808] text-[#9E958E] hover:text-[#F5F2EB] border border-[rgba(255,240,220,0.06)]'
                     }`}
                   >
                     {m}m
@@ -104,22 +104,23 @@ export const LogStudyModal: React.FC<LogStudyModalProps> = ({
                 max="720"
                 value={minutes}
                 onChange={(e) => setMinutes(Math.max(1, parseInt(e.target.value) || 0))}
-                className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#D4AF37]/30 text-[#F9F6EE] focus:outline-none focus:border-[#D4AF37] text-center font-bold"
+                className="w-full min-h-[44px] px-4 rounded-lg bg-[#0A0808] border border-[rgba(255,240,220,0.08)] text-[#F5F2EB] focus:outline-none focus:border-[#D4AF37]/50 text-center font-bold font-mono shadow-inner"
               />
             </div>
 
             {/* Topic selector */}
             <div>
-              <label className="block text-xs font-semibold text-[#A09D95] mb-2 uppercase tracking-wider">
+              <label className="block text-[11px] font-mono font-bold text-[#9E958E] mb-2 uppercase tracking-wider">
                 Attributed Curriculum Topic
               </label>
               <select
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
-                style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3 rounded-xl bg-[#0E0205] border border-[#D4AF37]/30 text-xs sm:text-sm text-[#F9F6EE] focus:outline-none focus:border-[#D4AF37] cursor-pointer"
+                style={{ colorScheme: 'dark' }}
+                className="w-full min-h-[44px] px-3 rounded-lg bg-[#0A0808] border border-[rgba(255,240,220,0.08)] text-xs sm:text-sm text-[#F5F2EB] focus:outline-none focus:border-[#D4AF37]/50 cursor-pointer shadow-inner"
               >
                 {TOPIC_PRESETS.map((t) => (
-                  <option key={t} value={t} className="bg-[#121212] text-[#F9F6EE]">
+                  <option key={t} value={t} className="bg-[#110E0E] text-[#F5F2EB]">
                     {t}
                   </option>
                 ))}
@@ -131,14 +132,14 @@ export const LogStudyModal: React.FC<LogStudyModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 min-h-[46px] rounded-xl border border-[#D4AF37]/30 text-sm text-[#A09D95] hover:text-[#F9F6EE] font-semibold transition-colors"
+                className="flex-1 min-h-[46px] rounded-lg border border-[rgba(255,240,220,0.08)] text-sm text-[#9E958E] hover:text-[#F5F2EB] font-semibold transition-colors cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting || minutes <= 0}
-                className="flex-1 min-h-[46px] rounded-xl bg-[#D4AF37] hover:bg-[#FFD700] text-black text-sm font-bold transition-all shadow-md shadow-[#D4AF37]/20 disabled:opacity-40"
+                className="flex-1 min-h-[46px] rounded-lg btn-liquid-gold text-[#090808] text-sm font-bold transition-all shadow-md disabled:opacity-40 cursor-pointer"
               >
                 {isSubmitting ? 'Logging...' : `Log ${minutes}m Study`}
               </button>

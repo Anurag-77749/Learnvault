@@ -52,21 +52,21 @@ export const LogWastedModal: React.FC<LogWastedModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
           transition={{ duration: 0.2 }}
-          className="w-full max-w-md bg-[#121212] border border-[#D4AF37]/40 rounded-3xl p-6 shadow-2xl relative"
+          className="w-full max-w-md bg-[#110E0E] border border-[rgba(255,240,220,0.08)] rounded-2xl p-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_24px_48px_rgba(0,0,0,0.9)] relative max-h-[92vh] overflow-y-auto"
         >
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-[#D4AF37]/20">
+          <div className="flex items-center justify-between pb-4 border-b border-[rgba(255,240,220,0.07)]">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-black border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37]">
+              <div className="w-8 h-8 rounded-lg bg-[#0A0808] border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37]">
                 <Clock className="w-4 h-4" />
               </div>
-              <h2 className="font-serif text-2xl font-bold text-[#F9F6EE]">
+              <h2 className="font-serif-display text-2xl font-bold text-[#F5F2EB]">
                 Log Wasted Time
               </h2>
             </div>
             <button
               onClick={onClose}
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#A09D95] hover:text-[#D4AF37] rounded-xl transition-colors"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#9E958E] hover:text-[#F5F2EB] rounded-lg transition-colors cursor-pointer"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
@@ -76,7 +76,7 @@ export const LogWastedModal: React.FC<LogWastedModalProps> = ({
           <form onSubmit={handleSubmit} className="mt-5 space-y-5">
             {/* Quick presets */}
             <div>
-              <label className="block text-xs font-semibold text-[#A09D95] mb-2 uppercase tracking-wider">
+              <label className="block text-[11px] font-mono font-bold text-[#9E958E] mb-2 uppercase tracking-wider">
                 Duration (minutes)
               </label>
               <div className="grid grid-cols-4 gap-2 mb-3">
@@ -85,10 +85,10 @@ export const LogWastedModal: React.FC<LogWastedModalProps> = ({
                     key={m}
                     type="button"
                     onClick={() => setMinutes(m)}
-                    className={`min-h-[44px] rounded-xl text-sm font-semibold transition-all ${
+                    className={`min-h-[44px] rounded-lg text-sm font-semibold transition-all cursor-pointer ${
                       minutes === m
-                        ? 'bg-[#D4AF37] text-black shadow-md shadow-[#D4AF37]/20'
-                        : 'bg-black text-[#A09D95] hover:text-[#F9F6EE] border border-[#D4AF37]/25'
+                        ? 'bg-gradient-to-r from-[#F6E6C2] via-[#D4AF37] to-[#AA8222] text-[#090808] font-bold shadow-sm'
+                        : 'bg-[#0A0808] text-[#9E958E] hover:text-[#F5F2EB] border border-[rgba(255,240,220,0.06)]'
                     }`}
                   >
                     {m}m
@@ -100,26 +100,26 @@ export const LogWastedModal: React.FC<LogWastedModalProps> = ({
                 min="1"
                 max="720"
                 value={minutes}
-                onChange={(e) => setMinutes(Math.max(1, parseInt(e.target.value) || 0))}
-                className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#D4AF37]/30 text-[#F9F6EE] focus:outline-none focus:border-[#D4AF37] text-center font-bold"
+                onChange={(e) => setMinutes(Math.max(1, parseInt(e.target.value) || 1))}
+                className="w-full min-h-[44px] px-4 rounded-lg bg-[#0A0808] border border-[rgba(255,240,220,0.08)] text-[#F5F2EB] text-sm focus:outline-none focus:border-[#D4AF37]/50 shadow-inner font-mono"
               />
             </div>
 
-            {/* Reason selector */}
+            {/* Reason */}
             <div>
-              <label className="block text-xs font-semibold text-[#A09D95] mb-2 uppercase tracking-wider">
-                Reason
+              <label className="block text-[11px] font-mono font-bold text-[#9E958E] mb-2 uppercase tracking-wider">
+                Primary Distraction
               </label>
-              <div className="flex flex-wrap gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {REASONS.map((r) => (
                   <button
                     key={r.id}
                     type="button"
                     onClick={() => setReason(r.id)}
-                    className={`min-h-[42px] px-3.5 rounded-xl text-xs font-semibold transition-all ${
+                    className={`min-h-[40px] px-3 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                       reason === r.id
-                        ? 'bg-[#D4AF37] text-black shadow-sm'
-                        : 'bg-black text-[#A09D95] hover:text-[#F9F6EE] border border-[#D4AF37]/25'
+                        ? 'bg-[#181313] border border-[#D4AF37]/50 text-[#F6E6C2] shadow-sm'
+                        : 'bg-[#0A0808] text-[#9E958E] hover:text-[#F5F2EB] border border-[rgba(255,240,220,0.06)]'
                     }`}
                   >
                     {r.label}
@@ -130,7 +130,7 @@ export const LogWastedModal: React.FC<LogWastedModalProps> = ({
 
             {/* Note */}
             <div>
-              <label className="block text-xs font-semibold text-[#A09D95] mb-2 uppercase tracking-wider">
+              <label className="block text-[11px] font-mono font-bold text-[#9E958E] mb-2 uppercase tracking-wider">
                 Note (optional)
               </label>
               <input
@@ -138,7 +138,7 @@ export const LogWastedModal: React.FC<LogWastedModalProps> = ({
                 placeholder="e.g. YouTube algorithm rabbit hole"
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#D4AF37]/30 text-[#F9F6EE] placeholder-[#A09D95]/40 text-sm focus:outline-none focus:border-[#D4AF37]"
+                className="w-full min-h-[44px] px-4 rounded-lg bg-[#0A0808] border border-[rgba(255,240,220,0.08)] text-[#F5F2EB] placeholder-[#635B55] text-sm focus:outline-none focus:border-[#D4AF37]/50 shadow-inner"
               />
             </div>
 
@@ -147,14 +147,14 @@ export const LogWastedModal: React.FC<LogWastedModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 min-h-[46px] rounded-xl border border-[#D4AF37]/30 text-sm text-[#A09D95] hover:text-[#F9F6EE] font-semibold transition-colors"
+                className="flex-1 min-h-[46px] rounded-lg border border-[rgba(255,240,220,0.08)] text-sm text-[#9E958E] hover:text-[#F5F2EB] font-semibold transition-colors cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting || minutes <= 0}
-                className="flex-1 min-h-[46px] rounded-xl bg-[#D4AF37] hover:bg-[#FFD700] text-black text-sm font-bold transition-all shadow-md shadow-[#D4AF37]/20 disabled:opacity-40"
+                className="flex-1 min-h-[46px] rounded-lg btn-liquid-gold text-[#090808] text-sm font-bold transition-all shadow-md disabled:opacity-40 cursor-pointer"
               >
                 {isSubmitting ? 'Logging...' : 'Save Log'}
               </button>

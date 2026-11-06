@@ -23,9 +23,9 @@ export const LearnVaultLogo: React.FC<LearnVaultLogoProps> = ({
         className="relative group cursor-pointer shrink-0" 
         style={{ width: size, height: size }}
       >
-        {/* Ambient Orange Photon Glow */}
+        {/* Ambient Champagne Photon Glow */}
         <div 
-          className="absolute inset-0 rounded-full bg-[#FF5500]/20 blur-md pointer-events-none transition-all duration-500 group-hover:bg-[#FF5500]/35 group-hover:scale-125"
+          className="absolute inset-0 rounded-full bg-[#D4AF37]/20 blur-md pointer-events-none transition-all duration-500 group-hover:bg-[#D4AF37]/35 group-hover:scale-125"
         />
 
         <svg
@@ -56,9 +56,9 @@ export const LearnVaultLogo: React.FC<LearnVaultLogoProps> = ({
 
             {/* Glowing Core Gradient */}
             <linearGradient id="lv-core-grad" x1="50" y1="36" x2="50" y2="64" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#FFA040" />
-              <stop offset="50%" stopColor="#FF5500" />
-              <stop offset="100%" stopColor="#CC2200" />
+              <stop offset="0%" stopColor="#F6E6C2" />
+              <stop offset="50%" stopColor="#D4AF37" />
+              <stop offset="100%" stopColor="#AA8222" />
             </linearGradient>
 
             {/* Specular Rim Light */}

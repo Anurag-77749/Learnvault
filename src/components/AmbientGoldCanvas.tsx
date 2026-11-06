@@ -57,17 +57,17 @@ export const AmbientGoldCanvas: React.FC<{ className?: string }> = ({ className 
         const breathing = Math.sin(frame * p.pulseSpeed + p.pulseOffset);
         p.alpha = p.baseAlpha * (0.65 + 0.35 * breathing);
 
-        // Core gold particle
+        // Core champagne gold particle
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(229, 184, 75, ${p.alpha})`;
+        ctx.fillStyle = `rgba(212, 175, 55, ${p.alpha})`;
         ctx.fill();
 
         // Soft outer bokeh aura
         if (p.radius > 2.0) {
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius * 2.8, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(249, 217, 118, ${p.alpha * 0.25})`;
+          ctx.fillStyle = `rgba(246, 230, 194, ${p.alpha * 0.22})`;
           ctx.fill();
         }
       });
