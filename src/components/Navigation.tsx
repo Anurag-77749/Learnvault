@@ -37,7 +37,7 @@ export const NAV_ITEMS: { id: ScreenId; label: string; icon: React.ComponentType
 ];
 
 /* ==========================================================================
-   TOP MINIMALIST HUD BAR (ARCHITECTURAL ALABASTER & TITANIUM)
+   TOP MINIMALIST HUD BAR (FROSTED DARK GLASS)
    ========================================================================== */
 export const TopNavBar: React.FC<NavigationProps> = ({
   activeScreen,
@@ -79,21 +79,21 @@ export const TopNavBar: React.FC<NavigationProps> = ({
   }).toUpperCase();
 
   return (
-    <header className="sticky top-0 z-30 w-full bg-[#F4F2EE]/90 backdrop-blur-md border-b border-[#E6E3DC] px-4 sm:px-8 py-3 select-none">
+    <header className="sticky top-0 z-30 w-full bg-[#0A0B0E]/80 backdrop-blur-xl border-b border-white/[0.08] px-4 sm:px-8 py-3 select-none">
       <div className="max-w-[1500px] mx-auto flex items-center justify-between gap-4">
         {/* Left: Minimalist Geometric Logo Mark */}
         <div 
           onClick={() => onSelectScreen('today')}
           className="flex items-center gap-2.5 cursor-pointer group shrink-0"
         >
-          <div className="w-8 h-8 rounded-lg bg-[#111110] flex items-center justify-center p-1 shadow-sm group-hover:scale-105 transition-transform">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FF4F00]" />
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-600 flex items-center justify-center p-1 shadow-md shadow-indigo-500/25 group-hover:scale-105 transition-transform">
+            <span className="w-2.5 h-2.5 rounded-full bg-white shadow-sm" />
           </div>
           <div className="leading-tight">
-            <span className="font-display font-extrabold text-sm tracking-tight text-[#111110]">
+            <span className="font-display font-extrabold text-sm tracking-tight text-[#F8FAFC]">
               LEARNVAULT
             </span>
-            <span className="text-[10px] font-mono text-[#A39E93] ml-1.5 font-semibold">
+            <span className="text-[10px] font-mono text-[#818CF8] ml-1.5 font-bold">
               // OS 2.0
             </span>
           </div>
@@ -102,22 +102,22 @@ export const TopNavBar: React.FC<NavigationProps> = ({
         {/* Center: 1,460-Day Macro Progress Scrubber */}
         <div 
           onClick={() => onSelectScreen('progress')}
-          className="hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full bg-white border border-[#E6E3DC] shadow-sm hover:border-[#D8D4CC] cursor-pointer transition-all"
+          className="hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] backdrop-blur-md shadow-sm hover:border-white/20 cursor-pointer transition-all"
         >
-          <div className="flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#111110]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF4F00] animate-pulse" />
+          <div className="flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#F8FAFC]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#818CF8] animate-pulse" />
             <span>DAY {String(currentDayNumber).padStart(3, '0')} / 1,460</span>
           </div>
 
-          <div className="w-24 bg-[#F4F2EE] h-1.5 rounded-full overflow-hidden border border-[#E6E3DC]">
+          <div className="w-24 bg-black/40 h-1.5 rounded-full overflow-hidden border border-white/10">
             <div 
-              className="h-full bg-[#FF4F00] rounded-full transition-all duration-500"
+              className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full transition-all duration-500 shadow-sm"
               style={{ width: `${Math.max(overallPercent, 2)}%` }}
             />
           </div>
 
-          <div className="text-[10px] font-mono text-[#68645E]">
-            <strong className="text-[#111110]">{doneSub}/{totalSub}</strong> TOPICS MASTERED ({overallPercent}%)
+          <div className="text-[10px] font-mono text-slate-400">
+            <strong className="text-white">{doneSub}/{totalSub}</strong> TOPICS ({overallPercent}%)
           </div>
         </div>
 
@@ -126,24 +126,24 @@ export const TopNavBar: React.FC<NavigationProps> = ({
           {/* Cloud Sync Status */}
           <button
             onClick={onOpenSyncModal}
-            className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-full bg-white border border-[#E6E3DC] hover:border-[#111110] text-[#68645E] hover:text-[#111110] transition-all flex items-center gap-1.5 text-xs font-mono shadow-sm cursor-pointer"
+            className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] hover:border-white/20 text-slate-400 hover:text-white transition-all flex items-center gap-1.5 text-xs font-mono shadow-sm cursor-pointer"
             title="Cloud Sync"
           >
-            <Cloud className="w-3.5 h-3.5 text-[#FF4F00]" />
+            <Cloud className="w-3.5 h-3.5 text-[#818CF8]" />
             <span className="hidden xl:inline text-[10px] font-bold">
               {syncState.syncId ? 'SYNC' : 'LINK'}
             </span>
             {syncState.syncId && (
-              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] shadow-[0_0_6px_#10B981]" />
             )}
           </button>
 
           {/* Live Date Badge */}
-          <div className="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-full bg-white border border-[#E6E3DC] text-[11px] font-mono font-bold text-[#111110] shadow-sm">
+          <div className="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono font-bold text-slate-300 shadow-sm">
             <span>{formattedDate}</span>
           </div>
 
-          {/* Hero "Start Pomodoro" Magnetic Pill Button in Aerospace Orange */}
+          {/* Hero "Start Pomodoro" Button */}
           <button
             onClick={() => {
               if (onQuickFocus) onQuickFocus();
@@ -180,16 +180,16 @@ export const FloatingDock: React.FC<NavigationProps> = ({
             <button
               key={item.id}
               onClick={() => onSelectScreen(item.id)}
-              className={`relative px-3 sm:px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
+              className={`relative px-3.5 sm:px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
                 isActive
-                  ? 'bg-white text-[#111110] font-bold shadow-md'
-                  : 'text-[#A39E93] hover:text-white hover:bg-white/10'
+                  ? 'bg-white/15 text-white border border-white/20 font-bold shadow-md'
+                  : 'text-slate-400 hover:text-white hover:bg-white/10'
               }`}
             >
-              <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#FF4F00]' : 'text-current'}`} />
+              <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#818CF8]' : 'text-current'}`} />
               <span className="hidden md:inline font-sans">{item.label}</span>
               {isActive && (
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FF4F00] ml-0.5" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#818CF8] ml-0.5 shadow-[0_0_6px_#818CF8]" />
               )}
             </button>
           );

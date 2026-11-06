@@ -1,4 +1,4 @@
-// LearnVault - OS 2.0 (Swiss Alabaster, Brushed Titanium & International Orange)
+// LearnVault - OS 2.0 (Frosted Nocturnal Glass & Textured Indigo Accents)
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLiveQuery } from 'dexie-react-hooks';
@@ -42,7 +42,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F2EE] text-[#111110] flex flex-col antialiased selection:bg-[#FF4F00] selection:text-white relative font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-[#0A0B0E] text-[#F8FAFC] flex flex-col antialiased selection:bg-[#6366F1] selection:text-white relative font-sans overflow-x-hidden">
       {/* Top Minimalist HUD Bar */}
       <TopNavBar
         activeScreen={activeScreen}

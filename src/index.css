@@ -7,40 +7,43 @@
     box-sizing: border-box;
   }
   
-  html, body {
-    color-scheme: light;
+  html, body, select, option, input, textarea {
+    color-scheme: dark;
   }
 
   select {
-    color-scheme: light;
-    background-color: #FFFFFF;
-    color: #111110;
-    border: 1px solid #E6E3DC;
+    color-scheme: dark;
+    background-color: #101219;
+    color: #F8FAFC;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   select option {
-    background-color: #FFFFFF;
-    color: #111110;
+    background-color: #0A0B0E;
+    color: #F8FAFC;
     padding: 8px 12px;
   }
 
   body {
     margin: 0;
     padding: 0;
-    background-color: #F4F2EE;
-    background-image: radial-gradient(#D8D4CC 1px, transparent 1px);
-    background-size: 16px 16px;
+    background-color: #0A0B0E;
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(99, 102, 241, 0.18), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 85% 60%, rgba(168, 85, 247, 0.08), transparent 60%),
+      radial-gradient(ellipse 50% 50% at 15% 70%, rgba(59, 130, 246, 0.08), transparent 60%);
     background-attachment: fixed;
-    color: #111110;
-    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #F8FAFC;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
   h1, h2, h3, .font-display {
-    font-family: 'Syne', 'Plus Jakarta Sans', sans-serif;
-    letter-spacing: -0.035em;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
 
   .font-mono, .tabular-nums {
@@ -50,55 +53,64 @@
 }
 
 /* ==========================================================================
-   SWISS ALABASTER, BRUSHED TITANIUM & INTERNATIONAL ORANGE (OS 2.0)
+   SMOOTH PREMIUM FROSTED GLASS & TEXTURED ACCENTS
    ========================================================================== */
 
-/* Ceramic White Bento Surface */
+/* Frosted Glass Bento Surfaces */
 .bento-ceramic,
 .card-glass,
 .card-obsidian,
 .card-maroon,
 .card-maroon-gold {
-  background: #FFFFFF;
-  border: 1px solid #E6E3DC;
+  background: rgba(16, 18, 25, 0.72);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 
-    0 12px 32px -8px rgba(20, 18, 15, 0.05),
-    0 2px 6px -1px rgba(20, 18, 15, 0.03);
+    0 16px 36px -8px rgba(0, 0, 0, 0.5),
+    0 2px 8px -1px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09);
   border-radius: 20px;
-  color: #111110;
+  color: #F8FAFC;
   transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .bento-ceramic:hover {
+  background: rgba(22, 25, 36, 0.82);
+  border-color: rgba(99, 102, 241, 0.35);
   box-shadow: 
-    0 18px 40px -10px rgba(20, 18, 15, 0.09),
-    0 4px 12px -2px rgba(20, 18, 15, 0.04);
+    0 20px 40px -8px rgba(0, 0, 0, 0.65),
+    0 0 20px -2px rgba(99, 102, 241, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
   transform: translateY(-2px);
 }
 
-/* High-Contrast Matte Anodized Carbon Core */
+/* Hero High-Contrast Anodized Glass Core */
 .bento-carbon {
-  background-color: #111110;
-  background-image: radial-gradient(circle at 80% 20%, rgba(255, 79, 0, 0.08) 0%, transparent 60%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(12, 13, 18, 0.88);
+  background-image: radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.16) 0%, transparent 60%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 
-    0 20px 40px -10px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 20px 44px -10px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
   border-radius: 20px;
   color: #FFFFFF;
 }
 
-/* Signature Accent 1: International Aerospace Orange */
+/* Primary Hero Button: Royal Indigo / Violet Gradient */
 .btn-orange,
 .btn-cyber-primary,
 .btn-nova-primary,
 .btn-champagne,
 .btn-shiny-gold {
-  background-color: #FF4F00;
+  background: linear-gradient(135deg, #6366F1 0%, #4F46E5 50%, #4338CA 100%);
   color: #FFFFFF !important;
   font-weight: 700;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 14px rgba(255, 79, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 18px -2px rgba(79, 70, 229, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35);
   border-radius: 999px;
   transition: all 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -108,8 +120,8 @@
 .btn-nova-primary:hover,
 .btn-champagne:hover,
 .btn-shiny-gold:hover {
-  background-color: #FF621E;
-  box-shadow: 0 6px 20px rgba(255, 79, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  filter: brightness(1.12);
+  box-shadow: 0 8px 24px -2px rgba(79, 70, 229, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.5);
   transform: translateY(-1px) scale(1.01);
 }
 
@@ -119,27 +131,27 @@
   transform: scale(0.97);
 }
 
-/* Tactile Pill Button */
+/* Tactile Glass Pill Button */
 .btn-tactile,
 .btn-cyber-ghost,
 .btn-nova-glass,
 .btn-anodized {
-  background: #F7F5F0;
-  border: 1px solid #E6E3DC;
-  color: #111110 !important;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #E2E8F0 !important;
   font-weight: 600;
   border-radius: 999px;
-  box-shadow: 0 1px 3px rgba(20, 18, 15, 0.04);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   transition: all 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .btn-tactile:hover,
 .btn-cyber-ghost:hover,
 .btn-nova-glass:hover {
-  background: #FFFFFF;
-  border-color: #D8D4CC;
-  color: #FF4F00 !important;
-  box-shadow: 0 4px 12px rgba(20, 18, 15, 0.06);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(99, 102, 241, 0.4);
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.12);
   transform: translateY(-1px);
 }
 
@@ -149,47 +161,47 @@
 
 /* Floating macOS-Style Glass Dock */
 .glass-dock {
-  background: rgba(17, 17, 16, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(14, 16, 22, 0.88);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 
-    0 24px 50px rgba(0, 0, 0, 0.28),
-    0 4px 12px rgba(0, 0, 0, 0.15),
+    0 24px 50px rgba(0, 0, 0, 0.55),
+    0 4px 12px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
   border-radius: 999px;
 }
 
 /* Command Bar Input */
 .input-command-bar {
-  background: #F7F5F0;
-  border: 1px solid #E6E3DC;
-  color: #111110;
-  box-shadow: inset 0 2px 4px rgba(20, 18, 15, 0.03);
+  background: rgba(10, 11, 16, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #F8FAFC;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
   transition: all 0.18s ease;
 }
 
 .input-command-bar:focus {
-  background: #FFFFFF;
-  border-color: #FF4F00;
-  box-shadow: 0 0 0 3px rgba(255, 79, 0, 0.12), inset 0 1px 2px rgba(20, 18, 15, 0.03);
+  background: rgba(14, 16, 22, 0.95);
+  border-color: rgba(99, 102, 241, 0.6);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
-/* Minimalist Clean Scrollbar */
+/* Minimalist Clean Dark Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F4F2EE;
+  background: #0A0B0E;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D8D4CC;
+  background: #1E2230;
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #A39E93;
+  background: #6366F1;
 }

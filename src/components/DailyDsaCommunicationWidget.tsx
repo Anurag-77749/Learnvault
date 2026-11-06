@@ -71,65 +71,65 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
 
   return (
     <div className="space-y-4">
-      {/* 1. DSA GRINDING SYNTHESIZER CARD */}
+      {/* 1. DSA GRINDING SYNTHESIZER CARD (FROSTED GLASS) */}
       <div className="bento-ceramic p-5 space-y-4 relative overflow-hidden">
         {/* Card Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-[#E6E3DC]">
+        <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-[#111110] text-white flex items-center justify-center">
-              <Code2 className="w-4 h-4 text-[#FF4F00]" />
+            <div className="w-8 h-8 rounded-xl bg-white/[0.06] border border-white/[0.08] text-white flex items-center justify-center">
+              <Code2 className="w-4 h-4 text-[#818CF8]" />
             </div>
             <div>
-              <h3 className="font-display font-extrabold text-sm text-[#111110] tracking-tight">
-                DSA SYNTHESIZER
+              <h3 className="font-display font-bold text-sm text-white tracking-tight">
+                DSA Synthesizer
               </h3>
-              <p className="text-[10px] font-mono text-[#A39E93]">LEETCODE / PROBLEMS</p>
+              <p className="text-[10px] font-mono text-slate-400">LeetCode / Problems</p>
             </div>
           </div>
-          <span className="text-[11px] font-mono font-bold text-[#68645E]">
-            ALL-TIME: <strong className="text-[#111110]">{cumulativeStats.totalQuestions}</strong>
+          <span className="text-[11px] font-mono font-bold text-slate-400">
+            ALL-TIME: <strong className="text-white">{cumulativeStats.totalQuestions}</strong>
           </span>
         </div>
 
         {/* Big Number & Master Stepper */}
         <div className="flex items-baseline justify-between gap-4">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-[#A39E93] block">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">
               PROBLEMS SOLVED TODAY
             </span>
-            <div className="font-display font-black text-6xl text-[#111110] tracking-tighter leading-none mt-1">
+            <div className="font-mono tabular-nums font-black text-5xl text-white tracking-tight leading-none mt-1">
               {todayTotal}
             </div>
           </div>
 
           {/* Stepper (- / +) */}
-          <div className="flex items-center bg-[#F7F5F0] border border-[#E6E3DC] rounded-xl p-1 shadow-inner">
+          <div className="flex items-center bg-black/40 border border-white/[0.08] rounded-xl p-1 shadow-inner">
             <button
               type="button"
               onClick={() => handleAdjustDSA(-1)}
               disabled={diffCounts[selectedDifficulty] <= 0}
-              className="w-9 h-9 rounded-lg flex items-center justify-center text-[#68645E] hover:text-[#111110] hover:bg-white disabled:opacity-20 transition-all cursor-pointer"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 disabled:opacity-20 transition-all cursor-pointer"
               title="Decrease problem count"
             >
-              <Minus className="w-4 h-4 stroke-[2.5]" />
+              <Minus className="w-3.5 h-3.5 stroke-[2.5]" />
             </button>
-            <span className="w-8 text-center font-mono font-bold text-sm text-[#111110] tabular-nums">
+            <span className="w-8 text-center font-mono font-bold text-sm text-white tabular-nums">
               {diffCounts[selectedDifficulty]}
             </span>
             <button
               type="button"
               onClick={() => handleAdjustDSA(1)}
-              className="w-9 h-9 rounded-lg flex items-center justify-center text-white bg-[#FF4F00] hover:bg-[#FF621E] active:scale-95 transition-all cursor-pointer shadow-sm shadow-[#FF4F00]/30"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-white bg-indigo-600 hover:bg-indigo-500 active:scale-95 transition-all cursor-pointer shadow-sm shadow-indigo-500/30"
               title="Increase problem count"
             >
-              <Plus className="w-4 h-4 stroke-[3]" />
+              <Plus className="w-3.5 h-3.5 stroke-[3]" />
             </button>
           </div>
         </div>
 
-        {/* 3-Segment Difficulty Matrix: Click directly to increment! */}
+        {/* 3-Segment Difficulty Matrix */}
         <div className="space-y-1.5 pt-1">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-[#A39E93] block">
+          <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">
             DIFFICULTY MATRIX (TAP TO +1)
           </span>
           <div className="grid grid-cols-3 gap-2">
@@ -142,12 +142,12 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
               }}
               className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                 selectedDifficulty === 'easy'
-                  ? 'bg-emerald-50 border-[#10B981] shadow-sm'
-                  : 'bg-[#F7F5F0] border-[#E6E3DC] hover:border-[#10B981]'
+                  ? 'bg-emerald-500/15 border-emerald-500/40 shadow-sm'
+                  : 'bg-white/[0.03] border-white/[0.08] hover:border-emerald-500/30'
               }`}
             >
-              <span className="text-[10px] font-mono font-bold text-[#10B981] block">EASY</span>
-              <span className="font-display font-extrabold text-xl text-[#111110]">
+              <span className="text-[10px] font-mono font-bold text-emerald-400 block">EASY</span>
+              <span className="font-mono tabular-nums font-bold text-lg text-white">
                 {diffCounts.easy || 0}
               </span>
             </button>
@@ -161,12 +161,12 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
               }}
               className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                 selectedDifficulty === 'medium'
-                  ? 'bg-amber-50 border-[#FF4F00] shadow-sm'
-                  : 'bg-[#F7F5F0] border-[#E6E3DC] hover:border-[#FF4F00]'
+                  ? 'bg-indigo-500/15 border-indigo-500/40 shadow-sm'
+                  : 'bg-white/[0.03] border-white/[0.08] hover:border-indigo-500/30'
               }`}
             >
-              <span className="text-[10px] font-mono font-bold text-[#FF4F00] block">MED</span>
-              <span className="font-display font-extrabold text-xl text-[#111110]">
+              <span className="text-[10px] font-mono font-bold text-indigo-400 block">MED</span>
+              <span className="font-mono tabular-nums font-bold text-lg text-white">
                 {diffCounts.medium || 0}
               </span>
             </button>
@@ -180,12 +180,12 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
               }}
               className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                 selectedDifficulty === 'hard'
-                  ? 'bg-rose-50 border-rose-500 shadow-sm'
-                  : 'bg-[#F7F5F0] border-[#E6E3DC] hover:border-rose-500'
+                  ? 'bg-rose-500/15 border-rose-500/40 shadow-sm'
+                  : 'bg-white/[0.03] border-white/[0.08] hover:border-rose-500/30'
               }`}
             >
-              <span className="text-[10px] font-mono font-bold text-rose-600 block">HARD</span>
-              <span className="font-display font-extrabold text-xl text-[#111110]">
+              <span className="text-[10px] font-mono font-bold text-rose-400 block">HARD</span>
+              <span className="font-mono tabular-nums font-bold text-lg text-white">
                 {diffCounts.hard || 0}
               </span>
             </button>
@@ -195,25 +195,25 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
 
       {/* 2. HIGH-LEVEL ENGLISH & COMMUNICATION CHECK-IN CARD */}
       <div className="bento-ceramic p-5 space-y-3.5 relative overflow-hidden">
-        <div className="flex items-center justify-between pb-3 border-b border-[#E6E3DC]">
+        <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-[#F7F5F0] text-[#111110] flex items-center justify-center border border-[#E6E3DC]">
-              <MessageSquare className="w-4 h-4 text-[#FF4F00]" />
+            <div className="w-8 h-8 rounded-xl bg-white/[0.06] text-white flex items-center justify-center border border-white/[0.08]">
+              <MessageSquare className="w-4 h-4 text-[#818CF8]" />
             </div>
             <div>
-              <h3 className="font-display font-extrabold text-sm text-[#111110] tracking-tight">
-                ENGLISH CHECK-IN
+              <h3 className="font-display font-bold text-sm text-white tracking-tight">
+                English Check-In
               </h3>
-              <p className="text-[10px] font-mono text-[#A39E93]">HABIT STAMP PROTOCOL</p>
+              <p className="text-[10px] font-mono text-slate-400">Habit Stamp Protocol</p>
             </div>
           </div>
-          <span className="text-[11px] font-mono font-bold text-[#10B981]">
+          <span className="text-[11px] font-mono font-bold text-emerald-400">
             🔥 {cumulativeStats.commDays}D STREAK
           </span>
         </div>
 
-        <p className="text-xs text-[#68645E] leading-snug font-sans">
-          Did you <strong className="text-[#111110]">speak, learn, or hear high-level English</strong> today?
+        <p className="text-xs text-slate-300 leading-snug">
+          Did you <strong className="text-white">speak, learn, or hear high-level English</strong> today?
         </p>
 
         {/* Two Satisfying Tactile Toggle Buttons */}
@@ -221,35 +221,35 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
           <button
             type="button"
             onClick={() => handleToggleCommunication(true)}
-            className={`py-3 px-3 rounded-xl text-xs font-bold font-mono flex items-center justify-center gap-2 transition-all cursor-pointer border ${
+            className={`py-2.5 px-3 rounded-xl text-xs font-bold font-mono flex items-center justify-center gap-2 transition-all cursor-pointer border ${
               isCommDone
-                ? 'bg-[#10B981] text-white border-[#10B981] shadow-md shadow-[#10B981]/25 scale-[1.02]'
-                : 'bg-[#F7F5F0] text-[#111110] border-[#E6E3DC] hover:border-[#10B981]'
+                ? 'bg-emerald-600 text-white border-emerald-500 shadow-md shadow-emerald-600/30 scale-[1.02]'
+                : 'bg-white/[0.04] text-slate-300 border-white/[0.08] hover:border-emerald-500/40 hover:text-white'
             }`}
           >
-            <Check className="w-4 h-4 stroke-[3]" />
+            <Check className="w-3.5 h-3.5 stroke-[3]" />
             <span>YES — LOGGED</span>
           </button>
 
           <button
             type="button"
             onClick={() => handleToggleCommunication(false)}
-            className={`py-3 px-3 rounded-xl text-xs font-bold font-mono flex items-center justify-center gap-2 transition-all cursor-pointer border ${
+            className={`py-2.5 px-3 rounded-xl text-xs font-bold font-mono flex items-center justify-center gap-2 transition-all cursor-pointer border ${
               isCommNotDone
-                ? 'bg-[#111110] text-[#FF4F00] border-[#111110] shadow-md scale-[1.02]'
-                : 'bg-[#F7F5F0] text-[#68645E] border-[#E6E3DC] hover:border-[#111110]'
+                ? 'bg-rose-950/80 text-rose-300 border-rose-500 shadow-md scale-[1.02]'
+                : 'bg-white/[0.04] text-slate-400 border-white/[0.08] hover:border-white/20'
             }`}
           >
-            <X className="w-4 h-4 stroke-[3]" />
+            <X className="w-3.5 h-3.5 stroke-[3]" />
             <span>NOT YET</span>
           </button>
         </div>
 
-        <div className="text-[11px] font-mono text-[#A39E93] text-center pt-1">
+        <div className="text-[11px] font-mono text-slate-400 text-center pt-1">
           {isCommDone ? (
-            <span className="text-[#10B981] font-bold">✓ VERIFIED FOR TODAY</span>
+            <span className="text-emerald-400 font-bold">✓ VERIFIED FOR TODAY</span>
           ) : isCommNotDone ? (
-            <span className="text-rose-500 font-bold">✕ PENDING COMPLETION</span>
+            <span className="text-rose-400 font-bold">✕ PENDING COMPLETION</span>
           ) : (
             <span>TAP TO RECORD DAILY STATUS</span>
           )}
