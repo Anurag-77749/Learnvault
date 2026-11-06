@@ -101,7 +101,7 @@ export const TopNavBar: React.FC<NavigationProps> = ({
   const currentNav = NAV_ITEMS.find((item) => item.id === activeScreen);
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#08080A]/85 backdrop-blur-2xl border-b border-white/[0.08] px-3 sm:px-6 py-2.5 select-none">
+    <header className="sticky top-0 z-40 w-full bg-[var(--surface-glass)]/95 backdrop-blur-2xl border-b border-[var(--surface-border)] transition-colors duration-300 px-3 sm:px-6 py-2.5 select-none">
       <div className="max-w-[1560px] mx-auto flex items-center justify-between gap-3">
         {/* Left: Minimalist Hardware Mark & Active Domain Pill */}
         <div className="flex items-center gap-3">
@@ -114,7 +114,7 @@ export const TopNavBar: React.FC<NavigationProps> = ({
           </div>
 
           {/* Active Domain Indicator Breadcrumb */}
-          <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] text-[10px] font-mono uppercase text-[#9898A0]">
+          <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[var(--bg-canvas)] border border-[var(--surface-border)] text-[10px] font-mono uppercase text-[var(--text-secondary)]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500]" />
             <span className="text-white font-bold">{currentNav?.label || 'Cover'}</span>
           </div>
@@ -123,9 +123,9 @@ export const TopNavBar: React.FC<NavigationProps> = ({
         {/* Center: High-Density Macro Progress Scrubber */}
         <div 
           onClick={() => onSelectScreen('progress')}
-          className="hidden md:flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-[#121216]/80 border border-white/[0.09] shadow-inner hover:border-white/20 cursor-pointer transition-all"
+          className="hidden md:flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-[var(--bg-canvas)] border border-[var(--surface-border)] shadow-inner hover:border-white/20 cursor-pointer transition-all"
         >
-          <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold text-[#F5F5F7]">
+          <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold text-[var(--text-primary)]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500] animate-pulse" />
             <span>DAY {String(currentDayNumber).padStart(3, '0')} / 1,460</span>
           </div>
@@ -162,7 +162,7 @@ export const TopNavBar: React.FC<NavigationProps> = ({
           {/* Cloud Sync Status */}
           <button
             onClick={onOpenSyncModal}
-            className="p-1.5 sm:px-2.5 sm:py-1 rounded-full bg-[#121216] border border-white/[0.09] hover:border-white/25 text-[#9898A0] hover:text-white transition-all flex items-center gap-1.5 text-xs font-mono shadow-sm cursor-pointer"
+            className="p-1.5 sm:px-2.5 sm:py-1 rounded-full bg-[var(--bg-canvas)] border border-[var(--surface-border)] hover:border-white/25 text-[#9898A0] hover:text-white transition-all flex items-center gap-1.5 text-xs font-mono shadow-sm cursor-pointer"
             title="Cloud Sync"
           >
             <Cloud className="w-3 h-3 text-[#9898A0]" />
@@ -175,7 +175,7 @@ export const TopNavBar: React.FC<NavigationProps> = ({
           </button>
 
           {/* Date Badge */}
-          <div className="hidden sm:flex items-center px-2.5 py-1 rounded-full bg-[#121216] border border-white/[0.09] text-[10px] font-mono font-bold text-[#F5F5F7] shadow-sm">
+          <div className="hidden sm:flex items-center px-2.5 py-1 rounded-full bg-[var(--bg-canvas)] border border-[var(--surface-border)] text-[10px] font-mono font-bold text-[var(--text-primary)] shadow-sm">
             {formattedDate}
           </div>
 

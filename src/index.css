@@ -6,23 +6,6 @@
   *, ::before, ::after {
     box-sizing: border-box;
   }
-  
-  html, body {
-    color-scheme: dark;
-  }
-
-  select {
-    color-scheme: dark;
-    background-color: #121214;
-    color: #F5F5F7;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  select option {
-    background-color: #0A0A0C;
-    color: #F5F5F7;
-    padding: 8px 12px;
-  }
 
   body {
     margin: 0;
@@ -31,7 +14,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    transition: background-color 0.4s ease, color 0.4s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, .font-display {
@@ -49,55 +32,30 @@
 }
 
 /* ==========================================================================
-   COLOR ARCHITECTURE THEMES (RADICALLY DIFFERENT, AWWWARDS CALIBER)
+   COLOR ARCHITECTURE ("SWISS ALABASTER & INTERNATIONAL ORANGE")
+   ZERO NAVY, ZERO BLUE, ZERO SLATE, ZERO MAROON/GOLD.
    ========================================================================== */
 
-/* 1. TITANIUM VOLT & CYBER AURORA (Default New High-Craft Aesthetic) */
+/* 1. PRIMARY DEFAULT: SWISS ALABASTER & INTERNATIONAL ORANGE */
 :root,
-[data-theme="volt"] {
-  --bg-canvas: #08090D;
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  --accent-primary: #FFD600;
-  --accent-glow: rgba(255, 214, 0, 0.35);
-  --accent-secondary: #00F59B;
-  --accent-tertiary: #FF5500;
-  --surface-glass: rgba(15, 17, 23, 0.82);
-  --surface-border: rgba(255, 255, 255, 0.1);
-  --surface-border-hover: rgba(255, 214, 0, 0.35);
-  --surface-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.85);
-  --btn-bg: linear-gradient(180deg, #FFD600 0%, #FFB700 100%);
-  --btn-text: #050507;
-}
-
-[data-theme="volt"] body {
-  background-color: #08090D;
-  background-image: 
-    radial-gradient(ellipse 70% 35% at 50% -8%, rgba(255, 214, 0, 0.05), transparent 70%),
-    radial-gradient(ellipse 60% 35% at 50% 105%, rgba(0, 245, 155, 0.04), transparent 60%);
-  background-attachment: fixed;
-  color: #F8FAFC;
-}
-
-/* 2. SWISS ALABASTER & INTERNATIONAL ORANGE (Architectural Daylight Studio) */
 [data-theme="alabaster"] {
+  color-scheme: light;
   --bg-canvas: #F4F2EE;
   --text-primary: #111110;
   --text-secondary: #68645E;
-  --text-muted: #9E988E;
+  --text-muted: #A39E93;
   --accent-primary: #FF4F00;
-  --accent-glow: rgba(255, 79, 0, 0.35);
+  --accent-glow: rgba(255, 79, 0, 0.25);
   --accent-secondary: #10B981;
-  --accent-tertiary: #0284C7;
   --surface-glass: #FFFFFF;
   --surface-border: #E6E3DC;
   --surface-border-hover: #D8D4CC;
-  --surface-shadow: 0 16px 36px -8px rgba(20, 18, 15, 0.08), 0 2px 6px -1px rgba(20, 18, 15, 0.04);
+  --surface-shadow: 0 12px 32px -8px rgba(20, 18, 15, 0.06), 0 2px 6px -1px rgba(20, 18, 15, 0.03);
   --btn-bg: linear-gradient(180deg, #FF4F00 0%, #E64500 100%);
   --btn-text: #FFFFFF;
 }
 
+:root body,
 [data-theme="alabaster"] body {
   background-color: #F4F2EE;
   background-image: radial-gradient(#D8D4CC 1px, transparent 1px);
@@ -106,35 +64,34 @@
   color: #111110;
 }
 
-/* 3. LIQUID PRISMATIC & SUNSET CORAL */
-[data-theme="prismatic"] {
-  --bg-canvas: #0B0A12;
-  --text-primary: #FDF4FF;
-  --text-secondary: #C084FC;
-  --text-muted: #8655A8;
-  --accent-primary: #FF3366;
-  --accent-glow: rgba(255, 51, 102, 0.4);
-  --accent-secondary: #A855F7;
-  --accent-tertiary: #06B6D4;
-  --surface-glass: rgba(18, 14, 28, 0.82);
-  --surface-border: rgba(192, 132, 252, 0.18);
-  --surface-border-hover: rgba(255, 51, 102, 0.45);
-  --surface-shadow: 0 24px 48px -12px rgba(10, 5, 20, 0.9);
-  --btn-bg: linear-gradient(180deg, #FF3366 0%, #E11D48 100%);
+/* 2. ALTERNATIVE: WARM CARBON OBSIDIAN (ZERO NAVY, ZERO BLUE) */
+[data-theme="obsidian"] {
+  color-scheme: dark;
+  --bg-canvas: #111110;
+  --text-primary: #F5F2EB;
+  --text-secondary: #A8A29E;
+  --text-muted: #78716C;
+  --accent-primary: #FF4F00;
+  --accent-glow: rgba(255, 79, 0, 0.35);
+  --accent-secondary: #10B981;
+  --surface-glass: rgba(26, 25, 24, 0.88);
+  --surface-border: rgba(255, 255, 255, 0.1);
+  --surface-border-hover: rgba(255, 79, 0, 0.4);
+  --surface-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+  --btn-bg: linear-gradient(180deg, #FF4F00 0%, #E64500 100%);
   --btn-text: #FFFFFF;
 }
 
-[data-theme="prismatic"] body {
-  background-color: #0B0A12;
-  background-image: 
-    radial-gradient(ellipse 70% 35% at 50% -8%, rgba(168, 85, 247, 0.08), transparent 70%),
-    radial-gradient(ellipse 60% 35% at 50% 105%, rgba(255, 51, 102, 0.06), transparent 60%);
+[data-theme="obsidian"] body {
+  background-color: #111110;
+  background-image: radial-gradient(#262524 1px, transparent 1px);
+  background-size: 16px 16px;
   background-attachment: fixed;
-  color: #FDF4FF;
+  color: #F5F2EB;
 }
 
 /* ==========================================================================
-   DYNAMIC GLASS SURFACES
+   PRIMARY BENTO SURFACES
    ========================================================================== */
 
 .smoked-glass,
@@ -144,13 +101,11 @@
 .card-maroon,
 .card-maroon-gold {
   background: var(--surface-glass);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
   border: 1px solid var(--surface-border);
   box-shadow: var(--surface-shadow);
   border-radius: 20px;
   color: var(--text-primary);
-  transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .smoked-glass:hover,
@@ -158,27 +113,20 @@
   border-color: var(--surface-border-hover);
   box-shadow: 
     var(--surface-shadow),
-    0 0 20px var(--accent-glow);
+    0 0 16px var(--accent-glow);
   transform: translateY(-2px);
 }
 
-/* Deep High-Contrast Core */
+/* High-Contrast Hero Surface (Matte Anodized Carbon) */
 .bento-carbon {
-  background: rgba(10, 10, 14, 0.95);
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
-  border: 1px solid var(--surface-border);
-  box-shadow: var(--surface-shadow);
+  background: #111110;
+  border: 1px solid #282725;
+  box-shadow: 0 16px 36px -8px rgba(17, 17, 16, 0.3);
   border-radius: 20px;
   color: #FFFFFF;
 }
 
-[data-theme="alabaster"] .bento-carbon {
-  background: #111110;
-  color: #FFFFFF;
-}
-
-/* Primary Trigger Button */
+/* Primary Trigger Button: International Aerospace Orange */
 .btn-orange,
 .btn-mercury,
 .btn-cyber-primary,
@@ -188,10 +136,10 @@
   background: var(--btn-bg);
   color: var(--btn-text) !important;
   font-weight: 800;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: 
-    0 6px 20px var(--accent-glow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    0 6px 18px var(--accent-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
   border-radius: 999px;
   transition: all 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -204,8 +152,8 @@
 .btn-shiny-gold:hover {
   filter: brightness(1.08);
   box-shadow: 
-    0 8px 26px var(--accent-glow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    0 8px 24px var(--accent-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
   transform: translateY(-1px) scale(1.01);
 }
 
@@ -219,60 +167,31 @@
 .btn-cyber-ghost,
 .btn-nova-glass,
 .btn-anodized {
-  background: rgba(255, 255, 255, 0.05);
+  background: #FFFFFF;
   border: 1px solid var(--surface-border);
-  color: var(--text-secondary) !important;
+  color: var(--text-primary) !important;
   font-weight: 600;
   border-radius: 999px;
+  box-shadow: 0 2px 4px rgba(20, 18, 15, 0.04);
   transition: all 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-[data-theme="alabaster"] .btn-tactile,
-[data-theme="alabaster"] .btn-cyber-ghost {
-  background: #F4F2EE;
-  border-color: #E6E3DC;
-  color: #111110 !important;
+[data-theme="obsidian"] .btn-tactile,
+[data-theme="obsidian"] .btn-cyber-ghost {
+  background: #1C1B1A;
+  border-color: #2E2D2B;
+  color: #F5F2EB !important;
 }
 
 .btn-tactile:hover,
 .btn-cyber-ghost:hover,
 .btn-nova-glass:hover {
-  background: rgba(255, 255, 255, 0.1);
   border-color: var(--surface-border-hover);
-  color: var(--text-primary) !important;
+  background: #FAF8F5;
 }
 
-/* ==========================================================================
-   FLOATING 3D PERSPECTIVE & TILT UTILITIES
-   ========================================================================== */
-
-.perspective-1000 {
-  perspective: 1000px;
-}
-
-.preserve-3d {
-  transform-style: preserve-3d;
-}
-
-.backface-hidden {
-  backface-visibility: hidden;
-}
-
-/* Subtle Shimmer Laser Line */
-.laser-shimmer {
-  background: linear-gradient(
-    90deg, 
-    transparent 0%, 
-    var(--accent-primary) 50%, 
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: laserSweep 3s infinite linear;
-}
-
-@keyframes laserSweep {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+[data-theme="obsidian"] .btn-tactile:hover {
+  background: #262523;
 }
 
 /* Custom Scrollbar */
@@ -286,12 +205,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: #D8D4CC;
   border-radius: 999px;
 }
 
-[data-theme="alabaster"] ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
+[data-theme="obsidian"] ::-webkit-scrollbar-thumb {
+  background: #3A3937;
 }
 
 ::-webkit-scrollbar-thumb:hover {

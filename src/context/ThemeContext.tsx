@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-export type ColorTheme = 'volt' | 'alabaster' | 'prismatic';
+export type ColorTheme = 'alabaster' | 'obsidian';
 
 interface ThemeContextType {
   theme: ColorTheme;
@@ -15,23 +15,17 @@ interface ThemeContextType {
 }
 
 const THEME_CONFIGS: Record<ColorTheme, { id: ColorTheme; name: string; accentColor: string; bgClass: string }> = {
-  volt: {
-    id: 'volt',
-    name: 'Titanium Volt',
-    accentColor: '#FFD600',
-    bgClass: 'theme-volt',
-  },
   alabaster: {
     id: 'alabaster',
     name: 'Swiss Alabaster',
     accentColor: '#FF4F00',
     bgClass: 'theme-alabaster',
   },
-  prismatic: {
-    id: 'prismatic',
-    name: 'Liquid Prismatic',
-    accentColor: '#FF3366',
-    bgClass: 'theme-prismatic',
+  obsidian: {
+    id: 'obsidian',
+    name: 'Warm Carbon Obsidian',
+    accentColor: '#FF4F00',
+    bgClass: 'theme-obsidian',
   },
 };
 
@@ -41,13 +35,13 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [theme, setThemeState] = useState<ColorTheme>(() => {
     try {
       const saved = localStorage.getItem('lv_color_theme');
-      if (saved === 'volt' || saved === 'alabaster' || saved === 'prismatic') {
+      if (saved === 'alabaster' || saved === 'obsidian') {
         return saved;
       }
     } catch {
       // ignore
     }
-    return 'volt'; // Fresh new default!
+    return 'alabaster'; // Swiss Alabaster default - ZERO NAVY, ZERO BLUE
   });
 
   const setTheme = (newTheme: ColorTheme) => {
@@ -60,9 +54,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const cycleTheme = () => {
-    if (theme === 'volt') setTheme('alabaster');
-    else if (theme === 'alabaster') setTheme('prismatic');
-    else setTheme('volt');
+    setTheme(theme === 'alabaster' ? 'obsidian' : 'alabaster');
   };
 
   useEffect(() => {
