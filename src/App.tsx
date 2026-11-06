@@ -1,6 +1,7 @@
-// LearnVault - Apple-Style Continuous Scrollytelling Workspace
-import React, { useState, useEffect, useRef } from 'react';
+// LearnVault - Apple-Style Continuous Scrollytelling Workspace with Interactive 3D Canvas Visualizers
+import React, { useState, useEffect } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
+import { motion } from 'framer-motion';
 import { db } from './services/db';
 import { ScreenId, TopNavBar, FloatingDock, NAV_ITEMS } from './components/Navigation';
 import { AppleScrollShowcase } from './components/AppleScrollShowcase';
@@ -17,18 +18,19 @@ import { WastedDaysScreen } from './components/WastedDaysScreen';
 import { CloudSyncModal } from './components/CloudSyncModal';
 import { cloudSyncService, SyncState } from './services/cloudSyncService';
 import { cleanupSampleProjects } from './services/projectService';
-import { 
-  Sun, 
-  Timer as TimerIcon, 
-  CalendarRange, 
-  BookOpen, 
-  Code2, 
-  Briefcase, 
-  Bookmark, 
-  FolderGit2, 
-  BarChart3, 
-  Hourglass 
-} from 'lucide-react';
+import { Interactive3DCard } from './components/Interactive3DCard';
+
+// 3D Canvas Visualizers for Every Page
+import { ThreeMomentumOrb } from './components/3d/ThreeMomentumOrb';
+import { ThreeChronometer3D } from './components/3d/ThreeChronometer3D';
+import { ThreeTimelineMesh3D } from './components/3d/ThreeTimelineMesh3D';
+import { ThreeKnowledgeGalaxy3D } from './components/3d/ThreeKnowledgeGalaxy3D';
+import { ThreeAlgorithmMatrix3D } from './components/3d/ThreeAlgorithmMatrix3D';
+import { ThreeRadarGlobe3D } from './components/3d/ThreeRadarGlobe3D';
+import { ThreeMemoryCrystal3D } from './components/3d/ThreeMemoryCrystal3D';
+import { ThreeArchitectureStack3D } from './components/3d/ThreeArchitectureStack3D';
+import { ThreeTelemetryHistogram3D } from './components/3d/ThreeTelemetryHistogram3D';
+import { ThreeEntropySingularity3D } from './components/3d/ThreeEntropySingularity3D';
 
 export const App: React.FC = () => {
   const [activeScreen, setActiveScreen] = useState<ScreenId>('today');
@@ -69,7 +71,7 @@ export const App: React.FC = () => {
   // Active section spy on scroll
   useEffect(() => {
     const handleScrollSpy = () => {
-      const scrollPosition = window.scrollY + 200;
+      const scrollPosition = window.scrollY + 220;
 
       for (const item of NAV_ITEMS) {
         const el = document.getElementById(item.id);
@@ -89,8 +91,8 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#F5F5F7] flex flex-col antialiased selection:bg-[#FF5500] selection:text-white relative font-sans overflow-x-hidden">
-      {/* Top Minimalist HUD Bar */}
+    <div className="min-h-screen text-[var(--text-primary)] flex flex-col antialiased selection:bg-[var(--accent-primary)] selection:text-black relative font-sans overflow-x-hidden transition-colors duration-400">
+      {/* Top Minimalist HUD Bar with Theme Switcher */}
       <TopNavBar
         activeScreen={activeScreen}
         onSelectScreen={handleScrollTo}
@@ -103,181 +105,301 @@ export const App: React.FC = () => {
       {/* 1. COVERPAGE: APPLE-STYLE 3D SCROLL-DRIVEN REVEAL */}
       <AppleScrollShowcase onEnterWorkspace={() => handleScrollTo('today')} />
 
-      {/* 2. CONTINUOUS SCROLL WORKSPACE SECTIONS */}
-      <main className="w-full max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-8 space-y-24 relative z-10 pb-32">
+      {/* 2. CONTINUOUS SCROLL WORKSPACE SECTIONS (EVERY SECTION HAS ANIMATED 3D VISUALIZERS) */}
+      <main className="w-full max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-8 space-y-28 relative z-10 pb-36">
         
         {/* SECTION 01: TODAY'S BLUEPRINT */}
-        <section id="today" className="scroll-mt-20 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#FF5500] shadow-[0_0_8px_#FF5500]" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#9898A0] font-bold">
-                01 // MISSION CONTROL
-              </span>
+        <section id="today" className="scroll-mt-20 space-y-5">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-primary)] shadow-[0_0_10px_var(--accent-primary)] animate-pulse" />
+                <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent-primary)] font-black">
+                  01 // MISSION CONTROL
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
+                Today's Execution Blueprint
+              </h2>
+              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
+                Daily momentum telemetry & forward-deployed engineering matrix
+              </p>
             </div>
-            <span className="text-[10px] font-mono text-[#9898A0] uppercase font-bold">
-              DAILY BLUEPRINT & TASK MATRIX
-            </span>
+            
+            {/* Interactive 3D Momentum Gyroscope */}
+            <div className="shrink-0 flex items-center justify-center">
+              <ThreeMomentumOrb size={170} studyMinutes={totalStudyMinutes} />
+            </div>
           </div>
 
-          <TodayScreen
-            onNavigateToTimer={handleStartTimerWithTopic}
-            onNavigateToPlan={() => handleScrollTo('plan')}
-            onNavigateToLearn={() => handleScrollTo('learn')}
-          />
+          <Interactive3DCard maxTilt={3} depth={8}>
+            <TodayScreen
+              onNavigateToTimer={handleStartTimerWithTopic}
+              onNavigateToPlan={() => handleScrollTo('plan')}
+              onNavigateToLearn={() => handleScrollTo('learn')}
+            />
+          </Interactive3DCard>
         </section>
 
         {/* SECTION 02: DEEP WORK FOCUS TIMER */}
-        <section id="timer" className="scroll-mt-20 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#FF5500] shadow-[0_0_8px_#FF5500]" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#9898A0] font-bold">
-                02 // FLOW STATE STUDIO
-              </span>
+        <section id="timer" className="scroll-mt-20 space-y-5">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-primary)] shadow-[0_0_10px_var(--accent-primary)] animate-pulse" />
+                <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent-primary)] font-black">
+                  02 // TEMPORAL ENGINE
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
+                Deep Work Chronometer
+              </h2>
+              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
+                Precision Pomodoro & focus ratio accountability
+              </p>
             </div>
-            <span className="text-[10px] font-mono text-[#9898A0] uppercase font-bold">
-              HARDWARE-ACCURATE POMODORO ENGINE
-            </span>
+            
+            {/* Interactive 3D Chronometer */}
+            <div className="shrink-0 flex items-center justify-center">
+              <ThreeChronometer3D size={170} isRunning={true} />
+            </div>
           </div>
 
-          <TimerScreen initialTopic={timerTopic} />
+          <Interactive3DCard maxTilt={3} depth={8}>
+            <TimerScreen initialTopic={timerTopic} />
+          </Interactive3DCard>
         </section>
 
         {/* SECTION 03: 4-YEAR SPRINT ROADMAP */}
-        <section id="plan" className="scroll-mt-20 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_8px_#10B981]" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#9898A0] font-bold">
-                03 // ARCHITECTURAL ROADMAP
-              </span>
+        <section id="plan" className="scroll-mt-20 space-y-5">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-secondary)] shadow-[0_0_10px_var(--accent-secondary)] animate-pulse" />
+                <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent-secondary)] font-black">
+                  03 // ARCHITECTURAL ROADMAP
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
+                4-Year Sprint Timeline
+              </h2>
+              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
+                1,460-day macro curriculum milestones & targets
+              </p>
             </div>
-            <span className="text-[10px] font-mono text-[#9898A0] uppercase font-bold">
-              4-YEAR GANTT SPRINT TIMELINE
-            </span>
+            
+            {/* Interactive 3D Timeline Mesh */}
+            <div className="shrink-0 flex items-center justify-center">
+              <ThreeTimelineMesh3D size={170} />
+            </div>
           </div>
 
-          <PlanScreen />
+          <Interactive3DCard maxTilt={3} depth={8}>
+            <PlanScreen />
+          </Interactive3DCard>
         </section>
 
         {/* SECTION 04: KNOWLEDGE CURRICULUM ATLAS */}
-        <section id="learn" className="scroll-mt-20 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#FF5500] shadow-[0_0_8px_#FF5500]" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#9898A0] font-bold">
-                04 // KNOWLEDGE CURRICULUM
-              </span>
+        <section id="learn" className="scroll-mt-20 space-y-5">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-primary)] shadow-[0_0_10px_var(--accent-primary)] animate-pulse" />
+                <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent-primary)] font-black">
+                  04 // KNOWLEDGE CURRICULUM
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
+                10-Track FDE Syllabus (892 Topics)
+              </h2>
+              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
+                Complete engineering syllabus hierarchy & deep mastery
+              </p>
             </div>
-            <span className="text-[10px] font-mono text-[#9898A0] uppercase font-bold">
-              10-TRACK FDE SYLLABUS ATLAS (892 TOPICS)
-            </span>
+            
+            {/* Interactive 3D Knowledge Galaxy */}
+            <div className="shrink-0 flex items-center justify-center">
+              <ThreeKnowledgeGalaxy3D size={170} />
+            </div>
           </div>
 
-          <LearnScreen />
+          <Interactive3DCard maxTilt={3} depth={8}>
+            <LearnScreen />
+          </Interactive3DCard>
         </section>
 
         {/* SECTION 05: DSA & ALGORITHMS LABORATORY */}
-        <section id="dsa" className="scroll-mt-20 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#FF5500] shadow-[0_0_8px_#FF5500]" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#9898A0] font-bold">
-                05 // ALGORITHM LABORATORY
-              </span>
+        <section id="dsa" className="scroll-mt-20 space-y-5">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-secondary)] shadow-[0_0_10px_var(--accent-secondary)] animate-pulse" />
+                <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent-secondary)] font-black">
+                  05 // ALGORITHM LABORATORY
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
+                Spaced Retention & LeetCode Matrix
+              </h2>
+              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
+                Data structures, algorithmic patterns & revision intervals
+              </p>
             </div>
-            <span className="text-[10px] font-mono text-[#9898A0] uppercase font-bold">
-              SPACED RETENTION & LEETCODE MATRIX
-            </span>
+            
+            {/* Interactive 3D Algorithm Lattice */}
+            <div className="shrink-0 flex items-center justify-center">
+              <ThreeAlgorithmMatrix3D size={170} />
+            </div>
           </div>
 
-          <DSATrackerView />
+          <Interactive3DCard maxTilt={3} depth={8}>
+            <DSATrackerView />
+          </Interactive3DCard>
         </section>
 
         {/* SECTION 06: FORWARD DEPLOYED CAREER HQ */}
-        <section id="jobs" className="scroll-mt-20 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_8px_#10B981]" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#9898A0] font-bold">
-                06 // CAREER HQ
-              </span>
+        <section id="jobs" className="scroll-mt-20 space-y-5">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-secondary)] shadow-[0_0_10px_var(--accent-secondary)] animate-pulse" />
+                <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent-secondary)] font-black">
+                  06 // CAREER RADAR HQ
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
+                Technical Interview & Job Pipeline
+              </h2>
+              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
+                Applications, compensation benchmarks & interview stages
+              </p>
             </div>
-            <span className="text-[10px] font-mono text-[#9898A0] uppercase font-bold">
-              APPLICATIONS & TECHNICAL INTERVIEWS
-            </span>
+            
+            {/* Interactive 3D Career Radar */}
+            <div className="shrink-0 flex items-center justify-center">
+              <ThreeRadarGlobe3D size={170} />
+            </div>
           </div>
 
-          <JobTrackerView />
+          <Interactive3DCard maxTilt={3} depth={8}>
+            <JobTrackerView />
+          </Interactive3DCard>
         </section>
 
         {/* SECTION 07: KNOWLEDGE VAULT & INBOX */}
-        <section id="vault" className="scroll-mt-20 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#FF5500] shadow-[0_0_8px_#FF5500]" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#9898A0] font-bold">
-                07 // KNOWLEDGE VAULT
-              </span>
+        <section id="vault" className="scroll-mt-20 space-y-5">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-purple-400 shadow-[0_0_10px_rgba(192,132,252,0.6)] animate-pulse" />
+                <span className="text-xs font-mono uppercase tracking-widest text-purple-400 font-black">
+                  07 // KNOWLEDGE VAULT
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
+                Memory Crystal & Rapid Capture
+              </h2>
+              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
+                Resource bookmarks, technical whitepapers & quick inbox
+              </p>
             </div>
-            <span className="text-[10px] font-mono text-[#9898A0] uppercase font-bold">
-              RAPID CAPTURE & TOPIC LINKING
-            </span>
+            
+            {/* Interactive 3D Memory Crystal */}
+            <div className="shrink-0 flex items-center justify-center">
+              <ThreeMemoryCrystal3D size={170} />
+            </div>
           </div>
 
-          <ResourceInboxView />
+          <Interactive3DCard maxTilt={3} depth={8}>
+            <ResourceInboxView />
+          </Interactive3DCard>
         </section>
 
         {/* SECTION 08: SHIPPED SYSTEMS & PROJECTS */}
-        <section id="projects" className="scroll-mt-20 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(192,132,252,0.6)]" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#9898A0] font-bold">
-                08 // ENGINEERING SYSTEMS
-              </span>
+        <section id="projects" className="scroll-mt-20 space-y-5">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8] shadow-[0_0_10px_#38BDF8] animate-pulse" />
+                <span className="text-xs font-mono uppercase tracking-widest text-[#38BDF8] font-black">
+                  08 // ARCHITECTURE STACK
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
+                Production Systems & Engineering Portfolios
+              </h2>
+              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
+                Distributed systems, repositories, architecture diagrams & deployments
+              </p>
             </div>
-            <span className="text-[10px] font-mono text-[#9898A0] uppercase font-bold">
-              ARCHITECTURE & PRODUCTION PORTFOLIOS
-            </span>
+            
+            {/* Interactive 3D Architecture Stack */}
+            <div className="shrink-0 flex items-center justify-center">
+              <ThreeArchitectureStack3D size={170} />
+            </div>
           </div>
 
-          <ProjectsScreen />
+          <Interactive3DCard maxTilt={3} depth={8}>
+            <ProjectsScreen />
+          </Interactive3DCard>
         </section>
 
         {/* SECTION 09: PERFORMANCE TELEMETRY & ANALYTICS */}
-        <section id="progress" className="scroll-mt-20 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_8px_#10B981]" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#9898A0] font-bold">
-                09 // PERFORMANCE TELEMETRY
-              </span>
+        <section id="progress" className="scroll-mt-20 space-y-5">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-secondary)] shadow-[0_0_10px_var(--accent-secondary)] animate-pulse" />
+                <span className="text-xs font-mono uppercase tracking-widest text-[var(--accent-secondary)] font-black">
+                  09 // PERFORMANCE MATRIX
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
+                Master Composite Score & Telemetry
+              </h2>
+              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
+                Curriculum velocity, focus ratio consistency & heatmaps
+              </p>
             </div>
-            <span className="text-[10px] font-mono text-[#9898A0] uppercase font-bold">
-              MASTERY VELOCITY & FOCUS RATIOS
-            </span>
+            
+            {/* Interactive 3D Telemetry Histogram */}
+            <div className="shrink-0 flex items-center justify-center">
+              <ThreeTelemetryHistogram3D size={170} />
+            </div>
           </div>
 
-          <ProgressScreen />
+          <Interactive3DCard maxTilt={3} depth={8}>
+            <ProgressScreen />
+          </Interactive3DCard>
         </section>
 
         {/* SECTION 10: ACCOUNTABILITY AUDIT */}
-        <section id="wasted" className="scroll-mt-20 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#9898A0] font-bold">
-                10 // ACCOUNTABILITY PROTOCOL
-              </span>
+        <section id="wasted" className="scroll-mt-20 space-y-5">
+          <div className="p-4 sm:p-5 rounded-2xl smoked-glass border border-white/[0.09] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.6)] animate-pulse" />
+                <span className="text-xs font-mono uppercase tracking-widest text-rose-400 font-black">
+                  10 // ENTROPY PROTOCOL
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black font-display tracking-tight text-[var(--text-primary)]">
+                Temporal Drift & Accountability Audit
+              </h2>
+              <p className="text-xs font-mono text-[var(--text-secondary)] uppercase">
+                Distraction root-cause analysis & instant recovery logging
+              </p>
             </div>
-            <span className="text-[10px] font-mono text-[#9898A0] uppercase font-bold">
-              DRIFT & RECOVERY AUDITING
-            </span>
+            
+            {/* Interactive 3D Entropy Singularity */}
+            <div className="shrink-0 flex items-center justify-center">
+              <ThreeEntropySingularity3D size={170} />
+            </div>
           </div>
 
-          <WastedDaysScreen />
+          <Interactive3DCard maxTilt={3} depth={8}>
+            <WastedDaysScreen />
+          </Interactive3DCard>
         </section>
 
       </main>

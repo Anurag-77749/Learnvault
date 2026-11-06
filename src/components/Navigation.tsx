@@ -13,11 +13,13 @@ import {
   Play, 
   Code2, 
   Briefcase, 
-  Bookmark
+  Bookmark,
+  Palette
 } from 'lucide-react';
 import { db } from '../services/db';
 import { cloudSyncService, SyncState } from '../services/cloudSyncService';
 import { LearnVaultLogo } from './LearnVaultLogo';
+import { useTheme } from '../context/ThemeContext';
 
 export type ScreenId = 
   | 'today' 
@@ -64,6 +66,7 @@ export const TopNavBar: React.FC<NavigationProps> = ({
   onOpenSyncModal,
   onQuickFocus,
 }) => {
+  const { theme, cycleTheme, themeConfig } = useTheme();
   const curriculumTopics = useLiveQuery(() => db.curriculumTopics.toArray()) || [];
   const [syncState, setSyncState] = useState<SyncState>(cloudSyncService.getState());
 
@@ -139,8 +142,23 @@ export const TopNavBar: React.FC<NavigationProps> = ({
           </div>
         </div>
 
-        {/* Right: Date Badge, Sync & Hero "Start Pomodoro" Action */}
+        {/* Right: Theme Switcher, Cloud Sync, Date Badge & Start Focus */}
         <div className="flex items-center gap-2 shrink-0">
+          {/* Aesthetic Color Theme Cycler */}
+          <button
+            onClick={cycleTheme}
+            className="px-2.5 py-1 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.12] flex items-center gap-1.5 text-[10px] font-mono font-bold transition-all cursor-pointer shadow-sm"
+            title={`Current Theme: ${themeConfig.name}. Click to switch theme.`}
+          >
+            <span 
+              className="w-2 h-2 rounded-full shadow-[0_0_8px_currentColor]" 
+              style={{ backgroundColor: themeConfig.accentColor, color: themeConfig.accentColor }} 
+            />
+            <span className="hidden sm:inline uppercase text-white tracking-wider">
+              {themeConfig.name}
+            </span>
+          </button>
+
           {/* Cloud Sync Status */}
           <button
             onClick={onOpenSyncModal}
