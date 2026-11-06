@@ -1,4 +1,4 @@
-// LearnVault - Smoked Obsidian & Polished Mercury Workspace (Maximalist OS 3.0)
+// LearnVault - Smoked Obsidian & Polished Mercury Workspace (Spatial 3D & Clean Maximalism)
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLiveQuery } from 'dexie-react-hooks';
@@ -14,12 +14,15 @@ import { ResourceInboxView } from './components/ResourceInboxView';
 import { ProjectsScreen } from './components/ProjectsScreen';
 import { ProgressScreen } from './components/ProgressScreen';
 import { WastedDaysScreen } from './components/WastedDaysScreen';
+import { Cylindrical3DDisplay } from './components/Cylindrical3DDisplay';
+import { ThreeGlassSphere } from './components/ThreeGlassSphere';
 import { CloudSyncModal } from './components/CloudSyncModal';
 import { cloudSyncService, SyncState } from './services/cloudSyncService';
 import { cleanupSampleProjects } from './services/projectService';
 
 export const App: React.FC = () => {
   const [activeScreen, setActiveScreen] = useState<ScreenId>('today');
+  const [viewMode, setViewMode] = useState<'2d' | '3d'>('3d');
   const [timerTopic, setTimerTopic] = useState<string | undefined>(undefined);
   const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
   const [syncState, setSyncState] = useState<SyncState>(cloudSyncService.getState());
@@ -57,145 +60,164 @@ export const App: React.FC = () => {
         totalStudyHours={totalStudyHours}
         onOpenSyncModal={() => setIsSyncModalOpen(true)}
         onQuickFocus={() => handleStartTimerWithTopic()}
+        viewMode={viewMode}
+        onToggleViewMode={() => setViewMode((prev) => (prev === '3d' ? '2d' : '3d'))}
       />
 
-      {/* Main Asymmetric Bento Grid Viewport */}
-      <main className="flex-1 min-w-0 px-3 sm:px-6 lg:px-8 py-5 max-w-[1560px] mx-auto w-full">
-        <AnimatePresence mode="wait">
-          {activeScreen === 'today' && (
-            <motion.div
-              key="today"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <TodayScreen
-                onNavigateToTimer={handleStartTimerWithTopic}
-                onNavigateToPlan={() => setActiveScreen('plan')}
-                onNavigateToLearn={() => setActiveScreen('learn')}
-              />
-            </motion.div>
-          )}
+      {/* VIEWPORT MODE: 3D ROTUNDA VS 2D BENTO GRID */}
+      {viewMode === '3d' ? (
+        <Cylindrical3DDisplay
+          activeScreen={activeScreen}
+          onSelectScreen={setActiveScreen}
+          onStartTimerWithTopic={handleStartTimerWithTopic}
+          onExit3D={() => setViewMode('2d')}
+        />
+      ) : (
+        <>
+          {/* Background Ambient 3D Holographic Core */}
+          <div className="fixed top-20 right-10 pointer-events-none opacity-20 hidden xl:block z-0">
+            <ThreeGlassSphere size={280} />
+          </div>
 
-          {activeScreen === 'timer' && (
-            <motion.div
-              key="timer"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <TimerScreen initialTopic={timerTopic} />
-            </motion.div>
-          )}
+          {/* Main 2D Asymmetric Bento Grid Viewport */}
+          <main className="flex-1 min-w-0 px-3 sm:px-6 lg:px-8 py-5 max-w-[1560px] mx-auto w-full relative z-10">
+            <AnimatePresence mode="wait">
+              {activeScreen === 'today' && (
+                <motion.div
+                  key="today"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <TodayScreen
+                    onNavigateToTimer={handleStartTimerWithTopic}
+                    onNavigateToPlan={() => setActiveScreen('plan')}
+                    onNavigateToLearn={() => setActiveScreen('learn')}
+                  />
+                </motion.div>
+              )}
 
-          {activeScreen === 'learn' && (
-            <motion.div
-              key="learn"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <LearnScreen />
-            </motion.div>
-          )}
+              {activeScreen === 'timer' && (
+                <motion.div
+                  key="timer"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <TimerScreen initialTopic={timerTopic} />
+                </motion.div>
+              )}
 
-          {activeScreen === 'dsa' && (
-            <motion.div
-              key="dsa"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <DSATrackerView />
-            </motion.div>
-          )}
+              {activeScreen === 'learn' && (
+                <motion.div
+                  key="learn"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <LearnScreen />
+                </motion.div>
+              )}
 
-          {activeScreen === 'jobs' && (
-            <motion.div
-              key="jobs"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <JobTrackerView />
-            </motion.div>
-          )}
+              {activeScreen === 'dsa' && (
+                <motion.div
+                  key="dsa"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <DSATrackerView />
+                </motion.div>
+              )}
 
-          {activeScreen === 'vault' && (
-            <motion.div
-              key="vault"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <ResourceInboxView />
-            </motion.div>
-          )}
+              {activeScreen === 'jobs' && (
+                <motion.div
+                  key="jobs"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <JobTrackerView />
+                </motion.div>
+              )}
 
-          {activeScreen === 'plan' && (
-            <motion.div
-              key="plan"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <PlanScreen />
-            </motion.div>
-          )}
+              {activeScreen === 'vault' && (
+                <motion.div
+                  key="vault"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <ResourceInboxView />
+                </motion.div>
+              )}
 
-          {activeScreen === 'projects' && (
-            <motion.div
-              key="projects"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <ProjectsScreen />
-            </motion.div>
-          )}
+              {activeScreen === 'plan' && (
+                <motion.div
+                  key="plan"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <PlanScreen />
+                </motion.div>
+              )}
 
-          {activeScreen === 'progress' && (
-            <motion.div
-              key="progress"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <ProgressScreen />
-            </motion.div>
-          )}
+              {activeScreen === 'projects' && (
+                <motion.div
+                  key="projects"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <ProjectsScreen />
+                </motion.div>
+              )}
 
-          {activeScreen === 'wasted' && (
-            <motion.div
-              key="wasted"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <WastedDaysScreen />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </main>
+              {activeScreen === 'progress' && (
+                <motion.div
+                  key="progress"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <ProgressScreen />
+                </motion.div>
+              )}
 
-      {/* Floating macOS-Style Smoked Obsidian Glass Dock */}
-      <FloatingDock
-        activeScreen={activeScreen}
-        onSelectScreen={(screen) => {
-          setActiveScreen(screen);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-      />
+              {activeScreen === 'wasted' && (
+                <motion.div
+                  key="wasted"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <WastedDaysScreen />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </main>
+
+          {/* Floating macOS-Style Smoked Obsidian Glass Dock */}
+          <FloatingDock
+            activeScreen={activeScreen}
+            onSelectScreen={(screen) => {
+              setActiveScreen(screen);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          />
+        </>
+      )}
 
       {/* Cloud Sync Modal */}
       <CloudSyncModal
@@ -207,4 +229,3 @@ export const App: React.FC = () => {
 };
 
 export default App;
-

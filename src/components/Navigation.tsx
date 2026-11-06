@@ -6,14 +6,16 @@ import {
   Timer as TimerIcon, 
   CalendarRange, 
   BookOpen, 
-  FolderGit2,
-  BarChart3,
-  Hourglass,
-  Cloud,
-  Play,
-  Code2,
-  Briefcase,
-  Bookmark
+  FolderGit2, 
+  BarChart3, 
+  Hourglass, 
+  Cloud, 
+  Play, 
+  Code2, 
+  Briefcase, 
+  Bookmark,
+  Boxes,
+  LayoutGrid
 } from 'lucide-react';
 import { db } from '../services/db';
 import { cloudSyncService, SyncState } from '../services/cloudSyncService';
@@ -37,6 +39,8 @@ interface NavigationProps {
   totalStudyHours?: number;
   onOpenSyncModal?: () => void;
   onQuickFocus?: () => void;
+  viewMode?: '2d' | '3d';
+  onToggleViewMode?: () => void;
 }
 
 export const NAV_ITEMS: { id: ScreenId; label: string; shortLabel: string; icon: React.ComponentType<{ className?: string }> }[] = [
@@ -62,6 +66,8 @@ export const TopNavBar: React.FC<NavigationProps> = ({
   totalStudyHours = 0,
   onOpenSyncModal,
   onQuickFocus,
+  viewMode = '3d',
+  onToggleViewMode,
 }) => {
   const curriculumTopics = useLiveQuery(() => db.curriculumTopics.toArray()) || [];
   const [syncState, setSyncState] = useState<SyncState>(cloudSyncService.getState());
@@ -146,8 +152,33 @@ export const TopNavBar: React.FC<NavigationProps> = ({
           </div>
         </div>
 
-        {/* Right: Date Badge, Sync & Hero "Start Pomodoro" Action */}
+        {/* Right: Mode Toggle, Date Badge, Sync & Hero "Start Pomodoro" Action */}
         <div className="flex items-center gap-2 shrink-0">
+          {/* 3D / 2D Spatial Mode Toggle */}
+          {onToggleViewMode && (
+            <button
+              onClick={onToggleViewMode}
+              className={`px-3 py-1 sm:px-3.5 sm:py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer shadow-sm ${
+                viewMode === '3d'
+                  ? 'bg-gradient-to-r from-[#FF5500] to-[#FF7700] text-white shadow-[0_0_12px_rgba(255,85,0,0.4)]'
+                  : 'bg-white/[0.06] text-[#D2D2D8] hover:text-white border border-white/[0.1]'
+              }`}
+              title="Toggle between 3D Spatial Rotunda and 2D Command Grid"
+            >
+              {viewMode === '3d' ? (
+                <>
+                  <Boxes className="w-3 h-3 text-white animate-spin" style={{ animationDuration: '8s' }} />
+                  <span>3D Rotunda</span>
+                </>
+              ) : (
+                <>
+                  <LayoutGrid className="w-3 h-3 text-[#9898A0]" />
+                  <span>2D Grid</span>
+                </>
+              )}
+            </button>
+          )}
+
           {/* Cloud Sync Status */}
           <button
             onClick={onOpenSyncModal}

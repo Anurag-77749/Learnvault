@@ -212,3 +212,28 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #3A3A44;
 }
+
+/* 3D Spatial Geometry Utilities */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.perspective-2000 {
+  perspective: 2000px;
+}
+
+/* Custom In-Card Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 85, 0, 0.6);
+}
+
