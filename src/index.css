@@ -10,42 +10,44 @@
   body {
     margin: 0;
     padding: 0;
-    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    background-color: #000000;
+    background-color: #080707;
+    background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(180, 130, 70, 0.12), transparent);
+    background-attachment: fixed;
     color: #F5F2EB;
     selection-background-color: #D4AF37;
-    selection-color: #000000;
+    selection-color: #080707;
   }
 
   h1, h2, h3, .font-display, .font-serif-display {
     font-family: 'Outfit', 'Geist', sans-serif;
     font-weight: 700;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
   }
 
   .font-mono, .tabular-nums {
-    font-family: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
+    font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
     font-variant-numeric: tabular-nums;
   }
 }
 
 /* ==========================================================================
-   COLOR ARCHITECTURE: PURE PITCH BLACK VOID & BRUSHED CHAMPAGNE GOLD
-   ZERO NAVY, ZERO SLATE, TRUE OLED DEEP BLACK.
+   COLOR ARCHITECTURE: BESPOKE OBSIDIAN, ESPRESSO & LIQUID CHAMPAGNE
+   ZERO NAVY, ZERO SLATE, TRUE LUXURY PALETTE
    ========================================================================== */
 
 :root {
   color-scheme: dark;
-  --bg-canvas: #000000;
-  --bg-card: #080808;
-  --bg-card-hover: #0E0E0E;
+  --bg-canvas: #080707;
+  --bg-card: #110E0E;
+  --bg-card-hover: #181313;
   --text-primary: #F5F2EB;
   --text-secondary: #9E958E;
-  --text-muted: #55504A;
+  --text-muted: #635B55;
   
   /* Champagne Gold Palette */
   --accent-champagne-light: #F6E6C2;
@@ -54,41 +56,32 @@
   --accent-copper: #E5A970;
   
   /* 1px Specular Borders & Studio Lighting */
-  --border-specular: rgba(255, 255, 255, 0.08);
+  --border-specular: rgba(255, 240, 220, 0.07);
   --border-specular-hover: rgba(212, 175, 55, 0.35);
-  --border-active: rgba(212, 175, 55, 0.55);
+  --border-active: rgba(212, 175, 55, 0.45);
   
   /* Liquid Champagne Gradient */
   --btn-champagne-gradient: linear-gradient(135deg, #F6E6C2 0%, #D4AF37 50%, #AA8222 100%);
-  --btn-champagne-text: #000000;
-}
-
-/* Ambient Canvas Void with Top Apex Radial Mesh */
-body {
-  background-color: #000000;
-  background-image: 
-    radial-gradient(ellipse 70% 35% at 50% 0%, rgba(212, 175, 55, 0.08), transparent);
-  background-attachment: fixed;
-  color: #F5F2EB;
+  --btn-champagne-text: #090808;
 }
 
 /* ==========================================================================
-   GLOBAL SUBTLE ANODIZED METAL NOISE TEXTURE
+   GLOBAL SUBTLE ANODIZED METAL NOISE TEXTURE (OPACITY: 0.018)
    ========================================================================== */
 .anodized-noise-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.018'/%3E%3C/svg%3E");
   pointer-events: none;
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
   z-index: 50;
-  opacity: 0.5;
+  opacity: 0.018;
   mix-blend-mode: overlay;
 }
 
 /* ==========================================================================
-   GLASSMORPHIC CARDS: PITCH OBSIDIAN (#080808) WITH 1PX SPECULAR BORDER
+   GLASSMORPHIC CARDS: #110E0E WITH 1PX SPECULAR BORDER & VERTICAL GRADIENT
    ========================================================================== */
 
 .crimson-glass,
@@ -97,13 +90,14 @@ body {
 .card-maroon-gold,
 .card-obsidian,
 .card-espresso {
-  background: #080808;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #110E0E;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 240, 220, 0.07);
   box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
-    0 20px 40px -15px rgba(0, 0, 0, 0.95);
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+    0 16px 36px -8px rgba(0, 0, 0, 0.85);
   border-radius: 12px;
   color: #F5F2EB;
   transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
@@ -115,11 +109,11 @@ body {
 .smoked-glass:hover,
 .card-obsidian:hover,
 .card-espresso:hover {
-  background-color: #0E0E0E;
+  background-color: #181313;
   border-color: rgba(212, 175, 55, 0.3);
   box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
-    0 24px 48px -12px rgba(0, 0, 0, 0.98),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+    0 20px 40px -8px rgba(0, 0, 0, 0.95),
     inset 0 0 16px rgba(212, 175, 55, 0.04);
 }
 
@@ -141,16 +135,16 @@ body {
 
 .btn-liquid-gold,
 .liquid-gold-pill {
-  background: linear-gradient(115deg, #9C7721 0%, #D4AF37 25%, #FFF5DC 48%, #D4AF37 72%, #7A5B15 100%);
-  background-size: 250% 100%;
-  animation: champagne-sheen 4s ease-in-out infinite;
-  color: #000000 !important;
+  background: linear-gradient(135deg, #F6E6C2 0%, #D4AF37 50%, #AA8222 100%);
+  background-size: 200% 200%;
+  animation: champagne-sheen 6s ease infinite;
+  color: #090808 !important;
   font-weight: 700;
   border: 1px solid rgba(255, 240, 200, 0.45);
   border-radius: 8px;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.6),
-    0 4px 16px -2px rgba(212, 175, 55, 0.32);
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 4px 16px -2px rgba(212, 175, 55, 0.3);
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
               box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
               filter 0.2s ease;
@@ -158,11 +152,11 @@ body {
 
 .btn-liquid-gold:hover,
 .liquid-gold-pill:hover {
-  transform: translateY(-1.5px);
-  filter: brightness(1.08);
+  transform: translateY(-1px);
+  filter: brightness(1.06);
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.75),
-    0 8px 24px -2px rgba(212, 175, 55, 0.5);
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 8px 20px -2px rgba(212, 175, 55, 0.45);
 }
 
 .btn-liquid-gold:active,
@@ -177,11 +171,12 @@ body {
 .btn-crimson-pill,
 .btn-tactile,
 .btn-cyber-ghost {
-  background: #080808;
+  background: #110E0E;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 240, 220, 0.07);
   box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
     0 4px 12px rgba(0, 0, 0, 0.5);
   color: #F5F2EB !important;
   font-weight: 600;
@@ -192,74 +187,56 @@ body {
 .btn-crimson-pill:hover,
 .btn-tactile:hover,
 .btn-cyber-ghost:hover {
-  background: #0E0E0E;
+  background: #181313;
   border-color: rgba(212, 175, 55, 0.35);
   color: #FFFFFF !important;
   transform: translateY(-1px);
   box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
-    0 8px 20px -2px rgba(0, 0, 0, 0.7);
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+    0 6px 16px rgba(0, 0, 0, 0.7);
 }
 
 .btn-crimson-pill:active,
-.btn-tactile:active,
-.btn-cyber-ghost:active {
-  transform: translateY(0.5px);
+.btn-tactile:active {
+  transform: translateY(0);
 }
 
 /* ==========================================================================
-   METALLIC CHAMPAGNE TEXT GRADIENT & ACCENTS
+   RECESSED COMMAND INPUTS (RAYCAST / LINEAR STYLE)
    ========================================================================== */
 
-.text-gold-gradient,
-.text-champagne-gradient {
-  background: linear-gradient(135deg, #FFFFFF 0%, #F6E6C2 35%, #D4AF37 75%, #AA8222 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.recessed-input {
+  background-color: #0A0808;
+  border: 1px solid rgba(255, 240, 220, 0.07);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+  color: #F5F2EB;
+  border-radius: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+.recessed-input:focus {
+  outline: none;
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.6),
+    inset 0 0 12px rgba(212, 175, 55, 0.08);
+}
+
+/* ==========================================================================
+   METRIC TYPOGRAPHY: METALLIC TEXT GRADIENT
+   ========================================================================== */
 
 .text-metric-champagne {
-  background: linear-gradient(180deg, #FFFFFF 0%, #E8D39E 65%, #B88E28 100%);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5F2EB 45%, #D4AF37 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Active Focused States */
-.active-champagne-border {
-  border: 1px solid rgba(212, 175, 55, 0.5) !important;
-  box-shadow: inset 0 0 12px rgba(212, 175, 55, 0.1) !important;
+/* Utility to hide scrollbars while allowing touch scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
-
-/* Refined Micro Pulse */
-@keyframes champagne-pulse {
-  0%, 100% {
-    box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 24px rgba(246, 230, 194, 0.4);
-  }
-}
-
-.pulse-gold {
-  animation: champagne-pulse 4s infinite ease-in-out;
-}
-
-/* Custom Scrollbar - Pitch Black & Champagne */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: #000000;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #141414;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #D4AF37;
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

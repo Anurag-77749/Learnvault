@@ -26,7 +26,6 @@ import {
 import { triggerGoldSparkle } from '../utils/confetti';
 import { Interactive3DTiltCard } from './Interactive3DTiltCard';
 import { SpringCounter } from './SpringCounter';
-import { ChronometerCubeShowcase } from './ChronometerCubeShowcase';
 import { DailyDsaCommunicationWidget } from './DailyDsaCommunicationWidget';
 import { LogWastedModal } from './modals/LogWastedModal';
 import { LogSleepModal } from './modals/LogSleepModal';
@@ -203,10 +202,10 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
       <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           {/* DAY 7 OF 1,460 Pill Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#080808] border border-[rgba(255,255,255,0.08)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] mb-2">
-            <span className="relative flex h-2 w-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#110E0E] border border-[rgba(255,240,220,0.07)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] mb-2">
+            <span className="relative flex h-1.5 w-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E5A970] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D4AF37]" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#D4AF37]" />
             </span>
             <span className="text-[11px] font-mono font-bold tracking-widest text-[#D4AF37] uppercase">
               DAY {currentDayNumber} OF 1,460
@@ -223,23 +222,13 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
         </div>
 
         {/* LearnVault Knowledge Capsule Badge */}
-        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#080808]/90 border border-[rgba(255,255,255,0.08)] backdrop-blur-xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_8px_20px_rgba(0,0,0,0.8)] self-start md:self-auto">
+        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#110E0E]/90 border border-[rgba(255,240,220,0.08)] backdrop-blur-md shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] self-start md:self-auto">
           <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_6px_#D4AF37]" />
           <span className="text-xs font-mono font-medium text-[#F6E6C2] tracking-tight">
             LearnVault: Your Knowledge. Your Progress. Your Future.
           </span>
         </div>
       </div>
-
-      {/* ========================================================================
-          1.5. PRECISION 3D CHRONOMETER CUBE SHOWCASE (ASSEMBLED ↔ EXPLODED)
-          ======================================================================== */}
-      <ChronometerCubeShowcase 
-        currentDay={currentDayNumber}
-        totalDays={1460}
-        topicsLearned={topicsCount}
-        totalTopics={892}
-      />
 
       {/* ========================================================================
           2. TO-DO LIST (INTERACTIVE 3D TILT CARD WITH COMMAND BAR & CUSTOM CHECKBOX)
@@ -270,7 +259,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                 value={newTaskTitle}
                 onChange={(e) => setNewTaskTitle(e.target.value)}
                 placeholder="Add a new task in one tap..."
-                className="w-full h-11 sm:h-12 pl-4 pr-32 rounded-lg bg-[#000000] border border-[rgba(255,255,255,0.08)] text-sm text-[#F5F2EB] placeholder-[#55504A] focus:outline-none focus:border-[#D4AF37]/60 focus:ring-1 focus:ring-[#D4AF37]/40 shadow-inner transition-all font-sans"
+                className="recessed-input w-full h-11 sm:h-12 pl-4 pr-32 text-sm text-[#F5F2EB] placeholder-[#635B55] transition-all font-sans"
               />
 
               {/* In-bar actions: + Note, Link, Shortcut Hint */}
@@ -280,7 +269,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                   onClick={() => setShowNoteInput(!showNoteInput)}
                   className={`px-2 py-0.5 rounded text-[11px] font-mono flex items-center gap-1 transition-all cursor-pointer ${
                     showNoteInput || newTaskNote
-                      ? 'bg-[#D4AF37] text-[#000000] font-bold'
+                      ? 'btn-liquid-gold font-bold text-black'
                       : 'text-[#9E958E] hover:text-[#F5F2EB] bg-white/[0.04]'
                   }`}
                   title="Attach Context Note"
@@ -292,13 +281,13 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowNoteInput(!showNoteInput)}
-                  className="p-1 text-[#55504A] hover:text-[#D4AF37] transition-colors cursor-pointer hidden sm:flex"
+                  className="p-1 text-[#635B55] hover:text-[#D4AF37] transition-colors cursor-pointer hidden sm:flex"
                   title="Attach Link"
                 >
                   <LinkIcon className="w-3.5 h-3.5" />
                 </button>
 
-                <kbd className="hidden md:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[9px] font-mono text-[#55504A] bg-white/[0.03] border border-white/[0.06] rounded">
+                <kbd className="hidden md:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[9px] font-mono text-[#635B55] bg-white/[0.03] border border-white/[0.06] rounded">
                   <CornerDownLeft className="w-2.5 h-2.5" />
                 </kbd>
               </div>
@@ -328,7 +317,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                   value={newTaskNote}
                   onChange={(e) => setNewTaskNote(e.target.value)}
                   placeholder="Attach reference link or context note..."
-                  className="w-full px-4 py-2.5 rounded-lg bg-[#000000] border border-[rgba(255,255,255,0.08)] text-xs text-[#F5F2EB] placeholder-[#55504A] focus:outline-none focus:border-[#D4AF37]/50 shadow-inner font-mono"
+                  className="recessed-input w-full px-4 py-2.5 text-xs text-[#F5F2EB] placeholder-[#635B55] font-mono"
                 />
               </motion.div>
             )}
@@ -337,7 +326,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
           {/* Task Items List */}
           <div className="space-y-1.5 pt-1">
             {tasks.length === 0 ? (
-              <div className="text-center py-8 text-xs font-mono text-[#55504A] border border-dashed border-[rgba(255,255,255,0.08)] rounded-lg bg-[#000000]/40">
+              <div className="text-center py-8 text-xs font-mono text-[#635B55] border border-dashed border-[rgba(255,240,220,0.07)] rounded-lg bg-[#0E0C0C]/40">
                 NO ACTIVE DIRECTIVES. TYPE ABOVE TO ENGAGE.
               </div>
             ) : (
@@ -346,8 +335,8 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                   key={task.id}
                   className={`group relative p-3 rounded-lg border transition-all duration-200 flex items-center justify-between gap-3 ${
                     task.completed
-                      ? 'bg-[#000000]/70 border-[rgba(255,255,255,0.04)] opacity-50'
-                      : 'bg-[#050505] border-[rgba(255,255,255,0.08)] hover:bg-[#0C0C0C] hover:border-[rgba(212,175,55,0.25)] shadow-sm'
+                      ? 'bg-[#0A0808]/70 border-[rgba(255,240,220,0.04)] opacity-50'
+                      : 'bg-[#0E0C0C] border-[rgba(255,240,220,0.07)] hover:bg-[#161212] hover:border-[rgba(212,175,55,0.3)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]'
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0 flex-1">
@@ -679,9 +668,9 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
       </div>
 
       {/* ========================================================================
-          4.5. DAILY DSA & COMMUNICATION RAPID INSTRUMENT
+          4.5. DAILY DSA & COMMUNICATION RAPID INSTRUMENT (MOBILE ONLY, IN SIDEBAR ON DESKTOP)
           ======================================================================== */}
-      <div className="w-full">
+      <div className="w-full lg:hidden">
         <DailyDsaCommunicationWidget />
       </div>
 

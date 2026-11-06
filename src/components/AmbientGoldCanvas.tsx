@@ -7,7 +7,7 @@ export const AmbientGoldCanvas: React.FC<{ className?: string }> = ({ className 
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
     let animId: number;
@@ -20,34 +20,34 @@ export const AmbientGoldCanvas: React.FC<{ className?: string }> = ({ className 
       height = canvas.height = window.innerHeight;
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
 
-    // 35 slow-floating golden bokeh particles
-    const particleCount = 35;
+    // Adaptive particle count: 12 on mobile phones to save battery/CPU, 28 on desktop
+    const isMobile = window.innerWidth < 768;
+    const particleCount = isMobile ? 12 : 28;
+
     const particles = Array.from({ length: particleCount }).map(() => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 2.6 + 1.2,
-      baseAlpha: Math.random() * 0.4 + 0.15,
+      radius: Math.random() * 2.2 + 1.0,
+      baseAlpha: Math.random() * 0.35 + 0.1,
       alpha: 0,
-      vx: (Math.random() - 0.5) * 0.2,
-      vy: -(Math.random() * 0.3 + 0.1), // Drift gently upwards
-      pulseSpeed: Math.random() * 0.02 + 0.008,
+      vx: (Math.random() - 0.5) * 0.15,
+      vy: -(Math.random() * 0.25 + 0.08), // Gentle upward drift
+      pulseSpeed: Math.random() * 0.015 + 0.006,
       pulseOffset: Math.random() * Math.PI * 2,
-      wobbleSpeed: Math.random() * 0.015 + 0.005,
-      wobbleOffset: Math.random() * Math.PI * 2,
     }));
 
     let frame = 0;
-    let isTabVisible = !document.hidden;
+    let isVisible = !document.hidden;
 
-    const handleVisibilityChange = () => {
-      isTabVisible = !document.hidden;
+    const handleVisibility = () => {
+      isVisible = !document.hidden;
     };
-    document.addEventListener('visibilitychange', handleVisibilityChange);
+    document.addEventListener('visibilitychange', handleVisibility);
 
     const render = () => {
-      if (!isTabVisible) {
+      if (!isVisible) {
         animId = requestAnimationFrame(render);
         return;
       }
@@ -57,32 +57,31 @@ export const AmbientGoldCanvas: React.FC<{ className?: string }> = ({ className 
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
-        p.x += p.vx + Math.sin(frame * p.wobbleSpeed + p.wobbleOffset) * 0.25;
+        p.x += p.vx;
         p.y += p.vy;
 
         // Wrap around boundaries smoothly
-        if (p.y < -15) {
-          p.y = height + 15;
+        if (p.y < -10) {
+          p.y = height + 10;
           p.x = Math.random() * width;
         }
-        if (p.x < -15) p.x = width + 15;
-        if (p.x > width + 15) p.x = -15;
+        if (p.x < -10) p.x = width + 10;
+        if (p.x > width + 10) p.x = -10;
 
-        // Breathing alpha oscillation
         const breathing = Math.sin(frame * p.pulseSpeed + p.pulseOffset);
-        p.alpha = p.baseAlpha * (0.65 + 0.35 * breathing);
+        p.alpha = p.baseAlpha * (0.7 + 0.3 * breathing);
 
-        // Core champagne gold particle
+        // Particle core
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(229, 184, 75, ${p.alpha})`;
+        ctx.fillStyle = `rgba(212, 175, 55, ${p.alpha})`;
         ctx.fill();
 
-        // Soft outer bokeh aura for depth
-        if (p.radius > 1.8) {
+        // Soft outer bokeh aura (desktop only for performance)
+        if (!isMobile && p.radius > 1.8) {
           ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius * 3.2, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(246, 230, 194, ${p.alpha * 0.2})`;
+          ctx.arc(p.x, p.y, p.radius * 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(246, 230, 194, ${p.alpha * 0.18})`;
           ctx.fill();
         }
       }
@@ -95,7 +94,7 @@ export const AmbientGoldCanvas: React.FC<{ className?: string }> = ({ className 
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', handleResize);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, []);
 
@@ -103,7 +102,7 @@ export const AmbientGoldCanvas: React.FC<{ className?: string }> = ({ className 
     <canvas
       ref={canvasRef}
       className={`pointer-events-none fixed inset-0 z-0 h-screen w-screen overflow-hidden ${className}`}
-      style={{ opacity: 0.85 }}
+      style={{ opacity: 0.75 }}
     />
   );
 };

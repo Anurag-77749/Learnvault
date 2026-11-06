@@ -5,6 +5,7 @@ import {
   Timer as TimerIcon, 
   CalendarRange, 
   BookOpen, 
+  Code2,
   FolderGit2, 
   BarChart3, 
   Hourglass,
@@ -27,6 +28,7 @@ const SIDEBAR_NAV_ITEMS: { id: ScreenId; label: string; icon: React.ComponentTyp
   { id: 'timer', label: 'Timer', icon: TimerIcon },
   { id: 'plan', label: 'Plan', icon: CalendarRange },
   { id: 'learn', label: 'Learn', icon: BookOpen },
+  { id: 'dsa', label: 'DSA', icon: Code2 },
   { id: 'projects', label: 'Projects', icon: FolderGit2 },
   { id: 'progress', label: 'Progress', icon: BarChart3 },
   { id: 'wasted', label: 'Wasted Days', icon: Hourglass },
@@ -50,7 +52,7 @@ export const SpatialLeftSidebar: React.FC<SpatialLeftSidebarProps> = ({
   const overallPercent = totalSub > 0 ? Math.round((doneSub / totalSub) * 100) : 0;
 
   return (
-    <aside className={`w-full lg:w-64 shrink-0 space-y-3.5 bg-[#060505] p-3.5 rounded-2xl border border-[rgba(255,240,220,0.06)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04),0_16px_36px_rgba(0,0,0,0.8)] backdrop-blur-xl ${className}`}>
+    <aside className={`w-64 shrink-0 space-y-3.5 bg-[#060505] p-3.5 rounded-2xl border border-[rgba(255,240,220,0.06)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04),0_16px_36px_rgba(0,0,0,0.85)] backdrop-blur-xl ${className}`}>
       {/* Brand Header */}
       <div 
         onClick={() => onSelectScreen('today')}
@@ -58,7 +60,7 @@ export const SpatialLeftSidebar: React.FC<SpatialLeftSidebarProps> = ({
       >
         <LearnVaultLogo size={32} showText={false} />
         <div>
-          <h2 className="font-serif-display font-black text-xl text-[#F5F2EB] tracking-tight leading-tight group-hover:text-[#F6E6C2] transition-colors">
+          <h2 className="font-display font-black text-xl text-[#F5F2EB] tracking-tight leading-tight group-hover:text-[#F6E6C2] transition-colors">
             LearnVault
           </h2>
           <p className="text-[9px] font-mono tracking-widest text-[#D4AF37] uppercase font-bold">
@@ -113,10 +115,10 @@ export const SpatialLeftSidebar: React.FC<SpatialLeftSidebarProps> = ({
               <button
                 key={item.id}
                 onClick={() => onSelectScreen(item.id)}
-                className="relative w-full py-2.5 px-3.5 rounded-lg bg-[rgba(212,175,55,0.09)] border border-[#D4AF37]/35 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),inset_0_0_12px_rgba(212,175,55,0.06)] flex items-center justify-between cursor-pointer transition-all overflow-hidden"
+                className="relative w-full py-2.5 px-3.5 rounded-lg bg-[rgba(212,175,55,0.1)] border border-[#D4AF37]/35 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),inset_0_0_12px_rgba(212,175,55,0.06)] flex items-center justify-between cursor-pointer transition-all overflow-hidden"
               >
                 {/* 2px vertical champagne gold indicator bar on left edge */}
-                <span className="absolute left-0 top-1.5 bottom-1.5 w-[2.5px] rounded-r-full bg-gradient-to-b from-[#F6E6C2] to-[#D4AF37] shadow-[0_0_8px_rgba(212,175,55,0.5)]" />
+                <span className="absolute left-0 top-1.5 bottom-1.5 w-[2px] rounded-r-full bg-gradient-to-b from-[#F6E6C2] to-[#D4AF37] shadow-[0_0_8px_rgba(212,175,55,0.5)]" />
                 
                 <div className="flex items-center gap-3 pl-1">
                   <Icon className="w-4 h-4 text-[#F6E6C2]" />
@@ -142,7 +144,7 @@ export const SpatialLeftSidebar: React.FC<SpatialLeftSidebarProps> = ({
         })}
       </nav>
 
-      {/* Bottom DSA & Communication Widget */}
+      {/* Bottom Compact DSA & Communication Widget */}
       <div className="pt-1">
         <DailyDsaCommunicationWidget />
       </div>

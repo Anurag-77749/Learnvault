@@ -29,6 +29,7 @@ import { cleanupSampleProjects } from './services/projectService';
 import { KineticDomainBadge } from './components/KineticDomainBadge';
 import { AmbientGoldCanvas } from './components/AmbientGoldCanvas';
 import { LearnVaultLogo } from './components/LearnVaultLogo';
+import { SpatialLeftSidebar } from './components/SpatialLeftSidebar';
 
 const TOP_NAV_ITEMS: { id: ScreenId; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
   { id: 'today', label: 'Today', icon: Sun },
@@ -77,37 +78,32 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#000000] text-[#F5F2EB] flex flex-col antialiased selection:bg-[#D4AF37] selection:text-black relative font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-[#080707] text-[#F5F2EB] flex flex-col antialiased selection:bg-[#D4AF37] selection:text-black relative font-sans overflow-x-hidden">
       {/* Global Anodized Metal Noise Texture */}
       <div className="anodized-noise-overlay" />
 
       {/* Ambient Drifting Volumetric Gold Particles Canvas */}
-      <AmbientGoldCanvas className="opacity-80" />
+      <AmbientGoldCanvas className="opacity-75" />
 
       {/* ========================================================================
-          TOP SLEEK NAVIGATION HUD BAR (ALL FEATURES IN ONE CLEAN BAR)
+          MOBILE TOP NAVIGATION HUD BAR (TOUCH-FRIENDLY, HIDDEN ON DESKTOP)
           ======================================================================== */}
-      <header className="sticky top-0 z-40 w-full bg-[#000000]/90 backdrop-blur-xl border-b border-[rgba(255,255,255,0.08)] px-3 sm:px-6 py-2.5 select-none transition-colors">
+      <header className="lg:hidden sticky top-0 z-40 w-full bg-[#080707]/90 backdrop-blur-xl border-b border-[rgba(255,240,220,0.07)] px-3 sm:px-6 py-2.5 select-none transition-colors">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-3 sm:gap-4">
           
           {/* Brand Mark */}
           <div 
             onClick={() => handleSelectScreen('today')}
-            className="flex items-center gap-2.5 cursor-pointer group shrink-0"
+            className="flex items-center gap-2 cursor-pointer group shrink-0"
           >
-            <LearnVaultLogo size={28} showText={false} />
-            <div>
-              <span className="font-display font-black text-lg text-[#F5F2EB] tracking-tight group-hover:text-[#F6E6C2] transition-colors leading-none">
-                LearnVault
-              </span>
-              <p className="text-[8px] font-mono tracking-widest text-[#D4AF37] uppercase font-bold hidden sm:block">
-                PRECISION WORKSPACE
-              </p>
-            </div>
+            <LearnVaultLogo size={26} showText={false} />
+            <span className="font-display font-black text-base text-[#F5F2EB] tracking-tight group-hover:text-[#F6E6C2] transition-colors leading-none">
+              LearnVault
+            </span>
           </div>
 
-          {/* Navigation Tabs Pills (All Features at Top, Scrollable on Mobile) */}
-          <nav className="flex items-center gap-1 p-1 rounded-full bg-[#080808] border border-[rgba(255,255,255,0.08)] shadow-inner overflow-x-auto no-scrollbar max-w-[55vw] sm:max-w-none">
+          {/* Navigation Tabs Pills (Scrollable on Mobile) */}
+          <nav className="flex items-center gap-1 p-1 rounded-full bg-[#110E0E] border border-[rgba(255,240,220,0.07)] shadow-inner overflow-x-auto no-scrollbar max-w-[50vw] sm:max-w-none">
             {TOP_NAV_ITEMS.map((item) => {
               const isActive = activeScreen === item.id;
               const Icon = item.icon;
@@ -117,7 +113,7 @@ export const App: React.FC = () => {
                   key={item.id}
                   type="button"
                   onClick={() => handleSelectScreen(item.id)}
-                  className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-semibold transition-all cursor-pointer shrink-0 ${
+                  className={`px-2.5 py-1 rounded-full flex items-center gap-1 text-xs font-semibold transition-all cursor-pointer shrink-0 ${
                     isActive
                       ? 'liquid-gold-pill text-[#000000] shadow-sm font-bold'
                       : 'text-[#9E958E] hover:text-[#F5F2EB] hover:bg-white/[0.04]'
@@ -130,44 +126,69 @@ export const App: React.FC = () => {
             })}
           </nav>
 
-          {/* Right: Day Badge, Cloud Sync & Focus Action */}
-          <div className="flex items-center gap-2 shrink-0">
+          {/* Right: Day Badge & Cloud Sync */}
+          <div className="flex items-center gap-1.5 shrink-0">
             {/* Day Badge */}
-            <div className="px-2.5 py-1 rounded-full bg-[#080808] border border-[rgba(255,255,255,0.08)] flex items-center gap-1.5 text-[10px] font-mono font-bold text-[#D4AF37]">
+            <div className="px-2 py-0.5 rounded-full bg-[#110E0E] border border-[rgba(255,240,220,0.07)] flex items-center gap-1 text-[10px] font-mono font-bold text-[#D4AF37]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
-              <span>DAY {currentDayNumber}</span>
+              <span>D{currentDayNumber}</span>
             </div>
 
             {/* Cloud Sync Status */}
             <button
               onClick={() => setIsSyncModalOpen(true)}
-              className="p-1.5 sm:px-2.5 sm:py-1 rounded-full bg-[#080808] border border-[rgba(255,255,255,0.08)] hover:border-[#D4AF37]/50 text-[#9E958E] hover:text-[#F5F2EB] transition-all flex items-center gap-1.5 text-xs font-mono cursor-pointer"
+              className="p-1.5 rounded-full bg-[#110E0E] border border-[rgba(255,240,220,0.07)] hover:border-[#D4AF37]/50 text-[#9E958E] hover:text-[#F5F2EB] transition-all flex items-center gap-1 cursor-pointer"
               title="Cloud Sync"
             >
               <Cloud className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span className="hidden lg:inline text-[9px] font-bold">
-                {syncState.syncId ? 'SYNCED' : 'BACKUP'}
-              </span>
-            </button>
-
-            {/* Quick Focus Button */}
-            <button
-              type="button"
-              onClick={() => handleStartTimerWithTopic()}
-              className="hidden sm:flex px-3.5 py-1.5 rounded-full btn-liquid-gold text-xs font-bold items-center gap-1.5 cursor-pointer shadow-md"
-            >
-              <Play className="w-3 h-3 fill-current text-black" />
-              <span className="font-mono text-[11px] text-black">Focus</span>
             </button>
           </div>
         </div>
       </header>
 
       {/* ========================================================================
-          MAIN WORKSPACE VIEW (EXPANSIVE FULL-WIDTH, NO CLUTTER AT BOTTOM)
+          WORKSPACE CONTAINER: SLEEK LEFT SIDEBAR (DESKTOP) + EXPANSIVE WORKSPACE
           ======================================================================== */}
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 relative z-10">
-        <main className="w-full">
+      <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-6 relative z-10 flex flex-col lg:flex-row gap-6 items-start">
+        {/* Sleek Recessed Left Sidebar (Desktop Only) */}
+        <SpatialLeftSidebar
+          activeScreen={activeScreen}
+          onSelectScreen={handleSelectScreen}
+          className="hidden lg:block sticky top-6 max-h-[calc(100vh-3rem)] overflow-y-auto no-scrollbar shrink-0"
+        />
+
+        {/* Main Workspace (Full Width on Mobile, Side by Side on Desktop) */}
+        <main className="flex-1 min-w-0 w-full">
+          {/* Top Status Bar on Desktop */}
+          <div className="hidden lg:flex items-center justify-between pb-4 border-b border-[rgba(255,240,220,0.07)] mb-6">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
+              <span className="text-xs font-mono font-bold tracking-widest text-[#D4AF37] uppercase">
+                PRECISION WORKSPACE // DAY {currentDayNumber} OF 1,460
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setIsSyncModalOpen(true)}
+                className="px-3 py-1 rounded-full bg-[#110E0E] border border-[rgba(255,240,220,0.07)] hover:border-[#D4AF37]/50 text-[#9E958E] hover:text-[#F5F2EB] transition-all flex items-center gap-1.5 text-xs font-mono cursor-pointer"
+                title="Cloud Sync"
+              >
+                <Cloud className="w-3.5 h-3.5 text-[#D4AF37]" />
+                <span className="text-[10px] font-bold">
+                  {syncState.syncId ? 'CLOUD SYNCED' : 'BACKUP CLOUD'}
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleStartTimerWithTopic()}
+                className="px-3.5 py-1.5 rounded-full btn-liquid-gold text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-md"
+              >
+                <Play className="w-3 h-3 fill-current text-black" />
+                <span className="font-mono text-[11px] text-black">Start Focus</span>
+              </button>
+            </div>
+          </div>
+
           {activeScreen === 'today' && (
             <TodayScreen
               onNavigateToTimer={handleStartTimerWithTopic}
