@@ -10,12 +10,25 @@ import {
   BarChart3,
   Hourglass,
   Cloud,
-  Play
+  Play,
+  Code2,
+  Briefcase,
+  Bookmark
 } from 'lucide-react';
 import { db } from '../services/db';
 import { cloudSyncService, SyncState } from '../services/cloudSyncService';
 
-export type ScreenId = 'today' | 'timer' | 'plan' | 'learn' | 'projects' | 'progress' | 'wasted';
+export type ScreenId = 
+  | 'today' 
+  | 'timer' 
+  | 'plan' 
+  | 'learn' 
+  | 'dsa' 
+  | 'jobs' 
+  | 'vault' 
+  | 'projects' 
+  | 'progress' 
+  | 'wasted';
 
 interface NavigationProps {
   activeScreen: ScreenId;
@@ -26,14 +39,17 @@ interface NavigationProps {
   onQuickFocus?: () => void;
 }
 
-export const NAV_ITEMS: { id: ScreenId; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
-  { id: 'today', label: 'Today', icon: Sun },
-  { id: 'timer', label: 'Timer', icon: TimerIcon },
-  { id: 'plan', label: 'Plan', icon: CalendarRange },
-  { id: 'learn', label: 'Curriculum', icon: BookOpen },
-  { id: 'projects', label: 'Projects', icon: FolderGit2 },
-  { id: 'progress', label: 'Analytics', icon: BarChart3 },
-  { id: 'wasted', label: 'Wasted Days', icon: Hourglass },
+export const NAV_ITEMS: { id: ScreenId; label: string; shortLabel: string; icon: React.ComponentType<{ className?: string }> }[] = [
+  { id: 'today', label: 'Today', shortLabel: 'Today', icon: Sun },
+  { id: 'timer', label: 'Timer', shortLabel: 'Timer', icon: TimerIcon },
+  { id: 'learn', label: 'Curriculum', shortLabel: 'Curriculum', icon: BookOpen },
+  { id: 'dsa', label: 'DSA Lab', shortLabel: 'DSA', icon: Code2 },
+  { id: 'jobs', label: 'Career HQ', shortLabel: 'Jobs', icon: Briefcase },
+  { id: 'vault', label: 'Vault', shortLabel: 'Vault', icon: Bookmark },
+  { id: 'plan', label: 'Plan', shortLabel: 'Plan', icon: CalendarRange },
+  { id: 'projects', label: 'Projects', shortLabel: 'Projects', icon: FolderGit2 },
+  { id: 'progress', label: 'Analytics', shortLabel: 'Stats', icon: BarChart3 },
+  { id: 'wasted', label: 'Wasted Days', shortLabel: 'Wasted', icon: Hourglass },
 ];
 
 /* ==========================================================================
@@ -78,38 +94,47 @@ export const TopNavBar: React.FC<NavigationProps> = ({
     month: 'short',
   }).toUpperCase();
 
+  const currentNav = NAV_ITEMS.find((item) => item.id === activeScreen);
+
   return (
-    <header className="sticky top-0 z-30 w-full bg-[#08080A]/80 backdrop-blur-2xl border-b border-white/[0.08] px-4 sm:px-8 py-3 select-none">
-      <div className="max-w-[1500px] mx-auto flex items-center justify-between gap-4">
-        {/* Left: Minimalist Hardware Mark */}
-        <div 
-          onClick={() => onSelectScreen('today')}
-          className="flex items-center gap-2.5 cursor-pointer group shrink-0"
-        >
-          <div className="w-8 h-8 rounded-xl bg-[#141418] border border-white/[0.12] flex items-center justify-center p-1 shadow-inner group-hover:border-white/30 transition-all">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FF5500] shadow-[0_0_8px_rgba(255,85,0,0.6)]" />
+    <header className="sticky top-0 z-30 w-full bg-[#08080A]/85 backdrop-blur-2xl border-b border-white/[0.08] px-3 sm:px-6 py-2.5 select-none">
+      <div className="max-w-[1560px] mx-auto flex items-center justify-between gap-3">
+        {/* Left: Minimalist Hardware Mark & Active Domain Pill */}
+        <div className="flex items-center gap-3">
+          <div 
+            onClick={() => onSelectScreen('today')}
+            className="flex items-center gap-2 cursor-pointer group shrink-0"
+          >
+            <div className="w-7 h-7 rounded-lg bg-[#141418] border border-white/[0.12] flex items-center justify-center p-1 shadow-inner group-hover:border-white/30 transition-all">
+              <span className="w-2 h-2 rounded-full bg-[#FF5500] shadow-[0_0_8px_rgba(255,85,0,0.6)]" />
+            </div>
+            <div className="leading-tight flex items-baseline gap-1.5">
+              <span className="font-display font-black text-xs sm:text-sm tracking-tight text-[#F5F5F7]">
+                LEARNVAULT
+              </span>
+              <span className="hidden sm:inline text-[9px] font-mono text-[#9898A0] font-bold tracking-wider">
+                // OS 3.0
+              </span>
+            </div>
           </div>
-          <div className="leading-tight">
-            <span className="font-display font-black text-sm tracking-tight text-[#F5F5F7]">
-              LEARNVAULT
-            </span>
-            <span className="text-[10px] font-mono text-[#9898A0] ml-1.5 font-bold tracking-wider">
-              // FIELD 01
-            </span>
+
+          {/* Active Domain Indicator Breadcrumb */}
+          <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08] text-[10px] font-mono uppercase text-[#9898A0]">
+            <span className="text-white font-bold">{currentNav?.label}</span>
           </div>
         </div>
 
-        {/* Center: 1,460-Day Macro Progress Scrubber */}
+        {/* Center: High-Density Macro Progress Scrubber */}
         <div 
           onClick={() => onSelectScreen('progress')}
-          className="hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full bg-[#121216]/80 border border-white/[0.09] shadow-inner hover:border-white/20 cursor-pointer transition-all"
+          className="hidden md:flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-[#121216]/80 border border-white/[0.09] shadow-inner hover:border-white/20 cursor-pointer transition-all"
         >
-          <div className="flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#F5F5F7]">
+          <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold text-[#F5F5F7]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500] animate-pulse" />
             <span>DAY {String(currentDayNumber).padStart(3, '0')} / 1,460</span>
           </div>
 
-          <div className="w-24 bg-black/60 h-1.5 rounded-full overflow-hidden border border-white/[0.06]">
+          <div className="w-20 bg-black/60 h-1.5 rounded-full overflow-hidden border border-white/[0.06]">
             <div 
               className="h-full bg-gradient-to-r from-white to-[#FF5500] rounded-full transition-all duration-500 shadow-sm"
               style={{ width: `${Math.max(overallPercent, 2)}%` }}
@@ -122,15 +147,15 @@ export const TopNavBar: React.FC<NavigationProps> = ({
         </div>
 
         {/* Right: Date Badge, Sync & Hero "Start Pomodoro" Action */}
-        <div className="flex items-center gap-2.5 shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
           {/* Cloud Sync Status */}
           <button
             onClick={onOpenSyncModal}
-            className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-full bg-[#121216] border border-white/[0.09] hover:border-white/25 text-[#9898A0] hover:text-white transition-all flex items-center gap-1.5 text-xs font-mono shadow-sm cursor-pointer"
+            className="p-1.5 sm:px-2.5 sm:py-1 rounded-full bg-[#121216] border border-white/[0.09] hover:border-white/25 text-[#9898A0] hover:text-white transition-all flex items-center gap-1.5 text-xs font-mono shadow-sm cursor-pointer"
             title="Cloud Sync"
           >
-            <Cloud className="w-3.5 h-3.5 text-[#9898A0]" />
-            <span className="hidden xl:inline text-[10px] font-bold">
+            <Cloud className="w-3 h-3 text-[#9898A0]" />
+            <span className="hidden xl:inline text-[9px] font-bold">
               {syncState.syncId ? 'SYNC' : 'LINK'}
             </span>
             {syncState.syncId && (
@@ -139,7 +164,7 @@ export const TopNavBar: React.FC<NavigationProps> = ({
           </button>
 
           {/* Date Badge */}
-          <div className="hidden sm:flex items-center px-3 py-1.5 rounded-full bg-[#121216] border border-white/[0.09] text-[11px] font-mono font-bold text-[#F5F5F7] shadow-sm">
+          <div className="hidden sm:flex items-center px-2.5 py-1 rounded-full bg-[#121216] border border-white/[0.09] text-[10px] font-mono font-bold text-[#F5F5F7] shadow-sm">
             {formattedDate}
           </div>
 
@@ -147,11 +172,11 @@ export const TopNavBar: React.FC<NavigationProps> = ({
           <button
             type="button"
             onClick={onQuickFocus || (() => onSelectScreen('timer'))}
-            className="px-4 py-1.5 sm:px-5 sm:py-2 rounded-full btn-mercury text-xs sm:text-sm font-black flex items-center gap-2 cursor-pointer shadow-lg"
+            className="px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full btn-mercury text-xs font-black flex items-center gap-1.5 cursor-pointer shadow-md"
           >
-            <Play className="w-3.5 h-3.5 fill-current" />
-            <span className="tracking-wide uppercase font-mono text-[11px] sm:text-xs text-[#050507]">
-              Start Pomodoro
+            <Play className="w-3 h-3 fill-current text-[#050507]" />
+            <span className="tracking-wide uppercase font-mono text-[10px] sm:text-[11px] text-[#050507]">
+              Pomodoro
             </span>
           </button>
         </div>
@@ -161,15 +186,15 @@ export const TopNavBar: React.FC<NavigationProps> = ({
 };
 
 /* ==========================================================================
-   FLOATING MACOS-STYLE GLASS DOCK (SMOKED OBSIDIAN CAPSULE)
+   FLOATING MACOS-STYLE GLASS DOCK (SMOKED OBSIDIAN CAPSULE - 10 PRO DOMAINS)
    ========================================================================== */
 export const FloatingDock: React.FC<NavigationProps> = ({
   activeScreen,
   onSelectScreen,
 }) => {
   return (
-    <div className="fixed bottom-6 inset-x-0 z-40 flex justify-center pointer-events-none px-4">
-      <nav className="glass-dock pointer-events-auto flex items-center gap-1 sm:gap-2 p-1.5 sm:p-2">
+    <div className="fixed bottom-4 inset-x-0 z-40 flex justify-center pointer-events-none px-2 sm:px-4">
+      <nav className="glass-dock pointer-events-auto flex items-center gap-1 sm:gap-1.5 p-1.5 max-w-full overflow-x-auto no-scrollbar shadow-2xl">
         {NAV_ITEMS.map((item) => {
           const isActive = activeScreen === item.id;
           const Icon = item.icon;
@@ -178,18 +203,19 @@ export const FloatingDock: React.FC<NavigationProps> = ({
             <button
               key={item.id}
               onClick={() => onSelectScreen(item.id)}
-              className={`relative px-3 sm:px-4 py-2 rounded-full flex items-center gap-2 text-xs font-medium transition-all duration-200 cursor-pointer ${
+              title={item.label}
+              className={`relative px-2.5 sm:px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-medium transition-all duration-150 cursor-pointer shrink-0 ${
                 isActive
                   ? 'bg-gradient-to-b from-white to-[#E0E0E6] text-[#050507] font-black shadow-md'
                   : 'text-[#9898A0] hover:text-white hover:bg-white/[0.06]'
               }`}
             >
-              <Icon className={`w-4 h-4 ${isActive ? 'text-[#FF5500]' : 'text-current'}`} />
-              <span className="hidden sm:inline font-mono tracking-tight text-[11px]">{item.label}</span>
+              <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#FF5500]' : 'text-current'}`} />
+              <span className="hidden md:inline font-mono tracking-tight text-[10px] uppercase font-bold">{item.shortLabel}</span>
               {isActive && (
                 <motion.span
                   layoutId="dock-active-dot"
-                  className="w-1.5 h-1.5 rounded-full bg-[#FF5500] shadow-[0_0_6px_#FF5500]"
+                  className="w-1 h-1 rounded-full bg-[#FF5500] shadow-[0_0_4px_#FF5500]"
                 />
               )}
             </button>

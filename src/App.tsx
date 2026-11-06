@@ -1,4 +1,4 @@
-// LearnVault - Smoked Obsidian & Polished Mercury Workspace
+// LearnVault - Smoked Obsidian & Polished Mercury Workspace (Maximalist OS 3.0)
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLiveQuery } from 'dexie-react-hooks';
@@ -8,6 +8,9 @@ import { TodayScreen } from './components/TodayScreen';
 import { TimerScreen } from './components/TimerScreen';
 import { PlanScreen } from './components/PlanScreen';
 import { LearnScreen } from './components/LearnScreen';
+import { DSATrackerView } from './components/DSATrackerView';
+import { JobTrackerView } from './components/JobTrackerView';
+import { ResourceInboxView } from './components/ResourceInboxView';
 import { ProjectsScreen } from './components/ProjectsScreen';
 import { ProgressScreen } from './components/ProgressScreen';
 import { WastedDaysScreen } from './components/WastedDaysScreen';
@@ -57,15 +60,15 @@ export const App: React.FC = () => {
       />
 
       {/* Main Asymmetric Bento Grid Viewport */}
-      <main className="flex-1 min-w-0 px-4 sm:px-8 py-6 max-w-[1500px] mx-auto w-full">
+      <main className="flex-1 min-w-0 px-3 sm:px-6 lg:px-8 py-5 max-w-[1560px] mx-auto w-full">
         <AnimatePresence mode="wait">
           {activeScreen === 'today' && (
             <motion.div
               key="today"
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
             >
               <TodayScreen
                 onNavigateToTimer={handleStartTimerWithTopic}
@@ -78,46 +81,82 @@ export const App: React.FC = () => {
           {activeScreen === 'timer' && (
             <motion.div
               key="timer"
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
             >
               <TimerScreen initialTopic={timerTopic} />
-            </motion.div>
-          )}
-
-          {activeScreen === 'plan' && (
-            <motion.div
-              key="plan"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <PlanScreen />
             </motion.div>
           )}
 
           {activeScreen === 'learn' && (
             <motion.div
               key="learn"
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
             >
               <LearnScreen />
+            </motion.div>
+          )}
+
+          {activeScreen === 'dsa' && (
+            <motion.div
+              key="dsa"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <DSATrackerView />
+            </motion.div>
+          )}
+
+          {activeScreen === 'jobs' && (
+            <motion.div
+              key="jobs"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <JobTrackerView />
+            </motion.div>
+          )}
+
+          {activeScreen === 'vault' && (
+            <motion.div
+              key="vault"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <ResourceInboxView />
+            </motion.div>
+          )}
+
+          {activeScreen === 'plan' && (
+            <motion.div
+              key="plan"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <PlanScreen />
             </motion.div>
           )}
 
           {activeScreen === 'projects' && (
             <motion.div
               key="projects"
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
             >
               <ProjectsScreen />
             </motion.div>
@@ -126,10 +165,10 @@ export const App: React.FC = () => {
           {activeScreen === 'progress' && (
             <motion.div
               key="progress"
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
             >
               <ProgressScreen />
             </motion.div>
@@ -138,10 +177,10 @@ export const App: React.FC = () => {
           {activeScreen === 'wasted' && (
             <motion.div
               key="wasted"
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
             >
               <WastedDaysScreen />
             </motion.div>
@@ -149,7 +188,7 @@ export const App: React.FC = () => {
         </AnimatePresence>
       </main>
 
-      {/* Floating macOS-Style Glass Dock (Bottom Center) */}
+      {/* Floating macOS-Style Smoked Obsidian Glass Dock */}
       <FloatingDock
         activeScreen={activeScreen}
         onSelectScreen={(screen) => {
@@ -168,3 +207,4 @@ export const App: React.FC = () => {
 };
 
 export default App;
+
