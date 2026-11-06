@@ -12,6 +12,7 @@ import {
   ChevronRight,
   Play
 } from 'lucide-react';
+import { LearnVaultLogo } from './LearnVaultLogo';
 
 interface AppleScrollShowcaseProps {
   onEnterWorkspace: () => void;
@@ -289,14 +290,8 @@ export const AppleScrollShowcase: React.FC<AppleScrollShowcaseProps> = ({ onEnte
 
         {/* Top Floating Mini-HUD */}
         <div className="absolute top-6 inset-x-0 z-20 px-6 sm:px-12 flex items-center justify-between pointer-events-auto">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FF5500] shadow-[0_0_10px_#FF5500] animate-pulse" />
-            <span className="font-display font-black text-sm tracking-tight text-white">
-              LEARNVAULT
-            </span>
-            <span className="text-[10px] font-mono text-[#9898A0] uppercase font-bold tracking-widest ml-1">
-              // APPLE-STYLE 3D ARCHITECTURE
-            </span>
+          <div className="cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <LearnVaultLogo size={32} showText={true} badge="// 3D CORE" />
           </div>
 
           <button

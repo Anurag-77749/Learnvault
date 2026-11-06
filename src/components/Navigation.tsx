@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { db } from '../services/db';
 import { cloudSyncService, SyncState } from '../services/cloudSyncService';
+import { LearnVaultLogo } from './LearnVaultLogo';
 
 export type ScreenId = 
   | 'today' 
@@ -106,17 +107,7 @@ export const TopNavBar: React.FC<NavigationProps> = ({
             className="flex items-center gap-2 cursor-pointer group shrink-0"
             title="Scroll to Coverpage"
           >
-            <div className="w-7 h-7 rounded-lg bg-[#141418] border border-white/[0.12] flex items-center justify-center p-1 shadow-inner group-hover:border-white/30 transition-all">
-              <span className="w-2 h-2 rounded-full bg-[#FF5500] shadow-[0_0_8px_rgba(255,85,0,0.6)]" />
-            </div>
-            <div className="leading-tight flex items-baseline gap-1.5">
-              <span className="font-display font-black text-xs sm:text-sm tracking-tight text-[#F5F5F7]">
-                LEARNVAULT
-              </span>
-              <span className="hidden sm:inline text-[9px] font-mono text-[#9898A0] font-bold tracking-wider">
-                // APPLE PRO
-              </span>
-            </div>
+            <LearnVaultLogo size={28} showText={true} badge="// OS 2.0" />
           </div>
 
           {/* Active Domain Indicator Breadcrumb */}

@@ -20,6 +20,7 @@ import {
   Layers
 } from 'lucide-react';
 import { db, getTodayDateString } from '../services/db';
+import { LearnVaultLogo } from './LearnVaultLogo';
 import { ActivityHeatmap } from './ActivityHeatmap';
 import { TRACK_TITLES } from './LearnScreen';
 
@@ -188,29 +189,29 @@ export const ProgressScreen: React.FC = () => {
       </div>
 
       {/* 0. MASTER OVERALL PROGRESS TRACKER (LEARNVAULT COMPOSITE SCORE) */}
-      <section className="p-6 sm:p-8 rounded-3xl card-maroon-gold shadow-2xl space-y-6 relative overflow-hidden">
+      <section className="p-6 sm:p-8 rounded-3xl smoked-glass border border-white/[0.08] shadow-2xl space-y-6 relative overflow-hidden">
         {/* Glow ambient background accent */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-[#D4AF37]/5 blur-3xl rounded-full pointer-events-none" />
 
         {/* Master Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-[#360A0F] relative">
           <div className="flex items-start sm:items-center gap-3.5">
-            <div className="w-14 h-14 rounded-2xl bg-black border border-[#D4AF37]/60 p-1 flex items-center justify-center shadow-lg shadow-[#D4AF37]/25 shrink-0 overflow-hidden">
-              <img src="/learnvault-logo.png" alt="LearnVault Logo" className="w-full h-full object-contain" />
+            <div className="w-14 h-14 rounded-2xl bg-[#0F0F12] border border-white/[0.12] p-1 flex items-center justify-center shadow-lg shadow-black/50 shrink-0 overflow-hidden">
+              <LearnVaultLogo size={44} />
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#FFDF73] bg-[#000000] px-2.5 py-0.5 rounded-full border border-[#D4AF37]/40 shadow-sm">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#FF5500] bg-white/[0.04] px-2.5 py-0.5 rounded-full border border-white/[0.08] shadow-sm">
                   Master Telemetry
                 </span>
-                <span className="text-[10px] font-semibold text-[#B8B0AA] tracking-wide">
+                <span className="text-[10px] font-mono font-semibold text-[#9898A0] tracking-wide">
                   Day {journeyDays} of 1,461 (Year 1: 2026–2027)
                 </span>
               </div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white mt-1">
+              <h2 className="font-display text-2xl sm:text-3xl font-black text-white mt-1 tracking-tight">
                 Overall Progress Tracker
               </h2>
-              <p className="text-xs text-[#D4AF37] font-sans font-medium tracking-wider uppercase mt-0.5">
+              <p className="text-xs text-[#9898A0] font-mono font-medium tracking-wider uppercase mt-0.5">
                 Your Knowledge. Your Progress. Your Future.
               </p>
             </div>
@@ -406,7 +407,7 @@ export const ProgressScreen: React.FC = () => {
       </section>
 
       {/* 1. DEDICATED DSA PROGRESS CARD */}
-      <section className="p-5 sm:p-6 rounded-3xl card-maroon-gold shadow-2xl space-y-5">
+      <section className="p-5 sm:p-6 rounded-3xl smoked-glass border border-white/[0.08] shadow-2xl space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#360A0F]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-black border-2 border-[#D4AF37] flex items-center justify-center text-shiny-gold shadow-md shadow-[#D4AF37]/20">
@@ -523,7 +524,7 @@ export const ProgressScreen: React.FC = () => {
       </section>
 
       {/* 2. DEDICATED COMMUNICATION & ENGLISH TELEMETRY CARD */}
-      <section className="p-5 sm:p-6 rounded-3xl card-maroon-gold shadow-2xl space-y-4">
+      <section className="p-5 sm:p-6 rounded-3xl smoked-glass border border-white/[0.08] shadow-2xl space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#360A0F]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-black border-2 border-[#D4AF37] flex items-center justify-center text-shiny-gold shadow-md shadow-[#D4AF37]/20">
@@ -588,7 +589,7 @@ export const ProgressScreen: React.FC = () => {
 
       {/* 3. STUDY HOURS & TOTALS */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="p-4 rounded-2xl card-maroon-gold shadow-md">
+        <div className="p-4 rounded-2xl smoked-glass border border-white/[0.08] shadow-md">
           <span className="text-[11px] uppercase tracking-wider text-[#FFDF73] font-bold">
             Total Hours Studied
           </span>
@@ -598,7 +599,7 @@ export const ProgressScreen: React.FC = () => {
           <span className="text-[11px] text-shiny-gold mt-1 block font-semibold">Since Nov 1, 2026</span>
         </div>
 
-        <div className="p-4 rounded-2xl card-maroon-gold shadow-md">
+        <div className="p-4 rounded-2xl smoked-glass border border-white/[0.08] shadow-md">
           <span className="text-[11px] uppercase tracking-wider text-[#FFDF73] font-bold">
             Active Days
           </span>
@@ -608,7 +609,7 @@ export const ProgressScreen: React.FC = () => {
           <span className="text-[11px] text-[#B8B0AA] mt-1 block">Telemetry Logged</span>
         </div>
 
-        <div className="p-4 rounded-2xl card-maroon-gold shadow-md">
+        <div className="p-4 rounded-2xl smoked-glass border border-white/[0.08] shadow-md">
           <span className="text-[11px] uppercase tracking-wider text-[#B8B0AA] font-semibold">
             Wasted Recorded
           </span>
@@ -618,7 +619,7 @@ export const ProgressScreen: React.FC = () => {
           <span className="text-[11px] text-[#B8B0AA] mt-1 block">Accountability</span>
         </div>
 
-        <div className="p-4 rounded-2xl card-maroon-gold shadow-md">
+        <div className="p-4 rounded-2xl smoked-glass border border-white/[0.08] shadow-md">
           <span className="text-[11px] uppercase tracking-wider text-[#FFDF73] font-bold">
             Current Streak
           </span>
