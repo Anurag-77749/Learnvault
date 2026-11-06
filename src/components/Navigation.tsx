@@ -37,7 +37,7 @@ export const NAV_ITEMS: { id: ScreenId; label: string; icon: React.ComponentType
 ];
 
 /* ==========================================================================
-   TOP MINIMALIST HUD BAR (SWISS ALABASTER & BRUSHED TITANIUM)
+   TOP MINIMALIST HUD BAR (SMOKED OBSIDIAN & POLISHED MERCURY)
    ========================================================================== */
 export const TopNavBar: React.FC<NavigationProps> = ({
   activeScreen,
@@ -79,22 +79,22 @@ export const TopNavBar: React.FC<NavigationProps> = ({
   }).toUpperCase();
 
   return (
-    <header className="sticky top-0 z-30 w-full bg-[#F4F2EE]/90 backdrop-blur-xl border-b border-[#E6E3DC] px-4 sm:px-8 py-3 select-none">
+    <header className="sticky top-0 z-30 w-full bg-[#08080A]/80 backdrop-blur-2xl border-b border-white/[0.08] px-4 sm:px-8 py-3 select-none">
       <div className="max-w-[1500px] mx-auto flex items-center justify-between gap-4">
-        {/* Left: Minimalist Geometric Logo Mark */}
+        {/* Left: Minimalist Hardware Mark */}
         <div 
           onClick={() => onSelectScreen('today')}
           className="flex items-center gap-2.5 cursor-pointer group shrink-0"
         >
-          <div className="w-8 h-8 rounded-xl bg-[#111110] flex items-center justify-center p-1 shadow-sm group-hover:scale-105 transition-transform">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FF4F00] shadow-sm" />
+          <div className="w-8 h-8 rounded-xl bg-[#141418] border border-white/[0.12] flex items-center justify-center p-1 shadow-inner group-hover:border-white/30 transition-all">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#FF5500] shadow-[0_0_8px_rgba(255,85,0,0.6)]" />
           </div>
           <div className="leading-tight">
-            <span className="font-display font-extrabold text-sm tracking-tight text-[#111110]">
+            <span className="font-display font-black text-sm tracking-tight text-[#F5F5F7]">
               LEARNVAULT
             </span>
-            <span className="text-[10px] font-mono text-[#FF4F00] ml-1.5 font-bold">
-              // OS 2.0
+            <span className="text-[10px] font-mono text-[#9898A0] ml-1.5 font-bold tracking-wider">
+              // FIELD 01
             </span>
           </div>
         </div>
@@ -102,22 +102,22 @@ export const TopNavBar: React.FC<NavigationProps> = ({
         {/* Center: 1,460-Day Macro Progress Scrubber */}
         <div 
           onClick={() => onSelectScreen('progress')}
-          className="hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full bg-white border border-[#E6E3DC] shadow-sm hover:border-[#D8D4CC] cursor-pointer transition-all"
+          className="hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full bg-[#121216]/80 border border-white/[0.09] shadow-inner hover:border-white/20 cursor-pointer transition-all"
         >
-          <div className="flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#111110]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF4F00] animate-pulse" />
+          <div className="flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#F5F5F7]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5500] animate-pulse" />
             <span>DAY {String(currentDayNumber).padStart(3, '0')} / 1,460</span>
           </div>
 
-          <div className="w-24 bg-[#EFECE6] h-1.5 rounded-full overflow-hidden border border-[#E6E3DC]">
+          <div className="w-24 bg-black/60 h-1.5 rounded-full overflow-hidden border border-white/[0.06]">
             <div 
-              className="h-full bg-[#FF4F00] rounded-full transition-all duration-500 shadow-sm"
+              className="h-full bg-gradient-to-r from-white to-[#FF5500] rounded-full transition-all duration-500 shadow-sm"
               style={{ width: `${Math.max(overallPercent, 2)}%` }}
             />
           </div>
 
-          <div className="text-[10px] font-mono text-[#68645E]">
-            <strong className="text-[#111110]">{doneSub}/{totalSub}</strong> TOPICS ({overallPercent}%)
+          <div className="text-[10px] font-mono text-[#9898A0]">
+            <strong className="text-white">{doneSub}/{totalSub}</strong> TOPICS ({overallPercent}%)
           </div>
         </div>
 
@@ -126,31 +126,31 @@ export const TopNavBar: React.FC<NavigationProps> = ({
           {/* Cloud Sync Status */}
           <button
             onClick={onOpenSyncModal}
-            className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-full bg-white border border-[#E6E3DC] hover:border-[#D8D4CC] text-[#68645E] hover:text-[#111110] transition-all flex items-center gap-1.5 text-xs font-mono shadow-sm cursor-pointer"
+            className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-full bg-[#121216] border border-white/[0.09] hover:border-white/25 text-[#9898A0] hover:text-white transition-all flex items-center gap-1.5 text-xs font-mono shadow-sm cursor-pointer"
             title="Cloud Sync"
           >
-            <Cloud className="w-3.5 h-3.5 text-[#68645E]" />
+            <Cloud className="w-3.5 h-3.5 text-[#9898A0]" />
             <span className="hidden xl:inline text-[10px] font-bold">
               {syncState.syncId ? 'SYNC' : 'LINK'}
             </span>
             {syncState.syncId && (
-              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] shadow-[0_0_6px_#10B981]" />
             )}
           </button>
 
           {/* Date Badge */}
-          <div className="hidden sm:flex items-center px-3 py-1.5 rounded-full bg-white border border-[#E6E3DC] text-[11px] font-mono font-bold text-[#111110] shadow-sm">
+          <div className="hidden sm:flex items-center px-3 py-1.5 rounded-full bg-[#121216] border border-white/[0.09] text-[11px] font-mono font-bold text-[#F5F5F7] shadow-sm">
             {formattedDate}
           </div>
 
-          {/* Hero Action: Start Pomodoro (International Aerospace Orange) */}
+          {/* Hero Action: Start Pomodoro (Liquid Mercury / Platinum Trigger) */}
           <button
             type="button"
             onClick={onQuickFocus || (() => onSelectScreen('timer'))}
-            className="px-4 py-1.5 sm:px-5 sm:py-2 rounded-full btn-orange text-xs sm:text-sm font-bold flex items-center gap-2 cursor-pointer"
+            className="px-4 py-1.5 sm:px-5 sm:py-2 rounded-full btn-mercury text-xs sm:text-sm font-black flex items-center gap-2 cursor-pointer shadow-lg"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
-            <span className="tracking-wide uppercase font-mono text-[11px] sm:text-xs">
+            <span className="tracking-wide uppercase font-mono text-[11px] sm:text-xs text-[#050507]">
               Start Pomodoro
             </span>
           </button>
@@ -161,7 +161,7 @@ export const TopNavBar: React.FC<NavigationProps> = ({
 };
 
 /* ==========================================================================
-   FLOATING MACOS-STYLE GLASS DOCK (OBSIDIAN TRANSLUCENT)
+   FLOATING MACOS-STYLE GLASS DOCK (SMOKED OBSIDIAN CAPSULE)
    ========================================================================== */
 export const FloatingDock: React.FC<NavigationProps> = ({
   activeScreen,
@@ -180,16 +180,16 @@ export const FloatingDock: React.FC<NavigationProps> = ({
               onClick={() => onSelectScreen(item.id)}
               className={`relative px-3 sm:px-4 py-2 rounded-full flex items-center gap-2 text-xs font-medium transition-all duration-200 cursor-pointer ${
                 isActive
-                  ? 'bg-white text-[#111110] font-bold shadow-md'
-                  : 'text-[#A39E93] hover:text-white hover:bg-white/[0.08]'
+                  ? 'bg-gradient-to-b from-white to-[#E0E0E6] text-[#050507] font-black shadow-md'
+                  : 'text-[#9898A0] hover:text-white hover:bg-white/[0.06]'
               }`}
             >
-              <Icon className={`w-4 h-4 ${isActive ? 'text-[#FF4F00]' : 'text-current'}`} />
+              <Icon className={`w-4 h-4 ${isActive ? 'text-[#FF5500]' : 'text-current'}`} />
               <span className="hidden sm:inline font-mono tracking-tight text-[11px]">{item.label}</span>
               {isActive && (
                 <motion.span
                   layoutId="dock-active-dot"
-                  className="w-1.5 h-1.5 rounded-full bg-[#FF4F00]"
+                  className="w-1.5 h-1.5 rounded-full bg-[#FF5500] shadow-[0_0_6px_#FF5500]"
                 />
               )}
             </button>
