@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSpring, useTransform, motion } from 'framer-motion';
 
 interface SpringCounterProps {
@@ -14,24 +14,28 @@ export const SpringCounter: React.FC<SpringCounterProps> = ({
   prefix = '',
   className = '',
 }) => {
-  const spring = useSpring(0, {
-    stiffness: 85,
-    damping: 18,
-    mass: 0.8,
+  const [currentVal, setCurrentVal] = useState<number>(value);
+
+  const spring = useSpring(value, {
+    stiffness: 80,
+    damping: 16,
+    mass: 0.7,
   });
 
-  const display = useTransform(spring, (current) => {
-    return Math.round(current);
-  });
+  const display = useTransform(spring, (latest) => Math.round(latest));
 
   useEffect(() => {
     spring.set(value);
-  }, [value, spring]);
+    const unsubscribe = display.on('change', (latest) => {
+      setCurrentVal(latest);
+    });
+    return () => unsubscribe();
+  }, [value, spring, display]);
 
   return (
     <span className={`inline-flex items-baseline tabular-nums font-mono ${className}`}>
       {prefix && <span>{prefix}</span>}
-      <motion.span>{display}</motion.span>
+      <motion.span>{currentVal}</motion.span>
       {suffix && <span>{suffix}</span>}
     </span>
   );

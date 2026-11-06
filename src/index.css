@@ -139,31 +139,34 @@ body {
   }
 }
 
-.btn-liquid-gold {
-  background: linear-gradient(135deg, #F6E6C2 0%, #D4AF37 50%, #AA8222 100%);
-  background-size: 200% 200%;
-  animation: champagne-sheen 6s ease infinite;
+.btn-liquid-gold,
+.liquid-gold-pill {
+  background: linear-gradient(115deg, #9C7721 0%, #D4AF37 25%, #FFF5DC 48%, #D4AF37 72%, #7A5B15 100%);
+  background-size: 250% 100%;
+  animation: champagne-sheen 4s ease-in-out infinite;
   color: #000000 !important;
   font-weight: 700;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 240, 200, 0.45);
   border-radius: 8px;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    0 8px 24px -4px rgba(212, 175, 55, 0.28);
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 4px 16px -2px rgba(212, 175, 55, 0.32);
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
               box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
               filter 0.2s ease;
 }
 
-.btn-liquid-gold:hover {
+.btn-liquid-gold:hover,
+.liquid-gold-pill:hover {
   transform: translateY(-1.5px);
-  filter: brightness(1.05);
+  filter: brightness(1.08);
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.65),
-    0 12px 28px -4px rgba(212, 175, 55, 0.4);
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    0 8px 24px -2px rgba(212, 175, 55, 0.5);
 }
 
-.btn-liquid-gold:active {
+.btn-liquid-gold:active,
+.liquid-gold-pill:active {
   transform: translateY(0.5px) scale(0.98);
 }
 

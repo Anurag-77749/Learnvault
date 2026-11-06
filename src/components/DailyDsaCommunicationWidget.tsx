@@ -11,6 +11,7 @@ import { db, getTodayDateString } from '../services/db';
 import { updateDSAQuestions, setCommunicationPracticed } from '../services/dailyLogService';
 import { triggerGoldSparkle } from '../utils/confetti';
 import { SpringCounter } from './SpringCounter';
+import { Interactive3DTiltCard } from './Interactive3DTiltCard';
 
 interface DailyDsaCommunicationWidgetProps {
   compact?: boolean;
@@ -70,8 +71,9 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
   };
 
   return (
-    <div className="rounded-xl bg-[#080808] p-5 space-y-4 border border-[rgba(255,255,255,0.08)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_16px_36px_rgba(0,0,0,0.9)] transition-all">
-      {/* Widget Header */}
+    <Interactive3DTiltCard maxTilt={3} glowColor="rgba(212, 175, 55, 0.12)" className="w-full">
+      <div className="p-5 space-y-4">
+        {/* Widget Header */}
       <div className="flex items-center justify-between pb-3 border-b border-[rgba(255,255,255,0.06)]">
         <div className="flex items-center gap-2">
           <Code2 className="w-4 h-4 text-[#D4AF37]" />
@@ -220,6 +222,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
           </button>
         </div>
       </div>
-    </div>
+      </div>
+    </Interactive3DTiltCard>
   );
 };

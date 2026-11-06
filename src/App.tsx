@@ -119,7 +119,7 @@ export const App: React.FC = () => {
                   onClick={() => handleSelectScreen(item.id)}
                   className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-semibold transition-all cursor-pointer shrink-0 ${
                     isActive
-                      ? 'bg-gradient-to-r from-[#F6E6C2] via-[#D4AF37] to-[#AA8222] text-[#000000] shadow-sm font-bold'
+                      ? 'liquid-gold-pill text-[#000000] shadow-sm font-bold'
                       : 'text-[#9E958E] hover:text-[#F5F2EB] hover:bg-white/[0.04]'
                   }`}
                 >

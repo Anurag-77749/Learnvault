@@ -26,7 +26,8 @@ import {
 import { triggerGoldSparkle } from '../utils/confetti';
 import { Interactive3DTiltCard } from './Interactive3DTiltCard';
 import { SpringCounter } from './SpringCounter';
-import { AmbientGoldCanvas } from './AmbientGoldCanvas';
+import { ChronometerCubeShowcase } from './ChronometerCubeShowcase';
+import { DailyDsaCommunicationWidget } from './DailyDsaCommunicationWidget';
 import { LogWastedModal } from './modals/LogWastedModal';
 import { LogSleepModal } from './modals/LogSleepModal';
 import { AddQuestionModal } from './modals/AddQuestionModal';
@@ -196,9 +197,6 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
 
   return (
     <div className="relative w-full space-y-6 select-none font-sans">
-      {/* Ambient Bokeh Gold Particles in Background */}
-      <AmbientGoldCanvas className="opacity-75" />
-
       {/* ========================================================================
           1. HEADER ROW: DAY OF 1,460 & TODAY'S MISSION
           ======================================================================== */}
@@ -234,10 +232,20 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
       </div>
 
       {/* ========================================================================
+          1.5. PRECISION 3D CHRONOMETER CUBE SHOWCASE (ASSEMBLED ↔ EXPLODED)
+          ======================================================================== */}
+      <ChronometerCubeShowcase 
+        currentDay={currentDayNumber}
+        totalDays={1460}
+        topicsLearned={topicsCount}
+        totalTopics={892}
+      />
+
+      {/* ========================================================================
           2. TO-DO LIST (INTERACTIVE 3D TILT CARD WITH COMMAND BAR & CUSTOM CHECKBOX)
           ======================================================================== */}
       <Interactive3DTiltCard maxTilt={3} glowColor="rgba(246, 230, 194, 0.12)" className="w-full">
-        <div className="bg-[#080808] p-5 sm:p-7 space-y-5 rounded-xl border border-[rgba(255,255,255,0.08)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_20px_40px_rgba(0,0,0,0.95)] relative">
+        <div className="p-5 sm:p-7 space-y-5 relative">
           {/* Card Header */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -454,7 +462,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
           {/* Card 1: Time Studied */}
           <Interactive3DTiltCard maxTilt={5} glowColor="rgba(246, 230, 194, 0.15)" className="h-full">
-            <div className="bg-[#080808] p-4 sm:p-5 rounded-xl flex flex-col justify-between h-40 sm:h-44 relative overflow-hidden border border-[rgba(255,255,255,0.08)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_16px_36px_rgba(0,0,0,0.95)] group">
+            <div className="p-4 sm:p-5 flex flex-col justify-between h-40 sm:h-44 relative overflow-hidden group">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-mono font-bold tracking-[0.08em] text-[#9E958E] uppercase">
                   TIME STUDIED
@@ -492,7 +500,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
 
           {/* Card 2: Time Wasted */}
           <Interactive3DTiltCard maxTilt={5} glowColor="rgba(229, 169, 112, 0.15)" className="h-full">
-            <div className="bg-[#080808] p-4 sm:p-5 rounded-xl flex flex-col justify-between h-40 sm:h-44 relative overflow-hidden border border-[rgba(255,255,255,0.08)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_16px_36px_rgba(0,0,0,0.95)] group">
+            <div className="p-4 sm:p-5 flex flex-col justify-between h-40 sm:h-44 relative overflow-hidden group">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-mono font-bold tracking-[0.08em] text-[#9E958E] uppercase">
                   TIME WASTED
@@ -522,7 +530,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
 
           {/* Card 3: Questions Done */}
           <Interactive3DTiltCard maxTilt={5} glowColor="rgba(246, 230, 194, 0.15)" className="h-full">
-            <div className="bg-[#080808] p-4 sm:p-5 rounded-xl flex flex-col justify-between h-40 sm:h-44 relative overflow-hidden border border-[rgba(255,255,255,0.08)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_16px_36px_rgba(0,0,0,0.95)] group">
+            <div className="p-4 sm:p-5 flex flex-col justify-between h-40 sm:h-44 relative overflow-hidden group">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-mono font-bold tracking-[0.08em] text-[#9E958E] uppercase">
                   QUESTIONS DONE
@@ -552,7 +560,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
 
           {/* Card 4: Topics Learned */}
           <Interactive3DTiltCard maxTilt={5} glowColor="rgba(246, 230, 194, 0.15)" className="h-full">
-            <div className="bg-[#080808] p-4 sm:p-5 rounded-xl flex flex-col justify-between h-40 sm:h-44 relative overflow-hidden border border-[rgba(255,255,255,0.08)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_16px_36px_rgba(0,0,0,0.95)] group">
+            <div className="p-4 sm:p-5 flex flex-col justify-between h-40 sm:h-44 relative overflow-hidden group">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-mono font-bold tracking-[0.08em] text-[#9E958E] uppercase">
                   TOPICS LEARNED
@@ -583,7 +591,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
           {/* Card 5: Sleep Last Night */}
           <div className="col-span-2 sm:col-span-2 lg:col-span-1">
             <Interactive3DTiltCard maxTilt={5} glowColor="rgba(246, 230, 194, 0.12)" className="h-full">
-              <div className="bg-[#080808] p-4 sm:p-5 rounded-xl flex flex-col justify-between h-40 sm:h-44 relative overflow-hidden border border-[rgba(255,255,255,0.08)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_16px_36px_rgba(0,0,0,0.95)] group">
+              <div className="p-4 sm:p-5 flex flex-col justify-between h-40 sm:h-44 relative overflow-hidden group">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-mono font-bold tracking-[0.08em] text-[#9E958E] uppercase">
                     SLEEP LAST NIGHT
@@ -671,29 +679,38 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
       </div>
 
       {/* ========================================================================
-          5. "NEXT UP IN TIMELINE" BANNER
+          4.5. DAILY DSA & COMMUNICATION RAPID INSTRUMENT
           ======================================================================== */}
-      <div 
-        onClick={onNavigateToPlan}
-        className="bg-[#080808] p-4 sm:p-5 rounded-xl border border-[rgba(255,255,255,0.08)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_16px_36px_rgba(0,0,0,0.95)] flex items-center justify-between gap-4 cursor-pointer hover:border-[rgba(212,175,55,0.3)] hover:bg-[#0E0E0E] transition-all group"
-      >
-        <div className="flex items-center gap-3">
-          <span className="w-2 h-2 rounded-full bg-[#D4AF37] shadow-[0_0_6px_#D4AF37] animate-pulse" />
-          <div>
-            <h3 className="font-display font-bold text-base sm:text-lg text-[#F5F2EB] tracking-tight">
-              Next Up in Timeline
-            </h3>
-            <p className="text-xs font-mono text-[#9E958E]">
-              Track 0: Introduction // FDE Glossary & Field Engineering Roles
-            </p>
+      <div className="w-full">
+        <DailyDsaCommunicationWidget />
+      </div>
+
+      {/* ========================================================================
+          5. "NEXT UP IN TIMELINE" BANNER (INTERACTIVE 3D TILT WITH SPOTLIGHT)
+          ======================================================================== */}
+      <Interactive3DTiltCard maxTilt={3} glowColor="rgba(246, 230, 194, 0.12)" className="w-full">
+        <div 
+          onClick={onNavigateToPlan}
+          className="p-4 sm:p-5 flex items-center justify-between gap-4 cursor-pointer group"
+        >
+          <div className="flex items-center gap-3">
+            <span className="w-2 h-2 rounded-full bg-[#D4AF37] shadow-[0_0_6px_#D4AF37] animate-pulse" />
+            <div>
+              <h3 className="font-display font-bold text-base sm:text-lg text-[#F5F2EB] tracking-tight">
+                Next Up in Timeline
+              </h3>
+              <p className="text-xs font-mono text-[#9E958E]">
+                Track 0: Introduction // FDE Glossary & Field Engineering Roles
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#D4AF37] group-hover:translate-x-1 transition-transform shrink-0">
+            <span className="hidden sm:inline">View Full Timeline</span>
+            <ArrowRight className="w-4 h-4" />
           </div>
         </div>
-
-        <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#D4AF37] group-hover:translate-x-1 transition-transform shrink-0">
-          <span className="hidden sm:inline">View Full Timeline</span>
-          <ArrowRight className="w-4 h-4" />
-        </div>
-      </div>
+      </Interactive3DTiltCard>
 
       {/* Modals */}
       <LogWastedModal
