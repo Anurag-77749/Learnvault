@@ -15,7 +15,8 @@
     color-scheme: dark;
     background-color: #060606;
     color: #F9F6EE;
-    border-color: #1a1a1a;
+    border: 2px solid #222222;
+    border-radius: 6px;
   }
 
   select option {
@@ -38,89 +39,103 @@
   h1, h2, h3, h4, h5, h6, .font-serif, .font-sans, .font-display {
     font-family: 'Outfit', 'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     letter-spacing: -0.025em;
+    font-weight: 700;
   }
 }
 
 /* ==========================================================================
-   EXECUTIVE DULL ORANGE THEME ACCENTS & BUTTONS (PROFESSIONAL MATTE OCHRE)
+   NEO-BRUTALIST ARCHITECTURE & DULL MATTE LIME ACCENTS
    ========================================================================== */
 
+/* Brutalist Tactile Matte Lime Button */
 .btn-shiny-gold,
-.btn-neon-orange,
-.btn-dull-orange {
-  background: linear-gradient(180deg, #E8935A 0%, #D97736 60%, #C46224 100%);
-  color: #FFFFFF;
-  font-weight: 600;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.15s ease-out;
+.btn-brutalist-lime {
+  background: #84CC16;
+  color: #000000;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  border: 2px solid #000000;
+  border-radius: 6px;
+  box-shadow: 3px 3px 0px #000000;
+  transition: all 0.1s ease;
 }
 
 .btn-shiny-gold:hover,
-.btn-neon-orange:hover,
-.btn-dull-orange:hover {
-  filter: brightness(1.06);
-  box-shadow: 0 2px 8px rgba(217, 119, 54, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  transform: translateY(-0.5px);
+.btn-brutalist-lime:hover {
+  background: #94D82D;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.btn-shiny-gold:active,
+.btn-brutalist-lime:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000000;
 }
 
 .text-shiny-gold,
-.text-neon-orange,
-.text-dull-orange {
-  color: #D97736;
+.text-matte-lime {
+  color: #84CC16;
 }
 
 .gold-glow,
-.neon-glow,
-.orange-glow {
-  box-shadow: 0 0 14px rgba(217, 119, 54, 0.22);
+.lime-glow {
+  box-shadow: 3px 3px 0px rgba(132, 204, 22, 0.4);
 }
 
 .border-gold-shine,
-.border-neon-shine,
-.border-orange-shine {
-  border-color: rgba(217, 119, 54, 0.35);
+.border-lime-shine {
+  border: 2px solid rgba(132, 204, 22, 0.4);
 }
 
 .border-gold-shine:hover,
-.border-neon-shine:hover,
-.border-orange-shine:hover {
-  border-color: #D97736;
-  box-shadow: 0 0 10px rgba(217, 119, 54, 0.2);
+.border-lime-shine:hover {
+  border-color: #84CC16;
+  box-shadow: 3px 3px 0px rgba(132, 204, 22, 0.25);
 }
 
-/* Deepest Obsidian & Pitch Black Cards */
+/* Brutalist Obsidian Cards with Hard Offset Shadow */
 .card-maroon,
 .card-emerald,
-.card-burgundy {
-  background-color: #070707;
-  border: 1px solid #181818;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 1);
+.card-burgundy,
+.card-obsidian {
+  background-color: #080808;
+  border: 2px solid #222222;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0px #000000;
+  transition: all 0.12s ease;
 }
 
 .card-maroon:hover,
 .card-emerald:hover,
-.card-burgundy:hover {
-  border-color: #262626;
+.card-burgundy:hover,
+.card-obsidian:hover {
+  border-color: #383838;
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px #000000;
 }
 
-/* Pitch Black with Refined Dull Orange Trim */
+/* Brutalist Card with Dull Matte Lime Border */
 .card-maroon-gold,
 .card-emerald-gold,
-.card-burgundy-gold {
-  background-color: #070707;
-  border: 1px solid rgba(217, 119, 54, 0.28);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 1), 0 0 10px rgba(217, 119, 54, 0.08);
+.card-burgundy-gold,
+.card-obsidian-gold {
+  background-color: #080808;
+  border: 2px solid #84CC16;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0px rgba(132, 204, 22, 0.35);
+  transition: all 0.12s ease;
 }
 
 .card-maroon-gold:hover,
 .card-emerald-gold:hover,
-.card-burgundy-gold:hover {
-  border-color: #D97736;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 1), 0 0 16px rgba(217, 119, 54, 0.2);
+.card-burgundy-gold:hover,
+.card-obsidian-gold:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0px rgba(132, 204, 22, 0.5);
 }
 
-/* Minimal Pitch Black OLED Scrollbar */
+/* Brutalist Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -131,17 +146,16 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1c1c1c;
-  border-radius: 9999px;
-  border: 1px solid #000000;
+  background: #262626;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D97736;
+  background: #84CC16;
 }
 
 /* ==========================================================================
-   LIGHT MODE: CRISP WHITE CANVAS & PURE BLACK TEXT WITH DULL ORANGE ACCENTS
+   NEO-BRUTALIST LIGHT MODE: RAWPAPER WHITE & INK BLACK WITH 2PX BORDERS
    ========================================================================== */
 
 html.light-mode {
@@ -149,22 +163,23 @@ html.light-mode {
 }
 
 html.light-mode body {
-  background-color: #F8F9FA !important;
-  color: #0A0A0A !important;
+  background-color: #F4F4F0 !important;
+  color: #000000 !important;
 }
 
 html.light-mode select {
   background-color: #FFFFFF !important;
-  color: #0A0A0A !important;
-  border-color: #CBD5E1 !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 6px !important;
+  box-shadow: 2px 2px 0px #000000 !important;
 }
 
 html.light-mode select option {
   background-color: #FFFFFF !important;
-  color: #0A0A0A !important;
+  color: #000000 !important;
 }
 
-/* Headers & Primary Typography in Light Mode */
 html.light-mode h1,
 html.light-mode h2,
 html.light-mode h3,
@@ -172,18 +187,19 @@ html.light-mode h4,
 html.light-mode h5,
 html.light-mode h6,
 html.light-mode .text-white {
-  color: #0A0A0A !important;
+  color: #000000 !important;
 }
 
-/* Light Mode Card Surfaces: Clean White Cards with Subtle Elevation */
+/* Brutalist Light Mode Cards: Crisp 2px Black Border & Offset Shadow */
 html.light-mode .card-maroon,
 html.light-mode .card-emerald,
 html.light-mode .card-burgundy,
 html.light-mode .card-obsidian {
   background-color: #FFFFFF !important;
-  border-color: #E2E8F0 !important;
-  color: #0A0A0A !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+  border: 2px solid #000000 !important;
+  border-radius: 8px !important;
+  color: #000000 !important;
+  box-shadow: 4px 4px 0px #000000 !important;
 }
 
 html.light-mode .card-maroon-gold,
@@ -191,42 +207,53 @@ html.light-mode .card-emerald-gold,
 html.light-mode .card-burgundy-gold,
 html.light-mode .card-obsidian-gold {
   background-color: #FFFFFF !important;
-  border-color: rgba(217, 119, 54, 0.35) !important;
-  color: #0A0A0A !important;
-  box-shadow: 0 2px 10px rgba(217, 119, 54, 0.06), 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  border: 2px solid #000000 !important;
+  border-radius: 8px !important;
+  color: #000000 !important;
+  box-shadow: 4px 4px 0px #84CC16 !important;
 }
 
 html.light-mode .card-maroon:hover,
 html.light-mode .card-emerald:hover,
 html.light-mode .card-burgundy:hover,
 html.light-mode .card-obsidian:hover {
-  border-color: #CBD5E1 !important;
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px #000000 !important;
 }
 
 html.light-mode .card-maroon-gold:hover,
 html.light-mode .card-emerald-gold:hover,
 html.light-mode .card-burgundy-gold:hover,
 html.light-mode .card-obsidian-gold:hover {
-  border-color: #D97736 !important;
-  box-shadow: 0 4px 16px rgba(217, 119, 54, 0.15) !important;
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0px #84CC16 !important;
 }
 
-/* Light Mode Inputs & Textareas */
+/* Brutalist Light Mode Header */
+html.light-mode header {
+  background-color: #FFFFFF !important;
+  border-bottom: 2px solid #000000 !important;
+  box-shadow: 0 4px 0px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Brutalist Light Mode Inputs */
 html.light-mode input[type="text"],
 html.light-mode input[type="number"],
 html.light-mode input[type="search"],
 html.light-mode textarea {
   background-color: #FFFFFF !important;
-  color: #0A0A0A !important;
-  border-color: #CBD5E1 !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 6px !important;
+  box-shadow: 2px 2px 0px #000000 !important;
 }
 
 html.light-mode input::placeholder,
 html.light-mode textarea::placeholder {
-  color: #94A3B8 !important;
+  color: #737373 !important;
 }
 
-/* Light Mode Background Overrides for Deep Black utility classes */
+/* Brutalist Light Mode Background Overrides */
 html.light-mode .bg-\[\#000000\],
 html.light-mode .bg-\[\#080808\],
 html.light-mode .bg-\[\#070707\],
@@ -237,10 +264,10 @@ html.light-mode .bg-\[\#121212\] {
 
 html.light-mode .bg-\[\#160406\],
 html.light-mode .bg-\[\#141414\] {
-  background-color: #F1F5F9 !important;
+  background-color: #EFEFEA !important;
 }
 
-/* Light Mode Borders */
+/* Brutalist Light Mode Borders */
 html.light-mode .border-\[\#1a1a1a\],
 html.light-mode .border-\[\#141414\],
 html.light-mode .border-\[\#181818\],
@@ -248,34 +275,30 @@ html.light-mode .border-\[\#222222\],
 html.light-mode .border-white\/10,
 html.light-mode .border-white\/\[0\.08\],
 html.light-mode .border-white\/\[0\.07\] {
-  border-color: #E2E8F0 !important;
+  border-color: #000000 !important;
 }
 
-/* Light Mode Muted & Secondary Text */
+/* Brutalist Light Mode Muted Text */
 html.light-mode .text-\[\#B8B0AA\],
 html.light-mode .text-\[\#A3A3A3\],
 html.light-mode .text-\[\#8A8A8A\],
 html.light-mode .text-\[\#8E8E8E\] {
-  color: #475569 !important;
+  color: #262626 !important;
 }
 
 html.light-mode .text-\[\#737373\],
 html.light-mode .text-\[\#525252\] {
-  color: #64748B !important;
+  color: #525252 !important;
 }
 
-/* Light Mode Scrollbars */
+/* Brutalist Light Mode Scrollbar */
 html.light-mode ::-webkit-scrollbar-track {
-  background: #F1F5F9;
+  background: #E5E5E0;
 }
 
 html.light-mode ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border: 1px solid #F1F5F9;
-}
-
-html.light-mode ::-webkit-scrollbar-thumb:hover {
-  background: #D97736;
+  background: #000000;
+  border-radius: 2px;
 }
 
 /* Respect prefers-reduced-motion */

@@ -147,7 +147,7 @@ export const ProjectsScreen: React.FC = () => {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
         <div>
-          <span className="text-xs uppercase tracking-widest text-[#D97736] font-semibold flex items-center gap-1.5 mb-1 font-sans">
+          <span className="text-xs uppercase tracking-widest text-[#84CC16] font-semibold flex items-center gap-1.5 mb-1 font-sans">
             <FolderGit2 className="w-3.5 h-3.5" /> 4-Year Engineering Portfolio
           </span>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white">
@@ -171,7 +171,7 @@ export const ProjectsScreen: React.FC = () => {
       {/* Telemetry Stats Bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="p-4 rounded-2xl card-maroon-gold shadow-md">
-          <span className="text-[11px] font-bold text-[#E8935A] uppercase">
+          <span className="text-[11px] font-bold text-[#A3E635] uppercase">
             Total Projects
           </span>
           <div className="font-serif text-3xl font-bold text-white mt-1">
@@ -181,17 +181,17 @@ export const ProjectsScreen: React.FC = () => {
         </div>
 
         <div className="p-4 rounded-2xl card-maroon-gold shadow-md">
-          <span className="text-[11px] font-bold text-[#E8935A] uppercase">
+          <span className="text-[11px] font-bold text-[#A3E635] uppercase">
             Completed / MVP
           </span>
           <div className="font-serif text-3xl font-bold text-shiny-gold mt-1">
             {completedCount}
           </div>
-          <span className="text-[11px] text-[#E8935A]/80 mt-1 block font-medium">Shipped Code</span>
+          <span className="text-[11px] text-[#A3E635]/80 mt-1 block font-medium">Shipped Code</span>
         </div>
 
         <div className="p-4 rounded-2xl card-maroon-gold shadow-md">
-          <span className="text-[11px] font-bold text-[#E8935A] uppercase">
+          <span className="text-[11px] font-bold text-[#A3E635] uppercase">
             In Progress
           </span>
           <div className="font-serif text-3xl font-bold text-shiny-gold mt-1">
@@ -201,7 +201,7 @@ export const ProjectsScreen: React.FC = () => {
         </div>
 
         <div className="p-4 rounded-2xl card-maroon-gold shadow-md">
-          <span className="text-[11px] font-bold text-[#E8935A] uppercase">
+          <span className="text-[11px] font-bold text-[#A3E635] uppercase">
             GitHub Linked
           </span>
           <div className="font-serif text-3xl font-bold text-white mt-1">
@@ -251,7 +251,7 @@ export const ProjectsScreen: React.FC = () => {
                           p.status === 'Completed'
                             ? 'bg-[#004D20] text-[#73FF9D] border-[#009940]'
                             : p.status === 'MVP Ready'
-                            ? 'bg-[#3D2500] text-[#E8935A] border-[#D97736]'
+                            ? 'bg-[#3D2500] text-[#A3E635] border-[#84CC16]'
                             : p.status === 'In Progress'
                             ? 'bg-[#220509] text-[#FFA8C5] border-[#1a1a1a]'
                             : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a]'
@@ -262,7 +262,7 @@ export const ProjectsScreen: React.FC = () => {
 
                       {/* Category Badge */}
                       {p.category && (
-                        <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#000000] text-[#D97736] border border-[#D97736]/35 font-semibold">
+                        <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#000000] text-[#84CC16] border border-[#84CC16]/35 font-semibold">
                           {p.category}
                         </span>
                       )}
@@ -271,11 +271,11 @@ export const ProjectsScreen: React.FC = () => {
                     {/* Metadata & Dates */}
                     <div className="flex flex-wrap items-center gap-3 text-xs text-[#B8B0AA] font-sans">
                       <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3 text-[#D97736]" />
+                        <Calendar className="w-3 h-3 text-[#84CC16]" />
                         Started: {p.startDate}
                       </span>
                       {p.completedDate && (
-                        <span className="text-[#D97736]">
+                        <span className="text-[#84CC16]">
                           Completed: {p.completedDate}
                         </span>
                       )}
@@ -290,10 +290,10 @@ export const ProjectsScreen: React.FC = () => {
                         href={p.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="min-h-[42px] px-3.5 py-1.5 rounded-xl bg-[#000000] border border-[#D97736]/40 hover:border-[#D97736] text-white hover:text-[#D97736] text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-sm"
+                        className="min-h-[42px] px-3.5 py-1.5 rounded-xl bg-[#000000] border border-[#84CC16]/40 hover:border-[#84CC16] text-white hover:text-[#84CC16] text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-sm"
                         title="View Source on GitHub"
                       >
-                        <Github className="w-4 h-4 text-[#D97736]" />
+                        <Github className="w-4 h-4 text-[#84CC16]" />
                         <span>GitHub</span>
                         <ExternalLink className="w-3 h-3 opacity-60" />
                       </a>
@@ -305,7 +305,7 @@ export const ProjectsScreen: React.FC = () => {
                         href={p.liveDemoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="min-h-[42px] px-3.5 py-1.5 rounded-xl bg-[#000000] border border-[#1a1a1a] hover:border-[#D97736] text-[#B8B0AA] hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                        className="min-h-[42px] px-3.5 py-1.5 rounded-xl bg-[#000000] border border-[#1a1a1a] hover:border-[#84CC16] text-[#B8B0AA] hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
                         title="Open Live Preview"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
@@ -316,7 +316,7 @@ export const ProjectsScreen: React.FC = () => {
                     {/* Edit */}
                     <button
                       onClick={() => openEditModal(p)}
-                      className="min-h-[42px] min-w-[42px] rounded-xl bg-black border border-[#1a1a1a] hover:border-[#D97736] text-[#B8B0AA] hover:text-[#D97736] flex items-center justify-center transition-colors"
+                      className="min-h-[42px] min-w-[42px] rounded-xl bg-black border border-[#1a1a1a] hover:border-[#84CC16] text-[#B8B0AA] hover:text-[#84CC16] flex items-center justify-center transition-colors"
                       title="Edit project"
                     >
                       <Edit3 className="w-4 h-4" />
@@ -341,7 +341,7 @@ export const ProjectsScreen: React.FC = () => {
                         key={tIdx}
                         className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-lg bg-black/60 border border-[#1a1a1a] text-[#B8B0AA]"
                       >
-                        <Tag className="w-2.5 h-2.5 text-[#D97736]" />
+                        <Tag className="w-2.5 h-2.5 text-[#84CC16]" />
                         {tag}
                       </span>
                     ))}
@@ -351,7 +351,7 @@ export const ProjectsScreen: React.FC = () => {
                 {/* About Project README Display */}
                 <div className="p-4 rounded-2xl bg-black/80 border border-[#1a1a1a] space-y-2">
                   <div className="flex items-center justify-between pb-1.5 border-b border-[#1a1a1a]">
-                    <div className="flex items-center gap-1.5 text-xs font-semibold text-[#D97736]">
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-[#84CC16]">
                       <FileText className="w-3.5 h-3.5" />
                       <span>README.md</span>
                     </div>
@@ -359,7 +359,7 @@ export const ProjectsScreen: React.FC = () => {
                       onClick={() =>
                         setExpandedReadmeId(isReadmeExpanded ? null : p.id || null)
                       }
-                      className="text-[11px] text-[#B8B0AA] hover:text-[#D97736] font-medium"
+                      className="text-[11px] text-[#B8B0AA] hover:text-[#84CC16] font-medium"
                     >
                       {isReadmeExpanded ? 'Show Less' : 'Expand Full'}
                     </button>
@@ -385,12 +385,12 @@ export const ProjectsScreen: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-2xl bg-[#080808] border border-[#D97736]/40 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] flex flex-col"
+            className="w-full max-w-2xl bg-[#080808] border border-[#84CC16]/40 rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] flex flex-col"
           >
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-3 border-b border-[#1a1a1a] shrink-0">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-black border border-[#D97736]/50 flex items-center justify-center text-[#D97736]">
+                <div className="w-9 h-9 rounded-xl bg-black border border-[#84CC16]/50 flex items-center justify-center text-[#84CC16]">
                   <FolderGit2 className="w-5 h-5" />
                 </div>
                 <h3 className="font-serif text-2xl font-bold text-white">
@@ -399,7 +399,7 @@ export const ProjectsScreen: React.FC = () => {
               </div>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-[#B8B0AA] hover:text-[#D97736] p-1.5"
+                className="text-[#B8B0AA] hover:text-[#84CC16] p-1.5"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -410,14 +410,14 @@ export const ProjectsScreen: React.FC = () => {
               {/* Project Name */}
               <div>
                 <label className="text-[11px] font-semibold text-[#B8B0AA] uppercase block mb-1">
-                  Project Name <span className="text-[#D97736]">*</span>
+                  Project Name <span className="text-[#84CC16]">*</span>
                 </label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Autonomous Browser Agent, Distributed Log Aggregator..."
-                  style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#1a1a1a] focus:border-[#D97736] text-white text-sm focus:outline-none cursor-pointer"
+                  style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#1a1a1a] focus:border-[#84CC16] text-white text-sm focus:outline-none cursor-pointer"
                   required
                   autoFocus
                 />
@@ -432,7 +432,7 @@ export const ProjectsScreen: React.FC = () => {
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#D97736] text-white text-sm focus:outline-none"
+                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#84CC16] text-white text-sm focus:outline-none"
                   >
                     {CATEGORIES.map((cat) => (
                       <option key={cat} value={cat}>
@@ -449,7 +449,7 @@ export const ProjectsScreen: React.FC = () => {
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value as any)}
-                    style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#1a1a1a] focus:border-[#D97736] text-[#D97736] font-semibold text-sm focus:outline-none cursor-pointer"
+                    style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#1a1a1a] focus:border-[#84CC16] text-[#84CC16] font-semibold text-sm focus:outline-none cursor-pointer"
                   >
                     {STATUS_OPTIONS.map((st) => (
                       <option key={st} value={st}>
@@ -464,14 +464,14 @@ export const ProjectsScreen: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="text-[11px] font-semibold text-[#B8B0AA] uppercase block mb-1">
-                    Code GitHub Link <span className="text-[#D97736]">*</span>
+                    Code GitHub Link <span className="text-[#84CC16]">*</span>
                   </label>
                   <input
                     type="url"
                     value={githubUrl}
                     onChange={(e) => setGithubUrl(e.target.value)}
                     placeholder="https://github.com/username/project"
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#D97736] text-white text-sm focus:outline-none"
+                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#84CC16] text-white text-sm focus:outline-none"
                     required
                   />
                 </div>
@@ -485,7 +485,7 @@ export const ProjectsScreen: React.FC = () => {
                     value={liveDemoUrl}
                     onChange={(e) => setLiveDemoUrl(e.target.value)}
                     placeholder="https://my-app.vercel.app"
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#D97736] text-white text-sm focus:outline-none"
+                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#84CC16] text-white text-sm focus:outline-none"
                   />
                 </div>
               </div>
@@ -501,7 +501,7 @@ export const ProjectsScreen: React.FC = () => {
                     value={tagsInput}
                     onChange={(e) => setTagsInput(e.target.value)}
                     placeholder="Python, FastAPI, Docker, PostgreSQL"
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#D97736] text-white text-sm focus:outline-none"
+                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#84CC16] text-white text-sm focus:outline-none"
                   />
                 </div>
 
@@ -513,7 +513,7 @@ export const ProjectsScreen: React.FC = () => {
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#D97736] text-white text-sm focus:outline-none"
+                    className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-black border border-[#1a1a1a] focus:border-[#84CC16] text-white text-sm focus:outline-none"
                   />
                 </div>
               </div>
@@ -521,14 +521,14 @@ export const ProjectsScreen: React.FC = () => {
               {/* About that Project README */}
               <div>
                 <label className="text-[11px] font-semibold text-[#B8B0AA] uppercase block mb-1">
-                  About That Project README <span className="text-[#D97736]">*</span>
+                  About That Project README <span className="text-[#84CC16]">*</span>
                 </label>
                 <textarea
                   value={aboutReadme}
                   onChange={(e) => setAboutReadme(e.target.value)}
                   placeholder={`# Project Title\n\n### Overview\nWhat does this project solve? What did you build?\n\n### Architecture & Implementation\nKey modules, database design, and concurrency.\n\n### What I Learned\nInsights, bottlenecks solved, and performance optimizations.`}
                   rows={8}
-                  className="w-full p-3.5 rounded-2xl bg-black border border-[#1a1a1a] focus:border-[#D97736] text-[#E5E0DC] text-xs font-mono focus:outline-none"
+                  className="w-full p-3.5 rounded-2xl bg-black border border-[#1a1a1a] focus:border-[#84CC16] text-[#E5E0DC] text-xs font-mono focus:outline-none"
                   required
                 />
               </div>

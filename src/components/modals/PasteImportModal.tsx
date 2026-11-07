@@ -44,12 +44,12 @@ export const PasteImportModal: React.FC<PasteImportModalProps> = ({
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          className="w-full max-w-xl bg-[#121212] border border-[#D97736]/40 rounded-3xl p-6 shadow-2xl relative"
+          className="w-full max-w-xl bg-[#121212] border border-[#84CC16]/40 rounded-3xl p-6 shadow-2xl relative"
         >
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-[#D97736]/20">
+          <div className="flex items-center justify-between pb-4 border-b border-[#84CC16]/20">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-black border border-[#D97736]/50 flex items-center justify-center text-[#D97736]">
+              <div className="w-8 h-8 rounded-xl bg-black border border-[#84CC16]/50 flex items-center justify-center text-[#84CC16]">
                 <Upload className="w-4 h-4" />
               </div>
               <h2 className="font-serif text-2xl font-bold text-[#F9F6EE]">
@@ -58,7 +58,7 @@ export const PasteImportModal: React.FC<PasteImportModalProps> = ({
             </div>
             <button
               onClick={onClose}
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#A09D95] hover:text-[#D97736] rounded-xl transition-colors"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#A09D95] hover:text-[#84CC16] rounded-xl transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -67,7 +67,7 @@ export const PasteImportModal: React.FC<PasteImportModalProps> = ({
           <form onSubmit={handleImport} className="mt-5 space-y-4">
             <p className="text-xs text-[#A09D95]">
               Paste items in this format (one per line):<br />
-              <code className="text-[#D97736] font-mono bg-black px-2 py-0.5 rounded border border-[#D97736]/30 block mt-1">
+              <code className="text-[#84CC16] font-mono bg-black px-2 py-0.5 rounded border border-[#84CC16]/30 block mt-1">
                 Track | Topic | Subtopic | URL (optional)
               </code>
             </p>
@@ -77,11 +77,11 @@ export const PasteImportModal: React.FC<PasteImportModalProps> = ({
               placeholder={`TRACK 1: PYTHON | Python Basics | Variables & Types | https://docs.python.org/3/tutorial/\nTRACK 2: DSA | Binary Search | Rotated Sorted Array | https://leetcode.com/problems/search-in-rotated-sorted-array/`}
               value={text}
               onChange={(e) => setText(e.target.value)}
-              className="w-full p-4 rounded-2xl bg-black border border-[#D97736]/30 text-xs sm:text-sm text-[#F9F6EE] font-mono focus:outline-none focus:border-[#D97736]"
+              className="w-full p-4 rounded-2xl bg-black border border-[#84CC16]/30 text-xs sm:text-sm text-[#F9F6EE] font-mono focus:outline-none focus:border-[#84CC16]"
             />
 
             {result && (
-              <div className="p-3 rounded-xl bg-black border border-[#D97736]/30 text-xs flex items-center justify-between">
+              <div className="p-3 rounded-xl bg-black border border-[#84CC16]/30 text-xs flex items-center justify-between">
                 <span className="text-[#39D353] font-semibold flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4" /> Imported {result.added} items
                 </span>
@@ -95,14 +95,14 @@ export const PasteImportModal: React.FC<PasteImportModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 min-h-[46px] rounded-xl border border-[#D97736]/30 text-sm text-[#A09D95] hover:text-[#F9F6EE] font-semibold"
+                className="flex-1 min-h-[46px] rounded-xl border border-[#84CC16]/30 text-sm text-[#A09D95] hover:text-[#F9F6EE] font-semibold"
               >
                 Close
               </button>
               <button
                 type="submit"
                 disabled={isImporting || !text.trim()}
-                className="flex-1 min-h-[46px] rounded-xl bg-[#D97736] hover:bg-[#FFD700] text-black text-sm font-bold uppercase transition-all shadow-md shadow-[#D97736]/20 disabled:opacity-40"
+                className="flex-1 min-h-[46px] rounded-xl bg-[#84CC16] hover:bg-[#FFD700] text-black text-sm font-bold uppercase transition-all shadow-md shadow-[#84CC16]/20 disabled:opacity-40"
               >
                 {isImporting ? 'Processing...' : 'Run Import'}
               </button>

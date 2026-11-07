@@ -31,7 +31,7 @@ export const NAV_ITEMS: { id: ScreenId; label: string; icon: React.ComponentType
 
 /**
  * TopNavPills:
- * Executive navigation pills with Dull Orange accent and Light/Dark mode support.
+ * Neo-Brutalist navigation tabs with Dull Matte Lime accents, hard borders & offset shadows.
  */
 export const TopNavPills: React.FC<{
   activeScreen: ScreenId;
@@ -52,13 +52,13 @@ export const TopNavPills: React.FC<{
               onSelectScreen(item.id);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap shrink-0 relative ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 border-2 ${
               isActive
-                ? 'btn-shiny-gold text-white font-semibold shadow-sm'
-                : 'text-[#8A8A8A] hover:text-[#0A0A0A] hover:bg-black/5 dark:hover:text-white dark:hover:bg-[#0c0c0c] border border-transparent hover:border-gray-300 dark:hover:border-[#222222]'
+                ? 'bg-[#84CC16] text-black border-black shadow-[2px_2px_0px_#000000] scale-[1.02]'
+                : 'text-[#9E9E9E] hover:text-white dark:hover:text-white light:text-black border-transparent hover:border-[#333333] hover:bg-[#111111]'
             }`}
           >
-            <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white stroke-[2.2]' : 'text-[#D97736]'}`} />
+            <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-black stroke-[3]' : 'text-[#84CC16]'}`} />
             <span>{item.label}</span>
           </button>
         );

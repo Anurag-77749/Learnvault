@@ -44,12 +44,12 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
           transition={{ duration: 0.2 }}
-          className="w-full max-w-md bg-[#121212] border border-[#D97736]/40 rounded-3xl p-6 shadow-2xl relative"
+          className="w-full max-w-md bg-[#121212] border border-[#84CC16]/40 rounded-3xl p-6 shadow-2xl relative"
         >
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-[#D97736]/20">
+          <div className="flex items-center justify-between pb-4 border-b border-[#84CC16]/20">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-black border border-[#D97736]/50 flex items-center justify-center text-[#D97736]">
+              <div className="w-8 h-8 rounded-xl bg-black border border-[#84CC16]/50 flex items-center justify-center text-[#84CC16]">
                 <CheckCircle2 className="w-4 h-4" />
               </div>
               <h2 className="font-serif text-2xl font-bold text-[#F9F6EE]">
@@ -58,7 +58,7 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
             </div>
             <button
               onClick={onClose}
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#A09D95] hover:text-[#D97736] rounded-xl transition-colors"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#A09D95] hover:text-[#84CC16] rounded-xl transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -82,8 +82,8 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
                     onClick={() => setPlatform(p.id as 'leetcode' | 'striver' | 'other')}
                     className={`min-h-[44px] rounded-xl text-xs font-semibold transition-all ${
                       platform === p.id
-                        ? 'bg-[#D97736] text-black shadow-md shadow-[#D97736]/20'
-                        : 'bg-black text-[#A09D95] hover:text-[#F9F6EE] border border-[#D97736]/25'
+                        ? 'bg-[#84CC16] text-black shadow-md shadow-[#84CC16]/20'
+                        : 'bg-black text-[#A09D95] hover:text-[#F9F6EE] border border-[#84CC16]/25'
                     }`}
                   >
                     {p.label}
@@ -109,8 +109,8 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
                     onClick={() => setDifficulty(d.id as 'easy' | 'medium' | 'hard')}
                     className={`min-h-[44px] rounded-xl text-xs font-semibold transition-all ${
                       difficulty === d.id
-                        ? 'bg-[#D97736] text-black shadow-md shadow-[#D97736]/20 font-bold'
-                        : `bg-black ${d.color} hover:text-[#F9F6EE] border border-[#D97736]/25`
+                        ? 'bg-[#84CC16] text-black shadow-md shadow-[#84CC16]/20 font-bold'
+                        : `bg-black ${d.color} hover:text-[#F9F6EE] border border-[#84CC16]/25`
                     }`}
                   >
                     {d.label}
@@ -132,8 +132,8 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
                     onClick={() => setCount(n)}
                     className={`min-h-[44px] rounded-xl text-sm font-semibold transition-all ${
                       count === n
-                        ? 'bg-[#D97736] text-black shadow-md'
-                        : 'bg-black text-[#A09D95] hover:text-[#F9F6EE] border border-[#D97736]/25'
+                        ? 'bg-[#84CC16] text-black shadow-md'
+                        : 'bg-black text-[#A09D95] hover:text-[#F9F6EE] border border-[#84CC16]/25'
                     }`}
                   >
                     +{n}
@@ -146,7 +146,7 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
                 max="50"
                 value={count}
                 onChange={(e) => setCount(Math.max(1, parseInt(e.target.value) || 0))}
-                className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#D97736]/30 text-[#F9F6EE] text-center font-bold focus:outline-none focus:border-[#D97736]"
+                className="w-full min-h-[44px] px-4 rounded-xl bg-black border border-[#84CC16]/30 text-[#F9F6EE] text-center font-bold focus:outline-none focus:border-[#84CC16]"
               />
             </div>
 
@@ -155,14 +155,14 @@ export const AddQuestionModal: React.FC<AddQuestionModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 min-h-[46px] rounded-xl border border-[#D97736]/30 text-sm text-[#A09D95] hover:text-[#F9F6EE] font-semibold transition-colors"
+                className="flex-1 min-h-[46px] rounded-xl border border-[#84CC16]/30 text-sm text-[#A09D95] hover:text-[#F9F6EE] font-semibold transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting || count <= 0}
-                className="flex-1 min-h-[46px] rounded-xl bg-[#D97736] hover:bg-[#FFD700] text-black text-sm font-bold transition-all shadow-md shadow-[#D97736]/20 disabled:opacity-40"
+                className="flex-1 min-h-[46px] rounded-xl bg-[#84CC16] hover:bg-[#FFD700] text-black text-sm font-bold transition-all shadow-md shadow-[#84CC16]/20 disabled:opacity-40"
               >
                 {isSubmitting ? 'Logging...' : `Log +${count} Question${count > 1 ? 's' : ''}`}
               </button>

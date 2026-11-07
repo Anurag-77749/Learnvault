@@ -1,4 +1,4 @@
-// LearnVault - Precision Obsidian & Neon Orange Workspace (v1.0.6)
+// LearnVault - Neo-Brutalist Dull Matte Lime Workspace (v1.0.7)
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLiveQuery } from 'dexie-react-hooks';
@@ -68,10 +68,10 @@ export const App: React.FC = () => {
   const isLight = theme === 'light';
 
   return (
-    <div className={`min-h-screen ${isLight ? 'bg-[#F8F9FA] text-[#0A0A0A]' : 'bg-[#000000] text-white'} flex flex-col antialiased selection:bg-[#D97736] selection:text-white transition-colors duration-200`}>
-      {/* Top Header with Navigation Features in the Center Space */}
-      <header className={`flex items-center justify-between px-3 sm:px-6 py-2.5 ${isLight ? 'bg-white/95 border-b border-gray-200 shadow-xs' : 'bg-[#000000]/98 border-b border-[#141414]'} backdrop-blur-md sticky top-0 z-30 gap-2 sm:gap-4 select-none transition-colors`}>
-        {/* Left: Brand Mark */}
+    <div className={`min-h-screen ${isLight ? 'bg-[#F4F4F0] text-[#000000]' : 'bg-[#000000] text-[#EDEDED]'} flex flex-col antialiased selection:bg-[#84CC16] selection:text-black transition-colors duration-200`}>
+      {/* Top Header: Neo-Brutalist Top Navigation Bar */}
+      <header className={`flex items-center justify-between px-3 sm:px-6 py-2.5 ${isLight ? 'bg-white border-b-2 border-black shadow-[0_3px_0px_rgba(0,0,0,0.06)]' : 'bg-[#000000] border-b-2 border-[#202020]'} sticky top-0 z-30 gap-2 sm:gap-4 select-none transition-colors`}>
+        {/* Left: Brutalist Brand Mark */}
         <div 
           onClick={() => {
             setActiveScreen('today');
@@ -80,15 +80,15 @@ export const App: React.FC = () => {
           className="flex items-center gap-2.5 cursor-pointer shrink-0 group"
           title="Go to Today"
         >
-          <div className={`w-8 h-8 rounded-xl ${isLight ? 'bg-white border border-[#D97736]/60' : 'bg-[#000000] border border-[#D97736]/50'} flex items-center justify-center p-0.5 shadow-md shadow-[#D97736]/20 overflow-hidden shrink-0`}>
+          <div className={`w-8 h-8 rounded-md ${isLight ? 'bg-white border-2 border-black shadow-[2px_2px_0px_#84CC16]' : 'bg-[#000000] border-2 border-[#84CC16] shadow-[2px_2px_0px_rgba(132,204,22,0.4)]'} flex items-center justify-center p-0.5 overflow-hidden shrink-0`}>
             <img src="/learnvault-logo.png" alt="LearnVault" className="w-full h-full object-contain" />
           </div>
           <div>
-            <span className={`text-base sm:text-lg font-bold tracking-tight ${isLight ? 'text-[#0A0A0A]' : 'text-white'} leading-none block group-hover:text-shiny-gold transition-colors font-display`}>
-              Learn<span className="text-shiny-gold">Vault</span>
+            <span className={`text-base sm:text-lg font-black tracking-tight ${isLight ? 'text-black' : 'text-white'} leading-none block font-display`}>
+              Learn<span className="text-[#84CC16]">Vault</span>
             </span>
-            <span className="text-[8px] sm:text-[9px] text-[#D97736] uppercase tracking-wider block font-semibold">
-              YOUR KNOWLEDGE • YOUR PROGRESS
+            <span className="text-[8px] sm:text-[9px] text-[#84CC16] uppercase tracking-wider block font-bold font-mono">
+              [SYSTEM: MASTER]
             </span>
           </div>
         </div>
@@ -105,42 +105,42 @@ export const App: React.FC = () => {
         </div>
 
         {/* Right: Cloud Sync, Theme Toggle & Quick Metrics */}
-        <div className="flex items-center gap-1.5 sm:gap-2 text-xs shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 text-xs shrink-0 font-mono">
           {/* Light / Dark Mode Toggle Button */}
           <button
             onClick={toggleTheme}
-            className={`p-1 sm:p-1.5 px-2 sm:px-2.5 rounded-full ${isLight ? 'bg-white border border-gray-300 hover:border-[#D97736] text-[#0A0A0A]' : 'bg-[#080808] border border-[#1a1a1a] hover:border-[#D97736]/60 text-white'} flex items-center gap-1.5 cursor-pointer transition-colors shadow-xs`}
+            className={`p-1 sm:p-1.5 px-2 sm:px-2.5 rounded-md border-2 ${isLight ? 'bg-white border-black shadow-[2px_2px_0px_#000000] text-black' : 'bg-[#080808] border-[#333333] shadow-[2px_2px_0px_#000000] hover:border-[#84CC16] text-white'} flex items-center gap-1.5 cursor-pointer transition-all active:translate-x-[1px] active:translate-y-[1px]`}
             title={isLight ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
             aria-label="Toggle Light/Dark Theme"
           >
             {isLight ? (
               <>
-                <Moon className="w-3.5 h-3.5 text-[#D97736]" />
-                <span className="hidden md:inline text-[11px] font-semibold text-[#0A0A0A]">Dark</span>
+                <Moon className="w-3.5 h-3.5 text-[#84CC16]" />
+                <span className="hidden md:inline text-[11px] font-bold">DARK</span>
               </>
             ) : (
               <>
-                <Sun className="w-3.5 h-3.5 text-[#D97736]" />
-                <span className="hidden md:inline text-[11px] font-medium text-[#B8B0AA]">Light</span>
+                <Sun className="w-3.5 h-3.5 text-[#84CC16]" />
+                <span className="hidden md:inline text-[11px] font-bold">LIGHT</span>
               </>
             )}
           </button>
 
           <button
             onClick={() => setIsSyncModalOpen(true)}
-            className={`p-1 sm:p-1.5 px-2 sm:px-2.5 rounded-full ${isLight ? 'bg-white border border-gray-300 hover:border-[#D97736]' : 'bg-[#080808] border border-[#1a1a1a] hover:border-[#D97736]/60'} text-shiny-gold flex items-center gap-1.5 cursor-pointer transition-colors shadow-xs`}
+            className={`p-1 sm:p-1.5 px-2 sm:px-2.5 rounded-md border-2 ${isLight ? 'bg-white border-black shadow-[2px_2px_0px_#000000]' : 'bg-[#080808] border-[#333333] shadow-[2px_2px_0px_#000000] hover:border-[#84CC16]'} text-[#84CC16] flex items-center gap-1.5 cursor-pointer transition-all active:translate-x-[1px] active:translate-y-[1px]`}
             title="Cloud Sync"
           >
             <Cloud className="w-3.5 h-3.5" />
-            <span className={`hidden md:inline text-[11px] font-medium ${isLight ? 'text-[#4A5568]' : 'text-[#B8B0AA]'}`}>
-              {syncState.syncId ? 'Synced' : 'Sync'}
+            <span className={`hidden md:inline text-[11px] font-bold ${isLight ? 'text-black' : 'text-white'}`}>
+              {syncState.syncId ? 'SYNCED' : 'SYNC'}
             </span>
             {syncState.syncId && (
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#84CC16] shadow-[0_0_6px_#84CC16]" />
             )}
           </button>
 
-          <span className={`px-2 sm:px-2.5 py-1 rounded-full ${isLight ? 'bg-white border border-gray-300' : 'bg-[#080808] border border-[#1a1a1a]'} text-shiny-gold font-bold flex items-center gap-1 shadow-xs`}>
+          <span className={`px-2 sm:px-2.5 py-1 rounded-md border-2 ${isLight ? 'bg-white border-black shadow-[2px_2px_0px_#000000]' : 'bg-[#080808] border-[#333333] shadow-[2px_2px_0px_#000000]'} text-[#84CC16] font-bold flex items-center gap-1`}>
             🔥 {streakCount}d
           </span>
 
@@ -149,13 +149,13 @@ export const App: React.FC = () => {
               setActiveScreen('wasted');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className={`px-2 sm:px-2.5 py-1 rounded-full ${isLight ? 'bg-rose-50 border border-rose-300 text-rose-700' : 'bg-[#150507] border border-red-900/50 text-red-300'} font-bold flex items-center gap-1 cursor-pointer transition-colors shadow-xs`}
+            className={`px-2 sm:px-2.5 py-1 rounded-md border-2 ${isLight ? 'bg-rose-50 border-black shadow-[2px_2px_0px_#000000] text-rose-700' : 'bg-[#150507] border-red-900/60 shadow-[2px_2px_0px_#000000] text-rose-400'} font-bold flex items-center gap-1 cursor-pointer transition-all`}
             title="Wasted Days Count"
           >
             ⏳ {wastedDaysCount}d
           </button>
 
-          <span className={`px-2 sm:px-2.5 py-1 rounded-full ${isLight ? 'bg-white border border-gray-300 text-[#0A0A0A]' : 'bg-[#080808] border border-[#D97736]/40 text-white'} font-bold shadow-xs`}>
+          <span className={`px-2 sm:px-2.5 py-1 rounded-md border-2 ${isLight ? 'bg-white border-black shadow-[2px_2px_0px_#000000] text-black' : 'bg-[#080808] border-[#333333] shadow-[2px_2px_0px_#000000] text-white'} font-bold`}>
             {totalStudyHours}h
           </span>
         </div>

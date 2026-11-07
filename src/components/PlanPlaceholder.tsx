@@ -16,7 +16,7 @@ export const PlanPlaceholder: React.FC = () => {
   return (
     <div className="space-y-6 pb-24 md:pb-12 max-w-4xl mx-auto">
       <div className="pt-2">
-        <span className="text-xs uppercase tracking-widest text-[#D97736] font-semibold flex items-center gap-1.5 mb-1 font-sans">
+        <span className="text-xs uppercase tracking-widest text-[#84CC16] font-semibold flex items-center gap-1.5 mb-1 font-sans">
           <CalendarRange className="w-3.5 h-3.5" /> 4-Year Timeline Architecture
         </span>
         <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#F9F6EE]">
@@ -27,8 +27,8 @@ export const PlanPlaceholder: React.FC = () => {
         </p>
       </div>
 
-      <div className="p-4 rounded-2xl bg-[#121212] border border-[#D97736]/30 flex items-start gap-3">
-        <Sparkles className="w-5 h-5 text-[#D97736] shrink-0 mt-0.5" />
+      <div className="p-4 rounded-2xl bg-[#121212] border border-[#84CC16]/30 flex items-start gap-3">
+        <Sparkles className="w-5 h-5 text-[#84CC16] shrink-0 mt-0.5" />
         <p className="text-xs text-[#A09D95] leading-relaxed">
           The starting preset from your notebook is pre-loaded. In Stage 5, the interactive Gantt drag-to-resize timeline with multi-lane parallel blocks, "I'm behind shift", and exam week pause will activate here.
         </p>
@@ -38,16 +38,16 @@ export const PlanPlaceholder: React.FC = () => {
         {PRESET_LANES.map((lane) => (
           <div
             key={lane.track}
-            className="p-4 sm:p-5 rounded-2xl bg-[#121212] border border-[#D97736]/25 hover:border-[#D97736] flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors shadow-sm"
+            className="p-4 sm:p-5 rounded-2xl bg-[#121212] border border-[#84CC16]/25 hover:border-[#84CC16] flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors shadow-sm"
           >
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="w-2 h-2 rounded-full bg-[#D97736]" />
+                <span className="w-2 h-2 rounded-full bg-[#84CC16]" />
                 <h3 className="font-serif text-lg font-bold text-[#F9F6EE]">
                   {lane.track}
                 </h3>
                 {lane.parallel && (
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-black text-[#D97736] border border-[#D97736]/30 font-semibold">
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-black text-[#84CC16] border border-[#84CC16]/30 font-semibold">
                     Parallel Lane
                   </span>
                 )}
@@ -58,7 +58,7 @@ export const PlanPlaceholder: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-3 self-start sm:self-auto">
-              <span className="text-xs px-3 py-1 rounded-xl bg-black border border-[#D97736]/30 text-[#D97736] font-semibold">
+              <span className="text-xs px-3 py-1 rounded-xl bg-black border border-[#84CC16]/30 text-[#84CC16] font-semibold">
                 {lane.progress}
               </span>
             </div>
