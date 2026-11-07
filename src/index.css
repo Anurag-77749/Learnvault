@@ -47,24 +47,24 @@
    NEO-BRUTALIST ARCHITECTURE & DULL MATTE LIME ACCENTS
    ========================================================================== */
 
-/* Brutalist Tactile Matte Dull Lime Button (Dark Theme Default) */
+/* Brutalist Tactile Matte Lime Button */
 .btn-shiny-gold,
 .btn-brutalist-lime {
-  background: #65A30D;
+  background: #84CC16;
   color: #000000;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: -0.01em;
   border: 2px solid #000000;
   border-radius: 6px;
-  box-shadow: 3px 3px 0px #65A30D;
+  box-shadow: 3px 3px 0px #000000;
   transition: all 0.1s ease;
 }
 
 .btn-shiny-gold:hover,
 .btn-brutalist-lime:hover {
-  background: #74B816;
+  background: #94D82D;
   transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0px #74B816;
+  box-shadow: 4px 4px 0px #000000;
 }
 
 .btn-shiny-gold:active,
@@ -75,34 +75,34 @@
 
 .text-shiny-gold,
 .text-matte-lime {
-  color: #65A30D;
+  color: #84CC16;
 }
 
 .gold-glow,
 .lime-glow {
-  box-shadow: 3px 3px 0px rgba(101, 163, 13, 0.4);
+  box-shadow: 3px 3px 0px rgba(132, 204, 22, 0.4);
 }
 
 .border-gold-shine,
 .border-lime-shine {
-  border: 2px solid rgba(101, 163, 13, 0.4);
+  border: 2px solid rgba(132, 204, 22, 0.4);
 }
 
 .border-gold-shine:hover,
 .border-lime-shine:hover {
-  border-color: #65A30D;
-  box-shadow: 3px 3px 0px rgba(101, 163, 13, 0.35);
+  border-color: #84CC16;
+  box-shadow: 3px 3px 0px rgba(132, 204, 22, 0.25);
 }
 
-/* Brutalist Obsidian Cards with Hard Offset Shadow in Dark Mode */
+/* Brutalist Obsidian Cards with Hard Offset Shadow */
 .card-maroon,
 .card-emerald,
 .card-burgundy,
 .card-obsidian {
-  background-color: #050505;
+  background-color: #080808;
   border: 2px solid #222222;
-  border-radius: 6px;
-  box-shadow: 4px 4px 0px #141414;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0px #000000;
   transition: all 0.12s ease;
 }
 
@@ -112,18 +112,18 @@
 .card-obsidian:hover {
   border-color: #383838;
   transform: translate(-1px, -1px);
-  box-shadow: 5px 5px 0px #1c1c1c;
+  box-shadow: 5px 5px 0px #000000;
 }
 
-/* Brutalist Card with Dull Matte Lime Border & Hard Offset Shadow */
+/* Brutalist Card with Dull Matte Lime Border */
 .card-maroon-gold,
 .card-emerald-gold,
 .card-burgundy-gold,
 .card-obsidian-gold {
-  background-color: #050505;
-  border: 2px solid #65A30D;
-  border-radius: 6px;
-  box-shadow: 4px 4px 0px #65A30D;
+  background-color: #080808;
+  border: 2px solid #84CC16;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0px rgba(132, 204, 22, 0.35);
   transition: all 0.12s ease;
 }
 
@@ -132,7 +132,7 @@
 .card-burgundy-gold:hover,
 .card-obsidian-gold:hover {
   transform: translate(-1px, -1px);
-  box-shadow: 6px 6px 0px #74B816;
+  box-shadow: 6px 6px 0px rgba(132, 204, 22, 0.5);
 }
 
 /* Brutalist Scrollbar */
@@ -316,72 +316,6 @@ html.light-mode ::-webkit-scrollbar-track {
 html.light-mode ::-webkit-scrollbar-thumb {
   background: #000000;
   border-radius: 2px;
-}
-
-
-/* ==========================================================================
-   DARK THEME: INCREASED BRUTALISM & DULL INDUSTRIAL MATTE LIME (#65A30D)
-   (Light mode remains 100% unchanged)
-   ========================================================================== */
-html:not(.light-mode) .text-\[\#84CC16\],
-html:not(.light-mode) .text-\[\#A3E635\] {
-  color: #65A30D !important;
-}
-
-html:not(.light-mode) .bg-\[\#84CC16\],
-html:not(.light-mode) .bg-\[\#A3E635\] {
-  background-color: #65A30D !important;
-}
-
-html:not(.light-mode) [class*="border-\[\#84CC16\]"] {
-  border-color: #65A30D !important;
-}
-
-html:not(.light-mode) [class*="shadow-\[\#84CC16\]"] {
-  --tw-shadow-color: #65A30D !important;
-}
-
-/* Dark Theme Header Brutalist Shadow */
-html:not(.light-mode) header {
-  background-color: #000000 !important;
-  border-bottom: 2px solid #222222 !important;
-  box-shadow: 0 4px 0px #121212 !important;
-}
-
-/* Dark Theme Inputs & Selects: Hard 2px Offset Brutalism */
-html:not(.light-mode) input[type="text"],
-html:not(.light-mode) input[type="number"],
-html:not(.light-mode) input[type="search"],
-html:not(.light-mode) input[type="date"],
-html:not(.light-mode) textarea,
-html:not(.light-mode) select {
-  border: 2px solid #262626 !important;
-  border-radius: 6px !important;
-  background-color: #050505 !important;
-  box-shadow: 3px 3px 0px #121212 !important;
-}
-
-html:not(.light-mode) input:focus,
-html:not(.light-mode) textarea:focus,
-html:not(.light-mode) select:focus {
-  border-color: #65A30D !important;
-  box-shadow: 4px 4px 0px #65A30D !important;
-  outline: none !important;
-}
-
-/* Dark Theme Tactile Buttons with Hard Offset Shadows */
-html:not(.light-mode) button.border-2 {
-  box-shadow: 2px 2px 0px #181818;
-}
-
-html:not(.light-mode) button.border-2:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0px #65A30D;
-}
-
-html:not(.light-mode) button.border-2:active {
-  transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0px #181818;
 }
 
 /* Respect prefers-reduced-motion */
