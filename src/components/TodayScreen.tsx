@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { 
   Check, 
+  Target, 
   Plus, 
   Clock, 
   Moon, 
@@ -194,33 +195,50 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
 
   const completedCount = tasks.filter((t) => t.completed).length;
 
+  const curriculumTopics = useLiveQuery(() => db.curriculumTopics.toArray()) || [];
+  let totalSub = 0;
+  let doneSub = 0;
+  curriculumTopics.forEach((t) => {
+    totalSub += t.subtopics?.length || 0;
+    doneSub += t.subtopics?.filter((s) => s.completed).length || 0;
+  });
+  const overallPercent = totalSub > 0 ? Math.round((doneSub / totalSub) * 100) : 0;
+
+
   return (
-    <div className="space-y-7 pb-24 md:pb-12 max-w-4xl mx-auto">
-      {/* Top Welcome Header */}
+    <div className="space-y-6 pb-20 w-full">
+      {/* Top Mission Header */}
       <motion.div 
-        initial={{ opacity: 0, y: -8 }}
+        initial={{ opacity: 0, y: -4 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pt-2"
+        className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-2 border-b-2 border-black/10 dark:border-white/10"
       >
         <div>
-          <span className="text-xs uppercase tracking-widest text-[#84CC16] font-semibold flex items-center gap-1.5 mb-1 font-sans">
-            <Sparkles className="w-3.5 h-3.5" /> Day {currentDayNumber} of 1,460
-          </span>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-white tracking-tight">
+          <div className="flex items-center gap-2 mb-1.5 font-mono">
+            <span className="text-[11px] font-black uppercase text-black bg-[#84CC16] border-2 border-black px-2.5 py-0.5 rounded-md shadow-[2px_2px_0px_#000000]">
+              DAY {currentDayNumber} OF 1,460
+            </span>
+            <span className="text-xs text-gray-500 font-bold">•</span>
+            <span className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">{formattedToday}</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-black text-black dark:text-white tracking-tight font-display">
             Today's Mission
           </h1>
-          <p className="text-xs sm:text-sm text-[#B8B0AA] font-sans mt-0.5">
-            {formattedToday}
-          </p>
         </div>
 
-        <div className="text-xs text-[#84CC16] card-maroon px-4 py-2 rounded-xl flex items-center gap-2 self-start sm:self-auto font-sans shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-[#84CC16]" />
-          <span>LearnVault: Your Knowledge. Your Progress. Your Future.</span>
+        <div className="flex items-center gap-2 self-start sm:self-auto font-mono text-xs">
+          <span className="px-3 py-1 rounded-md border-2 border-black bg-white dark:bg-[#080808] dark:border-white/20 font-bold shadow-[2px_2px_0px_#84CC16]">
+            TRACK 0: FORWARD DEPLOYED
+          </span>
         </div>
       </motion.div>
 
-      {/* 1. TO-DO LIST (AT THE VERY TOP) */}
+      
+      {/* Neo-Brutalist 2-Column Command Center Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Left Column (Main Focus: Tasks, Telemetry Bento, Quick Actions) */}
+        <div className="lg:col-span-7 xl:col-span-8 space-y-6">
+          {/* 1. TO-DO LIST (AT THE VERY TOP) */}
       <motion.section 
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -535,14 +553,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
           )}
         </AnimatePresence>
       </motion.section>
-
-
-      {/* Daily DSA & Communication */}
-      <div>
-        <DailyDsaCommunicationWidget />
-      </div>
-
-      {/* 2. TODAY SO FAR CARDS */}
+          {/* 2. TODAY SO FAR CARDS */}
       <motion.section
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -643,8 +654,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
           </div>
         </div>
       </motion.section>
-
-      {/* 3. QUICK ACTION BUTTONS */}
+          {/* 3. QUICK ACTION BUTTONS */}
       <motion.section
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -687,8 +697,41 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
           </button>
         </div>
       </motion.section>
+        </div>
 
-      {/* 4. "NEXT UP" SECTION (FROM PLAN) */}
+        {/* Right Column (Tracking: DSA & Communication, Overall Progress, Timeline, Notes) */}
+        <div className="lg:col-span-5 xl:col-span-4 space-y-6">
+          {/* Daily DSA & Communication */}
+      <div>
+        <DailyDsaCommunicationWidget />
+      </div>
+          
+        {/* Overall Curriculum Progress Card */}
+        <div 
+          onClick={onNavigateToPlan}
+          className="p-4 rounded-lg card-maroon-gold cursor-pointer transition-all hover:translate-x-[-1px] hover:translate-y-[-1px]"
+          title="View Roadmap & Plan"
+        >
+          <div className="flex items-center justify-between text-xs mb-2">
+            <span className="font-bold flex items-center gap-1.5 text-black dark:text-white uppercase font-mono">
+              <Target className="w-4 h-4 text-[#84CC16]" />
+              Overall Progress
+            </span>
+            <span className="text-[#84CC16] font-black text-sm tabular-nums">{overallPercent}%</span>
+          </div>
+          <div className="w-full bg-black h-3 rounded-md overflow-hidden border-2 border-black">
+            <div 
+              className="bg-[#84CC16] h-full transition-all duration-500"
+              style={{ width: `${Math.max(overallPercent, 2)}%` }}
+            />
+          </div>
+          <div className="flex items-center justify-between text-[11px] text-gray-600 dark:text-[#A3A3A3] mt-2.5 font-mono font-bold">
+            <span>{doneSub}/{totalSub} TOPICS COMPLETED</span>
+            <span className="text-[#84CC16] hover:underline flex items-center gap-1">VIEW ROADMAP &rarr;</span>
+          </div>
+        </div>
+
+          {/* 4. "NEXT UP" SECTION (FROM PLAN) */}
       <motion.section
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -743,8 +786,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
           </div>
         </div>
       </motion.section>
-
-      {/* Daily Reflection Note */}
+          {/* Daily Reflection Note */}
       <motion.section
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -771,6 +813,8 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
           </button>
         </div>
       </motion.section>
+        </div>
+      </div>
 
       {/* Modals */}
       <LogStudyModal
