@@ -443,18 +443,18 @@ export const WastedDaysScreen: React.FC = () => {
               return (
                 <div
                   key={record.id}
-                  className="p-4 rounded-xl bg-[#000000] border border-[#1f1f1f] hover:border-[#84CC16]/40 transition-all space-y-3 shadow-md"
+                  className="p-4 rounded-xl border-2 border-black dark:border-[#333333] bg-white text-black dark:bg-[#000000] dark:text-white hover:border-[#84CC16] transition-all space-y-3 shadow-[3px_3px_0px_#000000] dark:shadow-none"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="px-2 py-0.5 rounded-md bg-black border border-[#1f1f1f] text-shiny-gold text-xs font-mono font-bold">
+                      <span className="px-2 py-0.5 rounded-md border-2 border-black dark:border-[#333333] bg-white dark:bg-black text-black dark:text-[#84CC16] text-xs font-mono font-bold">
                         #{wastedDays.length - index}
                       </span>
-                      <span className="font-serif font-bold text-white text-sm">
+                      <span className="font-sans font-black text-black dark:text-white text-sm">
                         {record.date}
                       </span>
                       {record.hoursWasted && (
-                        <span className="px-2 py-0.5 rounded-full bg-black border border-[#84CC16]/30 text-shiny-gold text-xs">
+                        <span className="px-2 py-0.5 rounded-full border-2 border-black dark:border-[#84CC16]/30 bg-white dark:bg-black text-black dark:text-[#84CC16] text-xs font-bold">
                           ~{record.hoursWasted}h lost
                         </span>
                       )}
@@ -466,14 +466,14 @@ export const WastedDaysScreen: React.FC = () => {
                         <>
                           <button
                             onClick={() => handleStartEdit(record)}
-                            className="p-1.5 rounded-lg text-[#B8B0AA] hover:text-white hover:bg-[#070707] transition-colors cursor-pointer"
+                            className="p-1.5 rounded-lg border-2 border-black dark:border-[#333333] bg-white text-black dark:bg-[#080808] dark:text-white hover:bg-[#84CC16] hover:text-black dark:hover:border-[#84CC16] dark:hover:text-[#84CC16] transition-colors cursor-pointer shadow-[2px_2px_0px_#000000]"
                             title="Edit entry"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => setDeleteConfirmId(record.id || null)}
-                            className="p-1.5 rounded-lg text-[#B8B0AA] hover:text-[#84CC16] hover:bg-[#111111] transition-colors cursor-pointer"
+                            className="p-1.5 rounded-lg border-2 border-black dark:border-[#333333] bg-white text-black dark:bg-[#080808] dark:text-white hover:bg-black hover:text-white dark:hover:border-white transition-colors cursor-pointer shadow-[2px_2px_0px_#000000]"
                             title="Delete entry"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -488,7 +488,7 @@ export const WastedDaysScreen: React.FC = () => {
                     {reasonsList.map((r, rIdx) => (
                       <span
                         key={rIdx}
-                        className="px-2.5 py-0.5 rounded-full bg-black border border-[#84CC16]/60 text-[#84CC16] text-xs font-semibold flex items-center gap-1 shadow-sm"
+                        className="px-2.5 py-0.5 rounded-full border-2 border-black dark:border-[#84CC16]/60 bg-white dark:bg-black text-black dark:text-[#84CC16] text-xs font-bold flex items-center gap-1 shadow-sm"
                       >
                         <span className="text-[#84CC16]">•</span>
                         <span>{r}</span>
@@ -546,7 +546,7 @@ export const WastedDaysScreen: React.FC = () => {
                     </div>
                   ) : (
                     /* Display Honest Explanation */
-                    <p className="text-xs text-[#F5F0E1] bg-[#070707]/60 p-3 rounded-lg border border-[#1f1f1f]/70 font-sans leading-relaxed">
+                    <p className="text-xs font-bold p-3.5 rounded-xl border-2 border-black dark:border-white bg-white text-black dark:bg-black dark:text-white font-sans leading-relaxed shadow-[2px_2px_0px_#000000] dark:shadow-none">
                       "{record.explanation}"
                     </p>
                   )}

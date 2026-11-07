@@ -253,7 +253,7 @@ html.light-mode textarea::placeholder {
   color: #737373 !important;
 }
 
-/* Brutalist Light Mode Background Overrides */
+/* Brutalist Light Mode Background Overrides - ZERO GREY: PURE WHITE OR PURE BLACK ONLY */
 html.light-mode .bg-\[\#000000\],
 html.light-mode .bg-\[\#080808\],
 html.light-mode .bg-\[\#070707\],
@@ -261,17 +261,20 @@ html.light-mode .bg-\[\#0a0a0a\],
 html.light-mode .bg-\[\#0c0c0c\],
 html.light-mode .bg-\[\#111111\],
 html.light-mode .bg-\[\#121212\],
+html.light-mode .bg-\[\#160406\],
+html.light-mode .bg-\[\#141414\],
+html.light-mode .bg-\[\#070707\]\/60,
+html.light-mode .bg-\[\#080808\]\/60,
+html.light-mode .bg-\[\#000000\]\/60,
+html.light-mode .bg-\[\#000000\]\/80,
+html.light-mode .bg-black\/80:not(.fixed),
+html.light-mode .bg-black\/60,
+html.light-mode .bg-black\/40,
+html.light-mode .bg-black\/20,
 html.light-mode .bg-black:not(.fixed):not(.btn-shiny-gold):not([data-keep-dark]) {
   background-color: #FFFFFF !important;
   color: #000000 !important;
   border-color: #000000 !important;
-}
-
-html.light-mode .bg-\[\#160406\],
-html.light-mode .bg-\[\#141414\],
-html.light-mode .bg-black\/40,
-html.light-mode .bg-black\/20 {
-  background-color: #EFEFEA !important;
 }
 
 /* Brutalist Light Mode Borders */
@@ -285,17 +288,24 @@ html.light-mode .border-white\/\[0\.07\] {
   border-color: #000000 !important;
 }
 
-/* Brutalist Light Mode Muted Text */
+/* Brutalist Light Mode Text - PURE BLACK (NO GREY) */
+html.light-mode .text-\[\#F9F6EE\],
+html.light-mode .text-\[\#F5F0E1\],
+html.light-mode .text-\[\#E5E0DC\],
+html.light-mode .text-\[\#EDEDED\],
 html.light-mode .text-\[\#B8B0AA\],
+html.light-mode .text-\[\#A09D95\],
 html.light-mode .text-\[\#A3A3A3\],
 html.light-mode .text-\[\#8A8A8A\],
-html.light-mode .text-\[\#8E8E8E\] {
-  color: #262626 !important;
-}
-
+html.light-mode .text-\[\#8E8E8E\],
+html.light-mode .text-\[\#807D75\],
 html.light-mode .text-\[\#737373\],
-html.light-mode .text-\[\#525252\] {
-  color: #525252 !important;
+html.light-mode .text-\[\#525252\],
+html.light-mode .text-gray-400,
+html.light-mode .text-gray-500,
+html.light-mode .text-zinc-400,
+html.light-mode .text-zinc-500 {
+  color: #000000 !important;
 }
 
 /* Brutalist Light Mode Scrollbar */

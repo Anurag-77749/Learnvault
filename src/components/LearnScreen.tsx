@@ -405,7 +405,7 @@ export const LearnScreen: React.FC = () => {
                   <div className="flex items-start sm:items-center gap-3 flex-1 min-w-0">
                     <button
                       onClick={() => setExpandedTopicId(isExpanded ? null : topic.id)}
-                      className="min-h-[44px] min-w-[44px] rounded-xl bg-black border border-[#84CC16]/35 flex items-center justify-center text-[#84CC16] shrink-0 hover:bg-[#84CC16]/10 transition-colors"
+                      className="min-h-[44px] min-w-[44px] rounded-xl border-2 border-black dark:border-[#333333] bg-white text-black dark:bg-black dark:text-[#84CC16] flex items-center justify-center shrink-0 hover:bg-[#84CC16] hover:text-black transition-colors shadow-[2px_2px_0px_#000000]"
                       aria-label="Toggle Topic"
                     >
                       {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
@@ -439,7 +439,7 @@ export const LearnScreen: React.FC = () => {
                           <div className="flex items-center gap-2 group">
                             <h3
                               onClick={() => setExpandedTopicId(isExpanded ? null : topic.id)}
-                              className="font-serif text-lg sm:text-xl font-bold text-[#F9F6EE] cursor-pointer hover:text-[#84CC16] transition-colors"
+                              className="font-sans text-lg sm:text-xl font-black text-black dark:text-white cursor-pointer hover:text-[#84CC16] transition-colors"
                             >
                               {topic.topicTitle}
                             </h3>
@@ -537,7 +537,7 @@ export const LearnScreen: React.FC = () => {
                           notes: topic.notes || '',
                         })
                       }
-                      className="min-h-[44px] min-w-[44px] rounded-xl bg-black border border-[#84CC16]/30 text-[#A09D95] hover:text-[#84CC16] hover:border-[#84CC16] flex items-center justify-center transition-colors"
+                      className="min-h-[44px] min-w-[44px] rounded-xl border-2 border-black dark:border-[#333333] bg-white text-black dark:bg-[#080808] dark:text-white hover:bg-[#84CC16] hover:text-black dark:hover:border-[#84CC16] dark:hover:text-[#84CC16] flex items-center justify-center transition-colors shadow-[2px_2px_0px_#000000]"
                       title="Topic notes"
                     >
                       <FileText className="w-4 h-4" />
@@ -592,7 +592,7 @@ export const LearnScreen: React.FC = () => {
 
                       {/* Subtopics Section */}
                       <div className="space-y-2">
-                        <div className="flex items-center justify-between text-xs font-semibold text-[#B8B0AA] uppercase tracking-wider px-1">
+                        <div className="flex items-center justify-between text-xs font-black text-black dark:text-white uppercase tracking-wider px-1">
                           <span>Subtopics ({topic.subtopics.length})</span>
                           <span>Learning Order</span>
                         </div>
@@ -603,24 +603,24 @@ export const LearnScreen: React.FC = () => {
                           return (
                             <div
                               key={sub.id}
-                              className={`p-3 rounded-2xl border transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                              className={`p-3.5 rounded-2xl border-2 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                                 sub.completed
-                                  ? 'bg-[#000000] border-[#1a1a1a] opacity-85'
-                                  : 'bg-[#080808] border-[#1a1a1a] hover:border-[#84CC16]/50'
+                                  ? 'border-black/30 dark:border-[#333333] bg-white dark:bg-[#000000] opacity-85'
+                                  : 'border-black dark:border-[#333333] bg-white dark:bg-[#080808] hover:border-[#84CC16] shadow-[2px_2px_0px_#000000]'
                               }`}
                             >
                               {/* Left: Checkbox + Title / Rename */}
                               <div className="flex items-start sm:items-center gap-3 flex-1 min-w-0">
                                 <button
                                   onClick={(e) => handleToggleSubtopic(topic.id, sub, e)}
-                                  className={`min-h-[44px] min-w-[44px] rounded-xl border flex items-center justify-center shrink-0 transition-all ${
+                                  className={`min-h-[44px] min-w-[44px] rounded-xl border-2 flex items-center justify-center shrink-0 transition-all cursor-pointer ${
                                     sub.completed
-                                      ? 'btn-shiny-gold shadow-md shadow-[#84CC16]/30'
-                                      : 'bg-black border-[#1a1a1a] hover:border-[#84CC16] text-transparent'
+                                      ? 'bg-[#84CC16] text-black border-black shadow-sm'
+                                      : 'border-black dark:border-[#333333] bg-white dark:bg-black hover:border-[#84CC16] text-transparent'
                                   }`}
                                   aria-label={sub.completed ? 'Mark subtopic incomplete' : 'Mark subtopic complete'}
                                 >
-                                  <Check className={`w-5 h-5 stroke-[3] ${sub.completed ? 'text-black' : 'text-transparent'}`} />
+                                  <Check className={`w-5 h-5 stroke-[3] ${sub.completed ? 'text-black opacity-100' : 'opacity-0'}`} />
                                 </button>
 
                                 <div className="flex-1 min-w-0">
@@ -649,10 +649,10 @@ export const LearnScreen: React.FC = () => {
                                   ) : (
                                     <div className="flex flex-wrap items-center gap-2 group">
                                       <span
-                                        className={`text-sm font-medium font-sans ${
+                                        className={`text-sm font-black font-sans ${
                                           sub.completed
-                                            ? 'line-through text-[#807D75]'
-                                            : 'text-[#F9F6EE]'
+                                            ? 'line-through text-black/40 dark:text-white/40'
+                                            : 'text-black dark:text-white'
                                         }`}
                                       >
                                         {sub.title}
@@ -720,7 +720,7 @@ export const LearnScreen: React.FC = () => {
                                       completedDate: isDone ? today : undefined,
                                     });
                                   }}
-                                  style={{ colorScheme: 'dark' }} className="min-h-[44px] px-2.5 py-1 rounded-xl bg-[#0E0205] border border-[#84CC16]/30 text-xs text-[#F9F6EE] focus:outline-none focus:border-[#84CC16] cursor-pointer"
+                                  className="min-h-[44px] px-3 py-1.5 rounded-xl border-2 border-black dark:border-[#333333] bg-white text-black dark:bg-[#080808] dark:text-white text-xs font-bold focus:outline-none focus:border-[#84CC16] cursor-pointer shadow-[2px_2px_0px_#000000]"
                                 >
                                   <option value="not_started" className="bg-[#080808] text-white py-1">Not Started</option>
                                   <option value="learning" className="bg-[#080808] text-white py-1">Learning</option>
@@ -734,7 +734,7 @@ export const LearnScreen: React.FC = () => {
                                     setResourceTopicId(topic.id);
                                     setResourceSubtopicId(sub.id);
                                   }}
-                                  className="min-h-[44px] min-w-[44px] rounded-xl bg-black border border-[#84CC16]/30 text-[#A09D95] hover:text-[#84CC16] hover:border-[#84CC16] flex items-center justify-center transition-colors"
+                                  className="min-h-[44px] min-w-[44px] rounded-xl border-2 border-black dark:border-[#333333] bg-white text-black dark:bg-[#080808] dark:text-white hover:bg-[#84CC16] hover:text-black dark:hover:border-[#84CC16] dark:hover:text-[#84CC16] flex items-center justify-center transition-colors shadow-[2px_2px_0px_#000000]"
                                   title="Add resource to subtopic"
                                 >
                                   <Link2 className="w-3.5 h-3.5" />
@@ -750,7 +750,7 @@ export const LearnScreen: React.FC = () => {
                                       notes: sub.notes || '',
                                     })
                                   }
-                                  className="min-h-[44px] min-w-[44px] rounded-xl bg-black border border-[#84CC16]/30 text-[#A09D95] hover:text-[#84CC16] hover:border-[#84CC16] flex items-center justify-center transition-colors"
+                                  className="min-h-[44px] min-w-[44px] rounded-xl border-2 border-black dark:border-[#333333] bg-white text-black dark:bg-[#080808] dark:text-white hover:bg-[#84CC16] hover:text-black dark:hover:border-[#84CC16] dark:hover:text-[#84CC16] flex items-center justify-center transition-colors shadow-[2px_2px_0px_#000000]"
                                   title="Subtopic notes"
                                 >
                                   <FileText className="w-3.5 h-3.5" />
@@ -760,7 +760,7 @@ export const LearnScreen: React.FC = () => {
                                 <button
                                   onClick={() => handleMoveSubtopic(topic, sIdx, 'up')}
                                   disabled={sIdx === 0}
-                                  className="min-h-[44px] min-w-[44px] rounded-xl bg-black border border-[#84CC16]/20 text-[#A09D95] hover:text-[#84CC16] disabled:opacity-30 flex items-center justify-center"
+                                  className="min-h-[44px] min-w-[44px] rounded-xl border-2 border-black dark:border-[#333333] bg-white text-black dark:bg-[#080808] dark:text-white hover:bg-[#84CC16] hover:text-black disabled:opacity-30 flex items-center justify-center transition-colors shadow-[2px_2px_0px_#000000]"
                                   title="Move Up"
                                 >
                                   <ArrowUp className="w-3.5 h-3.5" />
@@ -770,7 +770,7 @@ export const LearnScreen: React.FC = () => {
                                 <button
                                   onClick={() => handleMoveSubtopic(topic, sIdx, 'down')}
                                   disabled={sIdx === topic.subtopics.length - 1}
-                                  className="min-h-[44px] min-w-[44px] rounded-xl bg-black border border-[#84CC16]/20 text-[#A09D95] hover:text-[#84CC16] disabled:opacity-30 flex items-center justify-center"
+                                  className="min-h-[44px] min-w-[44px] rounded-xl border-2 border-black dark:border-[#333333] bg-white text-black dark:bg-[#080808] dark:text-white hover:bg-[#84CC16] hover:text-black disabled:opacity-30 flex items-center justify-center transition-colors shadow-[2px_2px_0px_#000000]"
                                   title="Move Down"
                                 >
                                   <ArrowDown className="w-3.5 h-3.5" />
