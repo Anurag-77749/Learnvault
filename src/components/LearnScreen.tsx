@@ -458,7 +458,7 @@ export const LearnScreen: React.FC = () => {
 
                         {/* Overdue badge */}
                         {isOverdue && (
-                          <span className="px-2 py-0.5 rounded-full bg-red-950/80 border border-red-500/50 text-red-300 text-[10px] font-bold tracking-wide uppercase flex items-center gap-1">
+                          <span className="px-2 py-0.5 rounded-full bg-black border-2 border-white text-white text-[10px] font-bold tracking-wide uppercase flex items-center gap-1">
                             <AlertCircle className="w-3 h-3" /> Overdue
                           </span>
                         )}
@@ -470,10 +470,10 @@ export const LearnScreen: React.FC = () => {
                             href={v.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-red-950/40 border border-red-500/30 text-red-200 hover:text-white hover:border-red-400 text-[11px] font-medium transition-colors"
+                            className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-black border border-[#84CC16]/40 text-[#84CC16] hover:text-white hover:border-[#84CC16] text-[11px] font-medium transition-colors"
                             title={v.title}
                           >
-                            <Video className="w-3 h-3 text-red-400" />
+                            <Video className="w-3 h-3 text-[#84CC16]" />
                             <span className="truncate max-w-[120px]">{v.title}</span>
                             <ExternalLink className="w-2.5 h-2.5 opacity-60" />
                           </a>
@@ -549,7 +549,7 @@ export const LearnScreen: React.FC = () => {
                           await deleteTopic(topic.id);
                         }
                       }}
-                      className="min-h-[44px] min-w-[44px] rounded-xl bg-black border border-red-900/30 text-red-400 hover:text-red-300 hover:border-red-500/50 flex items-center justify-center transition-colors"
+                      className="min-h-[44px] min-w-[44px] rounded-xl border-2 border-black bg-white text-black dark:bg-[#080808] dark:text-white dark:border-[#333333] hover:bg-black hover:text-white dark:hover:border-white flex items-center justify-center transition-colors shadow-[2px_2px_0px_#000000]"
                       title="Delete topic"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -581,7 +581,7 @@ export const LearnScreen: React.FC = () => {
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#000000] border border-[#1a1a1a] hover:border-[#84CC16] text-xs text-white hover:text-shiny-gold transition-colors"
                               >
-                                {res.isVideo ? <Video className="w-3.5 h-3.5 text-red-400" /> : <Link2 className="w-3.5 h-3.5 text-[#84CC16]" />}
+                                {res.isVideo ? <Video className="w-3.5 h-3.5 text-[#84CC16]" /> : <Link2 className="w-3.5 h-3.5 text-[#84CC16]" />}
                                 <span>{res.title}</span>
                                 <ExternalLink className="w-3 h-3 opacity-60" />
                               </a>
@@ -670,7 +670,7 @@ export const LearnScreen: React.FC = () => {
                                       </button>
 
                                       {subOverdue && (
-                                        <span className="px-1.5 py-0.2 rounded bg-red-950/80 border border-red-500/40 text-red-300 text-[9px] font-bold uppercase">
+                                        <span className="px-1.5 py-0.2 rounded bg-black border border-white text-white text-[9px] font-bold uppercase">
                                           Overdue
                                         </span>
                                       )}
@@ -783,7 +783,7 @@ export const LearnScreen: React.FC = () => {
                                       await deleteSubtopic(topic.id, sub.id);
                                     }
                                   }}
-                                  className="min-h-[44px] min-w-[44px] rounded-xl bg-black border border-red-900/30 text-red-400 hover:text-red-300 hover:border-red-500/50 flex items-center justify-center transition-colors"
+                                  className="min-h-[44px] min-w-[44px] rounded-xl border-2 border-black bg-white text-black dark:bg-[#080808] dark:text-white dark:border-[#333333] hover:bg-black hover:text-white dark:hover:border-white flex items-center justify-center transition-colors shadow-[2px_2px_0px_#000000]"
                                   title="Delete subtopic"
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />

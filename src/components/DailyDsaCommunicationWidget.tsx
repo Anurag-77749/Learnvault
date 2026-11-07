@@ -129,7 +129,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
               onClick={() => setSelectedDifficulty('easy')}
               className={`py-1.5 px-1 rounded-xl text-[11px] font-semibold transition-all border text-center ${
                 selectedDifficulty === 'easy'
-                  ? 'bg-[#004D20] text-[#73FF9D] border-[#009940] shadow-sm font-bold'
+                  ? 'bg-[#84CC16] text-black border-2 border-black shadow-sm font-bold'
                   : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#84CC16]/50'
               }`}
             >
@@ -153,7 +153,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
               onClick={() => setSelectedDifficulty('hard')}
               className={`py-1.5 px-1 rounded-xl text-[11px] font-semibold transition-all border text-center ${
                 selectedDifficulty === 'hard'
-                  ? 'bg-[#33040B] text-[#FFA8B5] border-red-500/60 shadow-sm font-bold'
+                  ? 'bg-[#84CC16] text-black border-2 border-black shadow-sm font-bold'
                   : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-[#84CC16]/50'
               }`}
             >
@@ -199,8 +199,8 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
             onClick={() => handleToggleCommunication(false)}
             className={`py-2 px-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
               isCommNotDone
-                ? 'bg-red-950/70 border-red-500/60 text-red-200 font-bold shadow-md shadow-red-950/50'
-                : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-red-500/40 hover:text-red-300'
+                ? 'bg-black text-white border-2 border-white font-bold shadow-[2px_2px_0px_#84CC16]'
+                : 'bg-[#000000] text-[#B8B0AA] border-[#1a1a1a] hover:border-white hover:text-white'
             }`}
             title={isCommNotDone ? 'Click to uncheck' : "Mark didn't complete today"}
           >
@@ -214,7 +214,7 @@ export const DailyDsaCommunicationWidget: React.FC<DailyDsaCommunicationWidgetPr
           {isCommDone ? (
             <span className="text-shiny-gold flex items-center gap-1">✨ English practiced today</span>
           ) : isCommNotDone ? (
-            <span className="text-red-400/90 flex items-center gap-1">✕ Logged: Didn't complete today</span>
+            <span className="text-white font-bold flex items-center gap-1">✕ Logged: Didn't complete today</span>
           ) : (
             <span className="text-[#B8B0AA]/60 font-sans">Tap to record today's practice</span>
           )}

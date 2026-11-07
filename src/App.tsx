@@ -149,7 +149,7 @@ export const App: React.FC = () => {
               setActiveScreen('wasted');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className={`px-2 sm:px-2.5 py-1 rounded-md border-2 ${isLight ? 'bg-rose-50 border-black shadow-[2px_2px_0px_#000000] text-rose-700' : 'bg-[#150507] border-red-900/60 shadow-[2px_2px_0px_#000000] text-rose-400'} font-bold flex items-center gap-1 cursor-pointer transition-all`}
+            className={`px-2 sm:px-2.5 py-1 rounded-md border-2 ${isLight ? 'bg-white border-black shadow-[2px_2px_0px_#000000] text-black hover:bg-black hover:text-[#84CC16]' : 'bg-[#080808] border-[#333333] shadow-[2px_2px_0px_#000000] text-white hover:border-[#84CC16] hover:text-[#84CC16]'} font-bold flex items-center gap-1 cursor-pointer transition-all`}
             title="Wasted Days Count"
           >
             ⏳ {wastedDaysCount}d

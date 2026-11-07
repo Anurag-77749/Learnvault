@@ -325,7 +325,7 @@ export const ProjectsScreen: React.FC = () => {
                     {/* Delete */}
                     <button
                       onClick={() => handleDelete(p.id)}
-                      className="min-h-[42px] min-w-[42px] rounded-xl bg-black border border-red-950/60 hover:border-red-500/50 text-red-400 hover:text-red-300 flex items-center justify-center transition-colors"
+                      className="min-h-[42px] min-w-[42px] rounded-xl border-2 border-black bg-white text-black dark:bg-[#080808] dark:text-white dark:border-[#333333] hover:bg-black hover:text-white dark:hover:border-white flex items-center justify-center transition-colors shadow-[2px_2px_0px_#000000]"
                       title="Delete project"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -417,7 +417,7 @@ export const ProjectsScreen: React.FC = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Autonomous Browser Agent, Distributed Log Aggregator..."
-                  style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#1a1a1a] focus:border-[#84CC16] text-white text-sm focus:outline-none cursor-pointer"
+                  style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#080808] border border-[#1a1a1a] focus:border-[#84CC16] text-white text-sm focus:outline-none cursor-pointer"
                   required
                   autoFocus
                 />
@@ -449,7 +449,7 @@ export const ProjectsScreen: React.FC = () => {
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value as any)}
-                    style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#1a1a1a] focus:border-[#84CC16] text-[#84CC16] font-semibold text-sm focus:outline-none cursor-pointer"
+                    style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#080808] border border-[#1a1a1a] focus:border-[#84CC16] text-[#84CC16] font-semibold text-sm focus:outline-none cursor-pointer"
                   >
                     {STATUS_OPTIONS.map((st) => (
                       <option key={st} value={st}>

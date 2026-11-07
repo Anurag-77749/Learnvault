@@ -148,7 +148,7 @@ export const PlanScreen: React.FC = () => {
           <span className="text-xs uppercase tracking-widest text-[#84CC16] font-semibold flex items-center gap-1.5 mb-1 font-sans">
             <CalendarRange className="w-3.5 h-3.5" /> 4-Year Timeline Architecture
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white">
+          <h1 className="font-sans text-3xl sm:text-4xl font-black tracking-tight text-white">
             Plan & Parallel Tracks
           </h1>
           <p className="text-xs sm:text-sm text-[#B8B0AA] font-sans mt-0.5">
@@ -178,25 +178,25 @@ export const PlanScreen: React.FC = () => {
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => handleShiftPlan(7)}
-            className="min-h-[38px] px-3.5 py-1.5 rounded-xl bg-black border border-[#84CC16]/40 text-shiny-gold hover:border-[#84CC16] text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm"
+            className="min-h-[38px] px-3.5 py-1.5 rounded-xl border-2 border-black bg-white text-black dark:bg-[#0a0a0a] dark:text-[#84CC16] dark:border-[#333333] hover:bg-[#84CC16] hover:text-black dark:hover:border-[#84CC16] text-xs font-black flex items-center gap-1.5 transition-all shadow-[2px_2px_0px_#000000]"
             title="Shift remaining plan by +7 days"
           >
-            <FastForward className="w-3.5 h-3.5 text-[#A3E635]" />
+            <FastForward className="w-3.5 h-3.5 text-[#84CC16]" />
             <span>I'm Behind (+7 Days)</span>
           </button>
 
           <button
             onClick={() => handleShiftPlan(14)}
-            className="min-h-[38px] px-3.5 py-1.5 rounded-xl bg-black border border-[#84CC16]/40 text-white hover:text-shiny-gold hover:border-[#84CC16] text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm"
+            className="min-h-[38px] px-3.5 py-1.5 rounded-xl border-2 border-black bg-white text-black dark:bg-[#0a0a0a] dark:text-white dark:border-[#333333] hover:bg-[#84CC16] hover:text-black dark:hover:border-[#84CC16] dark:hover:text-[#84CC16] text-xs font-bold flex items-center gap-1.5 transition-all shadow-[2px_2px_0px_#000000]"
             title="Pause plan for Exam Week (+14 days)"
           >
-            <PauseCircle className="w-3.5 h-3.5 text-[#A3E635]" />
+            <PauseCircle className="w-3.5 h-3.5 text-[#84CC16]" />
             <span>Exam Week (+14 Days)</span>
           </button>
 
           <button
             onClick={handleResetPreset}
-            className="min-h-[38px] px-3.5 py-1.5 rounded-xl bg-[#000000] border border-[#1a1a1a] text-[#B8B0AA] hover:text-shiny-gold hover:border-[#84CC16] text-xs font-medium flex items-center gap-1.5 transition-all"
+            className="min-h-[38px] px-3.5 py-1.5 rounded-xl border-2 border-black bg-white text-black dark:bg-[#0a0a0a] dark:text-white dark:border-[#333333] hover:bg-black hover:text-white dark:hover:border-white text-xs font-medium flex items-center gap-1.5 transition-all shadow-[2px_2px_0px_#000000]"
             title="Reset to notebook preset"
           >
             <RotateCcw className="w-3 h-3" />
@@ -234,7 +234,7 @@ export const PlanScreen: React.FC = () => {
                 <div className="space-y-1.5 flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[#84CC16] shadow-sm shadow-[#84CC16] shrink-0" />
-                    <h3 className="font-serif text-lg sm:text-xl font-bold text-white truncate">
+                    <h3 className="font-sans text-lg sm:text-xl font-black text-white truncate">
                       {block.title}
                     </h3>
 
@@ -270,19 +270,19 @@ export const PlanScreen: React.FC = () => {
                         await updateTimelineBlock(block.id, { status: e.target.value });
                       }
                     }}
-                    style={{ colorScheme: 'dark' }} className="min-h-[42px] px-3 py-1.5 rounded-xl bg-[#0E0205] border border-[#1a1a1a] text-xs text-[#A3E635] font-semibold focus:outline-none focus:border-[#84CC16] cursor-pointer"
+                    className="min-h-[42px] px-3 py-1.5 rounded-xl border-2 border-black bg-white text-black dark:bg-[#080808] dark:text-white dark:border-[#333333] text-xs font-bold focus:outline-none focus:border-[#84CC16] cursor-pointer shadow-[2px_2px_0px_#000000]"
                   >
-                    <option value="Ready to Start" className="bg-[#080808] text-white py-1.5">Ready to Start</option>
-                    <option value="In Progress" className="bg-[#080808] text-white py-1.5">In Progress</option>
-                    <option value="Upcoming" className="bg-[#080808] text-white py-1.5">Upcoming</option>
-                    <option value="Completed" className="bg-[#080808] text-white py-1.5">Completed</option>
-                    <option value="Queue" className="bg-[#080808] text-white py-1.5">Queue</option>
+                    <option value="Ready to Start">Ready to Start</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Upcoming">Upcoming</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Queue">Queue</option>
                   </select>
 
                   {/* Edit button */}
                   <button
                     onClick={() => openEditModal(block)}
-                    className="min-h-[42px] min-w-[42px] rounded-xl bg-black border border-[#1a1a1a] text-[#B8B0AA] hover:text-[#84CC16] hover:border-[#84CC16] flex items-center justify-center transition-colors"
+                    className="min-h-[42px] min-w-[42px] rounded-xl border-2 border-black bg-white text-black dark:bg-[#080808] dark:text-white dark:border-[#333333] hover:bg-[#84CC16] hover:text-black dark:hover:border-[#84CC16] dark:hover:text-[#84CC16] flex items-center justify-center transition-colors shadow-[2px_2px_0px_#000000]"
                     title="Edit block"
                   >
                     <Edit3 className="w-4 h-4" />
@@ -291,7 +291,7 @@ export const PlanScreen: React.FC = () => {
                   {/* Delete button */}
                   <button
                     onClick={() => handleDelete(block.id)}
-                    className="min-h-[42px] min-w-[42px] rounded-xl bg-black border border-red-900/30 text-red-400 hover:text-red-300 hover:border-red-500/50 flex items-center justify-center transition-colors"
+                    className="min-h-[42px] min-w-[42px] rounded-xl border-2 border-black bg-white text-black dark:bg-[#080808] dark:text-white dark:border-[#333333] hover:bg-black hover:text-white dark:hover:border-white dark:hover:text-white flex items-center justify-center transition-colors shadow-[2px_2px_0px_#000000]"
                     title="Delete block"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -312,7 +312,7 @@ export const PlanScreen: React.FC = () => {
             className="w-full max-w-lg bg-[#121212] border border-[#84CC16]/40 rounded-3xl p-6 shadow-2xl space-y-4"
           >
             <div className="flex items-center justify-between pb-3 border-b border-[#84CC16]/20">
-              <h3 className="font-serif text-2xl font-bold text-[#F9F6EE]">
+              <h3 className="font-sans text-2xl font-black text-[#F9F6EE]">
                 {editingBlock ? 'Edit Timeline Block' : 'Add Track / Timeline Block'}
               </h3>
               <button
@@ -332,7 +332,7 @@ export const PlanScreen: React.FC = () => {
                 <select
                   value={selectedTrack}
                   onChange={(e) => setSelectedTrack(e.target.value)}
-                  style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#84CC16]/35 text-[#F9F6EE] text-sm focus:outline-none focus:border-[#84CC16] cursor-pointer"
+                  style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#080808] border border-[#84CC16]/35 text-[#F9F6EE] text-sm focus:outline-none focus:border-[#84CC16] cursor-pointer"
                 >
                   {TRACK_OPTIONS.map((opt) => (
                     <option key={opt} value={opt}>
@@ -406,7 +406,7 @@ export const PlanScreen: React.FC = () => {
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#0E0205] border border-[#84CC16]/35 text-[#A3E635] text-sm font-semibold focus:outline-none focus:border-[#84CC16] cursor-pointer"
+                    style={{ colorScheme: 'dark' }} className="w-full min-h-[44px] px-3.5 py-2 rounded-xl bg-[#080808] border border-[#84CC16]/35 text-[#A3E635] text-sm font-semibold focus:outline-none focus:border-[#84CC16] cursor-pointer"
                   >
                     <option value="Ready to Start" className="bg-[#080808] text-white py-1.5">Ready to Start</option>
                     <option value="In Progress" className="bg-[#080808] text-white py-1.5">In Progress</option>
@@ -442,7 +442,7 @@ export const PlanScreen: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="min-h-[44px] px-6 py-2 rounded-2xl bg-[#84CC16] text-black font-semibold text-xs hover:bg-[#FFD700] transition-colors"
+                  className="min-h-[44px] px-6 py-2 rounded-2xl bg-[#84CC16] text-black font-semibold text-xs hover:bg-white transition-colors"
                 >
                   {editingBlock ? 'Update Block' : 'Save Block'}
                 </button>

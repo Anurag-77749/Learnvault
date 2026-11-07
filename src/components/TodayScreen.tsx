@@ -256,7 +256,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
               <button
                 type="button"
                 onClick={() => clearCompletedTasks()}
-                className="text-[10px] px-2.5 py-0.5 rounded-full bg-red-950/40 border border-red-500/30 text-red-300 hover:bg-red-900/60 transition-colors cursor-pointer whitespace-nowrap"
+                className="text-[10px] px-2.5 py-0.5 rounded-full bg-black text-white hover:bg-white hover:text-black border-2 border-black dark:border-[#333333] transition-colors cursor-pointer whitespace-nowrap font-bold"
                 title="Clear completed tasks"
               >
                 Clear Done
@@ -389,10 +389,10 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
             tasks.map((task, idx) => (
               <div
                 key={task.id}
-                className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-2xl border transition-all ${
+                className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-2xl border-2 transition-all ${
                   task.completed
-                    ? 'bg-black/40 border-[#84CC16]/15 text-[#A09D95]'
-                    : 'bg-black border-[#84CC16]/30 text-[#F9F6EE] hover:border-[#84CC16]/60'
+                    ? 'border-black/30 dark:border-[#333333] bg-[#EFEFEA] dark:bg-black/40 text-[#737373]'
+                    : 'border-black dark:border-[#333333] bg-white dark:bg-[#0a0a0a] text-black dark:text-[#EDEDED] shadow-[2px_2px_0px_#000000] hover:border-[#84CC16]'
                 }`}
               >
                 {/* Left/Top: Checkbox & Title + Short Note */}
@@ -401,8 +401,8 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     onClick={(e) => handleToggleTask(task, e)}
                     className={`min-h-[38px] min-w-[38px] sm:min-h-[42px] sm:min-w-[42px] rounded-xl flex items-center justify-center transition-all shrink-0 mt-0.5 sm:mt-0 cursor-pointer ${
                       task.completed
-                        ? 'bg-[#84CC16] text-black shadow-sm'
-                        : 'border-2 border-[#84CC16]/40 hover:border-[#84CC16] bg-transparent text-transparent'
+                        ? 'bg-[#84CC16] text-black border-2 border-black shadow-sm'
+                        : 'border-2 border-black dark:border-[#84CC16]/60 hover:border-[#84CC16] bg-transparent text-transparent'
                     }`}
                     aria-label={task.completed ? 'Mark incomplete' : 'Mark complete'}
                   >
@@ -410,7 +410,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                   </button>
 
                   <div className="flex-1 min-w-0 space-y-1">
-                    <p className={`text-sm font-medium break-words ${task.completed ? 'line-through text-[#A09D95]' : 'text-[#F9F6EE]'}`}>
+                    <p className={`text-sm font-bold break-words ${task.completed ? 'line-through text-[#737373]' : 'text-black dark:text-[#EDEDED]'}`}>
                       {task.title}
                     </p>
                     {task.subtopicTitle && (
@@ -472,7 +472,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                       e.stopPropagation();
                       await deleteTask(task);
                     }}
-                    className="min-h-[34px] px-2.5 rounded-lg bg-red-950/20 sm:bg-transparent border border-red-500/20 sm:border-transparent flex items-center justify-center text-red-300 hover:text-red-200 hover:bg-red-950/60 transition-colors cursor-pointer"
+                    className="min-h-[34px] px-2.5 rounded-lg border-2 border-black sm:border-transparent bg-white sm:bg-transparent dark:bg-transparent flex items-center justify-center text-black dark:text-[#EDEDED] hover:text-[#84CC16] hover:bg-black hover:text-white dark:hover:bg-white/10 transition-colors cursor-pointer"
                     title="Delete task"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -526,7 +526,7 @@ export const TodayScreen: React.FC<TodayScreenProps> = ({
                     <button
                       type="button"
                       onClick={() => setEditNoteText('')}
-                      className="text-xs text-red-400 hover:text-red-300 font-semibold"
+                      className="text-xs text-white hover:text-[#84CC16] font-semibold underline"
                     >
                       Clear Note
                     </button>

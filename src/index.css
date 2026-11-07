@@ -257,13 +257,20 @@ html.light-mode textarea::placeholder {
 html.light-mode .bg-\[\#000000\],
 html.light-mode .bg-\[\#080808\],
 html.light-mode .bg-\[\#070707\],
+html.light-mode .bg-\[\#0a0a0a\],
 html.light-mode .bg-\[\#0c0c0c\],
-html.light-mode .bg-\[\#121212\] {
+html.light-mode .bg-\[\#111111\],
+html.light-mode .bg-\[\#121212\],
+html.light-mode .bg-black:not(.fixed):not(.btn-shiny-gold):not([data-keep-dark]) {
   background-color: #FFFFFF !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
 }
 
 html.light-mode .bg-\[\#160406\],
-html.light-mode .bg-\[\#141414\] {
+html.light-mode .bg-\[\#141414\],
+html.light-mode .bg-black\/40,
+html.light-mode .bg-black\/20 {
   background-color: #EFEFEA !important;
 }
 

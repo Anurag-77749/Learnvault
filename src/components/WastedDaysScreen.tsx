@@ -23,13 +23,13 @@ import { db, WastedDayRecord, getTodayDateString } from '../services/db';
 import { logWastedDay, deleteWastedDay, updateWastedDay } from '../services/wastedDayService';
 
 const WASTED_REASONS = [
-  { id: 'Social Media & Scrolling', label: '📱 Social Media / Reels', color: 'border-pink-500/40 text-pink-300' },
-  { id: 'Gaming & Esports', label: '🎮 Gaming', color: 'border-purple-500/40 text-purple-300' },
-  { id: 'YouTube & Binge Watching', label: '🎬 YouTube / Netflix Binge', color: 'border-red-500/40 text-red-300' },
-  { id: 'Outing & Friends Hangout', label: '🍻 Outing / Friends Hangout', color: 'border-amber-500/40 text-amber-300' },
-  { id: 'Procrastination & Laziness', label: '🛋️ Pure Procrastination', color: 'border-orange-500/40 text-orange-300' },
-  { id: 'Burnout & Fatigue', label: '😴 Burnout / Slept All Day', color: 'border-blue-500/40 text-blue-300' },
-  { id: 'Other Distraction', label: '⚡ Other Distraction', color: 'border-zinc-500/40 text-zinc-300' },
+  { id: 'Social Media & Scrolling', label: '📱 Social Media / Reels', color: 'border-[#84CC16]/40 text-white' },
+  { id: 'Gaming & Esports', label: '🎮 Gaming', color: 'border-[#84CC16]/40 text-white' },
+  { id: 'YouTube & Binge Watching', label: '🎬 YouTube / Netflix Binge', color: 'border-[#84CC16]/40 text-white' },
+  { id: 'Outing & Friends Hangout', label: '🍻 Outing / Friends Hangout', color: 'border-[#84CC16]/40 text-white' },
+  { id: 'Procrastination & Laziness', label: '🛋️ Pure Procrastination', color: 'border-[#84CC16]/40 text-white' },
+  { id: 'Burnout & Fatigue', label: '😴 Burnout / Slept All Day', color: 'border-[#84CC16]/40 text-white' },
+  { id: 'Other Distraction', label: '⚡ Other Distraction', color: 'border-[#84CC16]/40 text-white' },
 ];
 
 export const WastedDaysScreen: React.FC = () => {
@@ -163,18 +163,18 @@ export const WastedDaysScreen: React.FC = () => {
     <div className="space-y-6 pb-16">
       {/* Header Banner */}
       <div className="p-5 md:p-6 rounded-2xl card-maroon-gold border border-[#1f1f1f] shadow-xl relative overflow-hidden">
-        <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none text-red-500">
+        <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none text-white/10">
           <Hourglass className="w-56 h-56" />
         </div>
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="px-2.5 py-0.5 rounded-full bg-red-950/80 border border-red-500/40 text-red-400 text-xs font-bold tracking-wider uppercase flex items-center gap-1.5">
+              <span className="px-2.5 py-0.5 rounded-full bg-[#84CC16] border-2 border-black text-black text-xs font-black tracking-wider uppercase shadow-[2px_2px_0px_#000000] flex items-center gap-1.5">
                 <AlertTriangle className="w-3.5 h-3.5" /> Accountability Vault
               </span>
               <span className="text-xs text-[#B8B0AA]">Brutal Self-Honesty</span>
             </div>
-            <h1 className="font-serif text-2xl md:text-3xl font-bold tracking-wide text-white">
+            <h1 className="font-sans text-2xl md:text-3xl font-black tracking-tight text-white">
               Wasted Days <span className="text-shiny-gold">Ledger</span>
             </h1>
             <p className="text-xs md:text-sm text-[#B8B0AA] mt-1 max-w-2xl">
@@ -186,11 +186,11 @@ export const WastedDaysScreen: React.FC = () => {
           <div className="flex items-center gap-3 bg-[#000000]/80 p-3 rounded-xl border border-[#1f1f1f] shrink-0">
             <div className="text-right">
               <div className="text-[10px] uppercase font-bold text-[#B8B0AA] tracking-wider">Permanent Total</div>
-              <div className="text-3xl font-bold font-serif text-red-400">
+              <div className="text-3xl font-black font-sans text-[#84CC16]">
                 {cumulativeCount} <span className="text-sm font-sans font-medium text-white">{cumulativeCount === 1 ? 'day' : 'days'}</span>
               </div>
             </div>
-            <div className="w-12 h-12 rounded-xl bg-red-950/50 border border-red-500/30 flex items-center justify-center text-red-400 shadow-inner">
+            <div className="w-12 h-12 rounded-xl bg-black border-2 border-[#84CC16] flex items-center justify-center text-[#84CC16] shadow-sm">
               <Hourglass className="w-6 h-6" />
             </div>
           </div>
@@ -204,9 +204,9 @@ export const WastedDaysScreen: React.FC = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="p-3.5 rounded-xl bg-red-950/80 border border-red-500/60 text-white text-sm flex items-center gap-3 shadow-xl"
+            className="p-3.5 rounded-xl bg-black border-2 border-[#84CC16] text-white text-sm shadow-xl flex items-center gap-3 shadow-xl"
           >
-            <Check className="w-5 h-5 text-emerald-400 shrink-0" />
+            <Check className="w-5 h-5 text-[#84CC16] shrink-0" />
             <span className="font-medium">{successBanner}</span>
           </motion.div>
         )}
@@ -216,13 +216,13 @@ export const WastedDaysScreen: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Cumulative Count Card */}
         <div className="p-4 rounded-xl bg-[#070707] border border-[#1f1f1f] shadow-md flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-lg bg-red-950/60 border border-red-500/30 flex items-center justify-center text-red-400 shrink-0">
+          <div className="w-11 h-11 rounded-lg bg-black border-2 border-[#84CC16] flex items-center justify-center text-[#84CC16] shrink-0">
             <TrendingDown className="w-5 h-5" />
           </div>
           <div>
             <div className="text-[11px] text-[#B8B0AA] uppercase font-semibold">Cumulative Count</div>
             <div className="text-2xl font-bold text-white font-serif">
-              {cumulativeCount} <span className="text-xs text-red-400 font-sans font-normal">{cumulativeCount === 1 ? 'day lost' : 'days lost'}</span>
+              {cumulativeCount} <span className="text-xs text-[#84CC16] font-sans font-bold">{cumulativeCount === 1 ? 'day lost' : 'days lost'}</span>
             </div>
           </div>
         </div>
@@ -242,7 +242,7 @@ export const WastedDaysScreen: React.FC = () => {
 
         {/* Biggest Weakness */}
         <div className="p-4 rounded-xl bg-[#070707] border border-[#1f1f1f] shadow-md flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-lg bg-amber-950/40 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+          <div className="w-11 h-11 rounded-lg bg-black border-2 border-white flex items-center justify-center text-white shrink-0">
             <ShieldAlert className="w-5 h-5" />
           </div>
           <div className="min-w-0">
@@ -261,7 +261,7 @@ export const WastedDaysScreen: React.FC = () => {
             <Plus className="w-4 h-4" />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-white font-serif">Log a Wasted Day</h2>
+            <h2 className="text-lg font-black text-white font-sans">Log a Wasted Day</h2>
             <p className="text-xs text-[#B8B0AA]">Record what went wrong so you never repeat the same mistake.</p>
           </div>
         </div>
@@ -339,7 +339,7 @@ export const WastedDaysScreen: React.FC = () => {
                     onClick={() => toggleReason(r.id)}
                     className={`px-3 py-1.5 rounded-lg text-xs transition-all border flex items-center gap-1.5 cursor-pointer ${
                       isSelected
-                        ? 'bg-red-950 border-red-500 text-white font-bold shadow-md shadow-red-950/80 ring-1 ring-red-400'
+                        ? 'bg-[#84CC16] border-2 border-black text-black font-black shadow-[2px_2px_0px_#000000]'
                         : 'bg-[#000000] border-[#1f1f1f] text-[#B8B0AA] hover:text-white hover:border-[#2a2a2a]'
                     }`}
                   >
@@ -357,7 +357,7 @@ export const WastedDaysScreen: React.FC = () => {
           {/* Explanation Textarea (Why, What did I do) */}
           <div>
             <label className="block text-xs font-semibold text-[#B8B0AA] uppercase mb-1.5">
-              Why? What did you do? <span className="text-red-400">*</span>
+              Why? What did you do? <span className="text-[#84CC16]">*</span>
             </label>
             <textarea
               value={explanation}
@@ -408,8 +408,8 @@ export const WastedDaysScreen: React.FC = () => {
         <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#1f1f1f]">
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-lg font-bold text-white font-serif">Logged Wasted Days History</h2>
-              <span className="px-2 py-0.5 rounded-full bg-red-950/80 border border-red-500/40 text-red-300 text-xs font-bold">
+              <h2 className="text-lg font-black text-white font-sans">Logged Wasted Days History</h2>
+              <span className="px-2 py-0.5 rounded-full bg-[#84CC16] border-2 border-black text-black text-xs font-bold">
                 {wastedDays.length} {wastedDays.length === 1 ? 'Entry' : 'Entries'}
               </span>
             </div>
@@ -473,7 +473,7 @@ export const WastedDaysScreen: React.FC = () => {
                           </button>
                           <button
                             onClick={() => setDeleteConfirmId(record.id || null)}
-                            className="p-1.5 rounded-lg text-[#B8B0AA] hover:text-red-400 hover:bg-[#070707] transition-colors cursor-pointer"
+                            className="p-1.5 rounded-lg text-[#B8B0AA] hover:text-[#84CC16] hover:bg-[#111111] transition-colors cursor-pointer"
                             title="Delete entry"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -488,9 +488,9 @@ export const WastedDaysScreen: React.FC = () => {
                     {reasonsList.map((r, rIdx) => (
                       <span
                         key={rIdx}
-                        className="px-2.5 py-0.5 rounded-full bg-red-950/70 border border-red-500/40 text-red-300 text-xs font-semibold flex items-center gap-1 shadow-sm"
+                        className="px-2.5 py-0.5 rounded-full bg-black border border-[#84CC16]/60 text-[#84CC16] text-xs font-semibold flex items-center gap-1 shadow-sm"
                       >
-                        <span className="text-red-400">•</span>
+                        <span className="text-[#84CC16]">•</span>
                         <span>{r}</span>
                       </span>
                     ))}
@@ -511,7 +511,7 @@ export const WastedDaysScreen: React.FC = () => {
                                 onClick={() => toggleEditReason(r.id)}
                                 className={`px-2.5 py-1 rounded-lg text-xs border cursor-pointer ${
                                   isSel
-                                    ? 'bg-red-950 border-red-500 text-white font-bold'
+                                    ? 'bg-[#84CC16] border-2 border-black text-black font-bold'
                                     : 'bg-black border-[#1f1f1f] text-[#B8B0AA]'
                                 }`}
                               >
@@ -553,7 +553,7 @@ export const WastedDaysScreen: React.FC = () => {
 
                   {/* Delete Confirmation Warning */}
                   {isConfirmingDelete && (
-                    <div className="p-2.5 rounded-lg bg-red-950/90 border border-red-500 text-xs text-red-200 flex items-center justify-between gap-3 shadow-lg">
+                    <div className="p-2.5 rounded-lg bg-black border-2 border-white text-xs text-white flex items-center justify-between gap-3 shadow-lg">
                       <span>Are you sure you want to remove this record?</span>
                       <div className="flex items-center gap-2 shrink-0">
                         <button
@@ -564,7 +564,7 @@ export const WastedDaysScreen: React.FC = () => {
                         </button>
                         <button
                           onClick={() => record.id && handleDelete(record.id)}
-                          className="px-2.5 py-1 rounded bg-red-600 text-white font-bold hover:bg-red-500 cursor-pointer"
+                          className="px-2.5 py-1 rounded bg-white text-black font-black border-2 border-black hover:bg-[#84CC16] cursor-pointer"
                         >
                           Yes, Delete
                         </button>

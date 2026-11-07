@@ -75,7 +75,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        className="relative w-full max-w-lg rounded-2xl border border-[#1f1f1f] bg-[#0E0205] p-6 shadow-2xl text-white"
+        className="relative w-full max-w-lg rounded-2xl border border-[#1f1f1f] bg-[#0a0a0a] border-2 border-white p-6 shadow-2xl text-white"
       >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[#1f1f1f]/60 pb-4">
@@ -97,15 +97,15 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
         </div>
 
         {/* Status Banner */}
-        <div className="my-5 rounded-xl border border-[#1f1f1f] bg-[#1A040A] p-4">
+        <div className="my-5 rounded-xl border border-[#1f1f1f] bg-black p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <span
                 className={`h-3 w-3 rounded-full ${
                   syncState.syncId
                     ? syncState.status === 'syncing'
-                      ? 'bg-amber-400 animate-pulse'
-                      : 'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]'
+                      ? 'bg-[#84CC16] animate-pulse'
+                      : 'bg-[#84CC16] shadow-[0_0_8px_rgba(132,204,22,0.8)]'
                     : 'bg-gray-500'
                 }`}
               />
@@ -123,7 +123,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
               <button
                 onClick={handleManualSync}
                 disabled={isLoading}
-                className="flex items-center gap-1.5 rounded-lg border border-[#84CC16]/30 bg-[#070707] px-2.5 py-1 text-xs font-semibold text-shiny-gold hover:bg-[#380A15] transition-colors disabled:opacity-50"
+                className="flex items-center gap-1.5 rounded-lg border border-[#84CC16]/30 bg-[#070707] px-2.5 py-1 text-xs font-semibold text-shiny-gold hover:bg-white/10 transition-colors disabled:opacity-50"
               >
                 <RefreshCw className={`h-3.5 w-3.5 ${isLoading ? 'animate-spin' : ''}`} />
                 Sync Now
@@ -160,8 +160,8 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
             <div
               className={`rounded-lg p-3 text-xs flex items-center gap-2 ${
                 statusMsg.type === 'success'
-                  ? 'bg-emerald-950/60 border border-emerald-500/40 text-emerald-200'
-                  : 'bg-red-950/60 border border-red-500/40 text-red-200'
+                  ? 'bg-black border-2 border-[#84CC16] text-[#84CC16]'
+                  : 'bg-black border-2 border-white text-white'
               }`}
             >
               {statusMsg.type === 'success' ? (
@@ -177,7 +177,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 rounded-xl bg-gradient-to-r from-[#84CC16] to-[#AA771C] py-2.5 text-xs font-bold uppercase tracking-wider text-black shadow-lg hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50"
+              className="flex-1 rounded-xl bg-[#84CC16] py-2.5 text-xs font-bold uppercase tracking-wider text-black shadow-lg hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50"
             >
               {isLoading ? 'Syncing...' : syncState.syncId ? 'Update & Sync' : 'Connect & Sync'}
             </button>
@@ -186,7 +186,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({ isOpen, onClose 
               <button
                 type="button"
                 onClick={handleDisconnect}
-                className="flex items-center gap-1.5 rounded-xl border border-red-500/40 bg-red-950/40 px-3.5 py-2.5 text-xs font-bold text-red-300 hover:bg-red-900/60 transition-colors"
+                className="flex items-center gap-1.5 rounded-xl border-2 border-white bg-black px-3.5 py-2.5 text-xs font-bold text-white hover:bg-white hover:text-black transition-colors"
                 title="Disconnect"
               >
                 <Unlink className="h-3.5 w-3.5" />

@@ -472,14 +472,14 @@ export const ProgressScreen: React.FC = () => {
           </div>
 
           {/* Hard */}
-          <div className="p-4 rounded-2xl bg-black/80 border border-red-900/50 shadow-inner">
+          <div className="p-4 rounded-2xl bg-black/80 border border-[#84CC16]/40 shadow-inner">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold text-red-400 uppercase">
+              <span className="text-[11px] font-bold text-white uppercase">
                 Hard
               </span>
-              <span className="text-xs font-bold text-red-400">{telemetry.hardPct}%</span>
+              <span className="text-xs font-bold text-[#84CC16]">{telemetry.hardPct}%</span>
             </div>
-            <div className="font-serif text-3xl sm:text-4xl font-bold text-red-400 mt-1">
+            <div className="font-sans text-3xl sm:text-4xl font-black text-white mt-1">
               {telemetry.hardDSA}
             </div>
             <span className="text-[11px] text-[#B8B0AA] mt-1 block">Advanced Optimization</span>
@@ -495,9 +495,9 @@ export const ProgressScreen: React.FC = () => {
           <div className="w-full h-3 bg-black rounded-full overflow-hidden flex border border-[#84CC16]/40 shadow-inner">
             {telemetry.totalDSA > 0 ? (
               <>
-                <div style={{ width: `${telemetry.easyPct}%` }} className="bg-[#26A641] h-full" title={`Easy: ${telemetry.easyDSA}`} />
+                <div style={{ width: `${telemetry.easyPct}%` }} className="bg-white h-full" title={`Easy: ${telemetry.easyDSA}`} />
                 <div style={{ width: `${telemetry.medPct}%` }} className="bg-[#84CC16] h-full shadow-[0_0_8px_rgba(132, 204, 22,0.6)]" title={`Medium: ${telemetry.medDSA}`} />
-                <div style={{ width: `${telemetry.hardPct}%` }} className="bg-[#E53E3E] h-full" title={`Hard: ${telemetry.hardDSA}`} />
+                <div style={{ width: `${telemetry.hardPct}%` }} className="bg-white/40 h-full" title={`Hard: ${telemetry.hardDSA}`} />
               </>
             ) : (
               <div className="w-full bg-[#080808] h-full" />
